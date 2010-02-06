@@ -66,6 +66,9 @@ sub do_yabbc {
 }
 
 sub do_emoticons {
+  # Change links, so it isn't turned into a smiley
+	${$_[0]} =~ s~http://~http\|//~isg;
+
   # Evil first, as it contains other smileys
 	${$_[0]} =~ s~>:\)~<img src="/img/emoticons/evil.gif" alt="wink" />~isg;
 
@@ -87,6 +90,9 @@ sub do_emoticons {
 	${$_[0]} =~ s~:\*~<img src="/img/emoticons/kiss.gif" alt="wink" />~isg;
 	${$_[0]} =~ s~:'\(~<img src="/img/emoticons/cry.gif" alt="wink" />~isg;
 	${$_[0]} =~ s~\^\^d~<img src="/img/emoticons/thumbsup.gif" alt="wink" />~isg;
+
+  # Change links back.
+	${$_[0]} =~ s~http\|//~http://~isg;
 
   return ${$_[0]};
 }
