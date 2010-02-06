@@ -16,7 +16,6 @@
 <script type="text/javascript" src="/js/jquery.easing.js"></script>	
 
 
-
 <script type="text/javascript" src="/js/punymce/puny_mce_src.js?<%=$VR::TIMESTAMP%>"></script>
 <script type="text/javascript" src="/js/custom.js?<%=$VR::TIMESTAMP%>"></script>
 

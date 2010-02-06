@@ -6,13 +6,14 @@
         <li><a href="javascript:message.execCommand('Italic');" ><img src="/img/icons_editor/text_italic.png" /></a></li>
         <li><a href="javascript:message.execCommand('Underline');" ><img src="/img/icons_editor/text_underline.png" /></a></li>
         <li><a href="javascript:message.execCommand('Strikethrough');" ><img src="/img/icons_editor/text_strikethrough.png" /></a></li>
-        <li><a href="javascript:message.execCommand('JustifyLeft');" ><img src="/img/icons_editor/text_align_left.png" /></a></li>
-        <li><a href="javascript:message.execCommand('JustifyCenter');" ><img src="/img/icons_editor/text_align_center.png" /></a></li>
-        <li><a href="javascript:message.execCommand('JustifyRight');" ><img src="/img/icons_editor/text_align_right.png" /></a></li>
+        <li><a href="javascript:puny_highlight();" ><img src="/img/icons_editor/highlight.png" /></a></li>
+        <li class="editor_bar_seperator">&nbsp;</li>
         <li><a href="javascript:message.execCommand('mceInsertImage');" ><img src="/img/icons_editor/picture.png" /></a></li>
         <li><a href="javascript:message.execCommand('mceInsertLink');" ><img src="/img/icons_editor/link.png" /></a></li>
+        <li><a href="javascript:puny_flash_insert('http://www.youtube.com/watch?v=uJarz7BYnHA')" ><img src="/img/icons_editor/flash.png" /></a></li>
+        <li class="editor_bar_seperator">&nbsp;</li>
         <li>
-          <select id="color" onchange="javascript:puny_text_color(color.value);">
+          <select id="mce_color" style="width: 60px;" class="small" onchange="javascript:puny_text_color(mce_color.value);">
             <option value="#000000">Black</option>
             <option value="#ff0000">Red</option>
             <option value="#00ff00">Green</option>
@@ -20,13 +21,38 @@
           </select>
         </li>
         <li>
-          <select>
-            <option>10px</option>
-            <option>11px</option>
-            <option>12px</option>
+          <select id="mce_face" style="width: 80px; margin-left: 2px;" class="small" onchange="javascript:puny_font_face(mce_face.value);">
+            <option value="Verdana">Verdana</option>
+            <option value="Helvetica, Arial">Helvetica</option>
+            <option value="Comic Sans MS">Comic Sans</option>
+            <option value="Impact">Impact</option>
+            <option value="Times New Roman">Times</option>
+            <option value="Trebuchet MS">Trebuchet</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Courier New, Courier">Courier</option>
           </select>
         </li>
-        <li><a href="javascript:alert(message.getContent({save : true}));">[Get content]</a></li>
+
+        <li>
+          <select id="mce_size" style="width: 55px; margin-left: 2px;" class="small" onchange="javascript:puny_text_size(mce_size.value);">
+            <option value="1">8px</option>
+            <option value="2">10px</option>
+            <option value="reset" selected="selected">11px</option>
+            <option value="3">12px</option>
+            <option value="4">14px</option>
+            <option value="5">18px</option>
+            <option value="6">24px</option>
+            <option value="7">36px</option>  
+          </select>
+        </li>
+        <li class="editor_bar_seperator">&nbsp;</li>
+        <li><a href="javascript:message.execCommand('JustifyLeft');" ><img src="/img/icons_editor/text_align_left.png" /></a></li>
+        <li><a href="javascript:message.execCommand('JustifyCenter');" ><img src="/img/icons_editor/text_align_center.png" /></a></li>
+        <li><a href="javascript:message.execCommand('JustifyRight');" ><img src="/img/icons_editor/text_align_right.png" /></a></li>        
+        <li class="editor_bar_seperator">&nbsp;</li>
+        <li><a href="javascript:message.execCommand('JustifyCenter');" ><img src="/img/icons_editor/quote.png" /></a></li>
+        <li><a href="javascript:message.execCommand('JustifyRight');" ><img src="/img/icons_editor/move.gif" /></a></li>        
+        <li><a href="javascript:message.execCommand('JustifyRight');" ><img src="/img/icons_editor/edit.png" /></a></li>        
       </ul>
     </div>
     <div class="smiley_bar_container column eight flush">
@@ -50,6 +76,7 @@
         <li><a href="javascript:insert_smiley(':\'(','cry');" ><img src="/img/emoticons/cry.gif" /></a></li>
         <li><a href="javascript:insert_smiley('>:)','evil');" ><img src="/img/emoticons/evil.gif" /></a></li>
         <li><a href="javascript:insert_smiley('^^d','thumbsup');" ><img src="/img/emoticons/thumbsup.gif" /></a></li>
+        <li><a href="javascript:alert(message.getContent({save : true}));">[Get content]</a></li>
       </ul>
     </div>
     <textarea id="message" name="message"></textarea>

@@ -33,7 +33,7 @@ button.small {
   height: 17px;
   font-size: 9px;
   line-height: 15px;
-  padding: 0 0 0 0;
+  padding: 0 0 3px 0;
   vertical-align: middle;
   min-width: 50px;
 	font-family: Verdana, Helvetica, Arial, "Sans Serif";
@@ -156,6 +156,11 @@ textarea {
   border: 1px solid #cccccc;
   border-top: none;
   border-bottom: none;
+}
+
+li.editor_bar_seperator {
+  border-right: 1px solid #cccccc;
+  margin: 0 4px 0 2px;
 }
 
 .editor_bar li {

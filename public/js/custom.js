@@ -18,6 +18,47 @@ function puny_text_color(color) {
   message.execCommand('forecolor', 0, color);
 }
 
+function puny_font_face(face) {
+  focus_editor();
+  message.execCommand('fontname', 0, face);
+}
+
+function puny_highlight() {
+  focus_editor();
+
+  message.execCommand('forecolor', 0, '#ffff00');
+  message.execCommand('backcolor', 0, '#ffff00');
+}
+
+function puny_flash_insert(address) {
+  // We just add a jpeg, it's a PITA to get a live flash vid. And also useless
+  
+  focus_editor();
+  var youtube = /youtube\.com/i.test(address);
+  
+  if (youtube) {
+    var tmp   = address.replace(/watch\?v=/g,'vi\/');
+    var embed = tmp.replace(/http:\/\/.+youtube\.com\//g,'http:\/\/img.youtube.com\/');
+    embed = embed + '/2.jpg';
+
+    message.execCommand('insertimage', 0, embed);
+
+  }
+}
+
+
+// TODO: Fix the Line-Height
+function puny_text_size(size) {
+  focus_editor();
+
+  if (size == 'reset') {
+    message.execCommand('removeformat', 0, false);
+  } else {
+    message.execCommand('fontsize', 0, size);
+  }
+}
+
+
 function insert_quote(message_id, thread_id, user_name, display_name, message_time) {
     
   var container_id = '#'+message_id;
@@ -29,9 +70,6 @@ function insert_quote(message_id, thread_id, user_name, display_name, message_ti
   show_panel('reply_to_thread');
 
   message.selection.setContent('<blockquote><p class="quotemeta xsmall" title="'+display_name+'|'+thread_id+'|'+message_id+'|'+message_time+'">Quote: <a href="/forum/board/'+thread_id+'/post/'+message_id+'">'+display_name+'</a></p>'+$(container_id).html()+'</blockquote><br />');
-
-
-//  message.selection.setContent('<br /><span class="quotemeta">Quote: <a href="/forum/board/'+thread_id+'/post/'+message_id+'">'+display_name+', '+message_time+'</a></span><blockquote cite="'+user_name+'|'+display_name+'|'+thread_id+'|'+message_id+'|'+message_time+'">'+$(container_id).html()+'</blockquote><br />');
 
   focus_editor();
 }
