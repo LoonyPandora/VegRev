@@ -8,18 +8,15 @@
 ******************************************************************************/
 
 
-function page_selector() {
-  
+function change_page(current_route) {
+  var selected = $("#page_selector option:selected");
+  window.location.replace(current_route+'/'+selected.val());
 }
-
 
 function puny_text_color(color) {
   focus_editor();
   message.execCommand('forecolor', 0, color);
 }
-
-
-
 
 function insert_quote(message_id, thread_id, user_name, display_name, message_time) {
     
