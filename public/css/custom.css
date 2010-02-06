@@ -1,0 +1,153 @@
+/******************************************************************************
+  custom.css
+  =============================================================================
+  Version:		Vegetable Revolution 4.0
+  Released:		1st January 2010
+  Revision:		$Rev$
+  Copyright:	James Aitken <http://www.loonypandora.com>
+******************************************************************************/
+
+/* Part of Template */
+
+body { padding-bottom: 50px; }
+
+sup, sub { font-size: 9px; }
+sup { vertical-align: top; }
+sub { vertical-align: baseline; }
+
+.headercontainer {
+  background-image: url('/img/headerbg.png');
+  background-repeat: no-repeat;
+  height: 70px;
+  margin-bottom: 30px;
+  padding: 15px;
+}
+
+.random_quote {
+  height: 20px;
+  line-height: 17px;
+  margin-top: 5px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.main_roundtop {
+  background-image: url('/img/body_top_bg.png');
+  background-repeat: no-repeat;
+  height: 10px;
+}
+
+.main_roundbottom {
+  background-image: url('/img/body_bottom_bg.png');
+  background-repeat: no-repeat;
+  background-position: bottom;
+  height: 20px;
+  margin: 0 0 -10px -15px;
+  clear: both;
+}
+
+.shout_roundbottom {
+  background-image: url('/img/shout_bottom_bg.png');
+  background-repeat: no-repeat;
+  height: 10px;  
+  margin-bottom: -10px;
+}
+
+#fixedfooter {
+  position: fixed;
+  bottom: 0;
+  width: 980px;
+  height: 32px;
+  background-image: url('/img/dock_bar.png');
+	background-repeat: no-repeat;
+	background-position: top middle;
+}
+
+#fixedfooter p  { 
+  height: 32px;
+  line-height: 32px;
+}
+
+.logo_container { height: 60px; }
+
+
+
+
+
+
+.reading_thread { margin-top: 4px; }
+blockquote      { text-align: left; padding: 10px; }
+.avatar         {  padding: 5px 0 5px 0; max-width: 100px; }
+
+
+/* Custom Classes */
+.message_bubble {
+  background-image: url('/img/message_bubble_top.png');
+  background-repeat: no-repeat;
+  padding: 10px 15px 10px 25px;
+  margin-left: 5px;
+  width: 555px;
+  min-height: 16px;
+  margin-top: 5px;
+}
+
+.signature {
+  background-image: url('/img/message_bubble_bottom.png');
+  padding: 20px 15px 10px 25px;
+  margin-top: -5px;
+  width: 560px;
+  max-height: 100px;
+  float: right;
+  overflow: hidden;
+}
+
+.signature img            { max-height: 80px; }
+.thread_list, .board_list { padding: 10px 0 11px 0; }
+
+.message_bubble_bottom {
+  background-image: url('/img/message_bubble_bottom.png');
+  background-repeat: no-repeat;
+}
+
+.big_count, .count_badge { 
+  font-family: Helvetica, Arial, "Sans Serif";
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.big_count    { line-height: 28px; }
+.last_updated { line-height: 15px; }
+
+
+
+
+/* Photo Gallery */
+.photo_container { margin-bottom: 14px; }
+.photo_container img { padding: 5px; border: 1px solid #cccccc; width: 125px; }
+
+.album_container { margin-bottom: 28px; }
+.album_container img { padding: 5px; border: 1px solid #cccccc; width: 190px; }
+
+
+/* image lists */
+ul.small_imagelist, ul.big_imagelist, .xbig_imagelist img    { margin: 7px 0 0 9px; }
+.small_imagelist li, .big_imagelist li, .xbig_imagelist img  { padding: 0 7px 10px 0; }
+.small_imagelist img  { max-width: 30px; max-height: 30px; }
+.big_imagelist img    { max-width: 45px; max-height: 45px; }
+.xbig_imagelist img   { max-width: 62px; max-height: 62px; }
+
+
+
+
+/* Profile page */
+
+.canvas_container { background-color: #d8d8c8; padding: 0; margin: -5px 0 5px 0; width: 700px; } 
+.profile_canvas   { background-color: #ffffff; padding: 5px 12px 5px 12px; margin: 0 10px 0 10px; width: 656px; min-height: 100px; overflow: hidden; font-size: 12px; line-height: 1.5em; } 
+.profile_canvas img { max-width: 660px; }
+.canvas_roundtop    { background-image: url('http://www.vegetablerevolution.com/template/vr_green/img/canvas_header.png'); background-color: #ffffff; height: 32px; background-repeat: no-repeat; }
+.canvas_roundbottom { background-image: url('http://www.vegetablerevolution.com/template/vr_green/img/canvas_footer.png'); background-color: #ffffff; height: 15px; background-repeat: no-repeat; }
+
+
+
+
+

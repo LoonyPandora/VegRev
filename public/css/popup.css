@@ -1,0 +1,38 @@
+/******************************************************************************
+  popup.css
+  =============================================================================
+  Version:		Vegetable Revolution 4.0
+  Released:		1st January 2010
+  Revision:		$Rev$
+  Copyright:	James Aitken <http://www.loonypandora.com>
+******************************************************************************/
+
+
+.footer_popup_container {
+  background-image: url('/img/trans_blacker.png');
+  position: fixed;
+  bottom: 52px;
+  width: 700px;
+  padding: 15px;
+  -webkit-border-radius: 10px;
+}
+
+.footer_popup_background {
+  width: 670px;
+  padding: 15px 15px 0 15px;
+  background-color: #ffffff;
+  -webkit-border-radius: 3px;
+}
+
+.footer_popup_buttonbar {
+  clear: both;
+  background-color: #eeeeee;
+  border-top: 1px dashed #bbbbbb;
+  margin: 10px 0 0 -15px;
+  padding: 8px 6px 8px 0;
+  width: 694px;
+}
+
+.footer_popup_buttonbar button {
+  margin-right: 10px;
+}

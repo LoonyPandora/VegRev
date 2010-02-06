@@ -1,0 +1,11 @@
+<h1><%= $VR::db->{'thread'}{'thread_subject'} %></h1>
+<p class="small faded reading_thread">Posted In: <a href="/gallery">Gallery</a> &raquo; <a href="/<%= $section %>/<%= $VR::db->{'thread'}{'board_id'} %>"><%= $VR::db->{'thread'}{'board_title'} %></a>. Uploaded By: <%=&VR::Helper::user_link($VR::db->{'thread'}{'user_name'}, $VR::db->{'thread'}{'display_name'}, $VR::db->{'thread'}{'group_color'}); %>, <%= &VR::Helper::format_time($VR::db->{'thread'}{'thread_id'}, 'full'); %>
+
+<hr />
+
+<img src="/img/placeholder.png" width="700"/>
+
+
+<!--
+Add in a partial for small comments
+-->

@@ -1,0 +1,43 @@
+/******************************************************************************
+  colors.css
+  =============================================================================
+  Version:		Vegetable Revolution 4.0
+  Released:		1st January 2010
+  Revision:		$Rev$
+  Copyright:	James Aitken <http://www.loonypandora.com>
+******************************************************************************/
+
+body                { background-color: #D8D8C8; }
+.alt                { background-color: #f0f0f0; }
+h1, h3, h4          { color: #222222; }
+h2                  { color: #969696; }
+a                   { color: #4F7F2A;}
+.faded, .signature  { color: #888888; }
+.outline            { outline: 1px solid red; }
+.col_header         { background-color: #6e9936; color: #ffffff; }
+
+#maincontainer, #shoutcontainer             { background-color: #ffffff; }
+#fixedfooter p, #header_nav a, .user_badge  { color: #ffffff; }
+
+hr { border-color: #dddddd; }
+
+
+/* Forms */
+button {
+  background-color: #dddddd;
+  background-image: url('/img/bg-button.gif');
+	color: #292929;
+}
+
+button.small { color: #666666; } 
+button:hover { color: #000000; border-color: #6e9936; }
+
+
+
+/* Messages */
+.message_bubble { background-color: #eeeeee; }
+.spoiler        { background-color: black; color: black; }
+.edit           { background-color: yellow; color: black; padding: 5px; display: block; border: 1px dotted #666666; }
+.code           { background-color: #ee6666; padding: 5px; display: block; border: 1px dotted #666666;}
+
+blockquote      {  background-color: #dddddd; }

@@ -1,0 +1,124 @@
+/******************************************************************************
+  navigation.css
+  =============================================================================
+  Version:		Vegetable Revolution 4.0
+  Released:		1st January 2010
+  Revision:		$Rev$
+  Copyright:	James Aitken <http://www.loonypandora.com>
+******************************************************************************/
+
+
+#header_nav {
+  text-align: right;
+	font-family: Helvetica, Arial, "Sans Serif";
+  font-size: 14px;
+  line-height: 30px;
+  letter-spacing: 0px;
+  padding: 0;
+}
+
+#header_nav li {
+  height: 28px;
+  display: inline;
+  float: left;
+  color: #ffffff;
+  text-align: right;
+  margin: 4px 0 0 5px;
+}
+
+#header_nav li a {
+  display: block;
+  padding: 0 5px 0 5px;
+}
+
+#header_nav li a:hover {
+  color: #dedede;
+/*  border: 1px solid black;
+  border-bottom: none;
+  margin-top: -1px;
+  padding: 0 4px 0 4px;
+  height: 29px;
+*/
+}
+
+.user_badge_text              {  padding-left: 10px; }
+.user_badge_text p            { height: 15px; line-height: 15px; }
+.nav_container, .user_badge   { width: 650px; height: 30px; }
+
+
+
+.footer_buttons { margin-left: 2px; }
+.page_nav       { margin-right: 2px; }
+
+
+.footer_buttons li img, .page_nav li img {
+  margin-top: -3px;
+  margin-right: 3px;
+}
+
+.footer_buttons li, .page_nav li {
+  height: 30px;
+  display: inline;
+  float: left;
+  text-align: left;
+  line-height: 31px;
+  margin-top: 2px;
+	font-family: Helvetica, Arial, "Sans Serif";
+  font-size: 12px;
+  color: #bbbbbb;
+}
+
+.footer_buttons li a, .page_nav li a {
+  display: block;
+  padding: 0 15px 0 15px;
+  color: #cccccc;
+  font-weight: bold;
+}
+
+.footer_buttons li a  { border-right: 1px solid #333333; }
+.page_nav li a        { border-left: 1px solid #333333; }
+
+.footer_buttons li a:hover, .page_nav li a:hover {
+  color: #ffffff;
+}
+
+li.mini_page_nav {
+  height: 20px;
+  margin-top: 7px;
+  line-height: 20px;
+  padding: 0;
+  text-align: center;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+li.mini_page_nav a {
+  padding: 0 8px 0 6px;
+  font-size: 12px;
+  background-color: #222222;
+  border: none;
+  font-size: 10px;
+}
+
+li.mini_page_nav a:hover {
+  background-color: #333333;
+}
+
+li.last { margin-right: 5px;}
+li.first { margin-left: 5px;}
+
+
+#page_selector {
+	padding: 0;
+	background-color: transparent;
+	color: #ffffff;
+	border: 2px 0 3px 0;
+	border-color: transparent;
+	width: 55px;
+	height: 20px;
+	margin: 5px 0 0 5px;
+}
+
+
+
+

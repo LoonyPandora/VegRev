@@ -1,0 +1,13 @@
+<% my (undef, $section, undef) = split(/\//, "$VR::tmpl{'current_route'}");%>
+<h1><%= $VR::db->{'thread'}{'thread_subject'} %></h1>
+<p class="small faded reading_thread">Posted In: <a href="/<%= $section %>"><%= ucfirst($section) %></a> &raquo; <a href="/<%= $section %>/<%= $VR::db->{'thread'}{'board_id'} %>"><%= $VR::db->{'thread'}{'board_title'} %></a>.
+ Reading This Thread: <% if ($VR::sth{'thread_info'}) { %><% while ($VR::sth{'thread_info'}->fetchrow_arrayref) { %><%= &VR::Helper::user_link($VR::db->{'thread_info'}{'user_name'}, $VR::db->{'thread_info'}{'display_name'}, $VR::db->{'thread_info'}{'group_color'}); %>,<% } %><% } %>
+</p>
+
+
+<% if ($VR::sth{'messages'}) { %>
+  <% $partial::x = 0; while ($VR::sth{'messages'}->fetchrow_arrayref) { %>
+    <hr />
+    <%= $self->render_partial('message_list', {sth => 'messages'}); %>
+  <% } %>
+<% } %>

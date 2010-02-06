@@ -1,0 +1,7 @@
+<% if ($x % 4 == 3) { $alt = 'flush'; } else { $alt = ''; } %>
+<% $x++; %>
+
+
+<div class="photo_container column three text_center <%=$alt%>">
+   <%= &VR::Helper::link_photo_to_thread($VR::db->{$sth}{'board_id'}, $VR::db->{$sth}{'thread_id'}, $VR::db->{$sth}{'thread_subject'}, $VR::db->{$sth}{'thread_first_message_id'}); %>
+</div>

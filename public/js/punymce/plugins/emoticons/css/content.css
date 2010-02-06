@@ -1,0 +1,25 @@
+.emoticon {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  height: 18px;
+}
+.smiley       { background: url('/img/emoticons/smiley.gif') no-repeat 0 0; }
+.wink         { background: url('/img/emoticons/wink.gif') no-repeat 0 0; }
+.cheesy       { background: url('/img/emoticons/cheesy.gif') no-repeat 0 0; }
+.grin         { background: url('/img/emoticons/grin.gif') no-repeat 0 0; }
+.smug         { background: url('/img/emoticons/smug.gif') no-repeat 0 0; }
+.angry        { background: url('/img/emoticons/angry.gif') no-repeat 0 0; }
+.sad          { background: url('/img/emoticons/sad.gif') no-repeat 0 0; }
+.shocked      { background: url('/img/emoticons/shocked.gif') no-repeat 0 0; }
+.cool         { background: url('/img/emoticons/cool.gif') no-repeat 0 0; }
+.huh          { background: url('/img/emoticons/huh.gif') no-repeat 0 0; }
+.rolleyes     { background: url('/img/emoticons/rolleyes.gif') no-repeat 0 0; }
+.tongue       { background: url('/img/emoticons/tongue.gif') no-repeat 0 0; }
+.embarassed   { background: url('/img/emoticons/embarassed.gif') no-repeat 0 0; }
+.lipsrsealed  { background: url('/img/emoticons/lipsrsealed.gif') no-repeat 0 0; }
+.undecided    { background: url('/img/emoticons/undecided.gif') no-repeat 0 0; }
+.kiss         { background: url('/img/emoticons/kiss.gif') no-repeat 0 0; }
+.cry          { background: url('/img/emoticons/cry.gif') no-repeat 0 0; }
+.evil         { background: url('/img/emoticons/evil.gif') no-repeat 0 0; }
+.thumbsup     { background: url('/img/emoticons/thumbsup.gif') no-repeat 0 0; }

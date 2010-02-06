@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>[VR]</title>
+<link href="/css/scaffold.css" rel="stylesheet" type="text/css" />
+<link href="/css/colors.css" rel="stylesheet" type="text/css" />
+<link href="/css/custom.css" rel="stylesheet" type="text/css" />
+<link href="/css/navigation.css" rel="stylesheet" type="text/css" />
+<link href="/css/forms.css" rel="stylesheet" type="text/css" />
+<link href="/css/popup.css" rel="stylesheet" type="text/css" />
+	
+	
+<script type="text/javascript" src="/js/jquery-1.4.1.min.js"></script>	
+<script type="text/javascript" src="/js/punymce/puny_mce_src.js"></script>
+<script type="text/javascript" src="/js/custom.js"></script>
+
+<script type="text/javascript" src="/js/punymce/plugins/textcolor/textcolor_src.js"></script>
+<script type="text/javascript" src="/js/punymce/plugins/paste.js"></script>
+<script type="text/javascript" src="/js/punymce/plugins/image/image.js"></script>
+<script type="text/javascript" src="/js/punymce/plugins/link/link.js"></script>
+<script type="text/javascript" src="/js/punymce/plugins/emoticons/emoticons_src.js"></script>
+<script type="text/javascript" src="/js/punymce/plugins/editsource/editsource.js"></script>
+<script type="text/javascript" src="/js/punymce/plugins/forceblocks.js"></script>
+<script type="text/javascript" src="/js/punymce/plugins/bbcode_src.js"></script>
+<script type="text/javascript" src="/js/punymce/plugins/entities.js"></script>
+<script type="text/javascript" src="/js/punymce/plugins/protect.js"></script>
+<script type="text/javascript" src="/js/punymce/plugins/safari2x.js"></script>
+
+</head>
+
+<body>
+
+
+<div id="everything" class="clearfix">
+  <div class="headercontainer">
+    <div class="column five logo_container">
+      <a href="/forum"><img src="/img/vr_logo.png" /></a>
+    </div>
+    <div class="column flush user_badge">
+      <div class="column right">
+        <img src="/img/placeholder.png" width="30" class="column flush" />
+        <div class="column flush user_badge_text">
+          <p><%= &VR::Helper::user_link($VR::viewer{'user_name'}, $VR::viewer{'display_name'}, '#ffffff'); %> - <em>settings</em> - <em>logout</em></p>
+          <p><%= &VR::Helper::format_time($VR::TIMESTAMP, 'current_date'); %></p>
+        </div>
+      </div>
+    </div>
+    <div class="column flush nav_container">
+      <ul id="header_nav" class="column right">
+        <li><a href="/forum">Forum</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/archive">Archives</a></li>
+        <li><a href="/search">Search</a></li>
+        <li><a href="/members">Members</a></li>
+        <li><a href="/messages">Messages</a></li>
+        <li><a href="/admin">Admin</a></li>
+      </ul>
+    </div>
+    <br class="clear" />
+    <div class="random_quote small">
+      Run Time: <%=sprintf("%.1f", (Time::HiRes::time - $VR::START_TIME)*1000);%> ms. - Queries: <%= $VR::QUERY_COUNT %>
+    </div>
+  </div>
+  <div class="main_roundtop"> </div>
+  <div id="maincontainer">
+    <%= $content %>
+    <div class="main_roundbottom"> </div>
+  </div>
+
+  <div id="shoutcontainer">
+    <iframe src="/shoutbox/" frameborder="0" width="100%" height="580" scrolling="no" marginwidth="0" marginheight="0" name="shoutbox" id="shoutbox">Sory, your browser must support frames to use the shoutbox.</iframe>
+    <div class="shout_roundbottom">&nbsp;</div>
+  </div>
+
+<% if (@VR::buttons) { %>
+  <% for my $button (@VR::buttons) { %>
+    <% if (lc($button) eq 'reply_to_thread') { %>
+      <div class="footer_popup_container" id="<%= lc($button) %>">
+        <div class="footer_popup_background">
+          <form method="post" action="<%= $VR::tmpl{'current_route'} %>">
+            <%= $self->render_partial('textarea'); %>
+            <hr class="clear" />
+            <div class="footer_popup_buttonbar text_right">
+              <button class="big" onclick="javascript:$('#<%= lc($button) %>').hide();" type="reset"><img src="/img/buttons/cancel.png" /> Cancel</button>
+              <button class="big"><img src="/img/buttons/reply_to_thread.png" /> Reply</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    <% } elsif (lc($button) eq 'add_poll' || lc($button) eq 'start_poll') { %>
+      <div class="footer_popup_container" id="<%= lc($button) %>">
+        <div class="footer_popup_background">
+          <label class="column two bigform tight">Poll Question:</label>
+          <input type="text" class="column ten flush bigform" />
+          
+          <div id="poll_options_container">
+            <label for="poll_option_1" class="column two tight">Option 1:</label>
+            <input type="text" id="poll_option_1" name="poll_option_1" class="required column nine flush" />
+  
+            <label for="poll_option_2" id="poll_label_2" class="column two tight">Option 2:</label>
+            <input type="text" id="poll_option_2" name="poll_option_2" class="required column nine flush" />
+            <span class="column flush pollbuttons" id="pollbuttons_2" >
+              <a href="#" onclick="add_poll_option(); return false;"><img src="/img/silk/add.png" /></a>
+            </span>
+          </div>
+          
+          <hr class="clear" />
+          
+          <div class="footer_popup_buttonbar text_right">
+            <input type="hidden" id="number_of_options" value="3" style="display: none;" />
+            <button class="big" onclick="javascript:$('#<%= lc($button) %>').hide();"><img src="/img/buttons/cancel.png" /> Cancel</button>
+            <button class="big"><img src="/img/buttons/reply_to_thread.png" /> Reply</button>
+          </div>
+        </div>
+      </div>
+    <% } elsif (lc($button) eq 'start_new_thread') { %>
+      <div class="footer_popup_container" id="<%= lc($button) %>">
+        <div class="footer_popup_background">
+          <form method="post" action="<%= $VR::tmpl{'current_route'} %>">
+            <label class="column two bigform tight">Subject:</label>
+            <input type="text" class="column ten flush bigform" name="subject" />
+            <%= $self->render_partial('textarea'); %>
+            <hr class="clear" />
+            <div class="footer_popup_buttonbar text_right">
+              <button class="big" onclick="javascript:$('#<%= lc($button) %>').hide();" type="reset"><img src="/img/buttons/cancel.png" /> Cancel</button>
+              <button class="big"><img src="/img/buttons/reply_to_thread.png" /> Start Thread</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    <% } %>
+  <% } %>
+<% } %>
+
+  <div id="fixedfooter">
+    <%= $self->render_partial('buttons'); %>
+    <%= $self->render_partial('pagination'); %>
+  </div>
+</div>
+
+</body>
+</html>

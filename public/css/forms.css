@@ -1,0 +1,189 @@
+/******************************************************************************
+  forms.css
+  =============================================================================
+  Version:		Vegetable Revolution 4.0
+  Released:		1st January 2010
+  Revision:		$Rev$
+  Copyright:	James Aitken <http://www.loonypandora.com>
+******************************************************************************/
+
+
+/* Buttons - Based on best bits of wufoo and stopdesign */
+
+button {
+  display: inline-block;
+	border: 1px solid #666666;
+	font-family: Verdana, Helvetica, Arial, "Sans Serif";
+	font-weight: bold;
+	cursor: pointer;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+button.big {
+  height: 28px;  
+  font-size: 12px;
+  line-height: 28px;
+  vertical-align: middle;
+	padding: 0 10px 2px 10px;
+}
+
+button.small {
+  height: 17px;
+  font-size: 9px;
+  line-height: 15px;
+  padding: 0 0 8px 0;
+  vertical-align: middle;
+  min-width: 50px;
+	font-family: Verdana, Helvetica, Arial, "Sans Serif";
+	margin-bottom: 3px;
+	font-weight: bold;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:active {
+  background-position: 0 -400px;
+  outline: none;
+}
+
+button img {
+  vertical-align: middle;
+  padding: 0 1px 3px 0;
+}
+
+
+
+/* Labels */
+
+
+label {
+	text-align: right;
+	font-weight: bold;
+	font-family: Helvetica, Arial, "Sans Serif";
+  font-size: 14px;
+  letter-spacing: -1px;
+	color: #6e9936;
+	line-height: 24px;
+	height: 24px;
+	margin-bottom: 7px !important;
+	margin-right: 15px;
+}
+
+label.tight {
+  margin-right: 10px;
+}
+
+label.bigform {
+	height: 27px;
+	line-height: 29px;
+}
+
+input.bigform {
+	font-weight: bold;
+	font-family: Helvetica, Arial, "Sans Serif";
+  font-size: 14px;  
+  letter-spacing: -1px;
+}
+
+select {
+	border: 1px solid #cccccc;
+	font-size: 11px;
+	font-family: Verdana, Arial, Helvetica,"Sans Serif";
+	background-color: #fafafa;
+}
+
+input, textarea {
+	border: 1px solid #cccccc;
+	font-size: 11px;
+	font-family: Verdana, Arial, Helvetica,"Sans Serif";
+  padding: 5px;
+	background-color: #f6f6f6;
+	margin-bottom: 7px !important;
+}
+
+
+
+
+.pollbuttons {
+  height: 25px;
+  line-height: 25px;
+  vertical-align: middle;
+  padding-left: 4px;
+}
+
+
+.pollbuttons img {
+  margin: 5px 2px 0 0;
+}
+
+
+#reply_to_thread, #add_poll, #start_poll, #start_new_thread {
+  display: none;
+}
+
+
+/* PunyMCE */
+#message_w {
+  float: left;
+	display: inline;
+	border: 1px solid #cccccc;
+}
+
+#message_f {
+  min-height: 180px;
+}
+
+.mceToolbar { display: none;}
+
+.editor_bar_container, .smiley_bar_container {
+  background-color: #efefef;
+  display: block;
+  width: 555px;
+  height: 15px;
+  padding: 3px 0 8px 3px;
+  border: 1px solid #cccccc;
+}
+
+.smiley_bar_container {
+  height: 18px;
+  border: 1px solid #cccccc;
+  border-top: none;
+  border-bottom: none;
+}
+
+.editor_bar li {
+  height: 20px;
+  display: block;
+  float: left;
+}
+
+.editor_bar li a {
+  display: block;
+  padding: 2px;
+}
+
+
+input.one      { width: 28px;  }
+input.two      { width: 88px; }
+input.three    { width: 148px; }
+input.four     { width: 208px; }
+input.five     { width: 268px; }
+input.six      { width: 328px; }
+input.seven    { width: 388px; }
+input.eight    { width: 448px; }
+input.nine     { width: 508px; }
+input.ten      { width: 548px; }
+input.eleven   { width: 628px; }
+input.twelve   { width: 688px; }
+input.thirteen { width: 748px; }
+input.fourteen { width: 808px; }
+input.fifteen  { width: 868px; }
+input.sixteen  { width: 928px; }
+
+
+
+

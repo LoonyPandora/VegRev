@@ -1,0 +1,12 @@
+<% if (@VR::buttons) { %>
+    <div class="column ten ">
+      <ul class="footer_buttons" >
+        
+        <% for my $button (@VR::buttons) { %>
+          <% my $img = lc($button); %>
+          <% my $txt = $button; $txt =~ s/_/ /g; %>
+          <li><a href="javascript:show_panel('<%= $img %>')"><img src="/img/buttons/<%= $img %>.png" /><%= $txt %></a></li>
+        <% } %>
+      </ul>
+    </div>
+<% } %>

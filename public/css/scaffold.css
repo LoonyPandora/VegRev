@@ -1,0 +1,148 @@
+/******************************************************************************
+  scaffold.css
+  =============================================================================
+  Version:		Vegetable Revolution 4.0
+  Released:		1st January 2010
+  Revision:		$Rev$
+  Copyright:	James Aitken <http://www.loonypandora.com>
+******************************************************************************/
+
+/* Meyer Reset v1.0 | 20080212 */
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;}
+body{line-height:1;}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,
+q:before,q:after{content:'';content:none;}
+:focus{outline:0;}
+ins{text-decoration:none;}
+del{text-decoration:line-through;}
+table{border-collapse:collapse;border-spacing:0;}
+
+
+/* LoonyPandora Additional Resets */
+
+img{vertical-align:middle;-ms-interpolation-mode:bicubic;}
+input[type="hidden"]{display:none;visibility:hidden;margin:0;padding:0;}
+
+
+/* Clear Fixes */
+
+.clear{clear:both;display:block;overflow:hidden;visibility:hidden;width:0;height:0;}
+.clearfix:after{clear:both;content:' ';display:block;font-size:0;line-height:0;visibility:hidden;width:0;height:0;}
+* html .clearfix{height:1%;}
+
+
+/* My Scaffold */
+
+body {
+	font-family: Verdana, Helvetica, Arial, "Sans Serif";
+	font-size: 11px;
+	line-height: 14px;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overflow: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Helvetica, Arial, "Sans Serif";
+	margin: 0;
+	padding: 0;
+	line-height: 1.25em;
+}
+
+h1      { font-size: 36px; letter-spacing: -2px; margin-left: -1px; line-height: 36px; padding-right: 10px; }	/* Page Header, with optical kerning */
+h2      { font-size: 18px; letter-spacing: -1px; margin-bottom: 14px; padding-right: 10px;  } /* Page Subheader (grey bit) */
+h3, h4  { font-size: 14px; line-height: 16px; }			/* Other headers, board names, thread titles in the list, h4 Username links */
+h4 img  { padding-bottom: 4px; }
+
+a { text-decoration: none; font-weight: bold; }
+
+.small   { font-size: 10px; }
+.xsmall  { font-size: 9px;  }
+.xxsmall { font-size: 8px;  }
+
+.big, .xbig, .xxbig {
+  font-family: Helvetica, Arial, "Sans Serif";
+  font-weight: bold;
+}
+
+.big   { font-size: 14px; }
+.xbig  { font-size: 15px; }
+.xxbig { font-size: 16px; }
+
+
+.text_left   { text-align: left;   }
+.text_center { text-align: center; }
+.text_right  { text-align: right;  }
+
+/* Containers */
+
+#everything {
+  width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+}
+
+#maincontainer, #shoutcontainer {
+	display: inline;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+#maincontainer  { width: 715px; margin: 0 10px 30px 0; padding-left: 15px; }
+#shoutcontainer { width: 240px; }
+
+
+/* Columns etc */
+
+.column { 
+  margin: 0 20px 0 0;
+  float: left;
+	display: inline;
+}
+
+.column.right   { float: right; margin-right: 0px; }
+.column.flush   { margin-right: 0px;  }
+.column.padded  { padding: 0 10px 0 10px; }
+
+.col_header {
+  height: 19px;
+  line-height: 18px;
+  font-weight: bold;
+  font-size: 10px;
+  margin: 0 0 3px 0;
+}
+
+.one      { width: 40px;  }
+.two      { width: 100px; }
+.three    { width: 160px; }
+.four     { width: 220px; }
+.five     { width: 280px; }
+.six      { width: 340px; }
+.seven    { width: 400px; }
+.eight    { width: 460px; }
+.nine     { width: 520px; }
+.ten      { width: 580px; }
+.eleven   { width: 640px; }
+.twelve   { width: 700px; }
+.thirteen { width: 760px; }
+.fourteen { width: 820px; }
+.fifteen  { width: 880px; }
+.sixteen  { width: 940px; }
+
+.one_padded { width: 60px; }
+
+hr {
+  border-style: dashed;
+  border-width: 1px 0 0;
+  clear: both;
+  margin: 12px 15px 10px 0;
+  height: 0;
+}
+

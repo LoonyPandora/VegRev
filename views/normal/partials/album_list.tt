@@ -1,0 +1,11 @@
+<% if ($x % 5 == 2) { $alt = 'flush'; } else { $alt = ''; } %>
+<% $x++; %>
+
+
+<div class="album_container column four text_center <%=$alt%>">
+    <a href="/gallery/<%= $VR::db->{$sth}{'board_id'} %>">
+    <img src="/img/placeholder.png" /><br />
+    <%= $VR::db->{$sth}{'board_title'} %><br />
+    </a>
+</div>
+

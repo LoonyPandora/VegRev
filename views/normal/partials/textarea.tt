@@ -1,0 +1,82 @@
+
+
+
+
+  <label class="column two tight">Message:</label>
+  <div class="column seven flush">
+    <div class="editor_bar_container column flush">
+      <ul class="editor_bar">
+        <li><a href="javascript:message.execCommand('Bold');" ><img src="/img/icons_editor/text_bold.png" /></a></li>
+        <li><a href="javascript:message.execCommand('Italic');" ><img src="/img/icons_editor/text_italic.png" /></a></li>
+        <li><a href="javascript:message.execCommand('Underline');" ><img src="/img/icons_editor/text_underline.png" /></a></li>
+        <li><a href="javascript:message.execCommand('Strikethrough');" ><img src="/img/icons_editor/text_strikethrough.png" /></a></li>
+        <li><a href="javascript:message.execCommand('JustifyLeft');" ><img src="/img/icons_editor/text_align_left.png" /></a></li>
+        <li><a href="javascript:message.execCommand('JustifyCenter');" ><img src="/img/icons_editor/text_align_center.png" /></a></li>
+        <li><a href="javascript:message.execCommand('JustifyRight');" ><img src="/img/icons_editor/text_align_right.png" /></a></li>
+        <li><a href="javascript:message.execCommand('mceInsertImage');" ><img src="/img/icons_editor/picture.png" /></a></li>
+        <li><a href="javascript:message.execCommand('mceInsertLink');" ><img src="/img/icons_editor/link.png" /></a></li>
+        <li><a href="javascript:message.execCommand('forecolor', 0, '#ff0000');" >Red</a></li>
+        <li>
+          <select id="color" onchange="javascript:message.execCommand('forecolor', 0, color.value);">
+          <!-- <select id="color" onchange="javascript:alert(color.value);"> -->
+            <option value="#ff0000">Red</option>
+            <option value="#00ff00">Green</option>
+            <option value="#0000ff">Blue</option>
+          </select>
+        </li>
+        <li>
+          <select>
+            <option>10px</option>
+            <option>11px</option>
+            <option>12px</option>
+          </select>
+        </li>
+        <li><a href="#" onmousedown="alert(message.getContent({save : true}));return false;">[Get content]</a></li>
+      </ul>
+    </div>
+    <div class="smiley_bar_container column eight flush">
+      <ul class="editor_bar">
+        <li><a href="javascript:insert_smiley(':)','smiley');" ><img src="/img/emoticons/smiley.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(';)','wink');" ><img src="/img/emoticons/wink.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(':D','cheesy');" ><img src="/img/emoticons/cheesy.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(';D','grin');" ><img src="/img/emoticons/grin.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(';/','smug');" ><img src="/img/emoticons/smug.gif" /></a></li>
+        <li><a href="javascript:insert_smiley('>:(','angry');" ><img src="/img/emoticons/angry.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(':(','sad');" ><img src="/img/emoticons/sad.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(':O','shocked');" ><img src="/img/emoticons/shocked.gif" /></a></li>
+        <li><a href="javascript:insert_smiley('8)','cool');" ><img src="/img/emoticons/cool.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(':?','huh');" ><img src="/img/emoticons/huh.gif" /></a></li>
+        <li><a href="javascript:insert_smiley('::)','rolleyes');" ><img src="/img/emoticons/rolleyes.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(':P','tongue');" ><img src="/img/emoticons/tongue.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(':x','embarassed');" ><img src="/img/emoticons/embarassed.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(':|','lipsrsealed');" ><img src="/img/emoticons/lipsrsealed.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(':/','undecided');" ><img src="/img/emoticons/undecided.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(':*','kiss');" ><img src="/img/emoticons/kiss.gif" /></a></li>
+        <li><a href="javascript:insert_smiley(':\'(','cry');" ><img src="/img/emoticons/cry.gif" /></a></li>
+        <li><a href="javascript:insert_smiley('>:)','evil');" ><img src="/img/emoticons/evil.gif" /></a></li>
+        <li><a href="javascript:insert_smiley('^^d','thumbsup');" ><img src="/img/emoticons/thumbsup.gif" /></a></li>
+      </ul>
+    </div>
+    <textarea id="message" name="message"></textarea>
+  </div>
+
+
+
+
+
+<script type="text/javascript">
+var message = new punymce.Editor({
+	id : 'message',
+	toolbar : 'bold',
+	toolbar_two : 'happy',
+	plugins : 'BBCode,Paste,Image,Emoticons,Link,Protect,TextColor,EditSource,Safari2x',
+	min_width : 100,
+	width : 558,
+	resize : false,
+	entities : 'numeric',
+	emoticons : {
+		auto_convert : 1
+	},
+	editor_css : ''
+});
+</script>

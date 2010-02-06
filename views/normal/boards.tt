@@ -1,0 +1,82 @@
+<h1>The Forums</h1>
+<h2>Where it all goes down</h2>
+
+
+<% if ($VR::sth{'meta'}) { %> 
+    <div class="column twelve">
+      <div class="col_header">
+        <div class="column padded six flush"><%= $VR::db->{'meta'}{'category_title'}%></div>
+        <div class="column one flush">&nbsp;</div>
+        <div class="column one text_center">Topics</div>
+        <div class="column one padded text_center">&nbsp;&nbsp;Posts</div>
+        <div class="column three flush">Last Post</div>
+      </div>
+  <% $partial::x = 0; while ($VR::sth{'meta'}->fetchrow_arrayref) { %>
+    <%= $self->render_partial('board_list', {sth => 'meta'}); %>
+  <% } %>
+    </div>
+<% } %>
+
+
+<% if ($VR::sth{'chat'}) { %>
+    <div class="column twelve">
+      <div class="col_header">
+        <div class="column padded six flush"><%= $VR::db->{'chat'}{'category_title'}%></div>
+        <div class="column one flush">&nbsp;</div>
+        <div class="column one text_center">Topics</div>
+        <div class="column one padded text_center">&nbsp;&nbsp;Posts</div>
+        <div class="column three flush">Last Post</div>
+      </div>
+  <% $partial::x = 0; while ($VR::sth{'chat'}->fetchrow_arrayref) { %>
+    <%= $self->render_partial('board_list', {sth => 'chat'}); %>
+  <% } %>
+    </div>
+<% } %>
+
+
+<% if ($VR::sth{'media'}) { %> 
+    <div class="column twelve">
+      <div class="col_header">
+        <div class="column padded six flush"><%= $VR::db->{'media'}{'category_title'}%></div>
+        <div class="column one flush">&nbsp;</div>
+        <div class="column one text_center">Topics</div>
+        <div class="column one padded text_center">&nbsp;&nbsp;Posts</div>
+        <div class="column three flush">Last Post</div>
+      </div>
+  <% $partial::x = 0; while ($VR::sth{'media'}->fetchrow_arrayref) { %>
+    <%= $self->render_partial('board_list', {sth => 'media'}); %>
+  <% } %>
+    </div>
+<% } %>
+
+
+<% if ($VR::sth{'private'}) { %> 
+    <div class="column twelve">
+      <div class="col_header">
+        <div class="column padded six flush"><%= $VR::db->{'private'}{'category_title'}%></div>
+        <div class="column one flush">&nbsp;</div>
+        <div class="column one text_center">Topics</div>
+        <div class="column one padded text_center">&nbsp;&nbsp;Posts</div>
+        <div class="column three flush">Last Post</div>
+      </div>
+  <% $partial::x = 0; while ($VR::sth{'private'}->fetchrow_arrayref) { %>
+    <%= $self->render_partial('board_list', {sth => 'private'}); %>
+  <% } %>
+    </div>
+<% } %>
+
+
+<% if ($VR::sth{'mods'}) { %> 
+    <div class="column twelve">
+      <div class="col_header">
+        <div class="column padded six flush"><%= $VR::db->{'mods'}{'category_title'}%></div>
+        <div class="column one flush">&nbsp;</div>
+        <div class="column one text_center">Topics</div>
+        <div class="column one padded text_center">&nbsp;&nbsp;Posts</div>
+        <div class="column three flush">Last Post</div>
+      </div>
+  <% $partial::x = 0; while ($VR::sth{'mods'}->fetchrow_arrayref) { %>
+    <%= $self->render_partial('board_list', {sth => 'mods'}); %>
+  <% } %>
+    </div>
+<% } %>

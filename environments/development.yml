@@ -1,0 +1,7 @@
+log: "debug"
+warnings: 1
+show_errors: 1
+auto_reload: 1
+template: vegrev
+layout: main
+views: "views/normal"
