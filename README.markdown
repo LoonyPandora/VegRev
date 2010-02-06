@@ -30,8 +30,3 @@ Goals
 - To make the Vegetable Revolution faster, and better able to cope with an increase in users
 - To expand the VR empire to the stars above, and potentially blast off at the speed of light.
 - Provide a framework, and user base for total domination of the forum world
-
-Extra
-=====
-
-See the /docs directory for more information
