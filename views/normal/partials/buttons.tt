@@ -1,5 +1,5 @@
 <% if (@VR::buttons) { %>
-    <div class="column ten ">
+    <div class="column nine">
       <ul class="footer_buttons" >
         
         <% for my $button (@VR::buttons) { %>

@@ -146,10 +146,15 @@ post r('/forum/(\w+)/?([0-9a-zA-Z-]+-[0-9]{9,10})/?') => sub {
   my $thread_id = $thread; 
   $thread_id =~ s/(.*?)?([0-9]{9,10})$/$2/g;
 
+  my $message = params->{'message'};
+  $message =~ s/\r\n/[br]/isg;
+  $message =~ s/\n/[br]/isg;
+  $message =~ s/\r/[br]/isg;
+
   &VR::Model::Session::load_board_permissions($board);
 
   if ($VR::viewer{'can_reply_threads'}) {
-  	&VR::Model::Forum::post_reply($VR::viewer{'user_id'}, $board, $thread_id, $VR::viewer{'ip_address'}, $VR::TIMESTAMP, params->{'attachment'}, params->{'message'}, $thread);
+  	&VR::Model::Forum::post_reply($VR::viewer{'user_id'}, $board, $thread_id, $VR::viewer{'ip_address'}, $VR::TIMESTAMP, params->{'attachment'}, $message, $thread);
   }
   
   &Dancer::Helpers::redirect ("/forum/$board/$thread", 301);

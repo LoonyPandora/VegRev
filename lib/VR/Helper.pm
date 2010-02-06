@@ -21,6 +21,10 @@ use vars '@EXPORT_OK';
 sub do_yabbc {
 	${$_[0]} =~ s~\[code\](.+?)\[/code\]~&_add_code_tag($1)~eisg;
 
+  # Don't want lots of newlines at the beginning or end of posts
+  ${$_[0]} =~ s~^(\[br\])+~~ig;
+  ${$_[0]} =~ s~(\[br\])+$~~ig;
+  
   ${$_[0]} =~ s~\[br\]~<br />~ig;
   ${$_[0]} =~ s~\[code\]~ \[code\]~ig;
 	${$_[0]} =~ s~\[/code\]~ \[/code\]~ig;
@@ -59,10 +63,30 @@ sub do_yabbc {
 	${$_[0]} =~ s~\[url=(http[s]?://)?(.+?)\](.+?)\[/url\]~<a href="http://$2" />$3</a>~isg;
 	${$_[0]} =~ s~\[url\](http[s]?://)?(.+?)\[/url\]~<a href="http://$2" />$2</a>~isg;
 
-  while (${$_[0]} =~ s~\[quote\](.+?)\[/quote\]~<blockquote>$1</blockquote>~isg) { }
-  while (${$_[0]} =~ s~\[quote=(.+?)\](.+?)\[/quote\]~$1<br /><blockquote>$2</blockquote>~isg) { }
+#  while (${$_[0]} =~ s~\[quote\](.+?)\[/quote\]~<blockquote>$1</blockquote>~isg) { }
+#  while (${$_[0]} =~ s~\[quote="?(.+)\|(.+)\|(\d+)\|(\d+)\|(\d+)"?\](.+?)\[/quote\]~&VR::Helper::do_quotations($1, $2, $3, $4, $5, $6)~eisg) { }
+
+
+  while (${$_[0]} =~ s~\[quote\]\[quotemeta\]\[name\]([^\[]+)\[/name\]\[thread\]([^\[]+)\[/thread\]\[post\]([^\[]+)\[/post\]\[timestamp\]([^\[]+)\[/timestamp\]\[/quotemeta\](.+?)\[/quote\]~&VR::Helper::do_quotations($1, $2, $3, $4, $5, $6)~eisg) { }
 
   return &VR::Helper::do_emoticons(\${$_[0]});
+}
+
+
+sub do_quotations {
+  my ($display_name, $thread_id, $message_id, $message_time, $message_body) = @_;
+  
+  # TODO: Make this nicer, a unique number for a quote
+  my $rnd = int(rand(1000)) . $message_id;
+
+  my $string = qq~<blockquote id="$rnd"><p class="quotemeta xsmall" title="$display_name|$thread_id|$message_id|$message_time"><a href="javascript:toggle_quotes('$rnd');">+</a> Quote: <a href='/forum/board/$thread_id/post/$message_id'>$display_name, ~;
+  $string .= &VR::Helper::format_time($message_time, 'semi');
+  $string .= '</a></p>';
+  $string .= "$message_body";
+  $string .= '</blockquote>';
+  
+  return $string;
+
 }
 
 sub do_emoticons {

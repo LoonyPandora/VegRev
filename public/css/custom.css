@@ -71,12 +71,9 @@ sub { vertical-align: baseline; }
 .logo_container { height: 60px; }
 
 
-
-
-
-
 .reading_thread { margin-top: 4px; }
-blockquote      { text-align: left; padding: 10px; }
+blockquote      { text-align: left; padding: 10px 0px 10px 10px; border: 1px solid #aaaaaa; }
+blockquote blockquote { border-right: none; }
 .avatar         {  padding: 5px 0 5px 0; max-width: 100px; }
 
 
@@ -146,6 +143,17 @@ ul.small_imagelist, ul.big_imagelist, .xbig_imagelist img    { margin: 7px 0 0 9
 .profile_canvas img { max-width: 660px; }
 .canvas_roundtop    { background-image: url('http://www.vegetablerevolution.com/template/vr_green/img/canvas_header.png'); background-color: #ffffff; height: 32px; background-repeat: no-repeat; }
 .canvas_roundbottom { background-image: url('http://www.vegetablerevolution.com/template/vr_green/img/canvas_footer.png'); background-color: #ffffff; height: 15px; background-repeat: no-repeat; }
+
+
+
+
+
+/* Messages */
+
+.quotemeta { margin-bottom: 8px; margin-top: -2px;}
+
+
+blockquote { height: 10px; overflow: hidden; margin-bottom: 10px; }
 
 
 

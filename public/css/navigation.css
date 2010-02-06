@@ -110,7 +110,7 @@ li.first { margin-left: 5px;}
 
 #page_selector {
 	padding: 0;
-	background-color: transparent;
+	background-color: #000000;
 	color: #ffffff;
 	border: 2px 0 3px 0;
 	border-color: transparent;

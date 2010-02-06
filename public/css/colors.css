@@ -40,4 +40,4 @@ button:hover { color: #000000; border-color: #6e9936; }
 .edit           { background-color: yellow; color: black; padding: 5px; display: block; border: 1px dotted #666666; }
 .code           { background-color: #ee6666; padding: 5px; display: block; border: 1px dotted #666666;}
 
-blockquote      {  background-color: #dddddd; }
+blockquote      {  background-color: #dddddd; border-color: #dddddd;}

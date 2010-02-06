@@ -8,23 +8,49 @@
 ******************************************************************************/
 
 
-function insert_quote(message_id) {
+function page_selector() {
   
-  message.selection.setContent(message_id);
+}
+
+
+function puny_text_color(color) {
+  focus_editor();
+  message.execCommand('forecolor', 0, color);
+}
+
+
+
+
+function insert_quote(message_id, thread_id, user_name, display_name, message_time) {
+    
+  var container_id = '#'+message_id;
   
-  $("#message_f").focus();
-  $("#punymce").focus();  
+  
+  // HACK HACK HACK - we have to quickly show and hide the punymce area
+  // Otherwise we can't insert anything...
+  show_panel('reply_to_thread');
+  show_panel('reply_to_thread');
+
+  message.selection.setContent('<blockquote><p class="quotemeta xsmall" title="'+display_name+'|'+thread_id+'|'+message_id+'|'+message_time+'">Quote: <a href="/forum/board/'+thread_id+'/post/'+message_id+'">'+display_name+'</a></p>'+$(container_id).html()+'</blockquote><br />');
+
+
+//  message.selection.setContent('<br /><span class="quotemeta">Quote: <a href="/forum/board/'+thread_id+'/post/'+message_id+'">'+display_name+', '+message_time+'</a></span><blockquote cite="'+user_name+'|'+display_name+'|'+thread_id+'|'+message_id+'|'+message_time+'">'+$(container_id).html()+'</blockquote><br />');
+
+  focus_editor();
 }
 
 function insert_smiley(code, name) {
+  focus_editor();
+
   message.selection.setContent('&nbsp;');
 
   message.selection.setNode(
     message.dom.create('img', { title : code || name, src : '/img/emoticons/' + name + '.gif', 'class' : 'emoticon ' + name })
   );
   
-  $("#message_f").focus();
-  $("#punymce").focus();  
+  message.selection.setContent('&nbsp;');  
+  
+  focus_editor();
 }
 
 function show_panel(id) {
@@ -36,11 +62,18 @@ function show_panel(id) {
     $('#'+id).hide();
   }
 
-
-  $("#message_f").focus();
-  $("#punymce").focus();
+  focus_editor();
 }
 
+
+function toggle_quotes(id) {
+  if ($('#'+id).height() != '10') {
+    $('#'+id).animate({height: "10px"}, 100);
+  } else {
+    $('#'+id).animate({height: "100%"}, 100); // I know this doesn't work, but hey.
+  }
+
+}
 
 function add_poll_option() {
 	var id = document.getElementById("number_of_options").value;
@@ -68,4 +101,10 @@ function del_poll_option(id) {
 		$("#poll_options_container").append('<span class="column flush pollbuttons" id="pollbuttons_'+ prev_id +'"><a href="javascript:add_poll_option();"><img src="/img/silk/add.png" /></a><a href="javascript:del_poll_option('+ prev_id +');"><img src="/img/silk/delete.png" /></a></span>');
 	}
 	document.getElementById("number_of_options").value = id;
+}
+
+
+function focus_editor() {
+  $("#message_f").focus();
+  $("#punymce").focus();
 }
