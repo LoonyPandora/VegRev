@@ -4,7 +4,7 @@
         <li><p class="column flush" style="margin-top:-1px">Page:</p><select id="page_selector" onchange="javascript:change_page('<%= $VR::tmpl{'current_route'} %>');"><%  my $sel = ''; for (my $i = 1; $i <= $VR::tmpl{'total_pages'}; $i++) { if ($VR::tmpl{'current_page'} == $i) { $sel = ' selected="selected"'  } else { $sel = ''; } %><option value="<%= $i %>"<%=$sel%>><%= $i %></option><% } %></select> <span class="small"> of <%= $VR::tmpl{'total_pages'} %> </span>&nbsp;</li>
 
   <% if ($VR::tmpl{'total_pages'} > 1) { %>
-        <li class="first mini_page_nav"><a href="<%= $VR::tmpl{'current_route'} %>/all">All</a></li>
+        <li class="first mini_page_nav"><a href="<%= $VR::tmpl{'current_route'} %>/all-1">All</a></li>
   <% } else { %>
         <li class="first mini_page_nav"><a href="#">All</a></li>
   <% } %>

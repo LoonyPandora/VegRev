@@ -53,7 +53,7 @@ get r('/forum/(\w+)/?') => sub {
 # Later Pages of a Board
 get r('/forum/(\w+)/(\d{1,8})/?') => sub {
   my ($board, $page) = splat;
-  $offset = ($page*15) - 15;
+  my $offset = ($page*15) - 15;
 
   &VR::Model::Session::load_board_permissions($board);
   
@@ -111,7 +111,7 @@ get r('/forum/(\w+)/?([0-9a-zA-Z-]+-[0-9]{9,10})/(\d{1,8})/?') => sub {
   my $thread_id = $thread; 
   $thread_id =~ s/(.*?)?([0-9]{9,10})$/$2/g;
 
-  $offset = ($page*15) - 15;
+  my $offset = ($page*15) - 15;
   
   &VR::Model::Session::load_board_permissions($board);
   
@@ -136,6 +136,55 @@ get r('/forum/(\w+)/?([0-9a-zA-Z-]+-[0-9]{9,10})/(\d{1,8})/?') => sub {
 };
 
 
+# TODO: Make this work with read times, rather than just last page.
+# Maybe remove it altogether, and just put last unread page in links auto-stylee?
+get r('/forum/(\w+)/?([0-9a-zA-Z-]+-[0-9]{9,10})/new/?') => sub {
+  my ($board, $thread) = splat;
+  my $thread_id = $thread; 
+  $thread_id =~ s/(.*?)?([0-9]{9,10})$/$2/g;
+
+  &VR::Model::Session::load_board_permissions($board);
+  
+  if ($VR::viewer{'can_view_threads'}) {
+  	&VR::Model::Forum::load_messages($thread_id, '0', '1');
+  }
+
+  my $total_pages = int(($VR::db->{'thread'}{'thread_messages'}/15)+0.9999);
+  
+  &Dancer::Helpers::redirect ("/forum/$board/$thread/$total_pages", 301);
+};
+
+
+
+# Showing 'all' pages - really just 10 at a time.
+get r('/forum/(\w+)/?([0-9a-zA-Z-]+-[0-9]{9,10})/all-(\d{1,8})/?') => sub {
+  my ($board, $thread, $page) = splat;
+  my $thread_id = $thread; 
+  $thread_id =~ s/(.*?)?([0-9]{9,10})$/$2/g;
+
+  my $offset = ($page*150) - 150;
+
+  &VR::Model::Session::load_board_permissions($board);
+  
+  if ($VR::viewer{'can_view_threads'}) {
+  	&VR::Model::Forum::load_messages($thread_id, $offset, '150');
+  	&VR::Model::Forum::write_thread_viewer($thread_id, $VR::viewer{'user_id'}, $VR::TIMESTAMP);
+  	&VR::Model::Forum::load_thread_viewers($thread_id);
+  }
+ 
+  %VR::tmpl = (
+    current_route => "/forum/$board/$thread",
+    current_page  => $page,
+    total_pages   => int(($VR::db->{'thread'}{'thread_messages'}/150)+0.9999),
+    page_title    => $VR::db->{'thread'}{'thread_subject'},
+  );
+
+  if ($VR::viewer{'can_reply_threads'})                   { push (@VR::buttons, 'Reply_To_Thread'); }
+  if ($VR::viewer{'can_start_polls'})                     { push (@VR::buttons, 'Add_Poll'); }
+  if ($VR::viewer{'is_admin'} || $VR::viewer{'is_mod'})   { push (@VR::buttons, 'Admin'); }
+
+  template 'messages';
+};
 
 
 # POST ACTIONS #
