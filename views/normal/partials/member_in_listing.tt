@@ -1,0 +1,24 @@
+<% if ($x % 2 == 1) { $alt = 'alt'; } else { $alt = ''; } %>
+<% $x++; %>
+
+
+      <div class="clearfix thread_list <%= $alt %>">
+        <div class="column padded one flush">
+          <img width="30" src="http://www.vegetablerevolution.co.uk/uploads/<%= $VR::db->{$sth}{'avatar'} %>" class="avatar" alt="<%= $VR::db->{$sth}{'display_name'} %> <%= $VR::db->{$sth}{'usertext'} %>" title="<%= $VR::db->{$sth}{'display_name'} %> <%= $VR::db->{$sth}{'usertext'} %>" />
+        </div>
+      
+        <div class="column five">
+          <h3><%= &VR::Helper::user_link($VR::db->{$sth}{'user_name'}, $VR::db->{$sth}{'display_name'}, $VR::db->{$sth}{'group_color'}); %></h3>
+          <p class="small faded "><%= $VR::db->{$sth}{'group_title'}; %></p>
+        </div>
+
+        <div class="column two text_center big_count faded"><%= &VR::Helper::format_numbers($VR::db->{$sth}{'user_post_num'}); %></div>
+
+        <div class="column two">
+          <p class="faded small"><%= &VR::Helper::format_time($VR::db->{$sth}{'reg_time'}, 'semi'); %></p>
+        </div>
+        
+        <div class="column two flush">
+          <p class="faded small"><%= &VR::Helper::format_time($VR::db->{$sth}{'last_online'}, 'semi'); %></p>
+        </div>
+      </div>

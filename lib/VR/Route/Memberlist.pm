@@ -8,8 +8,7 @@
 
 get '/members' => sub {
   
-  
-#  &VR::Model::Forum::load_threads($board, '0', '15');
+  &VR::Model::Memberlist::load_memberlist_by_postcount('0');
 
   template 'memberlist';
 };

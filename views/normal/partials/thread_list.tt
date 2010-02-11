@@ -17,7 +17,3 @@
           <p class="last_updated small"><%= &VR::Helper::format_time($VR::db->{$sth}{'thread_last_message_time'}); %><br />by: <%= &VR::Helper::user_link($VR::db->{$sth}{'last_user_name'}, $VR::db->{$sth}{'last_display_name'}, $VR::db->{$sth}{'last_group_color'}); %></p>
         </div>
       </div>
- 
- 
- 
- 

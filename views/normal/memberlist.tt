@@ -1,0 +1,17 @@
+<h1>Members List</h1>
+<h2>Anyone who's anyone is on this list</h2>
+
+
+<% if ($VR::sth{'memberlist'}) { %>
+    <div class="column twelve">
+      <div class="col_header">
+        <div class="column padded flush six">Member</div>
+        <div class="column two text_center">Posts</div>
+        <div class="column two">Join Date</div>
+        <div class="column two flush">Last Online</div>
+      </div>
+  <% $partial::x = 0; while ($VR::sth{'memberlist'}->fetchrow_arrayref) { %>
+    <%= $self->render_partial('member_in_listing', {sth => 'memberlist'}); %>
+  <% } %>
+    </div>
+<% } %>

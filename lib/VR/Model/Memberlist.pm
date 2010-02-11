@@ -16,5 +16,38 @@ use vars '@EXPORT_OK';
 @EXPORT_OK = qw();
 
 
+sub load_memberlist_by_postcount {
+  my ($page) = @_;
+
+	my $sql = q|
+SELECT users.user_name, users.display_name, users.avatar, users.user_post_num, users.reg_time, users.last_online, users.user_post_num,  user_groups.group_color, user_groups.group_title
+FROM users
+LEFT JOIN user_groups AS user_groups ON user_groups.group_id = (CASE WHEN users.group_id = 0 OR users.group_id IS NULL THEN (SELECT group_id FROM user_groups WHERE user_groups.posts_required <= users.user_post_num ORDER BY user_groups.posts_required DESC LIMIT 1) ELSE users.group_id
+END)
+WHERE users.user_deleted != '1'
+ORDER BY users.user_post_num DESC
+LIMIT ?, ?
+|;
+
+
+  my @bind = (
+    $page,
+    20,
+  );
+
+#   my $static_sql = q|
+# SELECT boards.board_id, boards.board_title, boards.board_description, boards.board_thread_total
+# FROM boards
+# WHERE boards.board_id = ?
+# LIMIT 1
+# |;
+# 
+#   my @static_bind = ();
+# 
+#   &VR::Util::fetch_db(\$static_sql, \@static_bind, \$VR::db->{'board'});
+
+  &VR::Util::read_db(\$sql, \@bind, \$VR::sth{'memberlist'}, \$VR::db->{'memberlist'});  
+
+}
 
 1;
