@@ -152,7 +152,7 @@ ul.small_imagelist, ul.big_imagelist, .xbig_imagelist img    { margin: 7px 0 0 9
 
 .quotemeta { margin-bottom: 8px; margin-top: -2px;}
 
-
+#unhighlight_button { display: none; }
 blockquote { height: 10px; overflow: hidden; margin-bottom: 10px; }
 
 

@@ -6,7 +6,8 @@
         <li><a href="javascript:message.execCommand('Italic');" ><img src="/img/icons_editor/text_italic.png" /></a></li>
         <li><a href="javascript:message.execCommand('Underline');" ><img src="/img/icons_editor/text_underline.png" /></a></li>
         <li><a href="javascript:message.execCommand('Strikethrough');" ><img src="/img/icons_editor/text_strikethrough.png" /></a></li>
-        <li><a href="javascript:puny_highlight();" ><img src="/img/icons_editor/highlight.png" /></a></li>
+        <li id="highlight_button"><a href="javascript:puny_highlight();" ><img src="/img/icons_editor/highlight.png" /></a></li>
+        <li id="unhighlight_button"><a href="javascript:puny_unhighlight();" ><img src="/img/icons_editor/highlight.png" /></a></li>
         <li class="editor_bar_seperator">&nbsp;</li>
         <li><a href="javascript:message.execCommand('mceInsertImage');" ><img src="/img/icons_editor/picture.png" /></a></li>
         <li><a href="javascript:message.execCommand('mceInsertLink');" ><img src="/img/icons_editor/link.png" /></a></li>
@@ -14,7 +15,7 @@
         <li class="editor_bar_seperator">&nbsp;</li>
         <li>
           <select id="mce_color" style="width: 60px;" class="small" onchange="javascript:puny_text_color(mce_color.value);">
-            <option value="#000000">Black</option>
+            <option value="#000000" selected="selected">Black</option>
             <option value="#ff0000">Red</option>
             <option value="#00ff00">Green</option>
             <option value="#0000ff">Blue</option>
@@ -22,14 +23,14 @@
         </li>
         <li>
           <select id="mce_face" style="width: 80px; margin-left: 2px;" class="small" onchange="javascript:puny_font_face(mce_face.value);">
-            <option value="Verdana">Verdana</option>
-            <option value="Helvetica, Arial">Helvetica</option>
+            <option value="Verdana" selected="selected">Verdana</option>
+            <option value="Helvetica">Helvetica</option>
             <option value="Comic Sans MS">Comic Sans</option>
             <option value="Impact">Impact</option>
             <option value="Times New Roman">Times</option>
             <option value="Trebuchet MS">Trebuchet</option>
             <option value="Georgia">Georgia</option>
-            <option value="Courier New, Courier">Courier</option>
+            <option value="Courier">Courier</option>
           </select>
         </li>
 

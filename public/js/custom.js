@@ -15,6 +15,8 @@ function change_page(current_route) {
 
 function puny_text_color(color) {
   focus_editor();
+  message.execCommand('backcolor', 0, '#ffffff');
+  message.execCommand('hilitecolor', 0, '#ffffff');
   message.execCommand('forecolor', 0, color);
 }
 
@@ -23,11 +25,27 @@ function puny_font_face(face) {
   message.execCommand('fontname', 0, face);
 }
 
+function puny_unhighlight() {
+  focus_editor();
+  
+  message.execCommand('forecolor', 0, '#000000');
+  message.execCommand('backcolor', 0, '#ffffff');
+  message.execCommand('hilitecolor', 0, '#ffffff');
+
+  $('#highlight_button').show();
+  $('#unhighlight_button').hide();
+}
+
+
 function puny_highlight() {
   focus_editor();
 
   message.execCommand('forecolor', 0, '#ffff00');
   message.execCommand('backcolor', 0, '#ffff00');
+  message.execCommand('hilitecolor', 0, '#ffff00');
+  
+  $('#highlight_button').hide();
+  $('#unhighlight_button').show();
 }
 
 function puny_flash_insert(address) {
@@ -67,7 +85,7 @@ function insert_quote(message_id, thread_id, user_name, display_name, message_ti
   // HACK HACK HACK - we have to quickly show and hide the punymce area
   // Otherwise we can't insert anything...
   show_panel('reply_to_thread');
-  show_panel('reply_to_thread');
+//  show_panel('reply_to_thread');
 
   message.selection.setContent('<blockquote><p class="quotemeta xsmall" title="'+display_name+'|'+thread_id+'|'+message_id+'|'+message_time+'">Quote: <a href="/forum/board/'+thread_id+'/post/'+message_id+'">'+display_name+'</a></p>'+$(container_id).html()+'</blockquote><br />');
 
@@ -142,4 +160,8 @@ function del_poll_option(id) {
 function focus_editor() {
   $("#message_f").focus();
   $("#punymce").focus();
+  
+  message.execCommand('styleWithCSS', 0, false);
 }
+
+

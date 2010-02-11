@@ -46,7 +46,7 @@ sub do_yabbc {
 	${$_[0]} =~ s~\[move\](.*?)\[/move\]~<marquee>$1</marquee>~isg;
 
 	${$_[0]} =~ s~\[color=([A-Za-z0-9# ]+)\](.+?)\[/color\]~<span style="color:$1;">$2</span>~isg;
-	${$_[0]} =~ s~\[font=([A-Za-z0-9# ]+)\](.+?)\[/font\]~<span style="font-family:$1;">$2</span>~isg;
+	${$_[0]} =~ s~\[font=([A-Za-z0-9'" ]+)\](.+?)\[/font\]~<span style="font-family:$1;">$2</span>~isg;
 
 	${$_[0]} =~ s~\[tt\](.*?)\[/tt\]~<tt>$1</tt>~isg;
 	${$_[0]} =~ s~\[left\](.*?)\[/left\]~<div style="text-align: left;">$1</div>~isg;
