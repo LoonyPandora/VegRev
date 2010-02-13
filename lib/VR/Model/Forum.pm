@@ -95,6 +95,7 @@ LIMIT 1
   if (!$offset || $offset == 0) {
     &VR::Util::read_db(\$sticky_sql, \@bind, \$VR::sth{'sticky_threads'}, \$VR::db->{'sticky_threads'});  
   }
+
   &VR::Util::read_db(\$sql, \@bind, \$VR::sth{'threads'}, \$VR::db->{'threads'});  
 }
 

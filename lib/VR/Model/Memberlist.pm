@@ -17,7 +17,7 @@ use vars '@EXPORT_OK';
 
 
 sub load_memberlist_by_postcount {
-  my ($page) = @_;
+  my ($offset) = @_;
 
 	my $sql = q|
 SELECT users.user_name, users.display_name, users.avatar, users.user_post_num, users.reg_time, users.last_online, users.user_post_num,  user_groups.group_color, user_groups.group_title
@@ -29,25 +29,22 @@ ORDER BY users.user_post_num DESC
 LIMIT ?, ?
 |;
 
-
   my @bind = (
-    $page,
+    $offset,
     20,
   );
 
-#   my $static_sql = q|
-# SELECT boards.board_id, boards.board_title, boards.board_description, boards.board_thread_total
-# FROM boards
-# WHERE boards.board_id = ?
-# LIMIT 1
-# |;
-# 
-#   my @static_bind = ();
-# 
-#   &VR::Util::fetch_db(\$static_sql, \@static_bind, \$VR::db->{'board'});
+  my $static_sql = q|
+SELECT COUNT(1) as total_members
+FROM users
+WHERE users.user_deleted != '1'
+LIMIT 1
+|;
 
+  my @static_bind = ();
+  &VR::Util::fetch_db(\$static_sql, \@static_bind, \$VR::db->{'memberlist'});
+  
   &VR::Util::read_db(\$sql, \@bind, \$VR::sth{'memberlist'}, \$VR::db->{'memberlist'});  
-
 }
 
 1;
