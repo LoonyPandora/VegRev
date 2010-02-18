@@ -253,6 +253,39 @@ sub clean_thread_id {
   return $thread_link;
 }
 
+
+
+
+sub rate_per_day {
+  my ($time, $amount) = @_;
+  my $days_ago = (int(((time()/60)/60)/24)-int((($time/60)/60)/24)) || 1;
+  
+  return sprintf("%.2f", ($amount / $days_ago));
+}
+
+sub get_age {
+  my ($year, $month, $mday) = split(/\-/, $_[0]);
+    
+  my (undef,undef,undef,$cur_mday,$cur_mon,$cur_year,undef) = gmtime($VR::TIMESTAMP);
+  $cur_year	+= 1900;
+  
+  if    ($cur_mon - $month < 0)   { $cur_year -= 1 }
+  elsif ($cur_mon - $month == 0 && $cur_mday - $mday < 0)  { $cur_year -= 1 }
+
+  return int($cur_year - $year);
+}
+
+sub format_dob {
+  my ($year, $month, $mday) = split(/\-/, $_[0]);
+  $month -= 1;
+  $mday = int($mday); 
+
+  return "$mday" . &_get_ordinal($mday) . " $VR::month_names[$month] $year";
+}
+
+
+
+
 # Deprecated
 sub link_photo_to_thread {
   my ($board, $thread_id, $subject, $picture_id, $truncate) = @_;

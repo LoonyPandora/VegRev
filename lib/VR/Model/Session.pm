@@ -39,7 +39,7 @@ LIMIT 1
     &VR::Util::fetch_db_noref(\$sql, \@bind, \%VR::viewer);
   }
   
-  if (!$VR::viewer{'user_name'}) { $vr::viewer{'is_guest'} = '1'; }
+  if (!$VR::viewer{'user_name'}) { $VR::viewer{'is_guest'} = '1'; }
 
   $VR::viewer{'ip_address'} = $ENV{'REMOTE_ADDR'};
 

@@ -1,112 +1,121 @@
-<h1><%= $vr::db{'display_name'} %></h1>
-<h2><%= $vr::db{'senior_group_title'} %></h2>
+<h1><%= $VR::db->{'user'}{'display_name'} %></h1>
+<h2><%= $VR::db->{'user'}{'group_title'} %></h2>
 
-<% $vr::db{'avatar'} =~ s/thumb/sized/; if (!-f "$vr::db{'avatar'}") { $vr::db{'avatar'} =~ s/sized\.//; } %>
+    <div class="column twelve">
+      <% if ($VR::db->{'user'}{'real_name'}) {  %>
+        <div class="column three">
+          <img src="http://www.vegetablerevolution.co.uk/uploads/<%= $VR::db->{'user'}{'avatar'} %>" class="big_avatar" />
+        </div>
+      <% } else { %>
+        <div class="column three">
+          <img src="/img/placeholder.png" class="big_avatar" />
+        </div>
+      <% } %>
 
-<% if ($vr::db{'avatar'} =~ /\d{1,7}\.\w{3,4}$/) {
-  my $tmp = $vr::db{'avatar'};
-  $tmp =~ s/(\.\w{3,4})$/\.sized$1/;
-  if (-f "$tmp") {
-    $vr::db{'avatar'} =~ s/(\.\w{3,4})$/\.sized$1/;
-  }
-} %>
+      <div class="column six" style="height: 20px;">&nbsp;</div>
+      <div class="column three">
+        <span class="count_badge"><%= &VR::Helper::format_numbers($VR::db->{'user'}{'user_id'}); %><%=&VR::Helper::_get_ordinal($VR::db->{'user'}{'user_id'});%></span><span class="faded"> member</span>
+        <p class="small faded">Joined: <%=&VR::Helper::format_time($VR::db->{'user'}{'reg_time'}, 'semi'); %></p>
+        <br />
+        <span class="count_badge"><%= &VR::Helper::format_numbers($VR::db->{'user'}{'user_post_num'}); %></span><span class="faded"> posts</span>
+        <p class="small faded"><%= &VR::Helper::rate_per_day($VR::db->{'user'}{'reg_time'}, $VR::db->{'user'}{'user_post_num'});%> posts per day</p>
+        <br />
+        <span class="count_badge"><%= &VR::Helper::format_time($VR::db->{'user'}{'last_online'}); %></span><span class="faded"> time</span>
+        <p class="small faded">since I was last online</p>
+      </div>
+      
+      <div class="column three">
+        <% if ($VR::db->{'user'}{'real_name'}) {  %>
+          <span class="count_badge"><%=$VR::db->{'user'}{'real_name'}%></span>
+          <p class="small faded">is my real name</p>
+        <% } %>
+        <br />
+        <% if ($VR::db->{'user'}{'birthday'}) {  %>
+          <span class="count_badge"><%= &VR::Helper::get_age($VR::db->{'user'}{'birthday'}) %></span><span class="faded"> years old</span>
+          <p class="small faded"><%=&VR::Helper::format_dob($VR::db->{'user'}{'birthday'});%></p>
+        <% } %>
+        <br />
+        <% if ($VR::db->{'user'}{'gender'}) {  %>
+          <span class="count_badge"><%=$VR::db->{'user'}{'gender'}%></span>
+          <p class="small faded">^ one of them</p>
+        <% } %>
+      </div>
+      
+      <% if (!$VR::viewer{'is_guest'}) {  %>
+      <div class="column three flush">
+        <div class="col_header"><div class="column padded six flush">Contact Info</div></div>
+        <ul class="small_imagelist clearfix">
+          <% if ($VR::db->{'user'}{'homepage'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/feed.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'icq'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/icq.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'msn'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/msn.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'yim'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/yahoo.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'aim'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/aim.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'gtalk'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/gtalk.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'skype'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/skype.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'twitter'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/twitter.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'flickr'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/flickr.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'deviantart'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/feed.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'vimeo'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/vimeo.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'youtube'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/youtube.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'facebook'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/facebook.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'myspace'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/myspace.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'bebo'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/bebo.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'lastfm'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/lastfm.png" /></li>
+          <% } %>
+          <% if ($VR::db->{'user'}{'tumblr'}) { %>
+            <li class="column flush"><img src="/img/icons_contact/tumblr.png" /></li>
+          <% } %>
+        </ul>
+        
+        <br />
+      
+        <div class="col_header"><div class="column padded six flush">Previous Post</div></div>
+        <div class="column padded">
+          <p>See all posts by <%= $VR::db->{'user'}{'display_name'} %></p>
+        </div>
+      </div>
+      <% } %>
 
-<div class="column three alpha">
-  <img src="<%=$vr::db{'avatar'};%>" class="big_avatar"/>
-</div>
-
-<div class="column six">
-  <div class="column six alpha omega profile_stars">
-    <img src="<%=$vr::viewer{'template_url'};%>/img/icons_group/<%= $vr::db{'senior_group_image'} %>" />
-  </div>
+      <div class="column twelve alpha omega canvas_container">
+        <div class="canvas_roundtop">&nbsp;</div>
+        <div class="column alpha omega profile_canvas">
+          <p class="big">I've not written anything about myself yet.</p>  
+        </div>
+        <br class="clear" />
+        <div class="canvas_roundbottom">&nbsp;</div>
   
-  <div class="column three alpha omega">
-    <h4><%=$vr::db{'user_post_num'};%> <span class="faded">posts</span></h4>
-    <p class="small"><%=($vr::db{'reg_time'}, $vr::db{'user_post_num'}); %> posts per day</p>
-  </div>
- 
-  <% if ($vr::db{'real_name'} && !$vr::viewer{'is_guest'}) { %>
-  <div class="column three alpha omega">
-    <h4><%=$vr::db{'real_name'}%></h4>
-    <p class="small">Is my real name</p>
-    <br class="clear" />
-  </div>
-  <% } %>
-  
-  <div class="column three alpha omega">
-    <h4><%=($vr::db{'user_id'});%><%=($vr::db{'user_id'});%> <span class="faded">member</span></h4>
-    <p class="small">Joined: <%=($vr::db{'reg_time'}, 'semi'); %></p>
-  </div>
-  
-  <% if ($vr::db{'birthday'} && !$vr::viewer{'is_guest'}) { %>
-  <div class="column three alpha omega">
-    <h4><%=($vr::db{'birthday'});%> <span class="faded">years old</span></h4>
-    <p class="small"><%=($vr::db{'birthday'});%></p>
-    <br class="clear" />
-  </div>
-  <% } %>
+      </div>
 
-  <div class="column three alpha omega">
-    <h4><%=($vr::db{'last_online'});%></h4>
-    <p class="small">Since I was online</p>
-  </div>
-  
-  <% if ($vr::db{'gender'}) { %>
-  <div class="column three alpha omega">
-    <h4><%=$vr::db{'gender'}%></h4>
-    <p class="small">I'm a <%=$vr::db{'gender'}%></p>
-    <br class="clear" />
-  </div>
-  <% } %>
-</div>
-
-<% if (!$vr::viewer{'is_guest'}) {%>
-<div class="column three omega">
-  <div class="header_block indent">Contact Info</div>
-  <ul class="small contactlist">
-<% if ($vr::db{'aim'}) { %><li class="column alpha omega"><a href="aim://<%=$vr::db{'aim'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/aim.png" /></a></li><% } %>
-<% if ($vr::db{'facebook'}) { if ($vr::db{'facebook'} !~ /^http:\/\//) { $vr::db{'facebook'} = 'http://'.$vr::db{'facebook'}; }; %> <li class="column alpha omega"><a href="<%=$vr::db{'facebook'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/facebook.png" /></a></li><% } %>
-<% if ($vr::db{'gtalk'}) { %><li class="column alpha omega"><a href="gtalk://<%=$vr::db{'gtalk'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/gtalk.png" /></a></li><% } %>
-<% if ($vr::db{'icq'}) { %><li class="column alpha omega"><a href="icq://<%=$vr::db{'icq'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/icq.png" /></a></li><% } %>
-<% if ($vr::db{'msn'}) { %><li class="column alpha omega"><a href="msnim://<%=$vr::db{'msn'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/msn.png" /></a></li><% } %>
-<% if ($vr::db{'myspace'}) { if ($vr::db{'myspace'} !~ /^http:\/\//) { $vr::db{'myspace'} = 'http://'.$vr::db{'myspace'}; }; %><li class="column alpha omega"><a href="<%=$vr::db{'myspace'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/myspace.png" /></a></li><% } %>
-<% if ($vr::db{'skype'}) { %><li class="column alpha omega"><a href="skype://<%=$vr::db{'skype'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/skype.png" /></a></li><% } %>
-<% if ($vr::db{'twitter'}) { if ($vr::db{'twitter'} !~ /twitter\.com/) { $vr::db{'twitter'} = 'http://twitter.com/'.$vr::db{'twitter'}; }; if ($vr::db{'twitter'} !~ /^http:\/\//) { $vr::db{'twitter'} = 'http://'.$vr::db{'twitter'}; }; %><li class="column alpha omega"><a href="<%=$vr::db{'twitter'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/twitter.png" /></a></li><% } %>
-<% if ($vr::db{'yim'}) { %><li class="column alpha omega"><a href="ymsgr://<%=$vr::db{'yim'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/yahoo.png" /></a></li><% } %>
-<% if ($vr::db{'homepage'}) { if ($vr::db{'homepage'} !~ /^http:\/\//) { $vr::db{'homepage'} = 'http://'.$vr::db{'homepage'}; }; %><li class="column alpha omega"><a href="<%=$vr::db{'homepage'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/feed.png" /></a></li><% } %>
-<% if ($vr::db{'flickr'}) { if ($vr::db{'flickr'} !~ /^http:\/\//) { $vr::db{'flickr'} = 'http://'.$vr::db{'flickr'}; }; %><li class="column alpha omega"><a href="<%=$vr::db{'flickr'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/flickr.png" /></a></li><% } %>
-<% if ($vr::db{'vimeo'}) { if ($vr::db{'vimeo'} !~ /^http:\/\//) { $vr::db{'vimeo'} = 'http://'.$vr::db{'vimeo'}; }; %><li class="column alpha omega"><a href="<%=$vr::db{'vimeo'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/vimeo.png" /></a></li><% } %>
-<% if ($vr::db{'youtube'}) { if ($vr::db{'youtube'} !~ /^http:\/\//) { $vr::db{'youtube'} = 'http://'.$vr::db{'youtube'}; }; %><li class="column alpha omega"><a href="<%=$vr::db{'youtube'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/icons_contact/youtube.png" /></a></li><% } %>
-<% if ($vr::db{'bebo'}) { if ($vr::db{'bebo'} !~ /^http:\/\//) { $vr::db{'bebo'} = 'http://'.$vr::db{'bebo'}; }; %><li class="column alpha omega"><a href="<%=$vr::db{'bebo'}%>"><img src="<%=$vr::viewer{'template_url'};%>/img/placeholder.png" /></a></li><% } %>
-  </ul>
-  <br class="clear" />
-
-  <% if ($vr::db{'user_name'} ne 'ApologeticSquirrel') { %>
-  <div class="header_block indent">Previous Posts</div>
-  <div class="column">
-    <a href="<%=$vr::config{'base_url'}%>/user/<%=$vr::db{'user_name'}%>/recent_posts">See all posts by <%= $vr::db{'display_name'}; %></a>
-  </div>
-  <% } elsif ($vr::viewer{'user_name'} eq 'ApologeticSquirrel' || $vr::viewer{'user_name'} eq 'admin') {  %>
-  <div class="header_block indent">Previous Posts</div>
-  <div class="column">
-    <a href="<%=$vr::config{'base_url'}%>/user/<%=$vr::db{'user_name'}%>/recent_posts">See all posts by <%= $vr::db{'display_name'}; %></a>
-  </div>
-  <% } %>
-
-</div>
-
-<%}%>
-<div class="column twelve alpha omega canvas_container">
-  <div class="canvas_roundtop">&nbsp;</div>
-  <div class="column alpha omega profile_canvas">
-  <% if ($vr::db{'biography'}) { %>
-    <%=($vr::db{'biography'})%>
-  <% } else { %>
-    <p class="big">I've not written anything about myself yet.</p>
-  <% } %>
-  </div>
-  <br class="clear" />
-  <div class="canvas_roundbottom">&nbsp;</div>
-  
-</div>
+    </div>
 

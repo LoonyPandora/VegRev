@@ -8,17 +8,17 @@
 
 
 # Viewing a profile
-get r('/forum/(\w+)/?') => sub {
-  my ($board, $page) = splat;  
+get r('/user/([0-9a-zA-Z-_]+)/?') => sub {
+  my ($user_name) = splat;  
   
-#  &VR::Model::User::load_profile($board, '0', '15');
+  &VR::Model::User::load_profile($user_name);
 
   template 'profile';
 };
 
 
 # Editing a profile
-get r('/forum/(\w+)/settings/?') => sub {
+get r('/user/([0-9a-zA-Z-_]+)/settings/?') => sub {
   my ($board, $page) = splat;
   
   
