@@ -8,6 +8,8 @@
 ******************************************************************************/
 
 
+
+
 function change_page(current_route) {
   var selected = $("#page_selector option:selected");
   window.location.replace(current_route+'/'+selected.val());

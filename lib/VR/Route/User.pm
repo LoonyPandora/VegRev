@@ -7,27 +7,25 @@
 ###############################################################################
 
 
-get '/user/:user_name/settings' => sub {
-  my $user_name = params->{user_name};
-  $user_name =~ s/\W+//sg;
+# Viewing a profile
+get r('/forum/(\w+)/?') => sub {
+  my ($board, $page) = splat;  
   
-  
-#  &VR::Model::Forum::load_threads($board, '0', '15');
-
-  template 'edit_profile';
-};
-
-
-get '/user/:user_name' => sub {
-  my $user_name = params->{user_name};
-  $user_name =~ s/\W+//sg;
-  
-  
-#  &VR::Model::Forum::load_threads($board, '0', '15');
+#  &VR::Model::User::load_profile($board, '0', '15');
 
   template 'profile';
 };
 
+
+# Editing a profile
+get r('/forum/(\w+)/settings/?') => sub {
+  my ($board, $page) = splat;
+  
+  
+#  &VR::Model::User::load_threads($board, '0', '15');
+
+  template 'edit_profile';
+};
 
 
 

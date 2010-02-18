@@ -238,7 +238,22 @@ sub link_to_thread {
 	return qq~<a href="/forum/$board/$thread_link">$subject</a>~;
 }
 
+# Returns the thread link, with cleaned subject
+sub clean_thread_id {
+  my ($thread_id, $subject) = @_;
+  
+  my $thread_link = lc($subject);
 
+  $thread_link =~ s/ /-/g;
+  $thread_link =~ s/-+/-/g;
+  $thread_link =~ s/&amp;/and/g;
+  $thread_link =~ s/[^0-9a-zA-Z-]+//ig;
+  $thread_link .= "-$thread_id";
+  
+  return $thread_link;
+}
+
+# Deprecated
 sub link_photo_to_thread {
   my ($board, $thread_id, $subject, $picture_id, $truncate) = @_;
 
@@ -253,7 +268,6 @@ sub link_photo_to_thread {
   $thread_link =~ s/[^0-9a-zA-Z-]+//ig;
   $thread_link .= "-$thread_id";
   
-#	return qq~<a href="/forum/$board/$thread_link"><img src="/uploads/$picture_id.thumb.png" /></a>~;
 	return qq~<a href="/gallery/$board/$thread_link"><img src="/img/placeholder.png" /></a>~;
 }
 

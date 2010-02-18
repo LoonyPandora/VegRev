@@ -1,7 +1,7 @@
 <% if ($x % 2 == 1) { $alt = 'alt'; } else { $alt = ''; } %>
 <% $x++; %>
 
-    <div class="column twelve" style="margin-bottom: 15px;">
+    <div class="column twelve message_container" style="margin-bottom: 15px;">
       <div class="clearfix faded">
         <div class="column eight">
           <h4><img src="http://www.vegetablerevolution.co.uk/template/vr_green/img/offline.png" class="status_led" /> <%= &VR::Helper::user_link($VR::db->{$sth}{'user_name'}, $VR::db->{$sth}{'display_name'}, $VR::db->{$sth}{'group_color'}); %>
@@ -10,7 +10,7 @@
         </div>
     
         <div class="column four flush text_right small">
-          <button class="small one" onclick="javascript:insert_quote('<%= $VR::db->{$sth}{'message_id'} %>','<%= $VR::db->{'thread'}{'thread_id'} %>','<%= $VR::db->{$sth}{'user_name'} %>','<%= $VR::db->{$sth}{'display_name'} %>','<%= $VR::db->{$sth}{'message_time'} %>');">Quote</button> <button class="small one">Edit</button> <button class="small one">Split</button> <button class="small one">Delete</button>
+          <span class="message_buttons"><button class="small one" onclick="javascript:insert_quote('<%= $VR::db->{$sth}{'message_id'} %>','<%= $VR::db->{'thread'}{'thread_id'} %>','<%= $VR::db->{$sth}{'user_name'} %>','<%= $VR::db->{$sth}{'display_name'} %>','<%= $VR::db->{$sth}{'message_time'} %>');">Quote</button> <button class="small one">Edit</button> <button class="small one">Split</button> <button class="small one">Delete</button></span>
           <p class="small"><%= &VR::Helper::format_time($VR::db->{$sth}{'message_time'}, 'full'); %></p>
         </div>
       </div>

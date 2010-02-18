@@ -10,10 +10,12 @@
 <link href="/css/navigation.css" rel="stylesheet" type="text/css" />
 <link href="/css/forms.css" rel="stylesheet" type="text/css" />
 <link href="/css/popup.css" rel="stylesheet" type="text/css" />
+<link href="/css/caption.css" rel="stylesheet" type="text/css" />
 	
 	
 <script type="text/javascript" src="/js/jquery-1.4.1.min.js"></script>	
 <script type="text/javascript" src="/js/jquery.easing.js"></script>	
+<script type="text/javascript" src="/js/jquery.jcaption.js"></script>	
 
 
 <script type="text/javascript" src="/js/punymce/puny_mce_src.js?<%=$VR::TIMESTAMP%>"></script>
@@ -141,6 +143,25 @@
     <%= $self->render_partial('pagination'); %>
   </div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  
+
+  $(".message_container").hover(function() {
+  	  $(this).find('.message_buttons button').animate({opacity: "show"}, "fast");
+  	}, function() {
+  	  $(this).find('.message_buttons button').animate({opacity: "hide"}, "fast");
+  	});
+
+
+  $(".photo_container").hover(function() {
+  	  $(this).find('.img_caption').animate({opacity: "show"}, "fast");
+  	}, function() {
+  	  $(this).find('.img_caption').animate({opacity: "hide"}, "fast");
+  	});
+});
+</script>
 
 </body>
 </html>

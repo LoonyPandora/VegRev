@@ -1,13 +1,9 @@
 <h1><%= $VR::db->{'album'}{'board_title'} %></h1>
 <h2><%= $VR::db->{'album'}{'board_description'} %></h2>
-
+<hr />
 
 <% if ($VR::sth{'photos'}) { %>
     <div class="column twelve">
-      <div class="col_header">
-        <div class="column padded flush eight">Photos</div>
-      </div>
-      <br />
   <% $partial::x = 0; while ($VR::sth{'photos'}->fetchrow_arrayref) { %>
     <%= $self->render_partial('photo_list', {sth => 'photos'}); %>
   <% } %>

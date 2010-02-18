@@ -115,7 +115,12 @@ blockquote blockquote { border-right: none; }
 .big_count    { line-height: 28px; }
 .last_updated { line-height: 15px; }
 
+.message_buttons {
+  height: 20px;
+  display: block;
+}
 
+.message_buttons button { display: none; }
 
 
 /* Photo Gallery */
@@ -124,6 +129,41 @@ blockquote blockquote { border-right: none; }
 
 .album_container { margin-bottom: 28px; }
 .album_container img { padding: 5px; border: 1px solid #cccccc; width: 190px; }
+
+.album_caption, .img_caption {
+  font-family: Helvetica, Arial;
+  color: #ffffff;
+  position: relative;
+  background-image: url('/img/trans_blacker.png');
+  padding-left: 10px;
+  padding-right: 10px;
+  text-shadow: #000000 1px 1px 0;
+}
+
+.album_caption {
+  margin-left: 9px;
+  width: 182px;
+  margin-top: -40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  text-align: left;
+  display: block;
+}
+
+.img_caption {
+  margin-left: 11px;
+  width: 117px;
+  margin-top: -128px;
+  height: 118px;
+  line-height: 16px;
+  font-size: 12px;
+  text-align: left;
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 
 
 /* image lists */

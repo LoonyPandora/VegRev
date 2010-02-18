@@ -4,8 +4,11 @@
 
 <div class="album_container column four text_center <%=$alt%>">
     <a href="/gallery/<%= $VR::db->{$sth}{'board_id'} %>">
-    <img src="/img/placeholder.png" /><br />
-    <%= $VR::db->{$sth}{'board_title'} %><br />
+      <img src="/img/placeholder2.jpg" />
+      <span class="album_caption">
+        <%= $VR::db->{$sth}{'board_title'} %> 
+      </span>    
     </a>
+    
 </div>
 

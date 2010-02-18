@@ -1,13 +1,10 @@
 <h1>Photo Gallery</h1>
 <h2>You want pictures? we got 'em</h2>
-
+<hr />
 
 <% if ($VR::sth{'gallery'}) { %> 
     <div class="column twelve">
-      <div class="col_header">
-        <div class="column padded six flush">Photos</div>
-      </div>
-      <br />
+      
   <% $partial::x = 0; while ($VR::sth{'gallery'}->fetchrow_arrayref) { %>
     <%= $self->render_partial('album_list', {sth => 'gallery'}); %>
   <% } %>

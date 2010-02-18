@@ -3,5 +3,11 @@
 
 
 <div class="photo_container column three text_center <%=$alt%>">
-   <%= &VR::Helper::link_photo_to_thread($VR::db->{$sth}{'board_id'}, $VR::db->{$sth}{'thread_id'}, $VR::db->{$sth}{'thread_subject'}, $VR::db->{$sth}{'thread_first_message_id'}); %>
+    <a href="/gallery/<%= $VR::db->{$sth}{'board_id'} %>/<%= &VR::Helper::clean_thread_id($VR::db->{$sth}{'thread_id'}, $VR::db->{$sth}{'thread_subject'}); %>">
+      <img src="/img/placeholder2.jpg" />
+      <span class="img_caption" style="display: none;">
+        <p style="height: 85px;" class="big"><%= $VR::db->{$sth}{'thread_subject'} %></p>
+        <p class="small"><%= $VR::db->{$sth}{'start_display_name'} %><br /><%= $VR::db->{$sth}{'thread_messages'} %> comments</p>
+      </span>    
+    </a> 
 </div>
