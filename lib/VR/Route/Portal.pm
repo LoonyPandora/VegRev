@@ -14,7 +14,7 @@ get '/' => sub {
 	my (undef, undef, undef, $day_plusthree, $month_plusthree, undef)  = gmtime ($VR::TIMESTAMP + 259200);
   $month_today++; $month_plusone++; $month_plustwo++; $month_plusthree++;
   
-  &VR::Model::Portal::load_recent_posts('25');
+  &VR::Model::Portal::load_recent_posts('20');
   &VR::Model::Portal::load_recent_photos('gallery', '10', 'comments');
 
   &VR::Model::Portal::load_birthdays($day_today, $month_today, 'bday_today');
