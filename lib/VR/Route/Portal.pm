@@ -8,7 +8,6 @@
 
 
 get '/' => sub {
-
   my (undef, undef, undef, $day_today, $month_today, undef)          = gmtime ($VR::TIMESTAMP);
 	my (undef, undef, undef, $day_plusone, $month_plusone, undef)      = gmtime ($VR::TIMESTAMP + 86400);
 	my (undef, undef, undef, $day_plustwo, $month_plustwo, undef)      = gmtime ($VR::TIMESTAMP + 172800);
@@ -24,8 +23,15 @@ get '/' => sub {
   &VR::Model::Portal::load_birthdays($day_plusthree, $month_plusthree, 'bday_three_days');
 
   &VR::Model::Portal::get_stats;
+
+  &VR::Model::Portal::get_online_users;
+  &VR::Model::Portal::get_online_user_avatars;
+  
+  &VR::Model::Portal::load_news('3');
+
   
   template 'portal';
 };
+
 
 1;

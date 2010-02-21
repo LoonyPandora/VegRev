@@ -22,8 +22,7 @@ sub load_memberlist {
 	my $sql = q|
 SELECT users.user_name, users.display_name, users.avatar, users.user_post_num, users.reg_time, users.last_online, users.user_post_num,  user_groups.group_color, user_groups.group_title
 FROM users
-LEFT JOIN user_groups AS user_groups ON user_groups.group_id = (CASE WHEN users.group_id = 0 OR users.group_id IS NULL THEN (SELECT group_id FROM user_groups WHERE user_groups.posts_required <= users.user_post_num ORDER BY user_groups.posts_required DESC LIMIT 1) ELSE users.group_id
-END)
+LEFT JOIN user_groups AS user_groups ON (CASE WHEN users.group_id = 0 OR users.group_id IS NULL THEN (SELECT group_id FROM user_groups WHERE user_groups.posts_required <= users.user_post_num ORDER BY user_groups.posts_required DESC LIMIT 1) ELSE users.group_id END) = user_groups.group_id
 WHERE users.user_deleted != '1'
 |;
 

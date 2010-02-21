@@ -12,11 +12,8 @@
 <link href="/css/popup.css" rel="stylesheet" type="text/css" />
 <link href="/css/caption.css" rel="stylesheet" type="text/css" />
 	
-	
 <script type="text/javascript" src="/js/jquery-1.4.1.min.js"></script>	
 <script type="text/javascript" src="/js/jquery.easing.js"></script>	
-<script type="text/javascript" src="/js/jquery.jcaption.js"></script>	
-
 
 <script type="text/javascript" src="/js/punymce/puny_mce_src.js?<%=$VR::TIMESTAMP%>"></script>
 <script type="text/javascript" src="/js/custom.js?<%=$VR::TIMESTAMP%>"></script>

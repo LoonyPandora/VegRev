@@ -88,8 +88,7 @@ sub load_photo {
 SELECT messages.message_id, messages.thread_id, messages.message_ip, messages.message_time, messages.edited_time, messages.editor_id, messages.message_body, messages.attachment, users.user_name, users.user_id, users.display_name, users.avatar, users.signature, users.user_post_num, users.usertext, user_groups.group_color, user_groups.group_image
 FROM messages
 LEFT JOIN users AS users ON users.user_id = messages.user_id
-LEFT JOIN user_groups AS user_groups ON user_groups.group_id = (CASE WHEN users.group_id = 0 OR users.group_id IS NULL THEN (SELECT group_id FROM user_groups WHERE user_groups.posts_required <= users.user_post_num ORDER BY user_groups.posts_required DESC LIMIT 1) ELSE users.group_id
-END)
+LEFT JOIN user_groups AS user_groups ON (CASE WHEN users.group_id = 0 OR users.group_id IS NULL THEN (SELECT group_id FROM user_groups WHERE user_groups.posts_required <= users.user_post_num ORDER BY user_groups.posts_required DESC LIMIT 1) ELSE users.group_id END) = user_groups.group_id
 WHERE messages.thread_id = ?
 AND messages.message_deleted != '1'
 LIMIT ?, ?
