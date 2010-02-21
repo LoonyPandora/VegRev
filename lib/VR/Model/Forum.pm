@@ -242,7 +242,6 @@ sub post_reply {
 }
 
 
-
 sub update_totals {
   my ($timestamp, $board_id, $thread_id, $user_id) = @_;
 

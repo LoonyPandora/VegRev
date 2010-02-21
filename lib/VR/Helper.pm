@@ -220,7 +220,7 @@ sub truncate {
 }
 
 
-# link_to_thread('thread_id', 'subject');
+# link_to_thread('board_id' 'thread_id', 'subject');
 sub link_to_thread {
   my ($board, $thread_id, $subject, $truncate) = @_;
   
@@ -285,8 +285,7 @@ sub format_dob {
 
 
 
-
-# Deprecated
+# Only used where there is no overlay of title etc
 sub link_photo_to_thread {
   my ($board, $thread_id, $subject, $picture_id, $truncate) = @_;
 

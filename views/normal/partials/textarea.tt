@@ -86,17 +86,16 @@
 <script type="text/javascript">
 var message = new punymce.Editor({
 	id : 'message',
-	toolbar : 'bold',
-	toolbar_two : 'happy',
 	plugins : 'BBCode,Image,Emoticons,Link,Protect,TextColor,EditSource,Safari2x',
-	min_width : 100,
+	min_width : 558,
+	max_width : 558,
+	min_height: 185,
 	width : 558,
-	resize : false,
+	resize : true,
 	entities : 'numeric',
 	emoticons : {
 		auto_convert : 1
-	},
-	editor_css : ''
+	}
 });
 </script>
 

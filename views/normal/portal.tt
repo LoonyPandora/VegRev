@@ -1,0 +1,147 @@
+<h1>Hey, LoonyPandora.</h1>
+<h2>Welcome back. You'll never leave.</h2>
+
+
+<!-- This is the portal -->
+<div class="column seven">
+  <div class="col_header">
+    <div class="column padded flush">Latest Posts</div>
+  </div>  
+  <div class="column padded flush">
+    <ul class="latest_posts small">
+<% if ($VR::sth{'recent'}) { %><% while ($VR::sth{'recent'}->fetchrow_arrayref) { %>
+  <li><%= &VR::Helper::link_to_thread($VR::db->{'recent'}{'board_id'}, $VR::db->{'recent'}{'thread_id'}, $VR::db->{'recent'}{'thread_subject'}); %> <span class="faded xsmall"><%= &VR::Helper::format_time($VR::db->{recent}{'thread_last_message_time'}, 'semi'); %></span></li><% } %><% } %>
+    </ul>
+  </div>
+</div>
+
+<div class="column five flush">
+  <div class="col_header">
+    <div class="column padded flush">Currently Online (888)</div>
+  </div>  
+  <div class="column padded small faded" style="margin-top: 3px;"><a href="http://www.vegetablerevolution.co.uk/user/admin" class="usernamelink" style="color: #ff2222;">LoonyPandora</a>, <a href="http://www.vegetablerevolution.co.uk/user/girlpants" class="usernamelink" style="color: #2222ff;">Darren</a>, <a href="http://www.vegetablerevolution.co.uk/user/scarlet" class="usernamelink">Annie</a>, <a href="http://www.vegetablerevolution.co.uk/user/The_Mogtrix" class="usernamelink">Paula</a>, <a href="http://www.vegetablerevolution.co.uk/user/Paddy_Irishman" class="usernamelink" style="color: #666666;">Dante Hicks</a>, <a href="http://www.vegetablerevolution.co.uk/user/Smashed_Strawberry" class="usernamelink">Rayanne Graff</a>, <a href="http://www.vegetablerevolution.co.uk/user/Enigmatic_Shrew" class="usernamelink" style="color: #666666;">Nils Bjurman</a>,<a href="http://www.vegetablerevolution.co.uk/user/admin" class="usernamelink" style="color: #ff2222;">LoonyPandora</a>, <a href="http://www.vegetablerevolution.co.uk/user/girlpants" class="usernamelink" style="color: #2222ff;">Darren</a>, <a href="http://www.vegetablerevolution.co.uk/user/scarlet" class="usernamelink">Annie</a>, <a href="http://www.vegetablerevolution.co.uk/user/The_Mogtrix" class="usernamelink">Paula</a>, <a href="http://www.vegetablerevolution.co.uk/user/Paddy_Irishman" class="usernamelink" style="color: #666666;">Dante Hicks</a>, <a href="http://www.vegetablerevolution.co.uk/user/Smashed_Strawberry" class="usernamelink">Rayanne Graff</a>, <a href="http://www.vegetablerevolution.co.uk/user/Enigmatic_Shrew" class="usernamelink" style="color: #666666;">Nils Bjurman</a>, <a href="http://www.vegetablerevolution.co.uk/user/The_Mogtrix" class="usernamelink">Paula</a>, <a href="http://www.vegetablerevolution.co.uk/user/Paddy_Irishman" class="usernamelink" style="color: #666666;">Dante Hicks</a>, <a href="http://www.vegetablerevolution.co.uk/user/Smashed_Strawberry" class="usernamelink">Rayanne Graff</a>, 
+and 4 guests.
+  </div>
+  <br class="clear" />
+  <ul class="avatar_imagelist clearfix">
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+    <li class="column flush"><img src="/img/placeholder.png" /></li>
+  </ul>
+
+</div>
+
+<div class="column five flush">
+  <div class="col_header padded">
+    <div class="column padded flush">Latest News</div>
+  </div>
+  
+  <div class="column five flush" style="margin: 5px 0 5px 0;">
+    <div class="column one padded flush ">
+      <img src="/img/placeholder.png" width="30" />
+    </div>
+    <div class="column three flush">
+      <h3><a>Headline this is a long!</a></h3>
+      <p class="small faded">teaser line...</p>
+    </div>
+  </div>
+
+  <div class="column five flush" style="margin: 5px 0 5px 0;">
+    <div class="column one padded flush ">
+      <img src="/img/placeholder.png" width="30" />
+    </div>
+    <div class="column three flush">
+      <h3><a>More news items!</a></h3>
+      <p class="small faded">teaser line...</p>
+    </div>
+  </div>
+
+  <div class="column five flush" style="margin: 5px 0 10px 0;">
+    <div class="column one padded flush ">
+      <img src="/img/placeholder.png" width="30" />
+    </div>
+    <div class="column four flush">
+      <h3><a>Very interesting shit here...!</a></h3>
+      <p class="small faded">teaser line...</p>
+    </div>
+  </div>
+</div>
+
+<div class="column five flush">
+  <div class="col_header padded">
+    <div class="column padded flush">Latest Photos</div>
+  </div>
+  <!-- Latest commented pictures -->
+  <ul class="big_imagelist clearfix">
+<% if ($VR::sth{'recent_photo_comments'}) { %><% while ($VR::sth{'recent_photo_comments'}->fetchrow_arrayref) { %>
+    <li class="column flush"><%= &VR::Helper::link_photo_to_thread($VR::db->{'recent_photo_comments'}{'board_id'}, $VR::db->{'recent_photo_comments'}{'thread_id'}, $VR::db->{'recent_photo_comments'}{'thread_subject'}, $VR::db->{'recent_photo_comments'}{'thread_first_message_id'}); %></li><% } %><% } %>
+  </ul>
+</div>
+
+
+<div class="column five flush">
+  <div class="col_header">
+    <div class="column padded flush">Birthdays</div>
+  </div>  
+  <div class="column padded">
+    <ul class="latest_posts small">
+      <li class="faded">Today: <% if ($VR::sth{'bday_today'}) { %><% while ($VR::sth{'bday_today'}->fetchrow_arrayref) { %><%= &VR::Helper::user_link($VR::db->{'bday_today'}{'user_name'}, $VR::db->{'bday_today'}{'display_name'}, $VR::db->{'bday_today'}{'group_color'}); %>, <% } %><% } %></li>
+      <li class="faded">Tomorrow: <% if ($VR::sth{'bday_tomorrow'}) { %><% while ($VR::sth{'bday_tomorrow'}->fetchrow_arrayref) { %><%= &VR::Helper::user_link($VR::db->{'bday_tomorrow'}{'user_name'}, $VR::db->{'bday_tomorrow'}{'display_name'}, $VR::db->{'bday_tomorrow'}{'group_color'}); %>, <% } %><% } %></li>
+      <li class="faded">Two Days: <% if ($VR::sth{'bday_two_days'}) { %><% while ($VR::sth{'bday_two_days'}->fetchrow_arrayref) { %><%= &VR::Helper::user_link($VR::db->{'bday_two_days'}{'user_name'}, $VR::db->{'bday_two_days'}{'display_name'}, $VR::db->{'bday_two_days'}{'group_color'}); %>, <% } %><% } %></li>
+      <li class="faded">Three Days: <% if ($VR::sth{'bday_three_days'}) { %><% while ($VR::sth{'bday_three_days'}->fetchrow_arrayref) { %><%= &VR::Helper::user_link($VR::db->{'bday_three_days'}{'user_name'}, $VR::db->{'bday_three_days'}{'display_name'}, $VR::db->{'bday_three_days'}{'group_color'}); %>, <% } %><% } %></li>
+    </ul>
+    <br />
+  </div>
+</div>
+  
+
+
+<div class="column five flush">
+  <div class="col_header">
+    <div class="column padded flush">Statistics</div>
+  </div>
+
+  <div class="column padded flush" style="margin-top: 5px;">
+    <div class="column text_center" style="width: 64px; background-color: #eeeeee; padding: 5px; margin-bottom: 15px;">
+      <h4>803,445</h4>
+      <p class="small faded">Messages</p>
+    </div>
+
+    <div class="column text_center" style="width: 63px; background-color: #eeeeee; padding: 5px; margin-bottom: 15px;">
+      <h4>38,766</h4>
+      <p class="small faded">Threads</p>
+    </div>
+
+    <div class="column text_center flush" style="width: 63px; background-color: #eeeeee; padding: 5px; margin-bottom: 15px;">
+      <h4>6,188</h4>
+      <p class="small faded">Photos</p>
+    </div>
+ 
+    <div class="column text_center" style="width: 63px; background-color: #eeeeee; padding: 5px; margin-bottom: 15px;">
+      <h4>2,058</h4>
+      <p class="small faded">Members</p>
+    </div>
+  
+    <div class="column text_center" style="width: 63px; background-color: #eeeeee; padding: 5px; margin-bottom: 15px;">
+      <h4>17</h4>
+      <p class="small faded">Most online</p>
+    </div>
+  </div>
+
+</div>
+
+
+

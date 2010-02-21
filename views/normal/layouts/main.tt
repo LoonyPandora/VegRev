@@ -40,7 +40,7 @@
 <div id="everything" class="clearfix">
   <div class="headercontainer">
     <div class="column five logo_container">
-      <a href="/forum"><img src="/img/vr_logo.png" /></a>
+      <a href="/"><img src="/img/vr_logo.png" /></a>
     </div>
     <div class="column flush user_badge">
       <div class="column right">

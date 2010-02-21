@@ -167,11 +167,22 @@ blockquote blockquote { border-right: none; }
 
 
 /* image lists */
-ul.small_imagelist, ul.big_imagelist, .xbig_imagelist img    { margin: 7px 0 0 9px; }
-.small_imagelist li, .big_imagelist li, .xbig_imagelist img  { padding: 0 7px 10px 0; }
+ul.small_imagelist, ul.big_imagelist, ul.xbig_imagelist img  { margin: 7px 0 0 9px; }
+.small_imagelist li, .big_imagelist li, .xbig_imagelist li   { padding: 0 7px 10px 0; }
 .small_imagelist img  { max-width: 30px; max-height: 30px; }
+.med_imagelist img    { max-width: 35px; max-height: 35px; }
 .big_imagelist img    { max-width: 45px; max-height: 45px; }
 .xbig_imagelist img   { max-width: 62px; max-height: 62px; }
+
+.avatar_imagelist     { margin: 7px 0 5px 9px;  }
+.avatar_imagelist li  { padding: 0 2px 2px 0; }
+.avatar_imagelist img { max-width: 30px; max-height: 30px; }
+
+
+
+/* regular lists */
+.latest_posts li { margin-top: 3px; }
+.latest_posts span { display: block;}
 
 
 

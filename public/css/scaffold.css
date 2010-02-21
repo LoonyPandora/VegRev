@@ -138,6 +138,9 @@ a { text-decoration: none; font-weight: bold; }
 
 .one_padded { width: 60px; }
 
+.two_half { width: 130px; }
+
+
 hr {
   border-style: dashed;
   border-width: 1px 0 0;

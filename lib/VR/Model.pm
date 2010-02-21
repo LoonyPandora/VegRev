@@ -20,6 +20,7 @@ use VR::Model::Forum;
 use VR::Model::Gallery;
 use VR::Model::Memberlist;
 use VR::Model::Message;
+use VR::Model::Portal;
 use VR::Model::Search;
 use VR::Model::Session qw(load_viewer);
 use VR::Model::Shoutbox;
