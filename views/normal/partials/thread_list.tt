@@ -3,7 +3,7 @@
 
       <div class="clearfix thread_list <%= $alt %>">
         <div class="column padded one flush">
-          <img src="/img/placeholder.png" width="30"/>
+          <img src="/img/placeholder.png" width="30" />
         </div>
       
         <div class="column seven">

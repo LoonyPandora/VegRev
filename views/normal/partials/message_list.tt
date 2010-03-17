@@ -10,7 +10,7 @@
         </div>
     
         <div class="column four flush text_right small">
-          <span class="message_buttons"><button class="small one" onclick="javascript:insert_quote('<%= $VR::db->{$sth}{'message_id'} %>','<%= $VR::db->{'thread'}{'thread_id'} %>','<%= $VR::db->{$sth}{'user_name'} %>','<%= $VR::db->{$sth}{'display_name'} %>','<%= $VR::db->{$sth}{'message_time'} %>');">Quote</button> <button class="small one">Edit</button> <button class="small one">Split</button> <button class="small one">Delete</button></span>
+          <span class="message_buttons"><button class="small one" id="quote_button_<%= $VR::db->{$sth}{'message_id'} %>" onclick="javascript:add_quote('<%= $VR::db->{$sth}{'message_id'} %>', '<%= $VR::db->{$sth}{'avatar'} %>');">Quote</button> <button class="small one">Edit</button> <button class="small one">Split</button> <button class="small one">Delete</button></span>
           <p class="small"><%= &VR::Helper::format_time($VR::db->{$sth}{'message_time'}, 'full'); %></p>
         </div>
       </div>
@@ -19,7 +19,7 @@
         <p class="small faded"><%= $VR::db->{$sth}{'usertext'} %></p>
       </div>
       <div>
-        <div class="column flush message_bubble" id="<%= $VR::db->{$sth}{'message_id'} %>"><%=  &VR::Helper::do_yabbc(\$VR::db->{$sth}{'message_body'}); %></div>
+        <div class="column flush message_bubble" id="<%= $VR::db->{$sth}{'message_id'} %>"><%= &VR::Helper::do_yabbc(\$VR::db->{$sth}{'message_body'}); %></div>
         <div class="signature text_center">
           <%= &VR::Helper::do_yabbc(\$VR::db->{$sth}{'signature'}); %>
         </div>

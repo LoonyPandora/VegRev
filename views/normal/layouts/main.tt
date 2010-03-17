@@ -81,8 +81,13 @@
       <div class="footer_popup_container" id="<%= lc($button) %>">
         <div class="footer_popup_background">
           <form method="post" action="<%= $VR::tmpl{'current_route'} %>">
+            <label class="column two tight">Subject: </label><h2><%= $VR::db->{'thread'}{'thread_subject'} %></h2>
+            
             <%= $self->render_partial('textarea'); %>
             <hr class="clear" />
+            <div id="quote_container"></div>
+            <hr class="clear" />
+
             <div class="footer_popup_buttonbar text_right">
               <button class="big" onclick="javascript:$('#<%= lc($button) %>').hide();" type="reset"><img src="/img/buttons/cancel.png" /> Cancel</button>
               <button class="big"><img src="/img/buttons/reply_to_thread.png" /> Reply</button>
@@ -144,12 +149,12 @@
 <script type="text/javascript">
 $(document).ready(function(){
   
-
-  $(".message_container").hover(function() {
-  	  $(this).find('.message_buttons button').animate({opacity: "show"}, "fast");
-  	}, function() {
-  	  $(this).find('.message_buttons button').animate({opacity: "hide"}, "fast");
-  	});
+  // Disabled for the time being.
+  // $(".message_container").hover(function() {
+  //    $(this).find('.message_buttons button').animate({opacity: "show"}, "fast");
+  //  }, function() {
+  //    $(this).find('.message_buttons button').animate({opacity: "hide"}, "fast");
+  //  });
 
 
   $(".photo_container").hover(function() {

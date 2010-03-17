@@ -79,21 +79,6 @@ function puny_text_size(size) {
 }
 
 
-function insert_quote(message_id, thread_id, user_name, display_name, message_time) {
-    
-  var container_id = '#'+message_id;
-  
-  
-  // HACK HACK HACK - we have to quickly show and hide the punymce area
-  // Otherwise we can't insert anything...
-  show_panel('reply_to_thread');
-//  show_panel('reply_to_thread');
-
-  message.selection.setContent('<blockquote><p class="quotemeta xsmall" title="'+display_name+'|'+thread_id+'|'+message_id+'|'+message_time+'">Quote: <a href="/forum/board/'+thread_id+'/post/'+message_id+'">'+display_name+'</a></p>'+$(container_id).html()+'</blockquote><br />');
-
-  focus_editor();
-}
-
 function insert_smiley(code, name) {
   focus_editor();
 
@@ -128,6 +113,24 @@ function toggle_quotes(id) {
     $('#'+id).animate({height: "100%"}, 100); // I know this doesn't work, but hey.
   }
 
+}
+
+
+function add_quote(id, avatar) {
+  $("#quote_container").append('<label id="quote_label_'+id+'" class="column two tight">Quote:</label><div id="quote_'+id+'"><div class="column one flush"><img src="http://www.vegetablerevolution.co.uk/uploads/'+avatar+'" width="30" height="30" /></div><div class="column eight padded flush small" style="height: 30px; line-height: 30px; background-color: #eeeeee; overflow: hidden;">'+ $("#"+id).text() +'</div><div class="column flush padded" style="width: 20px; height: 30px; margin-bottom: 5px;"><a href="#" onclick="del_quote('+id+'); return false;"><img src="/img/silk/delete.png" style="margin-top: 5px;" /></a></div><input type="hidden" id="quote_message" name="quote_message" value="'+ id +'" /></div>');
+
+  $("#quote_button_"+id).text("Quoted!");
+  $("#quote_button_"+id).attr("disabled", "true");
+
+}
+
+
+function del_quote(id) {
+  $("#quote_label_"+id).remove();
+  $("#quote_"+id).remove();
+
+  $("#quote_button_"+id).text("Quote");
+  $("#quote_button_"+id).attr("disabled", "");
 }
 
 function add_poll_option() {

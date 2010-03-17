@@ -120,8 +120,6 @@ blockquote blockquote { border-right: none; }
   display: block;
 }
 
-.message_buttons button { display: none; }
-
 
 /* Photo Gallery */
 .photo_container { margin-bottom: 14px; }

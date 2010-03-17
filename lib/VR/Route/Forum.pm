@@ -203,10 +203,10 @@ post r('/forum/(\w+)/?([0-9a-zA-Z-]+-[0-9]{9,10})/?') => sub {
   &VR::Model::Session::load_board_permissions($board);
 
   if ($VR::viewer{'can_reply_threads'}) {
-  	&VR::Model::Forum::post_reply($VR::viewer{'user_id'}, $board, $thread_id, $VR::viewer{'ip_address'}, $VR::TIMESTAMP, params->{'attachment'}, $message, $thread);
+  	&VR::Model::Forum::post_reply($VR::viewer{'user_id'}, $board, $thread_id, $VR::viewer{'ip_address'}, $VR::TIMESTAMP, params->{'attachment'}, $message, $thread, params->{'quote_message'});
   }
   
-  &Dancer::Helpers::redirect ("/forum/$board/$thread", 301);
+  &Dancer::Helpers::redirect ("/forum/$board/$thread/new", 301);
 };
 
 

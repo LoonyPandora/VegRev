@@ -112,6 +112,17 @@ AND messages.message_deleted != '1'
 LIMIT ?, ?
 |;
 
+# message_id {
+# message => quote
+# message => quote
+# message2 => quote
+# }
+#
+#
+# 
+# 
+# 
+ 
   my @bind = (
     $thread_id,
     $offset,
@@ -224,11 +235,23 @@ sub post_thread {
 }
 
 sub post_reply {
-  my ($user_id, $board_id, $thread_id, $message_ip, $timestamp, $attachment, $message_body, $thread) = @_;
-
+  my ($user_id, $board_id, $thread_id, $message_ip, $timestamp, $attachment, $message_body, $thread, $quote) = @_;
+  
   $VR::dbh->begin_work;
   eval {
     &VR::Model::Forum::write_message($user_id, $thread_id, $message_ip, $timestamp, $attachment, $message_body);
+    my $message_id = $VR::dbh->{'mysql_insertid'};
+    
+    # is there a better way to do this?
+    if ($quote =~ /ARRAY/) {
+      foreach my $quote_id (@{$quote}) {
+        &VR::Model::Forum::write_quotes($message_id, $quote_id);
+      }
+    } else {
+      &VR::Model::Forum::write_quotes($message_id, $quote);
+    }
+
+    
     &VR::Model::Forum::update_totals($timestamp, $board_id, $thread_id, $user_id);
     &VR::Model::Session::update_session($user_id, $timestamp, $message_ip);
 
@@ -307,6 +330,21 @@ WHERE boards.board_id = ?
 	&VR::Util::write_db(\$sql, \@bind);
 	&VR::Util::write_db(\$sql2, \@bind2);
 }
+
+sub write_quotes {
+  my ($message_id, $quote_id) = @_;
+
+	my $sql = qq|
+INSERT INTO message_quotes (message_id, quote_id)
+VALUES (?, ?);
+|;
+
+	my @bind = ($message_id, $quote_id);
+
+  &VR::Util::write_db(\$sql, \@bind);
+}
+
+
 
 
 1;

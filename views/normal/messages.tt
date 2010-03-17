@@ -11,11 +11,3 @@
     <%= $self->render_partial('message_list', {sth => 'messages'}); %>
   <% } %>
 <% } %>
-
-
-<script type="text/javascript">
-
-//  $('.quoted_message').html($('#quote_799538').attr('cite'));
-
-//  alert($('#quote_799538').attr('cite'));
-</script>
