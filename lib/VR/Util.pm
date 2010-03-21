@@ -52,6 +52,16 @@ sub fetch_db {
 	$VR::QUERY_COUNT++;
 }
 
+# Issues a fetchall_hashref $key is an array
+sub fetchall_db {
+  my ($sql, $bind, $return, $key) = @_;
+  
+  my $query = $VR::dbh->prepare(${$sql});
+  $query->execute(@{$bind});
+  ${$return} = $query->fetchall_hashref($key);
+	$VR::QUERY_COUNT++;  
+}
+
 sub read_db {
   my ($sql, $bind, $sth, $return) = @_;
   

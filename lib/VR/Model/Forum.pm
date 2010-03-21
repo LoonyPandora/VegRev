@@ -99,6 +99,30 @@ LIMIT 1
   &VR::Util::read_db(\$sql, \@bind, \$VR::sth{'threads'}, \$VR::db->{'threads'});  
 }
 
+sub load_message_quotes {
+  my ($thread_id, $offset, $limit) = @_;
+
+	my $sql = q|
+SELECT message_quotes.message_id, users.avatar, users.display_name, quoted_message.message_id AS quoted_message_id, quoted_message.message_body, quoted_message.message_time
+FROM message_quotes
+LEFT JOIN messages AS quoted_message ON message_quotes.quote_id = quoted_message.message_id
+LEFT JOIN users AS users ON users.user_id = quoted_message.user_id 
+WHERE message_quotes.message_id IN (
+  SELECT message_id
+  FROM messages
+  WHERE messages.thread_id = ?
+  AND messages.message_deleted != '1'
+)
+|;
+
+  my @bind = (
+    $thread_id,
+  );
+
+  &VR::Util::fetchall_db(\$sql, \@bind, \$VR::db->{'quotes'}, ['message_id', 'quoted_message_id']);
+}
+
+
 sub load_messages {
   my ($thread_id, $offset, $limit) = @_;
 
@@ -111,17 +135,6 @@ WHERE messages.thread_id = ?
 AND messages.message_deleted != '1'
 LIMIT ?, ?
 |;
-
-# message_id {
-# message => quote
-# message => quote
-# message2 => quote
-# }
-#
-#
-# 
-# 
-# 
  
   my @bind = (
     $thread_id,
@@ -243,15 +256,16 @@ sub post_reply {
     my $message_id = $VR::dbh->{'mysql_insertid'};
     
     # is there a better way to do this?
-    if ($quote =~ /ARRAY/) {
-      foreach my $quote_id (@{$quote}) {
-        &VR::Model::Forum::write_quotes($message_id, $quote_id);
+    if ($quote) {
+      if ($quote =~ /ARRAY/) {
+        foreach my $quote_id (@{$quote}) {
+          &VR::Model::Forum::write_quotes($message_id, $quote_id);
+        }
+      } else {
+        &VR::Model::Forum::write_quotes($message_id, $quote);
       }
-    } else {
-      &VR::Model::Forum::write_quotes($message_id, $quote);
     }
 
-    
     &VR::Model::Forum::update_totals($timestamp, $board_id, $thread_id, $user_id);
     &VR::Model::Session::update_session($user_id, $timestamp, $message_ip);
 

@@ -19,7 +19,23 @@
         <p class="small faded"><%= $VR::db->{$sth}{'usertext'} %></p>
       </div>
       <div>
-        <div class="column flush message_bubble" id="<%= $VR::db->{$sth}{'message_id'} %>"><%= &VR::Helper::do_yabbc(\$VR::db->{$sth}{'message_body'}); %></div>
+        <div class="column flush message_bubble" id="<%= $VR::db->{$sth}{'message_id'} %>">
+        <% if ($VR::db->{'quotes'}->{$VR::db->{$sth}{'message_id'}}) { %>
+          <% while ( my ($key, $value) = each(%{$VR::db->{'quotes'}->{$VR::db->{$sth}{'message_id'}}}) ) { %>
+            <div class="message_quotes" style="margin-bottom: 3px; height: 30px;">
+              <div class="column one flush">
+                <img src="http://www.vegetablerevolution.co.uk/uploads/<%= $VR::db->{'quotes'}->{$VR::db->{$sth}{'message_id'}}->{$key}->{'avatar'} %>" style="max-height: 30px;" alt="<%= $VR::db->{$sth}{'display_name'} %> <%= $VR::db->{$sth}{'usertext'} %>" title="<%= $VR::db->{$sth}{'display_name'} %> <%= $VR::db->{$sth}{'usertext'} %>" />
+              </div>
+              <div class="column padded flush small" style="height: 30px; line-height: 30px; background-color: #fefefe; overflow: hidden; width: 495px;">
+                <%= &VR::Helper::do_yabbc(\$VR::db->{'quotes'}->{$VR::db->{$sth}{'message_id'}}->{$key}->{'message_body'}); %>
+              </div>
+            </div>
+          <% } %>
+          <br />
+        <% } %>
+
+          <%= &VR::Helper::do_yabbc(\$VR::db->{$sth}{'message_body'}); %>
+        </div>
         <div class="signature text_center">
           <%= &VR::Helper::do_yabbc(\$VR::db->{$sth}{'signature'}); %>
         </div>

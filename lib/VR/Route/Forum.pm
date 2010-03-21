@@ -116,6 +116,7 @@ get r('/forum/(\w+)/?([0-9a-zA-Z-]+-[0-9]{9,10})/(\d{1,8})/?') => sub {
   &VR::Model::Session::load_board_permissions($board);
   
   if ($VR::viewer{'can_view_threads'}) {
+    &VR::Model::Forum::load_message_quotes($thread_id, $offset, '15');
   	&VR::Model::Forum::load_messages($thread_id, $offset, '15');
   	&VR::Model::Forum::write_thread_viewer($thread_id, $VR::viewer{'user_id'}, $VR::TIMESTAMP);
   	&VR::Model::Forum::load_thread_viewers($thread_id);
