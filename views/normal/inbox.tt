@@ -1,0 +1,25 @@
+<h1>Private Messages</h1>
+<h2>Stuff you can't say in public</h2>
+
+    <div class="column two">
+      <div class="col_header">
+        <div class="column padded flush two">Folders</div>
+      </div>
+      <ul class="column padded flush two">
+        <li class="active" ><a href="http://www.vegetablerevolution.co.uk/messages/">Inbox</a></li>
+        <li class="last" ><a href="http://www.vegetablerevolution.co.uk/messages/sent/">Sent</a></li>
+        <!--li class="last"><a href="http://www.vegetablerevolution.co.uk/messages/saved/">Saved</a></li-->
+      </ul>
+    </div>
+    
+    <div class="column ten flush">
+      <div class="col_header">
+        <div class="column padded flush six">Conversations</div>
+        <div class="column one text_center">Posts</div>
+        <div class="column two">Last Message</div>
+      </div>
+    
+      <% $partial::x = 0; while ($VR::sth{'priv_messages'}->fetchrow_arrayref) { %>
+        <%= $self->render_partial('priv_thread_list', {sth => 'priv_messages'}); %>
+      <% } %>
+    </div>
