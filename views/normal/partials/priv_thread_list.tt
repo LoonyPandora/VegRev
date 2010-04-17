@@ -1,0 +1,19 @@
+<% if ($x % 2 == 1) { $alt = 'alt'; } else { $alt = ''; } %>
+<% $x++; %>
+
+      <div class="clearfix thread_list <%= $alt %>">
+        <div class="column padded one flush">
+          <img src="/img/placeholder.png" width="30" />
+        </div>
+      
+        <div class="column five">
+          <h3><%= &VR::Helper::link_to_thread($VR::db->{'board'}{'board_id'}, $VR::db->{$sth}{'thread_id'}, $VR::db->{$sth}{'pm_subject'}); %></h3>
+          <p class="small faded ">with: <%= &VR::Helper::user_link($VR::db->{$sth}{'sender_user_name'}, $VR::db->{$sth}{'sender_display_name'}, $VR::db->{$sth}{'sender_group_color'}); %></p>
+        </div>
+
+        <div class="column one text_center big_count faded"><%= &VR::Helper::format_numbers($VR::db->{$sth}{'pm_total_messages'}); %></div>
+
+        <div class="column three flush">
+          <p class="last_updated small"><%= &VR::Helper::format_time($VR::db->{$sth}{'pm_last_msg_time'}); %><br />by: <%= &VR::Helper::user_link($VR::db->{$sth}{'pm_last_poster_id'}, $VR::db->{$sth}{'last_display_name'}, $VR::db->{$sth}{'last_group_color'}); %></p>
+        </div>
+      </div>
