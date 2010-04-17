@@ -11,6 +11,6 @@
 use lib "./lib";
 
 use Dancer;
-use VR;
+load_app 'VR';
 
 dance;
