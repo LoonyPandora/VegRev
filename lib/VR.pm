@@ -10,12 +10,21 @@ use common::sense;
 use Dancer::Plugin::Database;
 use Dancer::Plugin::Params::Normalization;
 
+# Extra Routes
+use VR::Route;
+use VR::Route::Forum;
+use VR::Route::User;
 
-load (
-  'VR/Route.pm',
-  'VR/Route/Forum.pm',
-  'VR/Route/User.pm',
-);
+
+before sub {
+  # We are already in transactional mode
+};
+
+after sub {
+  # Make sure we commit any open transactions. The entire request depends on it.
+  eval      { database->commit; };
+  if ($@)   { die "Committing Transaction Failed: $@"; }
+};
 
 
 true;
