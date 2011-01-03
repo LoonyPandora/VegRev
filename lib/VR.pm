@@ -1,4 +1,4 @@
-package VegRev;
+package VR;
 use Dancer ':syntax';
 
 our $VERSION = '0.1';
@@ -11,8 +11,11 @@ use Dancer::Plugin::Database;
 use Dancer::Plugin::Params::Normalization;
 
 
-get '/' => sub {
-    template 'index';
-};
+load (
+  'VR/Route.pm',
+  'VR/Route/Forum.pm',
+  'VR/Route/User.pm',
+);
+
 
 true;
