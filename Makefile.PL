@@ -4,7 +4,7 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     NAME                => 'VegRev',
-    AUTHOR              => q{YOUR NAME <youremail@example.com>},
+    AUTHOR              => q{James Aitken <jaitken@cpan.org>},
     VERSION_FROM        => 'lib/VegRev.pm',
     ABSTRACT            => 'YOUR APPLICATION ABSTRACT',
     ($ExtUtils::MakeMaker::VERSION >= 6.3002
