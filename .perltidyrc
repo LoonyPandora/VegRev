@@ -1,0 +1,20 @@
+# My Style
+
+-l=0        # Disable max line length
+-i=4        # Indent level is 4 cols
+-ci=4       # Continuation indent is 4 cols
+-b          # We use version control, so just rewrite the file
+-st         # Output to STDOUT
+-se         # Errors to STDERR
+-vt=2       # Maximal vertical tightness
+-cti=0      # No extra indentation for closing brackets
+-pt=2       # High parenthesis tightness
+-sbt=2      # High square bracket tightness
+-bt=2       # High brace tightness
+-bbt=1      # Medium block brace tightness
+-nsfs       # No space before semicolons
+-nolq       # Don't outdent long quoted strings
+-ce         # Cuddled Else's
+-mbl=2      # Max consecutive blank lines - default is 1
+-nhsc       # No hanging side-comments - troublesome for commented out code
+-bbao       # Break before all operators
