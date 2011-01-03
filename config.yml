@@ -9,8 +9,8 @@ engines:
 plugins:
     Database:
         driver:   'mysql'
-        database: 'VegRev'
-        host:     'localhost'
+        database: 'testing'
+        host:     '127.0.0.1'
         username: 'vegrev'
         password: 'password'
         connection_check_threshold: 10
