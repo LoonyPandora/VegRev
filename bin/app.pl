@@ -11,7 +11,6 @@ use Plack::Builder;
 use Plack::Middleware::Session;
 use Plack::Session::Store::DBI;
 
-
 my $app = sub {
   my $env     = shift;
   my $request = Dancer::Request->new($env);
@@ -19,15 +18,14 @@ my $app = sub {
 };
 
 builder {
-
   enable 'Debug', 
     panels => [
 #      qw(Environment Response Timer Memory Parameters Dancer::Version Dancer::Settings Profiler::NYTProf)
       qw(Timer Memory Dancer::Version Response Parameters)
     ];
   
-#  enable 'Debug::DBIProfile', profile => 2;
-#  enable 'Debug::DBITrace', level => 2;
+  enable 'Debug::DBIProfile', profile => 2;
+  enable 'Debug::DBITrace', level => 2;
 
   enable 'Session',
     store => Plack::Session::Store::DBI->new(
