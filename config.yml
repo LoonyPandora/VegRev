@@ -5,6 +5,8 @@ template: 'mojo_template'
 engines:
     mojo_template:
         auto_escape: 1
+        namespace: 'VR::View'
+        prepend: 'use VR::View;'
 
 session: PSGI
 
