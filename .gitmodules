@@ -1,0 +1,6 @@
+[submodule "vendor/Dancer-Template-MojoTemplate"]
+	path = vendor/Dancer-Template-MojoTemplate
+	url = git://github.com/LoonyPandora/Dancer-Template-MojoTemplate.git
+[submodule "vendor/Dancer"]
+	path = vendor/Dancer
+	url = git://github.com/sukria/Dancer.git
