@@ -8,6 +8,12 @@ use Dancer ':syntax';
 
 
 get '/' => sub {
+  
+    my $name = session('name');
+
+    $name = "Mr Magoo";
+    session (name => $name);
+
     template 'index';
 };
 

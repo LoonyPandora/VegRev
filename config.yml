@@ -6,10 +6,12 @@ engines:
     mojo_template:
         auto_escape: 1
 
+session: PSGI
+
 plugins:
     Database:
         driver:   'mysql'
-        database: 'testing'
+        database: 'development'
         host:     '127.0.0.1'
         username: 'vegrev'
         password: 'password'
