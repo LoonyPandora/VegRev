@@ -1,4 +1,4 @@
-appname:  'VegRev'
+appname:  'VR'
 layout:   'main'
 charset:  'UTF-8'
 template: 'mojo_template'

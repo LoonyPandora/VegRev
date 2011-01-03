@@ -5,6 +5,6 @@ use lib 'vendor/Dancer/lib';
 use lib 'vendor/Dancer-Template-MojoTemplate/lib';
 
 use Dancer;
-use VegRev;
+use VR;
 
 dance;
