@@ -6,14 +6,14 @@ engines:
     mojo_template:
         auto_escape: 1
         namespace: 'VR::View'
-        prepend: 'use VR::View;'
+        prepend: 'use VR::View; my $t = $_[0];'
 
 session: PSGI
 
 plugins:
     Database:
         driver:   'mysql'
-        database: 'development'
+        database: 'testing'
         host:     '127.0.0.1'
         username: 'vegrev'
         password: 'password'
