@@ -4,6 +4,7 @@ use common::sense;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
 
+use VR::Model qw(load_user_data);
 
 prefix '/user';
 
@@ -11,14 +12,11 @@ prefix '/user';
 get qr{/(\w+)} => sub {
     my ($user_name) = splat;
 
-    my $sth = database->prepare(
-      q{SELECT * FROM user WHERE user_name = ?}
-    );
-
-    $sth->execute($user_name);
-
+    # TODO: Add error checking here.
+    my $sth = load_user_data($user_name, qw[user_name password]);
+    
     template 'user', {
-      user => values %{$sth->fetchall_hashref('id')}
+        user => values %{$sth->fetchall_hashref('id')}
     };
 };
 
