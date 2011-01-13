@@ -31,6 +31,24 @@ Since messages aren't tagged (way to enterprisey, could never finish this) - we 
 We also have a locked flag on tags - so we can lock all tags in a board.
 
 
+### Tags in general
+
+Tags replace boards, we can tag to multiple boards, and it's just nice. Keep a tag "type", including a type of "standard" for direct board replacements, "ad-hoc" for user created (future), "gallery" for photo galleries, and "blog" for blog type.
+
+
+### Future Plans
+
+I would like a basic blogging platform / CMS included - To manage planet-sound. Perhaps give users an individual blog - perhaps just pull from twitter / facebook / last.fm / etc automatically for the time being.
+
+How to store the CMS stuff - should the blog just be a tag? makes sense - automatically gives us archives. Only problem is the theming. Can work around this with the host used to access the route - show a different template based on the host used to access the route.
+
+Plan is to have one DB for all my sites. Ideally one code base too, just with different templates. Don't want to fork for every site I manage... What about having a "pages" table, for the CMS'y functions of the site?
+
+Why is CMS included as part of this? Wouldn't it be better to have a GIT backed, totally separate app for it? Yes and no. I'd have to create a user auth/auth system (rely on open-id? - fuckoff) - A different app accessing my DB directly? a recipe for disaster... One app for sure.
+
+Auto attach any images that are pasted into a message, like facebook.
+
+
 ### Categories
 
 Reason why we wanted hierarchical routes in the first place, as to enable us to take a thread and find out what board / category is in to check access permissions. Since we applied access permissions on a category level we needed to find this out.
@@ -46,20 +64,27 @@ Eliminate the board list - as accessed by the /forum route - no-one uses it, jus
 ### Attachments
 
 Add possibility for multiple attachments - separate DB table containing attachments.
+
+Store attachments in subdirectories - we don't want to bump up against the max-files in a directory limit... Structure like this
+/uploads/:thread-id/:message-id-:attachment-id.format - Gives lots more metadata in the image, helpful for the gallery and other places
+
 Show attachments in the gallery - how would this work though? clicking photo, should this take you to the thread? Think on it some.
 
 
 ### Gallery
 
-Are photo uploads just normal threads as currently? How does this work with attachments now showing in gallery. If we separate gallery threads into a new table, do messages stay in the global messages table? How do I handle redirections after a POST request. What about moving threads to different boards - re-tagging them in newspeak. Gallery is just a category in the current system, re-implementing as a tag-group seems unclean.
-
-For time being, implement as a normal thread, exact same as before. Means storing the first post ID in the thread table.
+Galleries should be done as a special tag type, storing all data in standard places. Otherwise, no change. Correct redirection will be based on tag type and route used to access image.
 
 
 ### Archive Pages
 
 Eliminate the route. It's all stored in the same DB table, so no performance benefit from separating them out at the front-end
-All archive boards become regular tags, with the lock thread added
+All archive boards become regular tags, with the lock flag added to it.
+
+
+### Private Boards
+
+Move out of the admin centre, back on the front page - just as a tag. Perhaps investigate some way for them to show as sticky on the list until you've read them? perhaps a number next to the tag showing unread messages?
 
 
 ### Front Page
@@ -68,9 +93,9 @@ Should be a list of all recent threads, which is now two columns wide, and each 
 
 Remove the "news" module - never ever used, a total waste of valuable space. Keep the tag, and look into making news posts stick at the top of the recent posts list until read - low priority.
 
-Add new module that shows all tags. Not a 2006 style tag cloud - just a list of tags in a little box thing (stackoverflow) - future times we can have an option to show/hide specific tags.
+Add new module that shows all tags. Not a 2006 style tag cloud - just a list of tags in a little box thing (stackoverflow) - future times we can have an option to show/hide specific tags. Also show the number of unread threads in that tag.
 
-Module list:
+Module list on front page:
 
 * Recent Posts (top left, two wide - perhaps with no heading? mockup needed)
 * Users online (top right)
