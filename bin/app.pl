@@ -29,7 +29,7 @@ builder {
 
   enable 'Session',
     store => Plack::Session::Store::DBI->new(
-      dbh           => DBI->connect( 'DBI:mysql:database=development;host=127.0.0.1;port=3306', 'vegrev', 'password' ),
+      dbh           => DBI->connect( 'DBI:mysql:database=testing;host=127.0.0.1;port=3306', 'vegrev', 'password' ),
       serializer    => sub { Dancer::Serializer::JSON::to_json(@_); },
       deserializer  => sub { Dancer::Serializer::JSON::from_json(@_); },
     );
