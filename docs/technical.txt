@@ -1,0 +1,63 @@
+Technical Info
+==============
+
+Just some technical info that I extracted from comments in some files. Basically just some code to illustrate points.
+
+
+Format of thread data structure - with examples
+
+    print $meta->{'subject'};
+    foreach my $viewer ( @{ $meta->{'viewers'} } ) {
+        print $viewer->{'username'};
+    }
+
+    foreach my $message ( $thread ) {
+        print $message->{'username'};
+        print $message->{'body'};
+
+        foreach my $quote ( @{ $message->{'quotes'} } ) {
+            print $quote->{'username'};
+            print $quote->{'body'};
+        }
+    }
+
+    # Idiom for getting correct number of ? from an array
+    join(',', map('?', @list));
+
+    %meta = {
+        'subject' => 'blah',
+        'viewers' => [
+            {   'user_id'  => '1',
+                'username' => 'admin',
+            },
+            {   'user_id'  => '1',
+                'username' => 'admin',
+            },
+        ],
+    };
+
+    %thread = {
+        '1000' => {
+            'body'        => 'nlah',
+            'user_id'     => '1',
+            'username'    => 'admin',
+            'displayname' => 'LoonyPandora',
+            'datetime'    => '2010-01-01 11:11:11',
+            'quotes'      => {
+                '999' => {
+                    'user_id'     => '1',
+                    'username'    => 'admin',
+                    'displayname' => 'LoonyPandora',
+                    'content'     => 'blah',
+                    'datetime'    => '2010-01-01 11:11:11',
+                },
+                '998' => {
+                    'user_id'     => '1',
+                    'username'    => 'admin',
+                    'displayname' => 'LoonyPandora',
+                    'content'     => 'blah',
+                    'datetime'    => '2010-01-01 11:11:11',
+                },
+            },
+        },
+    };
