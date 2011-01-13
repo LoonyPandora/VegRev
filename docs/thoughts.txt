@@ -1,0 +1,81 @@
+Thoughts
+========
+
+Just some general design thoughts, ideas, and goals. May split this into different files if the thoughts become concrete
+
+
+Inspiration
+-----------
+
+Taking some design cues (both architecture, and interface) from these sites
+
+* http://stackoverflow.com
+* http://vimeo.com/forums
+* http://vanillaforums.org/discussions/
+
+Vimeo strongly influenced the look and feel of the current website, I'm moving towards the other two from a technical point of view.
+
+
+Ideas
+-----
+
+Bunch of ideas about each individual page / section / feature
+
+
+### Locked / Sticky Flags
+
+We should re-implement these as tags, same as the board has become a tag. It's the same principle, a deleted thread has two tags - the board, and the deleted tag.
+
+Since messages aren't tagged (way to enterprisey, could never finish this) - we still have to have a deleted flag on messages. For the moment
+
+We also have a locked flag on tags - so we can lock all tags in a board.
+
+
+### Categories
+
+Reason why we wanted hierarchical routes in the first place, as to enable us to take a thread and find out what board / category is in to check access permissions. Since we applied access permissions on a category level we needed to find this out.
+
+I propose we apply permissions on the tag level (board) - and categories become just tag-groups. When editing permissions a tag-group just applies the permissions to all the boards contained in it individually.
+
+
+### List of Boards
+
+Eliminate the board list - as accessed by the /forum route - no-one uses it, just a waste of space. Front page now shows same info.
+
+
+### Attachments
+
+Add possibility for multiple attachments - separate DB table containing attachments.
+Show attachments in the gallery - how would this work though? clicking photo, should this take you to the thread? Think on it some.
+
+
+### Gallery
+
+Are photo uploads just normal threads as currently? How does this work with attachments now showing in gallery. If we separate gallery threads into a new table, do messages stay in the global messages table? How do I handle redirections after a POST request. What about moving threads to different boards - re-tagging them in newspeak. Gallery is just a category in the current system, re-implementing as a tag-group seems unclean.
+
+For time being, implement as a normal thread, exact same as before. Means storing the first post ID in the thread table.
+
+
+### Archive Pages
+
+Eliminate the route. It's all stored in the same DB table, so no performance benefit from separating them out at the front-end
+All archive boards become regular tags, with the lock thread added
+
+
+### Front Page
+
+Should be a list of all recent threads, which is now two columns wide, and each thread is two rows high, and has the most recent posters avatar next to it, with post info (number of replies, last post date) below it. The whole row is a clickable target and takes you to the latest post in the thread that you have read.
+
+Remove the "news" module - never ever used, a total waste of valuable space. Keep the tag, and look into making news posts stick at the top of the recent posts list until read - low priority.
+
+Add new module that shows all tags. Not a 2006 style tag cloud - just a list of tags in a little box thing (stackoverflow) - future times we can have an option to show/hide specific tags.
+
+Module list:
+
+* Recent Posts (top left, two wide - perhaps with no heading? mockup needed)
+* Users online (top right)
+* Tag list (second top right - links to individual boards)
+* Recent Pictures (include attachments?)
+* Birthdays
+* Statistics
+
