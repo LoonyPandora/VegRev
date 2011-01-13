@@ -21,6 +21,10 @@ Ideas
 
 Bunch of ideas about each individual page / section / feature
 
+### Groups / Access Control
+
+Try and use RBAC rather than rolling my own. Use RBAC for the roles (groups), and write my own Permissions::MySQL class for storing the permission data for tags. Tags are the only things that are controlled by RBAC.
+
 
 ### Shoutbox
 
