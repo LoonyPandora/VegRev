@@ -22,6 +22,46 @@ Ideas
 Bunch of ideas about each individual page / section / feature
 
 
+### Shoutbox
+
+Same as before. Figure out how to do long polling and ajax later. Maybe even remove it totally - it does take a lot of space for not much utility...
+
+
+### Polls
+
+Keep the same. One poll per thread. maybe extend later.
+
+
+### Posting in general
+
+Use the WYSIWYG editor (punymce is best, including auto conversion of smileys) - and just have it submit raw HTML.
+
+Then use perl to parse the submitted HTML, and convert to markdown for storage. We do this so markup is consistent across browsers. If we stored the raw HTML submitted, then a firefox user viewing a post made by a safari user won't have the font sizes correct (safari user --webkit prefix that firefox doesn't parse)
+
+Check out: HTML::WikiConverter::Markdown Will need to extend to support all the functionality of markdown. Or write a HTML->BBCode plugin that way.
+
+If this fails, stick with markitup, and forget all this WYSIWYG shit.
+
+
+### Email
+
+Need email functionality as a priority. Specifically forgot password link.
+
+Notifications of new posts can wait. Lived without it for a year already...
+
+
+### Nudging
+
+Same as facebook poke. Just called a nudge. Accessed from the profile, just a button. Shows in header somewhere... Very low priority
+
+
+### Private Messages
+
+Renamed as confab - stupid word, but the only synonym of conversation that was short. Specifically means informal chat.
+
+No inbox and sent messages, no subjects. Messages are just conversations with one individual. No broadcasting to multiple people. The inbox view is just a list of usernames, clicking on it takes you to the conversation with them. It's ordered same as normal threads.
+
+
 ### Locked / Sticky Flags
 
 We should re-implement these as tags, same as the board has become a tag. It's the same principle, a deleted thread has two tags - the board, and the deleted tag.
@@ -70,6 +110,8 @@ Store attachments in subdirectories - we don't want to bump up against the max-f
 
 Show attachments in the gallery - how would this work though? clicking photo, should this take you to the thread? Think on it some.
 
+Use http://valums.com/ajax-upload/ - for the uploader instead of flash.
+
 
 ### Gallery
 
@@ -85,6 +127,13 @@ All archive boards become regular tags, with the lock flag added to it.
 ### Private Boards
 
 Move out of the admin centre, back on the front page - just as a tag. Perhaps investigate some way for them to show as sticky on the list until you've read them? perhaps a number next to the tag showing unread messages?
+
+
+### Searching
+
+GET searching is possible, but time limited. Searching by POST saves the results of that search to a saved-search table, with a join table containing the thread-id/message-ids of all matching messages. Make sure we show the date at the top of these saved searches, with a link to re-run the search with current data. Do this searching later on
+
+Gallery searching is useless.
 
 
 ### Front Page

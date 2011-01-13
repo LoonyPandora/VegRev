@@ -39,11 +39,13 @@ We eliminate the /archive route, it provides no performance benefit as the data 
 Technical
 ---------
 
-/tagged/:tag+:tag/:page
+Try to be as restful as possible... POST to the same URL that you GET from (minus the page)
+
+/forum/:tag+:tag/:page
 /thread/:thread-id-:url-slug/:page
 
 /inbox/:page
-/conflab/:user-name/:page
+/confab/:user-name/:page
 
 /gallery/:tag+:tag/:page
 /photo/:photo-id-:url-slug/:page
@@ -52,6 +54,14 @@ Technical
 
 /userlist/:page
 /profile/:user-name
+
+/search/:tag+:tag/:query   (GET requests are limited to past week to help against DoS)
+/search/result/:result-id  (POST requests redirect to this URL - do this later)
+
+
+
+
+
 
 
 
