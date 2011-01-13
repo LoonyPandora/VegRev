@@ -27,4 +27,14 @@ after sub {
 };
 
 
+# Default route for 404
+get qr{.*} => sub {
+    status 'not_found';
+
+    template 'index', {
+        path => request->path
+    };
+};
+
+
 true;
