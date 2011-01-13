@@ -21,6 +21,14 @@ Ideas
 
 Bunch of ideas about each individual page / section / feature
 
+
+### Quotes
+
+Quotes are not stored inline when directly clicking reply to a message, it stores that message in a new table, INCLUDING the full text of the message (we do this in case the message is deleted or changed - the quote remains as it was when originally posted) We then have an array of quotes that we can access.
+
+In the message, it's displayed as the avatar of the user quoted in a section saying "in reply to", with a speech bubble with a one line summary of the quote.
+
+
 ### Groups / Access Control
 
 Try and use RBAC rather than rolling my own. Use RBAC for the roles (groups), and write my own Permissions::MySQL class for storing the permission data for tags. Tags are the only things that are controlled by RBAC.
