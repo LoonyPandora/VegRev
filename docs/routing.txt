@@ -45,7 +45,7 @@ Try to be as restful as possible... POST to the same URL that you GET from (minu
 /thread/:thread-id-:url-slug/:page
 
 /inbox/:page
-/confab/:user-name/:page
+/chat/:user-name/:page
 
 /gallery/:tag+:tag/:page
 /photo/:photo-id-:url-slug/:page
