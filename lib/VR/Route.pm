@@ -11,3 +11,9 @@ get '/' => sub {
     template 'index';
 };
 
+
+get '/user/:user_name' => sub {
+    redirect "/profile/" . params->{'user_name'};;
+};
+
+true;

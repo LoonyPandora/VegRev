@@ -1,15 +1,15 @@
-package VR::Route::Forum;
+package VR::Route::Gallery;
 
 use common::sense;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
 
-prefix '/forum';
+prefix '/gallery';
 
 
-# You need to specify a tag, otherwise redirect to front page
+# Gallery shows recent posts, and all albums
 get '/' => sub {
-    redirect '/';
+    template 'gallery';
 };
 
 
@@ -20,14 +20,14 @@ get qr{/([\w+\-]+)/?(\d+)?/?$} => sub {
     my (@tags)  = split(/\+/, params->{splat}[0]);
     my $page    = params->{splat}[1];
 
-    template 'forum';
+    template 'gallery';
 };
 
 
 # POST'ing to this url gives us the C-UD of CRUD.
 # In practical terms, it's used when creating a new thread and nothing else.
 post qr{/([\w+\-]+)/?(\d+)?/?$} => sub {
-    my (@tags) = split(/\+/, params->{splat}[0]);
+    my (@tags)  = split(/\+/, params->{splat}[0]);
     my $page    = params->{splat}[1];
 
     redirect '/';

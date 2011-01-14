@@ -13,7 +13,8 @@ use Dancer::Plugin::Params::Normalization;
 # Extra Routes
 use VR::Route;
 use VR::Route::Forum;
-use VR::Route::User;
+use VR::Route::Thread;
+use VR::Route::Profile;
 
 
 before sub {

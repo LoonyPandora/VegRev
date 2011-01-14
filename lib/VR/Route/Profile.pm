@@ -1,14 +1,14 @@
-package VR::Route::User;
+package VR::Route::Profile;
 
 use common::sense;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
 
-prefix '/user';
+prefix '/profile';
 
 
-# Matches GET /user/:user_name
-get qr{/(\w+)} => sub {
+# Matches GET /profile/:user_name
+get qr{/(\w+)$} => sub {
     my ($user_name) = splat;
 
     my $sth = database->prepare(
