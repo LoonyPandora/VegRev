@@ -52,13 +52,16 @@ Try to be as restful as possible... POST to the same URL that you GET from (minu
 
 /shoutbox/:page
 
-/userlist/:page
+/member/:page
 /profile/:user-name
 
 /search/:tag+:tag/:query   (GET requests are limited to past week to help against DoS)
 /search/result/:result-id  (POST requests redirect to this URL - do this later)
 
 
+/poll/vote/:poll_id
+/poll/view/:poll_id
+/poll/results/:poll_id
 
 
 

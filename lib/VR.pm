@@ -12,9 +12,18 @@ use Dancer::Plugin::Params::Normalization;
 
 # Extra Routes
 use VR::Route;
+use VR::Route::Chat;
 use VR::Route::Forum;
-use VR::Route::Thread;
+use VR::Route::Gallery;
+use VR::Route::Inbox;
+use VR::Route::Member;
+use VR::Route::Photo;
+use VR::Route::Poll;
 use VR::Route::Profile;
+use VR::Route::Search;
+use VR::Route::Shoutbox;
+use VR::Route::Search;
+use VR::Route::Thread;
 
 
 before sub {
