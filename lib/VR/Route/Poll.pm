@@ -7,17 +7,17 @@ use Dancer::Plugin::Database;
 prefix '/poll';
 
 
-get '/view' => sub {
+get '/view/:poll_id' => sub {
     redirect '/';
 };
 
 
-get '/view' => sub {
+get '/vote/:poll_id' => sub {
     redirect '/';
 };
 
 
-get '/result' => sub {
+get '/result/:poll_id' => sub {
     redirect '/';
 };
 

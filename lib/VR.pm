@@ -12,6 +12,7 @@ use Dancer::Plugin::Params::Normalization;
 
 # Extra Routes
 use VR::Route;
+use VR::Route::Admin;
 use VR::Route::Chat;
 use VR::Route::Forum;
 use VR::Route::Gallery;

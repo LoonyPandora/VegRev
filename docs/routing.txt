@@ -39,7 +39,7 @@ We eliminate the /archive route, it provides no performance benefit as the data 
 Technical
 ---------
 
-Try to be as restful as possible... POST to the same URL that you GET from (minus the page)
+Try to be as restful as possible... POST to the same URL that you GET from
 
 /forum/:tag+:tag/:page
 /thread/:thread-id-:url-slug/:page
@@ -59,9 +59,26 @@ Try to be as restful as possible... POST to the same URL that you GET from (minu
 /search/result/:result-id  (POST requests redirect to this URL - do this later)
 
 
+
+Experimental Thoughts?
+----------------------
+
+/forum/tagged/:tag+:tag/:page
+/forum/thread/:thread-id-:url-slug/:page
+
+/message/inbox/:page
+/message/chat/:user-name
+
+/gallery/tagged/:tag+:tag/:page
+/gallery/photo/:photo-id-:url-slug/:page
+
 /poll/vote/:poll_id
 /poll/view/:poll_id
 /poll/results/:poll_id
+
+/member/list/date/:page
+/member/list/post/:page
+/member/list/group/:page
 
 
 
