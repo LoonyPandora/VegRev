@@ -6,6 +6,9 @@ Just some technical info that I extracted from comments in some files. Basically
 Always use regex route matching, not the named captures. It's very neat and tidy for sure - however since I'm doing proper validation of params, I'd just have to run the named match through a regex anyway - might as well cut down the amount of code and have that same regex match the route itself
 
 
+Note we keep bans in a file - if you are banned, you can't even cause a database hit - even to create a session. Censored words can be in the DB.
+
+
 Working with priv messages - for the message list. mail-to-user has 2 entries per message, one for sender, one for receiver.
 
 
