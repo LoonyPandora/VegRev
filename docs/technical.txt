@@ -6,6 +6,14 @@ Just some technical info that I extracted from comments in some files. Basically
 Always use regex route matching, not the named captures. It's very neat and tidy for sure - however since I'm doing proper validation of params, I'd just have to run the named match through a regex anyway - might as well cut down the amount of code and have that same regex match the route itself
 
 
+Working with priv messages - for the message list. mail-to-user has 2 entries per message, one for sender, one for receiver.
+
+
+    SELECT DISTINCT(message-id) FROM mail-to-user
+    WHERE user-id IN ($session->{'user-id'}, $params->{'user-id})
+    LEFT JOIN user ON user.id = user-id
+    ORDER BY message-id DESC
+
 
 Format of thread data structure - with examples
 
