@@ -3,8 +3,8 @@
 # http://code.google.com/p/sequel-pro
 #
 # Host: localhost (MySQL 5.1.45-log)
-# Database: development
-# Generation Time: 2011-01-17 17:52:55 +0000
+# Database: testing
+# Generation Time: 2011-01-18 17:38:16 +0000
 # ************************************************************
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -89,6 +89,7 @@ DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
+  `thread_id` int(10) unsigned NOT NULL,
   `ip_address` int(10) unsigned NOT NULL,
   `timestamp` datetime NOT NULL,
   `edited_timestamp` datetime DEFAULT NULL,
@@ -98,9 +99,11 @@ CREATE TABLE `message` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `editor_id` (`editor_id`),
+  KEY `thread_id` (`thread_id`),
+  CONSTRAINT `message_ibfk_3` FOREIGN KEY (`thread_id`) REFERENCES `thread` (`id`),
   CONSTRAINT `message_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `message_ibfk_3` FOREIGN KEY (`editor_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  CONSTRAINT `message_ibfk_2` FOREIGN KEY (`editor_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=833333 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -170,15 +173,6 @@ CREATE TABLE `profanity` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-LOCK TABLES `profanity` WRITE;
-/*!40000 ALTER TABLE `profanity` DISABLE KEYS */;
-INSERT INTO `profanity` (`id`,`original_word`,`replacement_word`,`replacement_type`)
-VALUES
-	(1,'fuck','f*ck','always'),
-	(2,'cunt','c*nt','whole word');
-
-/*!40000 ALTER TABLE `profanity` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table quote
@@ -291,11 +285,11 @@ CREATE TABLE `shoutbox` (
   `ip_address` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `time` datetime NOT NULL,
   `deleted` tinyint(1) DEFAULT '0',
-  `body` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `body` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `shoutbox_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6346 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -313,18 +307,8 @@ CREATE TABLE `tag` (
   PRIMARY KEY (`id`),
   KEY `group_id` (`group_id`),
   CONSTRAINT `tag_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `taggroup` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='thread has_many tags. flags lock/sticky/deleted';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='thread has_many tags. flags lock/sticky/deleted';
 
-LOCK TABLES `tag` WRITE;
-/*!40000 ALTER TABLE `tag` DISABLE KEYS */;
-INSERT INTO `tag` (`id`,`title`,`url_slug`,`group_id`,`description`)
-VALUES
-	(1,'Sticky','sticky',1,''),
-	(2,'Deleted','deleted',1,''),
-	(3,'Locked','locked',1,'');
-
-/*!40000 ALTER TABLE `tag` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table tagged_thread
@@ -354,14 +338,6 @@ CREATE TABLE `taggroup` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-LOCK TABLES `taggroup` WRITE;
-/*!40000 ALTER TABLE `taggroup` DISABLE KEYS */;
-INSERT INTO `taggroup` (`id`,`title`)
-VALUES
-	(1,'Special Tags');
-
-/*!40000 ALTER TABLE `taggroup` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table thread
@@ -378,13 +354,14 @@ CREATE TABLE `thread` (
   `last_updated` datetime NOT NULL,
   `started_by_user_id` int(10) unsigned NOT NULL,
   `latest_post_user_id` int(10) unsigned NOT NULL,
-  `first_message_id` int(11) NOT NULL,
+  `first_message_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `started_by_user_id` (`started_by_user_id`),
   KEY `latest_post_user_id` (`latest_post_user_id`),
+  KEY `first_message_id` (`first_message_id`),
   CONSTRAINT `thread_ibfk_1` FOREIGN KEY (`started_by_user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `thread_ibfk_2` FOREIGN KEY (`latest_post_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39385 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -461,7 +438,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY `user_name` (`user_name`),
   KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2168 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
