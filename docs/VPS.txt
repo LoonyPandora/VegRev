@@ -65,9 +65,6 @@ perlbrew init;
 
 # Select one near us. (105 Netherlands)
 perlbrew mirror;
-
-# echo "source /home/perlbrew/etc/bashrc" >> ~/.bashrc
-
 perlbrew install perl-5.12.2
 perlbrew switch perl-5.12.2
 
