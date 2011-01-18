@@ -45,21 +45,18 @@ mysql_secure_installation
 # Perlbrew first, then cpanminus
 # http://blog.fox.geek.nz/2010/09/installing-multiple-perls-with.html
 
-cd /tmp;
 curl -LO http://xrl.us/perlbrew;
 chmod +x perlbrew;
-
-echo "PATH=\$PATH:/home/perlbrew/bin" >> ~/.bashrc
-echo "export PATH" >> ~/.bashrc 
 
 echo "PERLBREW_ROOT=/home/perlbrew" >> ~/.bashrc;
 echo "export PERLBREW_ROOT" >> ~/.bashrc 
 
+echo "PATH=\$PATH:/home/perlbrew/bin" >> ~/.bashrc
+echo "export PATH" >> ~/.bashrc 
+
 ./perlbrew install;
 
 rm perlbrew;
-
-# TODO: Add perlbrew to $PATH
 
 perlbrew init;
 
