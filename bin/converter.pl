@@ -9,10 +9,54 @@ use Data::Dumper;
 our $mysql  = DBI->connect( 'DBI:mysql:database=testing',      'vegrev', 'password', { RaiseError => 1, AutoCommit => 1 } );
 our $sqlite = DBI->connect( 'DBI:SQLite:dbname=main.sqlite3',  '',        '',        { RaiseError => 1, AutoCommit => 0 } );
 
-convert_messages();
+convert_boards_to_tags();
+#convert_messages();
 #convert_thread();
 #convert_shoutbox();
 #convert_users();
+
+
+
+sub convert_boards_to_tags {
+    my $sqlite_sth = $sqlite->prepare("SELECT * FROM boards");
+    $sqlite_sth->execute();
+
+    my $total = $sqlite->selectrow_array("SELECT COUNT(*) AS count FROM boards");
+
+    print "CONVERTING BOARDS\n---------------\n\n";
+    my $count = 0;
+    while (my $row = $sqlite_sth->fetchrow_hashref) {
+
+        my %mapping = (
+            'id'                => $row->{'user_id'},
+            'user_name'         => $row->{'user_name'},
+        );
+
+        my @holders;
+        while (my ($key, $value) = each %mapping) {
+            if (!$value) {
+                delete $mapping{$key};
+                next;
+            }
+        }
+
+        my $fields          = join(',', keys %mapping);
+        my $placeholders    = join(',', @holders);
+        my @binds           = values %mapping;
+
+        # Don't worry, no SQL injection here.
+        my $sql = qq{
+            INSERT INTO tag ($fields)
+            VALUES ($placeholders)
+        };
+
+        $mysql->do($sql, undef, @binds) or die $mysql->errstr;
+
+        $count++;
+        print "DONE $count of $total\n";
+    }
+
+}
 
 
 sub convert_messages {
