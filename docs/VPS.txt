@@ -51,7 +51,7 @@ chmod +x perlbrew;
 echo "PERLBREW_ROOT=/home/perlbrew" >> ~/.bashrc;
 echo "export PERLBREW_ROOT" >> ~/.bashrc 
 
-echo "PATH=\$PATH:/home/perlbrew/bin" >> ~/.bashrc
+echo "PATH=/home/perlbrew/bin:\$PATH" >> ~/.bashrc
 echo "export PATH" >> ~/.bashrc 
 
 ./perlbrew install;
