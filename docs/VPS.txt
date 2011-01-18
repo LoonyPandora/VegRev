@@ -1,18 +1,14 @@
 # Things to do on VPS.
 # What I need to backup is the /home and the /root (for ssh keys)
 
-
 # First, we do the apt stuff... init first by doing an update. And get build essentials
 
 apt-get update;
 
-apt-get install man;
-apt-get install gcc;
-apt-get install perl;
-apt-get install curl;
-apt-get install wget;
-apt-get install gnupg;
-apt-get install git-core;
+apt-get install nano gcc perl curl wget gnupg git-core;
+
+
+# TODO: Do something about my dotfiles.
 
 
 # Percona DB: http://www.percona.com/docs/wiki/percona-server:release:start
@@ -24,15 +20,16 @@ echo "deb-src http://repo.percona.com/apt lucid main" >> /etc/apt/sources.list.d
 
 
 # Nginx: https://launchpad.net/~jdub/+archive/ppa
-touch /etc/apt/sources.list.d/nginx.list
-echo "deb http://ppa.launchpad.net/jdub/ppa/ubuntu lucid main" >> /etc/apt/sources.list.d/nginx.list
-echo "deb-src http://ppa.launchpad.net/jdub/ppa/ubuntu lucid main" >> /etc/apt/sources.list.d/nginx.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E9EEF4A1
+touch /etc/apt/sources.list.d/nginx.list;
+echo "deb http://ppa.launchpad.net/jdub/ppa/ubuntu lucid main" >> /etc/apt/sources.list.d/nginx.list;
+echo "deb-src http://ppa.launchpad.net/jdub/ppa/ubuntu lucid main" >> /etc/apt/sources.list.d/nginx.list;
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E9EEF4A1;
 
 
-apt-get update
-apt-get install nginx-full
-apt-get install percona-server-server percona-server-client
+apt-get update;
+apt-get install nginx-full percona-server-server percona-server-client;
+apt-get upgrade;
+
 
 mysql_secure_installation
 
@@ -73,9 +70,6 @@ chmod +x cpan-outdated
 
 # Make sure we are using my fork of cpan-outdated before doing this
 cpan-outdated | xargs cpanm
-
-
-
 
 
 
