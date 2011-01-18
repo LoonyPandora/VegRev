@@ -1,0 +1,153 @@
+# Things to do on VPS.
+# What I need to backup is the /home and the /root (for ssh keys)
+
+
+# First, we do the apt stuff... init first by doing an update. And get build essentials
+
+apt-get update;
+
+apt-get install man;
+apt-get install gcc;
+apt-get install perl;
+apt-get install curl;
+apt-get install wget;
+apt-get install gnupg;
+apt-get install git-core;
+
+
+# Percona DB: http://www.percona.com/docs/wiki/percona-server:release:start
+gpg --keyserver  hkp://keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A;
+gpg -a --export CD2EFD2A | apt-key add -;
+touch /etc/apt/sources.list.d/percona.list;
+echo "deb http://repo.percona.com/apt lucid main" >> /etc/apt/sources.list.d/percona.list;
+echo "deb-src http://repo.percona.com/apt lucid main" >> /etc/apt/sources.list.d/percona.list;
+
+
+# Nginx: https://launchpad.net/~jdub/+archive/ppa
+touch /etc/apt/sources.list.d/nginx.list
+echo "deb http://ppa.launchpad.net/jdub/ppa/ubuntu lucid main" >> /etc/apt/sources.list.d/nginx.list
+echo "deb-src http://ppa.launchpad.net/jdub/ppa/ubuntu lucid main" >> /etc/apt/sources.list.d/nginx.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E9EEF4A1
+
+
+apt-get update
+apt-get install nginx-full
+apt-get install percona-server-server percona-server-client
+
+mysql_secure_installation
+
+
+######
+# NOW OTHERS (note, do something with conf files.
+######
+
+
+# Perlbrew first, then cpanminus
+# http://blog.fox.geek.nz/2010/09/installing-multiple-perls-with.html
+
+curl -LO http://xrl.us/perlbrew;
+chmod +x perlbrew;
+export PERLBREW_ROOT=/home/perlbrew;
+./perlbrew install;
+
+rm perlbrew;
+
+perlbrew init;
+
+# Select one near us. (105 Netherlands)
+perlbrew mirror;
+
+echo "source /home/perlbrew/etc/bashrc" >> ~/.bashrc
+
+perlbrew install perl-5.12.2
+perlbrew switch perl-5.12.2
+
+curl -L http://cpanmin.us | perl - --sudo App::cpanminus
+
+cpanm App::Ack
+
+cd /home/perlbrew/perls/perl-5.12.2/bin/
+curl -O https://github.com/tokuhirom/cpan-outdated/raw/master/bin/cpan-outdated
+chmod +x cpan-outdated
+
+
+# Make sure we are using my fork of cpan-outdated before doing this
+cpan-outdated | xargs cpanm
+
+
+
+
+
+
+
+mkdir /home/sites;
+mkdir /home/config;
+mkdir /home/logs;
+mkdir /home/backup;
+
+
+mv /etc/mysql /home/config/mysql;
+ln -s /home/config/mysql /etc/mysql;
+
+mv /etc/nginx /home/config/nginx;
+ln -s /home/config/nginx /etc/nginx;
+
+mv /etc/postfix /home/config/postfix;
+ln -s /home/config/postfix /etc/postfix;
+
+mv /etc/apt/sources.list.d /home/config/apt-sources;
+ln -s /home/config/apt-sources /etc/apt/apt.conf.d;
+
+mv /var/log/mysql /home/logs/mysql;
+ln -s /home/logs/mysql /var/log/mysql;
+
+mv /var/log/nginx /home/logs/nginx;
+ln -s /home/logs/nginx /var/log/nginx;
+
+mv /var/lib/mysql /home/mysqldata;
+ln -s /home/mysqldata /var/lib/mysql;
+
+
+
+#########
+# LAYOUT
+#########
+
+
+/home
+    /sites
+        /vegetablerevolution/
+            # Dancer directory structure AND following...
+            /public    <-- Served by nginx, from static.domain.tld
+                /js
+                /css/
+                /img/
+                /upload/
+
+    /perlbrew
+        /perl-5.12    <-- my version of perl, with all modules - totally portable
+
+    /logs
+        /mysql
+            query.log
+        /nginx
+            site.access.log
+        /postfix
+            messages.log
+
+    /cron
+        daily.cron
+        monthly.cron
+
+    /backup
+        /daily      <-- backup of db
+        /monthly    <-- backup of data + uploads
+
+    /config
+        /mysql
+        /nginx
+        /postfix
+
+    /mysqldata
+        /innodb_table
+
