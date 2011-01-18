@@ -32,7 +32,7 @@ sub convert_messages {
             'id'                => $row->{'message_id'},
             'user_id'           => $row->{'user_id'},
             'thread_id'         => @{$thread_id},
-            'ip_address'        => $row->{'message_ip'} || '127.0.0.3',
+            'ip_address'        => $row->{'message_ip'},
             'timestamp'         => $row->{'message_time'},
             'edited_timestamp'  => $row->{'edited_time'},
             'editor_id'         => $row->{'editor_id'},
@@ -50,6 +50,21 @@ sub convert_messages {
             if ($key ~~ @{['timestamp','edited_time']}) {
                 push(@holders, 'FROM_UNIXTIME(?)');
             } elsif ($key ~~ @{['ip_address']}) {
+                if ($value =~ m/ /) {
+                    my @tmp = split(/ /, $value);
+                    $mapping{$key} = $tmp[$#tmp];
+                } elsif ($value =~ m/,/) {
+                    my @tmp = split(/,/, $value);
+                    $mapping{$key} = $tmp[$#tmp];
+                } elsif ($value =~ m/\|/) {
+                    my @tmp = split(/\|/, $value);
+                    $mapping{$key} = $tmp[$#tmp];
+                }
+
+                if ($value !~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/) {
+                    $mapping{$key} = '127.0.0.3';
+                }
+
                 push(@holders, 'INET_ATON(?)');
             } else {
                 push(@holders, '?');
