@@ -29,6 +29,8 @@ sub convert_messages {
         $mysql_sth->execute($row->{'thread_id'});
         my $thread_id = $mysql_sth->fetchrow_arrayref();
 
+        if (!$thread_id) { next; }
+
         my %mapping = (
             'id'                => $row->{'message_id'},
             'user_id'           => $row->{'user_id'},
