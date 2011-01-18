@@ -1,18 +1,19 @@
 #!/usr/bin/perl --
 
-package converter;
 use strict;
 use warnings;
 
-use Time::HiRes qw(time);
-use Time::Local;
+use DBI;
 
-use DBIx::Transaction;
+our $mysql  = DBI->connect( 'DBI:mysql:database=testing', 'vegrev', 'password', { RaiseError => 1, AutoCommit => 1 } );
+our $sqlite = DBI->connect( 'DBI:SQLite:dbname=main.sqlite3', '', '', { RaiseError => 1, AutoCommit => 0 } );
 
-our $mysql  = DBIx::Transaction->connect( 'DBI:mysql:database=testing', 'vegrev', 'password', { RaiseError => 1, AutoCommit => 0 } );
-our $sqlite = DBIx::Transaction->connect( 'DBI:SQLite:dbname=main.sqlite3', '', '', { RaiseError => 1, AutoCommit => 0 } );
 
-convert_users();
+#convert_users();
+
+
+
+
 
 sub convert_users {
     my $sqlite_sth = $sqlite->prepare("SELECT * FROM users");
@@ -20,57 +21,97 @@ sub convert_users {
     $sqlite_sth->execute();
 
     my $count = 0;
-    $mysql->begin_work;
     while (my $row = $sqlite_sth->fetchrow_hashref) {
-        my $sql = q{
-            INSERT INTO user (
-                id,                 user_name,      display_name,       real_name,          email,
-                password,           hide_email,     mail_notify,        stealth_login,      template,
-                language,           tumblr,         last_fm,            homepage,           icq,
-                msn,                yim,            aim,                gtalk,              skype,
-                twitter,            flickr,         deviantart,         vimeo,              youtube,
-                facebook,           myspace,        bebo,               avatar,             usertext,
-                signature,          biography,      gender,             birthday,           gmt_offset,
-                registration,       last_online,    last_ip,            post_count,         shout_count,
-                account_disabled
-            )
-            VALUES (
-                ?, ?, ?, ?, ?,
-                ?, ?, ?, ?, ?,
-                ?, ?, ?, ?, ?,
-                ?, ?, ?, ?, ?,
-                ?, ?, ?, ?, ?,
-                ?, ?, ?, ?, ?,
-                ?, ?, ?, ?, ?,
-                FROM_UNIXTIME(?), FROM_UNIXTIME(?), INET_ATON(?), ?, ?,
-                ?
-            )
-        };
 
-        my @bind = (
-            $row->{'user_id'},      $row->{'user_name'},        $row->{'display_name'},    $row->{'real_name'},        $row->{'email'},  
-            $row->{'password'},     $row->{'hide_email'},       $row->{'pm_notify'},       $row->{'stealth_login'},    $row->{'template'},
-            $row->{'language'},     $row->{'tumblr'},           $row->{'last_fm'},         $row->{'homepage'},         $row->{'icq'},  
-            $row->{'msn'},          $row->{'yim'},              $row->{'aim'},             $row->{'gtalk'},            $row->{'skype'},  
-            $row->{'twitter'},      $row->{'flickr'},           $row->{'deviantart'},      $row->{'vimeo'},            $row->{'youtube'},  
-            $row->{'facebook'},     $row->{'myspace'},          $row->{'bebo'},            $row->{'avatar'},           $row->{'usertext'},  
-            $row->{'signature'},    $row->{'biography'},        $row->{'gender'},          $row->{'birthday'},         $row->{'timezone'},  
-            $row->{'reg_time'},     $row->{'last_online'},      $row->{'last_ip'},         $row->{'user_post_num'},    $row->{'user_shout_num'},
-            $row->{'user_deleted'}
+        my %mapping = (
+            'id'                => $row->{'user_id'},
+            'user_name'         => $row->{'user_name'},
+            'display_name'      => $row->{'display_name'},
+            'real_name'         => $row->{'real_name'},
+            'email'             => lc($row->{'email'}),
+            'password'          => $row->{'password'},
+            'hide_email'        => $row->{'hide_email'},
+            'mail_notify'       => $row->{'pm_notify'},
+            'stealth_login'     => $row->{'stealth_login'},
+            'template'          => $row->{'template'},
+            'language'          => $row->{'language'},
+            'tumblr'            => $row->{'tumblr'},
+            'last_fm'           => $row->{'last_fm'},
+            'homepage'          => $row->{'homepage'},
+            'icq'               => $row->{'icq'},
+            'msn'               => lc($row->{'msn'}),
+            'yim'               => $row->{'yim'},
+            'aim'               => $row->{'aim'},
+            'gtalk'             => lc($row->{'gtalk'}),
+            'skype'             => $row->{'skype'},
+            'twitter'           => $row->{'twitter'},
+            'flickr'            => $row->{'flickr'},
+            'deviantart'        => $row->{'deviantart'},
+            'vimeo'             => $row->{'vimeo'},
+            'youtube'           => $row->{'youtube'},
+            'facebook'          => $row->{'facebook'},
+            'myspace'           => $row->{'myspace'},
+            'bebo'              => $row->{'bebo'},
+            'avatar'            => $row->{'avatar'},
+            'usertext'          => $row->{'usertext'},
+            'signature'         => $row->{'signature'},
+            'biography'         => $row->{'biography'},
+            'gender'            => $row->{'gender'},
+            'birthday'          => $row->{'birthday'},
+            'gmt_offset'        => $row->{'timezone'},
+            'registration'      => $row->{'reg_time'},
+            'last_online'       => $row->{'last_online'},
+            'last_ip'           => $row->{'last_ip'},
+            'post_count'        => $row->{'user_post_num'},
+            'shout_count'       => $row->{'user_shout_num'},
+            'account_disabled'  => $row->{'user_deleted'},
         );
 
-        $mysql->do($sql, undef, @bind);
-    
-        $count++;
+        my @holders;
 
-        if ( $count % 1000 == 0 ) {
-            print "COMMIT $count\n";
-            $converter::mysql->commit;
-            $converter::mysql->begin_work;
+        while (my ($key, $value) = each %mapping) {
+            if (!$value) {
+                delete $mapping{$key};
+                next;
+            }
+
+            if ($key eq 'language' && $value eq 'English') {
+                delete $mapping{$key};
+                next;
+            }
+            
+            if ($key eq 'usertext' && $value =~ m/Vegetable Revolution/i) {
+                if ($value =~ m/Vegetable Revolution/i || $value =~ m/YaBB/i) {
+                    delete $mapping{$key};
+                    next;
+                }
+            }
+
+            if ($key ~~ @{['registration', 'last_online']}) {
+                push(@holders, 'FROM_UNIXTIME(?)');
+            } elsif ($key ~~ @{['last_ip']}) {
+                push(@holders, 'INET_ATON(?)');
+            } else {
+                push(@holders, '?');
+            }
         }
+
+        my $fields          = join(',', keys %mapping);
+        my $placeholders    = join(',', @holders);
+        my @binds           = values %mapping;
+
+        # Don't worry, no SQL injection here.
+        my $sql = qq{
+            INSERT INTO user ($fields)
+            VALUES ($placeholders)
+        };
+
+        $mysql->do($sql, undef, @binds);
+
+        $count++;
+        print "DONE $count $row->{'user_name'}\n";
     }
     
-    print "COMMIT $count\n";
-    $converter::mysql->commit;
 }
 
+1;
