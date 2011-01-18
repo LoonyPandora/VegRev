@@ -17,16 +17,17 @@ convert_messages();
 
 sub convert_messages {
     my $sqlite_sth = $sqlite->prepare("SELECT * FROM messages LEFT JOIN threads ON threads.thread_id = messages.thread_id ORDER BY message_id ASC");
-
     $sqlite_sth->execute();
+
+    my $total = $sqlite->selectrow_array("SELECT COUNT(*) AS count FROM messages");
 
     print "CONVERTING MESSAGES\n-------------------\n\n";
     my $count = 0;
+
     my $mysql_sth = $mysql->prepare("SELECT id FROM thread WHERE start_date = FROM_UNIXTIME(?) LIMIT 1");
     while (my $row = $sqlite_sth->fetchrow_hashref) {
-
         $mysql_sth->execute($row->{'thread_id'});
-        my $thread_id = $mysql_sth->fetch();
+        my $thread_id = $mysql_sth->fetchrow_arrayref();
 
         my %mapping = (
             'id'                => $row->{'message_id'},
@@ -81,18 +82,19 @@ sub convert_messages {
             VALUES ($placeholders)
         };
 
-        $mysql->do($sql, undef, @binds);
+        $mysql->do($sql, undef, @binds) or die $mysql->errstr;
 
         $count++;
-        print "DONE $count\n";
+        print "DONE $count of $total\n";
     }
 }
 
 
 sub convert_thread {
     my $sqlite_sth = $sqlite->prepare("SELECT * FROM threads ORDER BY thread_id ASC");
-
     $sqlite_sth->execute();
+
+    my $total = $sqlite->selectrow_array("SELECT COUNT(*) AS count FROM threads");
 
     print "CONVERTING THREADS\n------------------\n\n";
     my $count = 0;
@@ -145,18 +147,19 @@ sub convert_thread {
             VALUES ($placeholders)
         };
 
-        $mysql->do($sql, undef, @binds);
+        $mysql->do($sql, undef, @binds) or die $mysql->errstr;
 
         $count++;
-        print "DONE $count\n";
+        print "DONE $count of $total\n";
     }
 }
 
 
 sub convert_shoutbox {
     my $sqlite_sth = $sqlite->prepare("SELECT * FROM shoutbox");
-
     $sqlite_sth->execute();
+
+    my $total = $sqlite->selectrow_array("SELECT COUNT(*) AS count FROM shoutbox");
 
     print "CONVERTING SHOUTBOX\n-------------------\n\n";
     my $count = 0;
@@ -196,18 +199,19 @@ sub convert_shoutbox {
             VALUES ($placeholders)
         };
 
-        $mysql->do($sql, undef, @binds);
+        $mysql->do($sql, undef, @binds) or die $mysql->errstr;
 
         $count++;
-        print "DONE $count\n";
+        print "DONE $count of $total\n";
     }
 }
 
 
 sub convert_users {
     my $sqlite_sth = $sqlite->prepare("SELECT * FROM users");
-
     $sqlite_sth->execute();
+
+    my $total = $sqlite->selectrow_array("SELECT COUNT(*) AS count FROM users");
 
     print "CONVERTING USERS\n----------------\n\n";
     my $count = 0;
@@ -295,12 +299,11 @@ sub convert_users {
             VALUES ($placeholders)
         };
 
-        $mysql->do($sql, undef, @binds);
+        $mysql->do($sql, undef, @binds) or die $mysql->errstr;
 
         $count++;
-        print "DONE $count $row->{'user_name'}\n";
+        print "DONE $count of $total\n";
     }
-    
 }
 
 
