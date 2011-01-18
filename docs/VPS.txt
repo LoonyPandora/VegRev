@@ -48,7 +48,13 @@ mysql_secure_installation
 cd /tmp;
 curl -LO http://xrl.us/perlbrew;
 chmod +x perlbrew;
-export PERLBREW_ROOT=/home/perlbrew;
+
+echo "PATH=\$PATH:/home/perlbrew/bin" >> ~/.bashrc
+echo "export PATH" >> ~/.bashrc 
+
+echo "PERLBREW_ROOT=/home/perlbrew" >> ~/.bashrc;
+echo "export PERLBREW_ROOT" >> ~/.bashrc 
+
 ./perlbrew install;
 
 rm perlbrew;
@@ -60,7 +66,7 @@ perlbrew init;
 # Select one near us. (105 Netherlands)
 perlbrew mirror;
 
-echo "source /home/perlbrew/etc/bashrc" >> ~/.bashrc
+# echo "source /home/perlbrew/etc/bashrc" >> ~/.bashrc
 
 perlbrew install perl-5.12.2
 perlbrew switch perl-5.12.2
@@ -70,10 +76,7 @@ curl -L http://cpanmin.us | perl - --sudo App::cpanminus
 cpanm App::Ack
 cpanm App::cpanoutdated	
 
-# Make sure we are using my fork of cpan-outdated before doing this
 cpan-outdated | xargs cpanm
-
-
 
 
 mkdir /home/sites;
