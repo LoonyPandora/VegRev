@@ -3,9 +3,12 @@
 
 # First, we do the apt stuff... init first by doing an update. And get build essentials
 
+# RE-INSTALL FROM UBUNTU 10.04 32-bit (LTS, better than 10.10)
+
+
 apt-get update;
 
-apt-get install nano gcc perl curl wget gnupg git-core;
+apt-get install gcc perl curl wget gnupg git-core;
 
 
 # TODO: Do something about my dotfiles.
@@ -42,12 +45,15 @@ mysql_secure_installation
 # Perlbrew first, then cpanminus
 # http://blog.fox.geek.nz/2010/09/installing-multiple-perls-with.html
 
+cd /tmp;
 curl -LO http://xrl.us/perlbrew;
 chmod +x perlbrew;
 export PERLBREW_ROOT=/home/perlbrew;
 ./perlbrew install;
 
 rm perlbrew;
+
+# TODO: Add perlbrew to $PATH
 
 perlbrew init;
 
@@ -62,11 +68,7 @@ perlbrew switch perl-5.12.2
 curl -L http://cpanmin.us | perl - --sudo App::cpanminus
 
 cpanm App::Ack
-
-cd /home/perlbrew/perls/perl-5.12.2/bin/
-curl -O https://github.com/tokuhirom/cpan-outdated/raw/master/bin/cpan-outdated
-chmod +x cpan-outdated
-
+cpanm App::cpanoutdated	
 
 # Make sure we are using my fork of cpan-outdated before doing this
 cpan-outdated | xargs cpanm
