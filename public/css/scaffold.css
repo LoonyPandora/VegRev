@@ -1,0 +1,130 @@
+/******************************************************************************
+  scaffold.css - A CSS Framework.
+  Meyer Reset + Sane Defaults + 14px Baseline Rhythm + 1kb Grid System 
+******************************************************************************/
+
+
+/* Meyer Reset v2.0b2 | 201101 */
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+body{line-height:1;}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,
+q:before,q:after{content:'';content:none;}
+table{border-collapse:collapse;border-spacing:0;}
+
+
+/* Reset core elements to sane defaults */
+
+img{vertical-align:middle;-ms-interpolation-mode:bicubic;}
+input[type="hidden"]{display:none;visibility:hidden;margin:0;padding:0;}
+hr{border-style:solid;border-width:1px 0 0 0;clear:both;height:0;}
+a{text-decoration:none;font-weight:bold;}
+
+
+/* Rebuild the baseline styles */
+
+body {
+  font-family:  Verdana, Helvetica, Arial, "Sans Serif";
+  font-size:    11px;
+  line-height:  14px;
+  border:       0;
+  margin:       0;
+  padding:      0;
+  height:       100%;
+  overflow:     auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family:  Helvetica, Arial, "Sans Serif";
+  margin:       0;
+  padding:      0;
+}
+
+/* Helvetica Specific optical kerning - Change if using a different font-stack */
+/* line-heights and margins are to keep vertical rhythm */
+h1  { font-size: 36px; line-height: 36px; letter-spacing: -2px; margin-left: -1px; }
+h2  { font-size: 18px; line-height: 28px; letter-spacing: -1px; margin-left: -1px;}
+h3  { font-size: 16px; line-height: 28px; }
+h4  { font-size: 15px; line-height: 28px; }
+h5  { font-size: 14px; line-height: 14px; }
+h6  { font-size: 13px; line-height: 14px; }
+
+
+
+/* Utility Classes */
+
+.small   { font-size: 10px; }
+.xsmall  { font-size: 9px;  }
+.xxsmall { font-size: 8px;  }
+
+.text_left   { text-align: left;   }
+.text_center { text-align: center; }
+.text_right  { text-align: right;  }
+
+.outline { outline: 1px solid red; }
+
+
+/* Grid me baby */
+
+.half     { width: 20px;  }
+.one      { width: 60px;  }
+.two      { width: 140px; }
+.three    { width: 220px; }
+.four     { width: 300px; }
+.five     { width: 380px; }
+.six      { width: 460px; }
+.seven    { width: 540px; }
+.eight    { width: 620px; }
+.nine     { width: 700px; }
+.ten      { width: 780px; }
+.eleven   { width: 860px; }
+.twelve   { width: 940px; }
+
+/* Headers need to be 10px wider, and offset left by 10px to give proper margins. Use with .flush class */
+/* Done backwards to avoid use of child selectors, otherwise header can take width of containing element. */
+/*.header               { margin-left: -5px; }
+.twelve     .header   { width: 960px; }
+.eleven     .header   { width: 650px; }
+.ten        .header   { width: 590px; }
+.nine       .header   { width: 530px; }
+.eight      .header   { width: 470px; }
+.seven      .header   { width: 410px; }
+.six        .header   { width: 350px; }
+.five       .header   { width: 290px; }
+.four       .header   { width: 230px; }
+.three      .header   { width: 170px; }
+.two        .header   { width: 110px; }
+.one        .header   { width: 50px;  }
+*/
+.column {
+  margin:   0 10px;
+  overflow: hidden;
+  float:    left;
+  display:  inline;
+}
+
+.row {
+  width:    960px;
+  margin:   0 auto;
+  overflow: hidden;
+}
+
+.row .row {
+  margin:   0 -10px;
+  width:    auto;
+  display:  inline-block;
+}
+
+.flush {
+  margin:   0;
+  padding:  0 10px;
+}
+
+.semi_flush {
+  margin:   0 5px;
+  padding:  0 5px;
+}
+
