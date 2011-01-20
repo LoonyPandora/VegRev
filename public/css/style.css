@@ -2,3 +2,23 @@
   style.css - Site specific styles, based off scaffold.css
 ******************************************************************************/
 
+.header {
+  margin: 0 -5px 8px -6px; /* extra negative left padding == optical kerning */
+  overflow: hidden;
+}
+
+.header .row {
+  margin-left: -5px;
+  background-color: #4EBAFF;
+}
+
+.header h3 {
+  color: #fff;
+  font-size: 12px;
+  font-family: Verdana;
+  font-weight: bold;
+  height: 20px;
+  line-height: 21px;
+}
+
+p { text-align: justify; margin-bottom: 14px; }
