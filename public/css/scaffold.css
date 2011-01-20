@@ -53,7 +53,6 @@ h5  { font-size: 14px; line-height: 14px; }
 h6  { font-size: 13px; line-height: 14px; }
 
 
-
 /* Utility Classes */
 
 .small   { font-size: 10px; }
@@ -83,38 +82,17 @@ h6  { font-size: 13px; line-height: 14px; }
 .eleven   { width: 860px; }
 .twelve   { width: 940px; }
 
-/* Headers need to be 10px wider, and offset left by 10px to give proper margins. Use with .flush class */
-/* Done backwards to avoid use of child selectors, otherwise header can take width of containing element. */
-/*.header               { margin-left: -5px; }
-.twelve     .header   { width: 960px; }
-.eleven     .header   { width: 650px; }
-.ten        .header   { width: 590px; }
-.nine       .header   { width: 530px; }
-.eight      .header   { width: 470px; }
-.seven      .header   { width: 410px; }
-.six        .header   { width: 350px; }
-.five       .header   { width: 290px; }
-.four       .header   { width: 230px; }
-.three      .header   { width: 170px; }
-.two        .header   { width: 110px; }
-.one        .header   { width: 50px;  }
-*/
+
 .column {
   margin:   0 10px;
-  overflow: hidden;
+  overflow: visible;
   float:    left;
   display:  inline;
 }
 
 .row {
-  width:    960px;
-  margin:   0 auto;
-  overflow: hidden;
-}
-
-.row .row {
   margin:   0 -10px;
-  width:    auto;
+  overflow: hidden;
   display:  inline-block;
 }
 
