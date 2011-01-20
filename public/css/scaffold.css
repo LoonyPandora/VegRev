@@ -20,9 +20,9 @@ table{border-collapse:collapse;border-spacing:0;}
 
 img{vertical-align:middle;-ms-interpolation-mode:bicubic;}
 input[type="hidden"]{display:none;visibility:hidden;margin:0;padding:0;}
-hr{border-style:solid;border-width:1px 0 0 0;clear:both;height:0;}
-a{text-decoration:none;font-weight:bold;}
-
+hr{border:1px solid #ccc;border-width:1px 0 0 0;clear:both;height:0;margin-bottom:13px;}
+a{text-decoration:none;font-weight:bold;color:#33f;}
+a:hover{color:#009;cursor:pointer;}
 
 /* Rebuild the baseline styles */
 
@@ -63,24 +63,36 @@ h6  { font-size: 13px; line-height: 14px; }
 .text_center { text-align: center; }
 .text_right  { text-align: right;  }
 
-.outline { outline: 1px solid red; }
-
+.outline  { outline: 1px solid red; }
+.faded    { color: #666; }
 
 /* Grid me baby */
 
-.half     { width: 20px;  }
-.one      { width: 60px;  }
-.two      { width: 140px; }
-.three    { width: 220px; }
-.four     { width: 300px; }
-.five     { width: 380px; }
-.six      { width: 460px; }
-.seven    { width: 540px; }
-.eight    { width: 620px; }
-.nine     { width: 700px; }
-.ten      { width: 780px; }
-.eleven   { width: 860px; }
-.twelve   { width: 940px; }
+.one          { width: 20px;  }
+.two          { width: 60px;  }
+.three        { width: 100px; }
+.four         { width: 140px; }
+.five         { width: 180px; }
+.six          { width: 220px; }
+.seven        { width: 260px; }
+.eight        { width: 300px; }
+.nine         { width: 340px; }
+.ten          { width: 380px; }
+.eleven       { width: 420px; }
+.twelve       { width: 460px; }
+.thirteen     { width: 500px; }
+.fourteen     { width: 540px; }
+.fifteen      { width: 580px; }
+.sixteen      { width: 620px; }
+.seventeen    { width: 660px; }
+.eighteen     { width: 700px; }
+.nineteeen    { width: 740px; }
+.twenty       { width: 780px; }
+.twentyone    { width: 820px; }
+.twentytwo    { width: 860px; }
+.twentythree  { width: 900px; }
+.twentyfour   { width: 940px; }
+
 
 
 .column {

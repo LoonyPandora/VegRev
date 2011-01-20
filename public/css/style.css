@@ -2,8 +2,12 @@
   style.css - Site specific styles, based off scaffold.css
 ******************************************************************************/
 
+body {
+  background-color: #f6f6f6;
+}
+
 .header {
-  margin: 0 -5px 8px -6px; /* extra negative left padding == optical kerning */
+  margin: 14px -5px 8px -6px; /* extra negative left padding == optical kerning */
   overflow: hidden;
 }
 
@@ -14,11 +18,29 @@
 
 .header h3 {
   color: #fff;
-  font-size: 12px;
+  font-size: 11px;
   font-family: Verdana;
   font-weight: bold;
   height: 20px;
-  line-height: 21px;
+  line-height: 20px;
 }
 
 p { text-align: justify; margin-bottom: 14px; }
+
+
+
+
+/* PORTAL */
+
+.recent_list li   { height: 28px; overflow: none; margin-bottom: 7px;}
+.recent_list li a { display: block; }
+.user_list li     { display: inline; }
+
+.user_avatar_list li { display: inline; }
+
+.tag_list li    { display: inline-block; border: 1px solid #999; margin-bottom: 5px; height: 23px; line-height: 23px; }
+.tag_list li a  { padding: 5px; background-color: #cfcfcf; color: #333;}
+
+a.faded { font-weight: normal; color: #666; }
+
+
