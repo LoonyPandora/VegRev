@@ -4,6 +4,7 @@
 
 body {
   background-color: #f6f6f6;
+  background-image: url('/img/bg-grey.png');
 }
 
 .header {
@@ -45,8 +46,9 @@ p { text-align: justify; margin-bottom: 14px; }
 #logo_banner {
   color:#fff;
   text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.3);
-  background:#64c901;
-  border-top:5px solid #42a700;
+  background:#42a700;
+  border-top:2px solid #42a700;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);;
   width: 100%;
   margin: 0 0 0 0;
   padding: 0;
@@ -54,18 +56,23 @@ p { text-align: justify; margin-bottom: 14px; }
   line-height: 70px;
 }
 
+/* #42a700 #64c901 */
+
 #logo_sub_banner {
   color:#fff;
   text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.3);
-  background:#42a700;
+  background:#64c901;
   width: 100%;
   margin: 0 0 0 0;
   padding: 0;
-  height: 50px;
+  height: 60px;
 }
 
 #logo_sub_banner h1 {
-  line-height: 50px;
+  font-size: 28px;
+  line-height: 60px;
+  letter-spacing: -1px;
+  margin-left: 0;
 }
 
 .statbox {
