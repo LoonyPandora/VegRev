@@ -7,7 +7,7 @@ body {
 }
 
 .header {
-  margin: 14px -5px 8px -6px; /* extra negative left padding == optical kerning */
+  margin: 11px -5px 8px -6px; /* extra negative left padding == optical kerning */
   overflow: hidden;
 }
 
@@ -34,46 +34,96 @@ p { text-align: justify; margin-bottom: 14px; }
 
 #content {
   width: 960px;
-  background-color: #fcfcfc;
-  margin: 0 auto;
-  border: 5px solid #fff;
+/*  background-color: #fcfcfc;*/
+/*  border: 10px solid #fcfcfc;*/
+  margin: 0 auto 42px auto;
   border-top: none;
   border-bottom: none;
+  min-height: 1000px;
 }
 
 #logo_banner {
   color:#fff;
   text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.3);
   background:#64c901;
-  border:2px solid #e0f4cc;
-  border-left:none;
-  border-right:none;
-  border-top:none;
+  border-top:5px solid #42a700;
   width: 100%;
-  margin: 0;
+  margin: 0 0 0 0;
   padding: 0;
-  height: 100px;
+  height: 80px;
+  line-height: 70px;
 }
 
+#logo_sub_banner {
+  color:#fff;
+  text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.3);
+  background:#42a700;
+  width: 100%;
+  margin: 0 0 0 0;
+  padding: 0;
+  height: 50px;
+}
+
+#logo_sub_banner h1 {
+  line-height: 50px;
+}
+
+.statbox {
+    height: 40px;
+    color: #ccc;
+    text-align: center;
+    border-radius: 5px;
+    padding: 0 0 0 0;
+}
+
+.stat_value {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.stat_name {
+  font-size: 11px;
+  font-family: Helvetica;
+}
+
+
+.tiny_tag {
+  background-color: #ddd;
+  font-weight: bold;
+  line-height: 16px;
+  border-radius: 3px;
+  padding: 1px 4px 1px 4px;
+  margin-right: 5px;
+}
 
 
 /* PORTAL */
 
-.recent_list li   { height: 39px; overflow: none; margin-bottom: 14px; }
+.recent_list {
+  margin-top: 14px;
+}
+
+.recent_list li   {
+  height: 39px;
+  overflow: none;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px dotted #ccc;
+}
+
+
 .recent_list li a { display: block; }
 
 .thread_link {
   font-family: Helvetica, Arial, sans-serif;
   font-size:18px;
-  line-height:18px;
-  margin: 3px 0 1px 0;
-  letter-spacing: -1px;
-}
-
-.recent_list li span {
+  line-height:22px;
+  margin: 1px 0 1px 0;
+  letter-spacing: 0px;
   text-indent: 10px;
 }
-
 
 .user_list li     { display: inline; }
 .user_avatar_list li { display: inline; }
