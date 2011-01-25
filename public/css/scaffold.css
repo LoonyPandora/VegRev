@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Helvetica Specific optical kerning - Change if using a different font-stack */
 /* line-heights and margins are to keep vertical rhythm */
-h1  { font-size: 36px; line-height: 36px; letter-spacing: -2px; margin-left: -1px; }
+h1  { font-size: 36px; line-height: 42px; letter-spacing: -2px; margin-left: -1px; }
 h2  { font-size: 24px; line-height: 28px; letter-spacing: -1px; margin-left: -1px;}
 h3  { font-size: 21px; line-height: 28px; }
 h4  { font-size: 18px; line-height: 28px; }
@@ -120,3 +120,9 @@ h6  { font-size: 14px; line-height: 14px; }
   padding:  0 5px;
 }
 
+
+/* >> The Magnificent CLEARFIX: Updated to prevent margin-collapsing on child elements << j.mp/bestclearfix */
+.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; visibility: hidden; }
+.clearfix:after { clear: both; }
+/* fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
+.clearfix { zoom: 1; }
