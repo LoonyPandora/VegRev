@@ -32,7 +32,7 @@ body {
 #logo { margin-top: 7px; float: left; }
 
 #content, #sidebar {
-  margin: 0 10px;
+  margin: 0 10px 42px 10px;
   overflow: hidden;
   float: left;
   display: inline;
@@ -79,6 +79,17 @@ body {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+#footer {
+  width: 100%;
+  padding: 14px 0;
+  background-color: #fafafa;
+  color: #999;
+  clear: both;
+  font-family: Helvetica, Arial, sans-serif;
+  border-top: 1px solid #ccc
+}
+
+#footer a { color: #999; }
 a       { color: #209600; }
 a:hover { color: #006300; }
 
