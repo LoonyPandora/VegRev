@@ -1,0 +1,20 @@
+<h1>Welcome to the Vegetable Revolution</h1>
+
+
+      <ul class="recent_list">
+<% foreach my $thread (@{$token->{recent_threads}}) { %>
+        <li>
+          <a href="/forum/<%=$thread->{'id'}=%>-<%=$thread->{'url_slug'}=%>/" class="thread_link">
+            <%==avatar_img($thread->{'avatar'}, $thread->{'usertext'})=%>
+            <span class="thread_details">
+              <span class="thread_title"><%=$thread->{'subject'}=%></span>
+              <span class="thread_tagging"><span class="tiny_tag">Rants</span><span class="tiny_tag">Spam</span><span class="tiny_tag">Literature</span> Last post by superlongnameperson, yesterday at 88:88pm </span>
+            </span>
+            <span class="statbox">
+              <span class="stat_value"><%=$thread->{'replies'}=%></span><br>
+              <span class="stat_name">replies</span>
+            </span>
+          </a>
+        </li>
+<% } %>
+      </ul>

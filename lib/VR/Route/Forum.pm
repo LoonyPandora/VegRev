@@ -7,31 +7,32 @@ use Dancer::Plugin::Database;
 prefix '/forum';
 
 
-# You need to specify a tag, otherwise redirect to front page
-get '/' => sub {
-    redirect '/';
+
+get qr{/(\d+)/?$} => sub {
+    my ($page) = splat;
+
+    my $threads_per_page = 30;
+    my $offset = ($threads_per_page * $page) - $threads_per_page;
+
+    my $sth = database->prepare(
+        q{
+            SELECT thread.id, subject, url_slug, last_updated, user_name, display_name, avatar, usertext,
+                (SELECT count(*) FROM message WHERE message.thread_id = thread.id) AS replies
+            FROM thread
+            LEFT JOIN user ON latest_post_user_id = user.id
+            ORDER BY last_updated DESC
+            LIMIT ?, ?
+        }
+    );
+
+    $sth->execute($offset, $threads_per_page);
+    my $recent_threads = $sth->fetchall_arrayref({});
+
+    template 'forum', {
+        recent_threads => $recent_threads,
+    };
 };
 
-
-# Matches tags - multiple tags are separated by a + - the R of CRUD
-# splat keyword doesn't seem to work, so have to use it via params.
-# This regex matches tags and pages too. A bit fugly, but DRY.
-get qr{/([\w+\-]+)/?(\d+)?/?$} => sub {
-    my (@tags)  = split(/\+/, params->{splat}[0]);
-    my $page    = params->{splat}[1];
-
-    template 'forum';
-};
-
-
-# POST'ing to this url gives us the C-UD of CRUD.
-# In practical terms, it's used when creating a new thread and nothing else.
-post qr{/([\w+\-]+)/?(\d+)?/?$} => sub {
-    my (@tags) = split(/\+/, params->{splat}[0]);
-    my $page    = params->{splat}[1];
-
-    redirect '/';
-};
 
 
 true;

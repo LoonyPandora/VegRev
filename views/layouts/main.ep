@@ -49,7 +49,7 @@
   
   <div class="wrapper">
     <div id="content">
-      <%== $t->{content} =%>
+      <%== $token->{content} =%>
     </div>
 
     <div id="sidebar">
@@ -99,7 +99,7 @@
   <div id="footer">
     <div class="wrapper">
       &copy; The Vegetable Revolution. All Rights Reserved<br />
-      Powered by <a href="http://perldancer.org/">Dancer</a> <%= $t->{dancer_version} %>
+      Powered by <a href="http://perldancer.org/">Dancer</a> <%= $token->{dancer_version} %>
     </div>
   </div>
 

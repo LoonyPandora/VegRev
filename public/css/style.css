@@ -165,12 +165,12 @@ h3 {
 
 .recent_list { margin-top: 16px; }
 
-.recent_list li, .thread_details, .recent_list img {
+.recent_list li, .thread_details {
   height: 40px;
 }
 
 .recent_list li a  { display: block; }
-.recent_list img   { width: 40px; }
+.recent_list img   { height: 40px; width: 40px; } /* Change Thumbnail Generation to create square avatars */
 
 .recent_list img, .thread_details, .statbox {
   float: left;
