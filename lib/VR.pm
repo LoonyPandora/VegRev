@@ -1,7 +1,7 @@
 package VR;
 use Dancer ':syntax';
 
-our $VERSION = '0.1';
+our $VERSION = '0.0.1';
 
 # Perl stuff
 use common::sense;
@@ -12,7 +12,7 @@ use Dancer::Plugin::Params::Normalization;
 
 # Extra Routes
 use VR::Route;
-use VR::Route::Admin;
+#use VR::Route::Admin;
 use VR::Route::Chat;
 use VR::Route::Forum;
 use VR::Route::Gallery;
@@ -25,7 +25,6 @@ use VR::Route::Search;
 use VR::Route::Shoutbox;
 use VR::Route::Search;
 use VR::Route::Thread;
-
 
 before sub {
   # We are already in transactional mode

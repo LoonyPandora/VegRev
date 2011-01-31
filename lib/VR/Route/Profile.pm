@@ -8,7 +8,7 @@ prefix '/profile';
 
 
 # Matches GET /profile/:user_name
-get qr{/(\w+)$} => sub {
+get qr{/(\w+)/?$} => sub {
     my ($user_name) = splat;
 
     my $sth = database->prepare(
