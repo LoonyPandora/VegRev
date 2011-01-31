@@ -28,8 +28,8 @@ sub avatar_img {
     
     # We need to encode the individual items, as this function returns HTML
     # And so isn't encoded automagically in the template
-    $avatar     = encode_entities($avatar);
-    $usertext   = encode_entities($usertext);
+    $avatar     = encode_entities($avatar) if $avatar;
+    $usertext   = encode_entities($usertext) if $usertext;
 
     if ($avatar && $avatar =~ /^\d+\.\w{3,4}/) {
         return qq{<img src="$base_url/$avatar" alt="$usertext" />};
