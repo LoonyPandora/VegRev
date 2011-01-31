@@ -6,7 +6,7 @@ style.css - Site specific styles, based off scaffold.css
 
 body {
   background-color: #f6f6f6;
-  background-image: url('/img/tile.gif');
+  background-image: url('http://vegrev.local/img/tile.gif');
 }
 
 #header {
@@ -17,7 +17,7 @@ body {
   width: 100%;
   margin: 0 0 28px 0;
   padding: 0;
-  height: 88px;
+  height: 75px;
 }
 
 #header p {
@@ -31,6 +31,17 @@ body {
 
 #logo { margin-top: 7px; float: left; }
 
+#slogan {
+  font-family: 'Permanent Marker', Arial, sans-serif;
+  font-size: 14px;
+  color: #eee;
+  font-weight: normal;
+  float: left;
+  width: 675px;
+  margin: 0 0 0 20px;
+  overflow: hidden;
+}
+
 #content, #sidebar {
   margin: 0 10px 42px 10px;
   overflow: hidden;
@@ -38,27 +49,10 @@ body {
   display: inline;
 }
 
-#userbox {
-  float: left;
-  height: 30px;
-  width: 220px;
-  margin: 24px 0 0 0;
-  line-height: 14px;
-}
-
-#userbox img {
-  width: 30px;
-  height: 30px;
-  float: left;
-  margin-right: 10px;
-}
-
 #navigation {
-  margin: 28px 0 0 30px;
-  width: 448px;
+  margin: 13px 0 5px 10px;
+  width: 675px;
   float: left;
-  font-family: 'Droid Sans', Helvetica, Arial, sans-serif;
-  font-size: 12px;
   letter-spacing: 0px;
 }
 
@@ -69,14 +63,7 @@ body {
 
 #navigation li a {
   display: block;
-  color: #fff;
-  height: 22px;
-  line-height: 22px;
-  margin: 0 5px 0 5px;
-  padding: 0 5px 0 5px;
-  border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: rgba(0, 0, 0, 0.1);
+  padding: 0 10px 0 10px;
 }
 
 #footer {
