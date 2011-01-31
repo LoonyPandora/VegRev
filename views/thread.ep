@@ -1,0 +1,7 @@
+<h1><%=$token->{meta}->{subject}=%></h1>
+
+      <ul class="recent_list">
+<% foreach my $message (@{$token->{'messages'}}) { %>
+        <li><%=$message->{'display_name'}%>: <%=$message->{'body'}%></li>
+<% } %>
+      </ul>

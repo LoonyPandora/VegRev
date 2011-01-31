@@ -17,16 +17,44 @@ get '/' => sub {
 get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
     my ($thread_id, $page) = splat;
 
-    template 'thread';
+    $page //= 1;
+
+    my $per_page  = 30;
+    my $offset    = ($per_page * $page) - $per_page;
+
+    my $messages = database->prepare(
+        q{
+            SELECT body, user_name, display_name, avatar, UNIX_TIMESTAMP(timestamp) AS timestamp, INET_NTOA(ip_address) AS ip_address
+            FROM message
+            LEFT JOIN user ON user.id = user_id
+            WHERE thread_id = ?
+            AND message.deleted = '0'
+            LIMIT ?, ?
+        }
+    );
+
+    my $meta = database->prepare(
+        q{
+            SELECT subject
+            FROM thread
+            WHERE id = ?
+            LIMIT 1
+        }
+    );
+
+    $messages->execute($thread_id, $offset, $per_page);
+    $meta->execute($thread_id);
+    
+    my $meta_info = $meta->fetchrow_hashref();
+
+
+    template 'thread', {
+        page_title  => $meta_info->{'subject'},
+        messages    => $messages->fetchall_arrayref({}),
+        meta        => $meta_info,
+    };
 };
 
-
-# Posting new replies to a thread, url slug is ignored.
-post qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
-    my ($thread_id, $page) = splat;
-
-    template 'thread';
-};
 
 
 true;
