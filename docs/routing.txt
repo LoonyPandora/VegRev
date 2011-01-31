@@ -39,13 +39,30 @@ We eliminate the /archive route, it provides no performance benefit as the data 
 Technical
 ---------
 
-Try to be as restful as possible... POST to the same URL that you GET from
+Screw restful, post to an endpoint, all params are passed as POST values, they return JSON information. They are ALL AJAX posts - no normal routes. so use the "ajax qr{} => sub" methods
 
-/forum/:tag+:tag/:page
+
+/post/newmessage
+/post/newthread
+/post/newphoto
+/post/pollvote
+/post/newpoll     <--- Creates new thread if none specified.
+/post/register
+/post/login
+/post/logout
+
+
+
+/               <--- Front Page, Alias is /forum
+/forum/:page    <--- Do do pagination, redirect to /forum route
+
 /thread/:thread-id-:url-slug/:page
 
-/inbox/:page
-/chat/:user-name/:page
+/tag/:tag+:tag/:page
+
+/mail/:page             <--- Private Messages front page
+/chat/:username/:page   <--- Individual private message conversations
+
 
 /gallery/:tag+:tag/:page
 /photo/:photo-id-:url-slug/:page
@@ -55,33 +72,6 @@ Try to be as restful as possible... POST to the same URL that you GET from
 /member/:page
 /profile/:user-name
 
-/search/:tag+:tag/:query   (GET requests are limited to past week to help against DoS)
-/search/result/:result-id  (POST requests redirect to this URL - do this later)
-
-
-
-Experimental Thoughts?
-----------------------
-
-/forum/tagged/:tag+:tag/:page
-/forum/thread/:thread-id-:url-slug/:page
-
-/message/inbox/:page
-/message/chat/:user-name
-
-/gallery/tagged/:tag+:tag/:page
-/gallery/photo/:photo-id-:url-slug/:page
-
-/poll/vote/:poll_id
-/poll/view/:poll_id
-/poll/results/:poll_id
-
-/member/list/date/:page
-/member/list/post/:page
-/member/list/group/:page
-
-
-
-
+/search/:tag+:tag/:query  <--- GET requests are limited to past week to help against DoS)
 
 
