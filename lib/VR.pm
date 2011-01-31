@@ -24,6 +24,7 @@ use VR::Route::Profile;
 use VR::Route::Search;
 use VR::Route::Shoutbox;
 use VR::Route::Search;
+use VR::Route::Tag;
 use VR::Route::Thread;
 
 before sub {
