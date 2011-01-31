@@ -9,7 +9,7 @@
   <meta charset="<%= config('charset') %>">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>[VR] </title>
+  <title>[VR] <%=$token->{'page_title'}%></title>
   <meta name="description" content="Vegetable Revoluion">
   <meta name="author" content="James Aitken">
 
@@ -30,14 +30,14 @@
 <body>
   <div id="header">
     <div class="wrapper">
-      <img src="<%= config('static_url') %>/img/vr_logo.png" id="logo" />
+      <a href="/"><img src="<%= config('static_url') %>/img/vr_logo.png" id="logo" /></a>
       <ul id="navigation">
         <li><a href="/"><img src="<%= config('static_url') %>/img/icons/home_24.png" />      </a></li>
-        <li><a><img src="<%= config('static_url') %>/img/icons/pictures_24.png" />    </a></li>
-        <li><a><img src="<%= config('static_url') %>/img/icons/users_24.png" />       </a></li>
-        <li><a><img src="<%= config('static_url') %>/img/icons/mail_24.png" />      </a></li>
-        <li><a><img src="<%= config('static_url') %>/img/icons/search_24.png" />      </a></li>
-        <li><a><img src="<%= config('static_url') %>/img/icons/tools_24.png" />      </a></li>
+        <li><a href="/gallery/"><img src="<%= config('static_url') %>/img/icons/pictures_24.png" />    </a></li>
+        <li><a href="/members/"><img src="<%= config('static_url') %>/img/icons/users_24.png" />       </a></li>
+        <li><a href="/mail/"><img src="<%= config('static_url') %>/img/icons/mail_24.png" />      </a></li>
+        <li><a href="/search/"><img src="<%= config('static_url') %>/img/icons/search_24.png" />      </a></li>
+        <li><a href="/administration/"><img src="<%= config('static_url') %>/img/icons/tools_24.png" />      </a></li>
       </ul>
       <!-- <div id="userbox">
         <img src="<%= config('static_url') %>/img/placeholder.png" /> LoonyPandora'a Long Name<br />
