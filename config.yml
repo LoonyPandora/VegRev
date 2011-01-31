@@ -10,7 +10,7 @@ engines:
     mojo_template:
         auto_escape: 1
         namespace: 'VR::View'
-        prepend: 'use VR::View; my $t = $_[0];'
+        prepend: 'use Data::Dumper; use VR::View; my $token = $_[0];'
 
 session: PSGI
 
