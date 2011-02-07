@@ -7,7 +7,7 @@
             <%==avatar_img($thread->{'avatar'}, $thread->{'usertext'})=%>
             <span class="thread_details">
               <span class="thread_title"><%=$thread->{'subject'}=%></span>
-              <span class="thread_tagging"><span class="tiny_tag">Rants</span><span class="tiny_tag">Spam</span><span class="tiny_tag">Literature</span> Last post by <%=$thread->{'display_name'}%>, <%=time_ago($thread->{'last_updated'}, 1);%></span>
+              <span class="thread_tagging"><span class="tiny_tag">Rants</span><span class="tiny_tag">Spam</span><span class="tiny_tag">Literature</span> Last post by <%=$thread->{'display_name'}%>, <%=time_ago($thread->{'last_updated'}, 1)%></span>
             </span>
             <span class="statbox">
               <span class="stat_value"><%=$thread->{'replies'}=%></span><br>

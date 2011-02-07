@@ -1,7 +1,31 @@
-<h1><%=$token->{meta}->{subject}=%></h1>
+<h1 class="thread_subject"><%=$token->{thread_meta}->{subject}=%></h1>
 
-      <ul class="recent_list">
 <% foreach my $message (@{$token->{'messages'}}) { %>
-        <li><%=$message->{'display_name'}%>: <%=$message->{'body'}%></li>
+    <div class="message_wrapper clearfix">
+      <div class="message_user_name">
+        <img src="<%= config('static_url') %>/img/icons/online.png" /> <%=$message->{'display_name'}%>
+        <span class="message_time"><%=time_ago($message->{'timestamp'}, 1)%></span>
+      </div>
+      <div class="message_actions">
+        <img src="<%= config('static_url') %>/img/icons/delete_16.png" />Delete
+        <img src="<%= config('static_url') %>/img/icons/edit_16.png" />Edit
+        <img src="<%= config('static_url') %>/img/icons/fork_16.png" />Fork
+        <img src="<%= config('static_url') %>/img/icons/reply_16.png" />Reply
+      </div>
+      <div class="avatar_box">
+        <%==avatar_img($message->{'avatar'}, $message->{'usertext'})=%>
+        <p><%=$message->{'usertext'}%></p>
+      </div>
+      <div class="message_box">
+        <% no warnings; %>
+        <%== parse_bbcode($message->{'body'})%>
+        <% use warnings; %>
+      </div>
+
+      <div class="signature_box">
+        <% no warnings; %>
+        <%== parse_bbcode($message->{'signature'})%>
+        <% use warnings; %>
+      </div>
+    </div>
 <% } %>
-      </ul>

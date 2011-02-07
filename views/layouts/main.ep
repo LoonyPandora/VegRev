@@ -19,7 +19,6 @@
 
   <link rel="stylesheet" href="<%= config('static_url') %>/css/scaffold.css?v=2">
   <link rel="stylesheet" href="<%= config('static_url') %>/css/style.css?v=2">
-  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans:regular,bold">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Permanent+Marker">
 
   <script src="<%= config('static_url') %>/js/libs/modernizr-1.6.min.js"></script>
@@ -37,20 +36,22 @@
         <li><a href="/search/"><img src="<%= config('static_url') %>/img/icons/search_24.png" />      </a></li>
         <li><a href="/administration/"><img src="<%= config('static_url') %>/img/icons/tools_24.png" />      </a></li>
       </ul>
-      <!-- <div id="userbox">
-        <img src="<%= config('static_url') %>/img/placeholder.png" /> LoonyPandora'a Long Name<br />
-        Settings // Logout
-      </div> -->
       <span id="slogan">I switched off for large periods of the conversation, mainly due to the fact there was a black midget in the restaurant.</span>
     </div>
   </div>
   
   <div class="wrapper">
     <div id="content">
-      <%== $token->{content} =%>
+      <%== $token->{'content'} =%>
     </div>
 
     <div id="sidebar">
+      <% if ($token->{'thread_meta'}) { %>
+        <h3>Thread Info</h3>
+        <p>Replies: <b><%=$token->{'thread_meta'}->{'replies'}=%></b></p>
+        <p>Tagged: <span class="tiny_tag">Chat</span> <span class="tiny_tag">Music</span></p>
+        <p>Reading Thread: James, Super Nintendo Chalmers, Darren, Lara</p>
+      <% } %>
 
       <h3>Tags</h3>
         <ul class="tag_list clearfix">

@@ -9,12 +9,17 @@ use Data::Dumper;
 our $mysql  = DBI->connect( 'DBI:mysql:database=testing',      'vegrev', 'password', { RaiseError => 1, AutoCommit => 1 } );
 our $sqlite = DBI->connect( 'DBI:SQLite:dbname=main.sqlite3',  '',        '',        { RaiseError => 1, AutoCommit => 0 } );
 
-convert_users();
-convert_shoutbox();
-convert_thread();
-convert_messages();
+#convert_users();
+#convert_shoutbox();
+#convert_thread();
+#convert_messages();
+add_default_taggroup();
 convert_boards_to_tags();
 
+
+sub add_default_taggroup {
+    
+}
 
 
 sub convert_boards_to_tags {

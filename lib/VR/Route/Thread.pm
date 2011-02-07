@@ -19,12 +19,12 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
 
     $page //= 1;
 
-    my $per_page  = 30;
+    my $per_page  = 20;
     my $offset    = ($per_page * $page) - $per_page;
 
     my $messages = database->prepare(
         q{
-            SELECT body, user_name, display_name, avatar, UNIX_TIMESTAMP(timestamp) AS timestamp, INET_NTOA(ip_address) AS ip_address
+            SELECT body, user_name, display_name, usertext, signature, avatar, UNIX_TIMESTAMP(timestamp) AS timestamp, INET_NTOA(ip_address) AS ip_address
             FROM message
             LEFT JOIN user ON user.id = user_id
             WHERE thread_id = ?
@@ -35,7 +35,7 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
 
     my $meta = database->prepare(
         q{
-            SELECT subject
+            SELECT subject, (SELECT count(*) FROM message WHERE message.thread_id = thread.id) AS replies
             FROM thread
             WHERE id = ?
             LIMIT 1
@@ -51,7 +51,7 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
     template 'thread', {
         page_title  => $meta_info->{'subject'},
         messages    => $messages->fetchall_arrayref({}),
-        meta        => $meta_info,
+        thread_meta => $meta_info,
     };
 };
 
