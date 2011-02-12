@@ -42,9 +42,10 @@ h1, h2, h3, h4, h5, h6 {
   margin:       0;
   padding:      0;
   font-weight:  bold;
+  text-rendering: optimizeLegibility;
 }
 
-/* Helvetica Specific optical kerning - Change if using a different font-stack */
+/* Helvetica Specific letter-spacing - Change if using a different font-stack */
 /* line-heights and margins are to keep vertical rhythm */
 h1  { font-size: 36px; line-height: 42px; letter-spacing: -2px; margin-left: -1px; }
 h2  { font-size: 24px; line-height: 28px; letter-spacing: -1px; margin-left: -1px;}
