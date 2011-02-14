@@ -95,7 +95,16 @@
     </div>
   </div>
 
+  
+
   <div id="footer">
+    <div id="supernav">
+      <ul>
+        <li>Start Thread</li>
+        <li>Start Poll</li>
+      </ul>
+    </div>
+
     <div class="wrapper">
       &copy; The Vegetable Revolution. All Rights Reserved<br />
       Powered by <a href="http://perldancer.org/">Dancer</a> <%= $token->{dancer_version} %>

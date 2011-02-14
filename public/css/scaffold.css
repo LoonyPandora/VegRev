@@ -22,27 +22,26 @@ body {
   border:       0;
   margin:       0;
   padding:      0;
-  height:       100%;
-  overflow:     auto;
 }
 
+/* Of course headers should be kerned properly… */
 h1, h2, h3, h4, h5, h6 {
-  font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
-  margin:       0;
-  padding:      0;
-  font-weight:  bold;
+  font-family:    'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin:         0;
+  padding:        0;
+  font-weight:    bold;
   text-rendering: optimizeLegibility;
 }
 
 
 /* Helvetica Specific letter-spacing - Change if using a different font-stack */
 /* line-heights and margins are to keep vertical rhythm */
-h1  { font-size: 36px; line-height: 42px; letter-spacing: -1px; margin-left: -1px; }
-h2  { font-size: 24px; line-height: 28px; letter-spacing: -1px; margin-left: -1px;}
-h3  { font-size: 21px; line-height: 28px; }
-h4  { font-size: 18px; line-height: 28px; }
-h5  { font-size: 16px; line-height: 28px; }
-h6  { font-size: 14px; line-height: 14px; }
+h1  { font-size: 36px; line-height: 48px; letter-spacing: -1px; margin-left: -1px; }
+h2  { font-size: 24px; line-height: 32px; letter-spacing: -1px; margin-left: -1px; }
+h3  { font-size: 21px; line-height: 32px; }
+h4  { font-size: 18px; line-height: 32px; }
+h5  { font-size: 16px; line-height: 32px; }
+h6  { font-size: 14px; line-height: 16px; }
 
 
 /* Utility Classes */
