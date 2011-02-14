@@ -104,6 +104,7 @@
 
 
   <script src="<%= config('static_url') %>/js/libs/jquery-1.4.4.min.js"></script>
+  <script src="<%= config('static_url') %>/js/libs/jquery.tools.min.js"></script>
 
   <!--[if lt IE 7 ]>
     <script src="<%= config('static_url') %>/js/libs/dd_belatedpng.js"></script>
