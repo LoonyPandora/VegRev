@@ -1,36 +1,42 @@
 <h1 class="thread_subject"><%=$token->{thread_meta}->{subject}=%></h1>
 
+
 <% foreach my $message (@{$token->{'messages'}}) { %>
-    <div class="message_wrapper clearfix">
+    <div id="<%=$message->{'id'}%>" class="message_wrapper clearfix">
+
       <div class="avatar_box">
-        <%==avatar_img($message->{'avatar'}, $message->{'usertext'})=%>
-        <p><%=$message->{'usertext'}%></p>
+        <%==avatar_img($message->{'avatar'}, $message->{'usertext'})%>
       </div>
 
       <div class="message_box clearfix">
-        <div class="message_user_name">
-          <%=$message->{'display_name'}%>
+
+        <div class="message_meta">
+          <span class="author"><%==username_link($message->{'user_name'}, $message->{'display_name'})%></span>
+          
           <span class="message_time"><%=time_ago($message->{'timestamp'}, 1)%></span>
+
+          <span class="message_actions">
+            <img src="<%= config('static_url') %>/img/icons/delete_16.png" />
+            <img src="<%= config('static_url') %>/img/icons/edit_16.png" />
+            <img src="<%= config('static_url') %>/img/icons/fork_16.png" />
+            <img src="<%= config('static_url') %>/img/icons/reply_16.png" />
+          </span>
         </div>
 
-        <div class="message_actions">
-          <img src="<%= config('static_url') %>/img/icons/delete_16.png" />
-          <img src="<%= config('static_url') %>/img/icons/edit_16.png" />
-          <img src="<%= config('static_url') %>/img/icons/fork_16.png" />
-          <img src="<%= config('static_url') %>/img/icons/reply_16.png" />
-        </div>
-
-        <div class="message_content">
-          <% no warnings; %>
+        <p>
+          <% no warnings; =%>
           <%== parse_bbcode($message->{'body'})%>
-          <% use warnings; %>
-        </div>
+          <% use warnings; =%>
+        </p>
 
-        <div class="signature_box">
-          <% no warnings; %>
-          <%== parse_bbcode($message->{'signature'})%>
-          <% use warnings; %>
-        </div>
+        <% if ($message->{'signature'}) { =%>
+          <div class="signature">
+            <% no warnings; %>
+            <%== parse_bbcode($message->{'signature'})%>
+            <% use warnings; %>
+          </div>
+        <% } %>
+
       </div>
 
     </div>
