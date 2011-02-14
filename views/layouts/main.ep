@@ -17,6 +17,7 @@
   <link rel="shortcut icon" href="<%= config('static_url') %>/favicon.ico">
   <link rel="apple-touch-icon" href="<%= config('static_url') %>/apple-touch-icon.png">
 
+  <link rel="stylesheet" href="<%= config('static_url') %>/css/html5_boilerplate.css?v=2">
   <link rel="stylesheet" href="<%= config('static_url') %>/css/scaffold.css?v=2">
   <link rel="stylesheet" href="<%= config('static_url') %>/css/style.css?v=2">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Permanent+Marker">
@@ -29,12 +30,12 @@
     <div class="wrapper">
       <a href="/"><img src="<%= config('static_url') %>/img/vr_logo.png" id="logo" /></a>
       <ul id="navigation">
-        <li><a href="/"><img src="<%= config('static_url') %>/img/icons/home_24.png" />      </a></li>
-        <li><a href="/gallery/"><img src="<%= config('static_url') %>/img/icons/pictures_24.png" />    </a></li>
-        <li><a href="/members/"><img src="<%= config('static_url') %>/img/icons/users_24.png" />       </a></li>
-        <li><a href="/mail/"><img src="<%= config('static_url') %>/img/icons/mail_24.png" />      </a></li>
-        <li><a href="/search/"><img src="<%= config('static_url') %>/img/icons/search_24.png" />      </a></li>
-        <li><a href="/administration/"><img src="<%= config('static_url') %>/img/icons/tools_24.png" />      </a></li>
+        <li><a href="/"><img src="<%= config('static_url') %>/img/icons/home_24.png" /></a></li>
+        <li><a href="/gallery/"><img src="<%= config('static_url') %>/img/icons/pictures_24.png" /></a></li>
+        <li><a href="/members/"><img src="<%= config('static_url') %>/img/icons/users_24.png" /></a></li>
+        <li><a href="/mail/"><img src="<%= config('static_url') %>/img/icons/mail_24.png" /></a></li>
+        <li><a href="/search/"><img src="<%= config('static_url') %>/img/icons/search_24.png" /></a></li>
+        <li><a href="/administration/"><img src="<%= config('static_url') %>/img/icons/tools_24.png" /></a></li>
       </ul>
       <span id="slogan">I switched off for large periods of the conversation, mainly due to the fact there was a black midget in the restaurant.</span>
     </div>
@@ -94,7 +95,6 @@
     </div>
   </div>
 
-
   <div id="footer">
     <div class="wrapper">
       &copy; The Vegetable Revolution. All Rights Reserved<br />
@@ -102,8 +102,7 @@
     </div>
   </div>
 
-
-  <script src="<%= config('static_url') %>/js/libs/jquery-1.4.4.min.js"></script>
+  <script src="<%= config('static_url') %>/js/libs/jquery-1.5.min.js"></script>
   <script src="<%= config('static_url') %>/js/libs/jquery.tools.min.js"></script>
 
   <!--[if lt IE 7 ]>
@@ -113,7 +112,7 @@
 
   <!-- change the UA-XXXXX-X to be your site's ID -->
   <!-- <script>
-   var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
+   var _gaq = [['_setAccount', 'UA-263289-2'], ['_trackPageview']];
    (function(d, t) {
     var g = d.createElement(t),
         s = d.getElementsByTagName(t)[0];
