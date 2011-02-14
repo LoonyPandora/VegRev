@@ -6,16 +6,40 @@ use warnings;
 use DBI;
 use Data::Dumper;
 
-our $mysql  = DBI->connect( 'DBI:mysql:database=testing',      'vegrev', 'password', { RaiseError => 1, AutoCommit => 1 } );
-our $sqlite = DBI->connect( 'DBI:SQLite:dbname=main.sqlite3',  '',        '',        { RaiseError => 1, AutoCommit => 0 } );
+our $mysql  = DBI->connect( 'DBI:mysql:database=testing',      'vegrev', 'password', { RaiseError => 1, AutoCommit => 1, mysql_enable_utf8 => 1 } );
+our $sqlite = DBI->connect( 'DBI:SQLite:dbname=main.sqlite3',  '',        '',        { RaiseError => 1, AutoCommit => 0, sqlite_unicode => 1    } );
 
-#convert_users();
-#convert_shoutbox();
-#convert_thread();
-#convert_messages();
+our %boards_to_tags = (
+    'literature'       => '4',
+    'media'            => '5',
+    'rants'            => '6',
+    'faq'              => '7',
+    'talk'             => '8',
+    'spam'             => '9',
+    'private'          => '10',
+    'news'             => '11',
+    'megazine_letters' => '12',
+    'teletext'         => '13',
+    'art'              => '14',
+    'avatars'          => '15',
+    'meets'            => '16',
+    'members'          => '17',
+    'random'           => '18',
+    'mods_only'        => '19',
+    'temp_board'       => '20',
+    'archive'          => '21',
+    'yahoo'            => '22',
+);
+
+convert_users();
+convert_shoutbox();
+
 add_default_taggroup();
 add_default_tags();
+
 convert_boards_to_tags();
+convert_thread();
+convert_messages();
 
 
 sub add_default_taggroup {
@@ -186,7 +210,6 @@ sub convert_thread {
     my $count = 0;
     while (my $row = $sqlite_sth->fetchrow_hashref) {
         my %mapping = (
-            #'id'                   # Now using auto increment ID's
             'subject'               => $row->{'thread_subject'},
             'url_slug'              => $row->{'thread_subject'},
             'icon'                  => $row->{'thread_icon'},
@@ -234,6 +257,31 @@ sub convert_thread {
         };
 
         $mysql->do($sql, undef, @binds) or die $mysql->errstr;
+        my $thread_id = $mysql->{'mysql_insertid'};
+
+
+        my $tag_sql = qq{
+            INSERT INTO tagged_thread (tag_id, thread_id)
+            VALUES (?, ?)
+        };
+
+        $mysql->do($tag_sql, undef, ($boards_to_tags{$row->{'board_id'}}, $thread_id)) or die $mysql->errstr;
+
+        if ($row->{'thread_deleted'}) {
+            my $deleted_sql = qq{
+                INSERT INTO tagged_thread (tag_id, thread_id)
+                VALUES (?, ?)
+            };
+
+            $mysql->do($deleted_sql, undef, ('2', $thread_id)) or die $mysql->errstr;
+        } elsif ($row->{'thread_locked'}) {
+            my $locked_sql = qq{
+                INSERT INTO tagged_thread (tag_id, thread_id)
+                VALUES (?, ?)
+            };
+
+            $mysql->do($locked_sql, undef, ('3', $thread_id)) or die $mysql->errstr;   
+        }
 
         $count++;
         print "DONE $count of $total\n";
