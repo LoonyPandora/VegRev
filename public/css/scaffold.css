@@ -1,35 +1,24 @@
 /******************************************************************************
   scaffold.css - A CSS Framework.
-  Meyer Reset + Sane Defaults + 14px Baseline Rhythm + 1kb Grid System 
 ******************************************************************************/
 
 
-/* Meyer Reset v2.0b2 | 201101 */
-
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
-article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
-body{line-height:1;}
-ol,ul{list-style:none;}
-blockquote,q{quotes:none;}
-blockquote:before,blockquote:after,
-q:before,q:after{content:'';content:none;}
-table{border-collapse:collapse;border-spacing:0;}
-
-
 /* Reset core elements to sane defaults */
-
-img{vertical-align:middle;-ms-interpolation-mode:bicubic;}
+img{vertical-align:middle;max-width:100%;}
 input[type="hidden"]{display:none;visibility:hidden;margin:0;padding:0;}
-hr{border:1px solid #ccc;border-width:1px 0 0 0;clear:both;height:0;margin-bottom:13px;}
 a{text-decoration:none;font-weight:bold;color:#33f;}
 a:hover{color:#009;cursor:pointer;}
 
-/* Rebuild the baseline styles */
 
+/* Set these all to zero. I use them for layout, so give them no default style */
+ol,ul,li{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;list-style:none;}
+
+
+/* Rebuild the baseline styles */
 body {
-  font-family:  Verdana, Helvetica, Arial, "Sans Serif";
-  font-size:    11px;
-  line-height:  14px;
+  font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size:    12px;
+  line-height:  16px;
   border:       0;
   margin:       0;
   padding:      0;
@@ -38,21 +27,17 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family:  Helvetica, Arial, "Sans Serif";
+  font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin:       0;
   padding:      0;
   font-weight:  bold;
   text-rendering: optimizeLegibility;
 }
 
-img {
-  max-width: 100%;
-  -ms-interpolation-mode: bicubic;
-}
 
 /* Helvetica Specific letter-spacing - Change if using a different font-stack */
 /* line-heights and margins are to keep vertical rhythm */
-h1  { font-size: 36px; line-height: 42px; letter-spacing: -2px; margin-left: -1px; }
+h1  { font-size: 36px; line-height: 42px; letter-spacing: -1px; margin-left: -1px; }
 h2  { font-size: 24px; line-height: 28px; letter-spacing: -1px; margin-left: -1px;}
 h3  { font-size: 21px; line-height: 28px; }
 h4  { font-size: 18px; line-height: 28px; }
@@ -61,10 +46,9 @@ h6  { font-size: 14px; line-height: 14px; }
 
 
 /* Utility Classes */
-
-.small   { font-size: 10px; }
-.xsmall  { font-size: 9px;  }
-.xxsmall { font-size: 8px;  }
+.small   { font-family: Verdana; font-size: 10px; }
+.xsmall  { font-family: Verdana; font-size: 9px;  }
+.xxsmall { font-family: Verdana; font-size: 8px;  }
 
 .text_left   { text-align: left;   }
 .text_center { text-align: center; }
@@ -72,61 +56,3 @@ h6  { font-size: 14px; line-height: 14px; }
 
 .outline  { outline: 1px solid red; }
 .faded    { color: #666; }
-
-/* Grid me baby */
-
-.one          { width: 20px;  }
-.two          { width: 60px;  }
-.three        { width: 100px; }
-.four         { width: 140px; }
-.five         { width: 180px; }
-.six          { width: 220px; }
-.seven        { width: 260px; }
-.eight        { width: 300px; }
-.nine         { width: 340px; }
-.ten          { width: 380px; }
-.eleven       { width: 420px; }
-.twelve       { width: 460px; }
-.thirteen     { width: 500px; }
-.fourteen     { width: 540px; }
-.fifteen      { width: 580px; }
-.sixteen      { width: 620px; }
-.seventeen    { width: 660px; }
-.eighteen     { width: 700px; }
-.nineteeen    { width: 740px; }
-.twenty       { width: 780px; }
-.twentyone    { width: 820px; }
-.twentytwo    { width: 860px; }
-.twentythree  { width: 900px; }
-.twentyfour   { width: 940px; }
-.twentyfive   { width: 980px; }
-
-.column {
-  margin:   0 10px;
-  overflow: visible;
-  float:    left;
-  display:  inline;
-}
-
-.row {
-  margin:   0 -10px;
-  overflow: hidden;
-  display:  inline-block;
-}
-
-.flush {
-  margin:   0;
-  padding:  0 10px;
-}
-
-.semi_flush {
-  margin:   0 5px;
-  padding:  0 5px;
-}
-
-
-/* >> The Magnificent CLEARFIX: Updated to prevent margin-collapsing on child elements << j.mp/bestclearfix */
-.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; visibility: hidden; }
-.clearfix:after { clear: both; }
-/* fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
-.clearfix { zoom: 1; }

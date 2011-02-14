@@ -5,7 +5,7 @@
 
       <div class="avatar_box">
         <%==avatar_img($message->{'avatar'}, $message->{'usertext'})%>
-        <p class="faded text_center">★★★★★★★</p>
+        <p class="faded text_center">✰✰✰✰✰✰✰</p>
         <p class="xxsmall faded text_center"><%= $message->{'usertext'} %></p>
       </div>
 
