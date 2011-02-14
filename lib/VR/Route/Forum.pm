@@ -3,6 +3,8 @@ package VR::Route::Forum;
 use common::sense;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
+use Data::Dumper;
+
 
 prefix '/forum';
 
@@ -26,10 +28,32 @@ get qr{/(\d+)/?$} => sub {
     );
 
     $sth->execute($offset, $per_page);
+    my $recent = $sth->fetchall_hashref('id');
+
+    my @thread_ids   = keys %{$recent};
+    my $placeholders = join(',', map('?', @thread_ids));
+
+    my $tag_sth = database->prepare(
+        qq{
+            SELECT thread_id, tag.title FROM tagged_thread
+            LEFT JOIN tag ON tagged_thread.tag_id = tag.id
+            WHERE thread_id IN ($placeholders)
+        }
+    );
+
+    $tag_sth->execute(@thread_ids);
+    foreach my $row (@{$tag_sth->fetchall_arrayref({})}) {
+        push (@{$recent->{$row->{'thread_id'}}->{'tags'}}, $row->{'title'});
+    }
+
+    my @recent_threads;
+    foreach my $asdf ( sort { $a <=> $b } keys %{$recent} ) {
+        push (@recent_threads, $recent->{$asdf});
+    }
 
     template 'forum', {
         page_title      => 'The Forum',
-        recent_threads  => $sth->fetchall_arrayref({}),
+        recent_threads  => \@recent_threads,
     };
 };
 

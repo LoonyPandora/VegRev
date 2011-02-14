@@ -1,11 +1,12 @@
 <h1 class="thread_subject"><%=$token->{thread_meta}->{subject}=%></h1>
 
-
 <% foreach my $message (@{$token->{'messages'}}) { %>
     <div id="<%=$message->{'id'}%>" class="message_wrapper clearfix">
 
       <div class="avatar_box">
         <%==avatar_img($message->{'avatar'}, $message->{'usertext'})%>
+        <p class="faded text_center">★★★★★★★</p>
+        <p class="xxsmall faded text_center"><%= $message->{'usertext'} %></p>
       </div>
 
       <div class="message_box clearfix">
