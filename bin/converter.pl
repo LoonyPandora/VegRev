@@ -14,11 +14,35 @@ our $sqlite = DBI->connect( 'DBI:SQLite:dbname=main.sqlite3',  '',        '',   
 #convert_thread();
 #convert_messages();
 add_default_taggroup();
+add_default_tags();
 convert_boards_to_tags();
 
 
 sub add_default_taggroup {
-    
+    my @default_groups = ('Special Tags', 'Forum', 'Gallery', 'Administrative');
+
+    foreach my $group (@default_groups) {
+        my $sql = qq{
+            INSERT INTO taggroup (title)
+            VALUES (?)
+        };
+
+        $mysql->do($sql, undef, $group) or die $mysql->errstr;
+    }
+}
+
+
+sub add_default_tags {
+    my @default_tags = ('Sticky', 'Deleted', 'Locked');
+
+    foreach my $tag (@default_tags) {
+        my $sql = qq{
+            INSERT INTO tag (title, url_slug, group_id)
+            VALUES (?, ?, ?)
+        };
+
+        $mysql->do($sql, undef, ($tag, lc($tag), '1')) or die $mysql->errstr;
+    }    
 }
 
 
@@ -33,9 +57,20 @@ sub convert_boards_to_tags {
     while (my $row = $sqlite_sth->fetchrow_hashref) {
 
         my %mapping = (
-            'id'                => $row->{'user_id'},
-            'user_name'         => $row->{'user_name'},
+            'url_slug'      => $row->{'board_id'},
+            'title'         => $row->{'board_title'},
+            'description'   => $row->{'board_description'},
         );
+
+        if ($row->{'category_id'} eq 'forum') {
+            $mapping{'group_id'} = '2';
+        } elsif ($row->{'category_id'} eq 'gallery') {
+            $mapping{'group_id'} = '3';
+        } elsif ($row->{'category_id'} eq 'mods') {
+            $mapping{'group_id'} = '4';
+        } else {
+            $mapping{'group_id'} = '2';
+        }
 
         my @holders;
         while (my ($key, $value) = each %mapping) {
@@ -46,7 +81,7 @@ sub convert_boards_to_tags {
         }
 
         my $fields          = join(',', keys %mapping);
-        my $placeholders    = join(',', @holders);
+        my $placeholders    = join(',', map('?', keys %mapping));
         my @binds           = values %mapping;
 
         # Don't worry, no SQL injection here.
