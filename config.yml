@@ -11,6 +11,7 @@ engines:
         auto_escape: 1
         namespace: 'VR::View'
         prepend: 'use Data::Dumper; use VR::View; my $token = $_[0];'
+        encoding: 'UTF-8'
 
 session: PSGI
 
@@ -25,7 +26,7 @@ plugins:
         dbi_params:
             RaiseError: 1
             AutoCommit: 0
-        on_connect_do: ["SET NAMES 'utf8'", "SET CHARACTER SET 'utf8'" ]
+#        on_connect_do: ["SET NAMES 'utf8'", "SET CHARACTER SET 'utf8'" ]
 
     Params::Normalization:
         method: 'lowercase'
