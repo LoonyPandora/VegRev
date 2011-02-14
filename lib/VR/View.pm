@@ -40,6 +40,16 @@ sub avatar_img {
 }
 
 
+sub username_link {
+    my ($user_name, $display_name) = @_;
+
+    $user_name     = encode_entities($user_name)    if $user_name;
+    $display_name  = encode_entities($display_name) if $display_name;
+
+    return qq{<a href="http://vegrev.local/profile/$user_name">$display_name</a>};
+}
+
+
 sub time_ago {
     my ($timestamp, $precision) = @_;
 
