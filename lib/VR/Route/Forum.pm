@@ -3,8 +3,6 @@ package VR::Route::Forum;
 use common::sense;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
-use Data::Dumper;
-
 
 prefix '/forum';
 
