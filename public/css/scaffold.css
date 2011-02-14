@@ -45,6 +45,11 @@ h1, h2, h3, h4, h5, h6 {
   text-rendering: optimizeLegibility;
 }
 
+img {
+  max-width: 100%;
+  -ms-interpolation-mode: bicubic;
+}
+
 /* Helvetica Specific letter-spacing - Change if using a different font-stack */
 /* line-heights and margins are to keep vertical rhythm */
 h1  { font-size: 36px; line-height: 42px; letter-spacing: -2px; margin-left: -1px; }
