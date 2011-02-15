@@ -9,7 +9,7 @@
   <meta charset="<%= config('charset') %>">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>[VR] <%=$token->{'page_title'}%></title>
+  <title>Test Page</title>
   <meta name="description" content="Vegetable Revoluion">
   <meta name="author" content="James Aitken">
 
@@ -18,9 +18,9 @@
   <link rel="apple-touch-icon" href="<%= config('static_url') %>/apple-touch-icon.png">
 
   <link rel="stylesheet" href="<%= config('static_url') %>/css/html5_boilerplate.css?v=2">
+  <link rel="stylesheet" href="<%= config('static_url') %>/css/baseline.css?v=2">
   <link rel="stylesheet" href="<%= config('static_url') %>/css/scaffold.css?v=2">
-  <link rel="stylesheet" href="<%= config('static_url') %>/css/style.css?v=2">
-  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Permanent+Marker">
+  <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Permanent+Marker"> -->
 
   <script src="<%= config('static_url') %>/js/libs/modernizr-1.6.min.js"></script>
 </head>
@@ -28,16 +28,6 @@
 <body>
   <div id="header">
     <div class="wrapper">
-      <a href="/"><img src="<%= config('static_url') %>/img/vr_logo.png" id="logo" /></a>
-      <ul id="navigation">
-        <li><a href="/"><img src="<%= config('static_url') %>/img/icons/home_24.png" /></a></li>
-        <li><a href="/gallery/"><img src="<%= config('static_url') %>/img/icons/pictures_24.png" /></a></li>
-        <li><a href="/members/"><img src="<%= config('static_url') %>/img/icons/users_24.png" /></a></li>
-        <li><a href="/mail/"><img src="<%= config('static_url') %>/img/icons/mail_24.png" /></a></li>
-        <li><a href="/search/"><img src="<%= config('static_url') %>/img/icons/search_24.png" /></a></li>
-        <li><a href="/administration/"><img src="<%= config('static_url') %>/img/icons/tools_24.png" /></a></li>
-      </ul>
-      <span id="slogan">I switched off for large periods of the conversation, mainly due to the fact there was a black midget in the restaurant.</span>
     </div>
   </div>
   
@@ -47,14 +37,18 @@
     </div>
 
     <div id="sidebar">
-      <% if ($token->{'thread_meta'}) { %>
-        <h3>Thread Info</h3>
-        <p>Replies: <b><%=$token->{'thread_meta'}->{'replies'}=%></b></p>
+      <h2>Thread Info</h2>
+        <p>Replies: <b><%=$token->{'thread_meta'}->{'replies'}=%>123</b></p>
         <p>Tagged: <span class="tiny_tag">Chat</span> <span class="tiny_tag">Music</span></p>
         <p>Reading Thread: James, Super Nintendo Chalmers, Darren, Lara</p>
-      <% } %>
 
-      <h3>Tags</h3>
+      <h2>Login or Register</h2>
+        <input type="text" name="email" placeholder="Email Address or Username">
+        <input type="password" name="password"  placeholder="Password">
+        <p class="smallform_label"><a>Register</a> // <a>Forgot Password?</a></p>
+        <input type="submit" class="blue" value="Login">
+
+      <h2>Tags</h2>
         <ul class="tag_list clearfix">
           <li><a>Chat</a></li>
           <li><a>Rants</a></li>
@@ -69,7 +63,7 @@
           <li><a>Yahoo</a></li>
         </ul>
 
-      <h3>Online Now (888)</h3>
+      <h2>Online Now (888)</h2>
         <ul class="user_list clearfix">
           <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> James</a></li>
           <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> Darren</a></li>
@@ -80,18 +74,21 @@
           <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> Super Nintendo Chalmers</a></li>
           <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> Strawberry</a></li>
           <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> The Doc</a></li>
+          <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /></a></li>
         </ul>
 
-      <h3>Shoutbox</h3>
-        <ul class="shoutbox_list">
+      <h2>Shoutbox</h2>
+        <ul class="shoutbox_list clearfix">
           <li><a>Animal</a>: Would someone be so kind as to use the port scan tool at webbytools.co.UK on this ip? 82.70.62.198 thanking yew</li>
           <li><a>SMASH</a>: SMASH SAYS GEORGE SUCKS</li>
           <li><a>Laura</a>: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
-          <li><a>Alice</a>: Duis aute irure dolor</li>
+          <li><a>Super Nintendo Chalmers</a>: Duis aute irure dolor</li>
           <li><a>Scott</a>: in reprehenderit in voluptate</li>
           <li><a>Dan</a>: velit esse cillum dolore eu fugiat nulla pariatur</li>
           <li><a>Phil</a>: Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
-        </ul>
+          <li><a>Super Nintendo Chalmers</a>: in reprehenderit in voluptate</li>
+          <li><a>Dan</a>: velit esse cillum dolore eu fugiat nulla pariatur</li>
+       </ul>
     </div>
   </div>
 
@@ -113,6 +110,13 @@
 
   <script src="<%= config('static_url') %>/js/libs/jquery-1.5.min.js"></script>
   <script src="<%= config('static_url') %>/js/libs/jquery.tools.min.js"></script>
+  <script src="<%= config('static_url') %>/js/libs/jquery.placeholder.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('input').placeholder();
+    });
+  </script>
 
   <!--[if lt IE 7 ]>
     <script src="<%= config('static_url') %>/js/libs/dd_belatedpng.js"></script>
