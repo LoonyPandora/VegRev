@@ -12,15 +12,34 @@ body {
   width: 960px;
 }
 
+::-moz-selection { background: #42a700; color:#fff; text-shadow: none; }
+::selection      { background: #42a700; color:#fff; text-shadow: none; } 
+a:link           { -webkit-tap-highlight-color: #42a700; } 
+
+a {color: #42a700;}
+a:hover {color: #666;}
+
 #header {
   color: #fff;
-/*  background-color: #42a700;*/
-  background-color: #666;
-  border-bottom: 2px solid #555;
+  background-color: #42a700;
+  border-bottom: 2px solid rgba(0,0,0,0.2);
   width:  100%;
   padding: 0;
   height: 78px;
   margin: 0 0 16px 0;
+}
+
+#supernav {
+  display: none;
+}
+
+#footer {
+  width: 100%;
+  padding: 16px 0 16px 0;
+  background-color: #fafafa;
+  color: #999;
+  clear: both;
+  border-top: 1px solid #ccc
 }
 
 #content {
@@ -32,7 +51,7 @@ body {
 #sidebar {
   float: left;
   width: 228px;         /* Cheat a little here, 5px of extra width "off grid" */
-  margin: 3px 0 0 20px;
+  margin: 8px 0 0 20px;
 }
 
 h1, h2 {
@@ -42,7 +61,7 @@ h1, h2 {
 
 h1 {
   font-size: 28px;
-  line-height: 37px;
+  line-height: 42px;
   margin-bottom: 12px;
 }
 

@@ -5,7 +5,6 @@
 
 /* Portal Items */
 
-
 .recent_list li, .thread_details {
   height: 40px;
 }
@@ -40,7 +39,7 @@
 .thread_tagging {
   height: 17px;
   display: block;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: normal;
   color: #666;
 }
@@ -48,7 +47,7 @@
 .statbox {
   width: 60px;
   height: 40px;
-  color: #aaa;
+  color: #999;
   text-shadow: #fff 0px 1px 1px;
   text-align: center;
   margin: 5px 0 0 0;
