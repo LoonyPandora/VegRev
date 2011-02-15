@@ -2,14 +2,12 @@
  scaffold.css - Template Styles, for all pages
 ******************************************************************************/
 
+
+/* Reset and baseline */
+
 body {
   background-color: #f6f6f6;
   background-image: url('http://vegrev.local/img/tile.gif');
-}
-
-.wrapper {
-  margin: 0 auto;
-  width: 960px;
 }
 
 ::-moz-selection { background: #42a700; color:#fff; text-shadow: none; }
@@ -18,6 +16,33 @@ a:link           { -webkit-tap-highlight-color: #42a700; }
 
 a {color: #42a700;}
 a:hover {color: #666;}
+
+h1, h2 {
+  text-shadow: #fff 0px 1px 1px;
+  border-bottom: 1px dotted #ccc;
+}
+
+h1 {
+  font-size: 28px;
+  line-height: 42px;
+  margin-bottom: 12px;
+}
+
+h2 {
+  font-size: 14px;
+  line-height: 27px;
+  margin-top: 9px;
+  margin-bottom: 11px;
+}
+
+
+
+/* Layout Items */
+
+.wrapper {
+  margin: 0 auto;
+  width: 960px;
+}
 
 #header {
   color: #fff;
@@ -29,13 +54,9 @@ a:hover {color: #666;}
   margin: 0 0 16px 0;
 }
 
-#supernav {
-  display: none;
-}
-
 #footer {
   width: 100%;
-  padding: 16px 0 16px 0;
+  padding: 16px 0 48px 0;
   background-color: #fafafa;
   color: #999;
   clear: both;
@@ -54,22 +75,78 @@ a:hover {color: #666;}
   margin: 8px 0 0 20px;
 }
 
-h1, h2 {
-  text-shadow: #fff 0px 1px 1px;
-  border-bottom: 1px dotted #ccc;
+#logo {
+  margin: 11px 0 0 0;
+  float: left;
 }
 
-h1 {
-  font-size: 28px;
-  line-height: 42px;
-  margin-bottom: 12px;
-}
-
-h2 {
+#slogan {
+  font-family: 'Permanent Marker', Arial, sans-serif;
   font-size: 14px;
-  line-height: 27px;
-  margin-top: 9px;
-  margin-bottom: 11px;
+  line-height: 14px;
+  color: #eee;
+  font-weight: normal;
+  float: left;
+  width: 675px;
+  margin: 0 0 0 20px;
+  overflow: hidden;
+}
+
+
+
+
+/* Navigation Styles */
+
+#navigation {
+  margin: 16px 20px 5px 8px;
+  width: 447px;
+  float: left;
+}
+
+#navigation li {
+  display: inline;
+  float: left;
+}
+
+#navigation li a {
+  display: block;
+  padding: 0 10px 0 10px;
+}
+
+#clock {
+  margin: 21px 0 0 0;
+  float: left;
+  width: 225px;
+}
+
+#supernav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  margin-left: -480px;
+  width: 960px;
+  height: 32px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#supernav ul {
+  float: left;
+}
+
+#supernav ul li {
+  color: #fff;
+  font-weight: bold;
+  height: 32px;
+  line-height: 32px;
+  float: left;
+}
+
+#supernav ul li a {
+  background-color: rgba(0, 0, 0, 0.5);
+  display: block;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-right: 1px solid #fff;
 }
 
 
@@ -124,9 +201,13 @@ h2 {
   text-align: center;
   padding: 0 0 2px 0;
   margin: 4px 0 4px 0;
-  background-color: #999;
+  background-color: #42a700;
   font-weight: bold;
   color: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 
 
@@ -170,6 +251,7 @@ h2 {
 
 .user_list img {
   height: 16px;
+  width: 16px;
   margin: -4px 0 0 0;
   padding: 0;
 }
@@ -178,4 +260,57 @@ h2 {
   margin-bottom: 8px;
 }
 
+
+
+/* Shoutbox Form */
+#shoutform {
+  margin: 8px 0 0 0;
+}
+
+
+#shoutform img {
+  float: left;
+  height: 24px;
+  width: 24px;
+  margin: 1px 5px 0 0;
+}
+
+#shoutform input[type="text"] {
+  float: left;
+  width: 165px;
+
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+#shoutform input[type="submit"] {
+  float: left;
+  width: 48px;
+  text-align: left;
+  padding-left: 5px;
+  height: 26px;
+  line-height: 24px;
+  margin: 0;
+  background-color: #ccc;
+  border-left: none;
+
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+
+  -webkit-border-top-right-radius: 11px;
+  -webkit-border-bottom-right-radius: 11px;
+  -moz-border-radius-topright: 11px;
+  -moz-border-radius-bottomright: 11px;
+  border-top-right-radius: 11px;
+  border-bottom-right-radius: 11px;
+}
 

@@ -23,7 +23,7 @@
 
   <!-- Individual Template Styles -->
   <link rel="stylesheet" href="<%= config('static_url') %>/css/forum.css?v=2">
-  <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Permanent+Marker"> -->
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Permanent+Marker">
 
   <script src="<%= config('static_url') %>/js/libs/modernizr-1.6.min.js"></script>
 </head>
@@ -31,6 +31,17 @@
 <body>
   <div id="header">
     <div class="wrapper">
+      <a href="/"><img src="<%= config('static_url') %>/img/vr_logo.png" id="logo" /></a>
+      <ul id="navigation">
+        <li><a href="/"><img src="<%= config('static_url') %>/img/icons/home_24.png" /></a></li>
+        <li><a href="/gallery/"><img src="<%= config('static_url') %>/img/icons/pictures_24.png" /></a></li>
+        <li><a href="/members/"><img src="<%= config('static_url') %>/img/icons/users_24.png" /></a></li>
+        <li><a href="/mail/"><img src="<%= config('static_url') %>/img/icons/mail_24.png" /></a></li>
+        <li><a href="/search/"><img src="<%= config('static_url') %>/img/icons/search_24.png" /></a></li>
+        <li><a href="/administration/"><img src="<%= config('static_url') %>/img/icons/tools_24.png" /></a></li>
+      </ul>
+      <span id="clock">15th February 2011, 88:88pm</span>
+      <span id="slogan">I switched off for large periods of the conversation, mainly due to the fact there was a black midget in the restaurant.</span>
     </div>
   </div>
   
@@ -91,7 +102,13 @@
           <li><a>Phil</a>: Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
           <li><a>Super Nintendo Chalmers</a>: in reprehenderit in voluptate</li>
           <li><a>Dan</a>: velit esse cillum dolore eu fugiat nulla pariatur</li>
+          <li><a>Dan</a>: velit esse cillum dolore eu fugiat nulla pariatur</li>
        </ul>
+       <form id="shoutform" class="clearfix">
+          <input type="text" id="shout_input" name="shout" placeholder="Enter your shout...">
+          <input type="submit" class="blue" value="Shout">
+       </form>
+
     </div>
   </div>
 
@@ -100,8 +117,8 @@
   <div id="footer">
     <div id="supernav">
       <ul>
-        <li>Start Thread</li>
-        <li>Start Poll</li>
+        <li><a>Start Thread</a></li>
+        <li><a>Start Poll</a></li>
       </ul>
     </div>
 
