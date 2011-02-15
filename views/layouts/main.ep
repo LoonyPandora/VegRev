@@ -40,7 +40,6 @@
         <li><a href="/search/"><img src="<%= config('static_url') %>/img/icons/search_24.png" /></a></li>
         <li><a href="/administration/"><img src="<%= config('static_url') %>/img/icons/tools_24.png" /></a></li>
       </ul>
-      <span id="clock">15th February 2011, 88:88pm</span>
       <span id="slogan">I switched off for large periods of the conversation, mainly due to the fact there was a black midget in the restaurant.</span>
     </div>
   </div>
@@ -51,16 +50,25 @@
     </div>
 
     <div id="sidebar">
+      <h2>Super Nintendo Chalmers</h2>
+        <div class="avatar_container clearfix">
+          <img src="http://www.vegetablerevolution.co.uk/uploads/794533.png" class="avatar" />
+          <p>15th February 2011, 88:88pm</p>
+          <p><a>View Profile</a> // <a>Edit Settings</a></p>
+        </div>
+
       <h2>Thread Info</h2>
         <p>Replies: <b><%=$token->{'thread_meta'}->{'replies'}=%>123</b></p>
         <p>Tagged: <span class="tiny_tag">Chat</span> <span class="tiny_tag">Music</span></p>
         <p>Reading Thread: James, Super Nintendo Chalmers, Darren, Lara</p>
 
       <h2>Login or Register</h2>
-        <input type="text" name="email" placeholder="Email Address or Username">
-        <input type="password" name="password"  placeholder="Password">
-        <p class="smallform_label"><a>Register</a> // <a>Forgot Password?</a></p>
-        <input type="submit" class="blue" value="Login">
+        <form id="loginform">
+          <input type="text" name="email" placeholder="Email Address or Username">
+          <input type="password" name="password"  placeholder="Password">
+          <p class="smallform_label"><a>Register</a> // <a>Forgot Password?</a></p>
+          <input type="submit" class="blue" value="Login">
+        </form>
 
       <h2>Tags</h2>
         <ul class="tag_list clearfix">
@@ -102,13 +110,22 @@
           <li><a>Phil</a>: Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
           <li><a>Super Nintendo Chalmers</a>: in reprehenderit in voluptate</li>
           <li><a>Dan</a>: velit esse cillum dolore eu fugiat nulla pariatur</li>
-          <li><a>Dan</a>: velit esse cillum dolore eu fugiat nulla pariatur</li>
        </ul>
        <form id="shoutform" class="clearfix">
           <input type="text" id="shout_input" name="shout" placeholder="Enter your shout...">
           <input type="submit" class="blue" value="Shout">
        </form>
 
+      <h2>Bookmarked Threads</h2>
+        <ul class="shoutbox_list clearfix">
+          <li><a>Woop...next gigs...</a></li>
+          <li><a>What did you dream last night? Again.</a></li>
+          <li><a>VR Fantasy Football 2010/2011</a></li>
+          <li><a>Funny Pictures Thread</a></li>
+          <li><a>Singledom</a></li>
+          <li><a>Things that make you want to bury someone alive</a></li>
+          <li><a>Secret Santa</a></li>
+       </ul>
     </div>
   </div>
 

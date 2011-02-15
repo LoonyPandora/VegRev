@@ -1,10 +1,11 @@
-<h1>Sphinx of black quartz, judge my vow.</h1>
+<h1>Hola, Mystery Person. Welcome to VR</h1>
 
       <ul class="recent_list">
 <% foreach my $thread (@{$token->{'recent_threads'}}) { %>
         <li>
           <a href="/thread/<%=$thread->{'id'}%>-<%=$thread->{'url_slug'}%>/" class="thread_link">
-            <img src="<%= config('static_url') %>/img/placeholder.png" />
+            <%==avatar_img($thread->{'avatar'}, $thread->{'usertext'})%>
+            <!-- <img src="<%= config('static_url') %>/img/placeholder.png" /> -->
             <span class="thread_details">
               <span class="thread_title"><%= $thread->{'subject'} %></span>
               <span class="thread_tagging"><% foreach my $tag (@{$thread->{'tags'}}) { %><span class="tiny_tag"><%= $tag %></span><% } %> Last post by <%=$thread->{'display_name'}%>, <%=time_ago($thread->{'last_updated'}, 1)%></span>

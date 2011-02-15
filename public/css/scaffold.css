@@ -71,7 +71,7 @@ h2 {
 
 #sidebar {
   float: left;
-  width: 228px;         /* Cheat a little here, 5px of extra width "off grid" */
+  width: 229px;         /* Cheat a little here, 10px of extra width "off grid" to accomodate right margins */
   margin: 8px 0 0 20px;
 }
 
@@ -90,6 +90,7 @@ h2 {
   width: 675px;
   margin: 0 0 0 20px;
   overflow: hidden;
+  text-shadow: rgba(0,0,0, 0.3) -1px -1px 0;
 }
 
 
@@ -113,11 +114,6 @@ h2 {
   padding: 0 10px 0 10px;
 }
 
-#clock {
-  margin: 21px 0 0 0;
-  float: left;
-  width: 225px;
-}
 
 #supernav {
   position: fixed;
@@ -170,6 +166,32 @@ h2 {
 
 /* Sidebar styles */
 
+
+#sidebar p {
+  margin-bottom: 8px;
+}
+
+#sidebar .avatar {
+  height: 40px;
+  width: 40px;
+  float: left;
+  margin: -2px 10px 0 0;
+}
+
+#sidebar .avatar_container {
+  height: 42px;
+  padding-top: 6px;
+}
+
+#sidebar .avatar_container  p {
+  margin: 0 0 3px 0;
+}
+
+#sidebar .avatar_container a {
+  color: #666;
+}
+
+
 .smallform_label {
   float: left;
   font-size: 11px;
@@ -210,7 +232,6 @@ h2 {
   border-radius: 3px;
 }
 
-
 #sidebar li {
   float: left;
   display: inline;
@@ -224,7 +245,7 @@ h2 {
   display: block;
   height: 20px;
   line-height: 20px;
-  margin: 5px 5px 5px 0;
+  margin: 5px 4px 5px 0;
 }
 
 .tag_list li a:hover, .user_list li a:hover {
@@ -258,6 +279,8 @@ h2 {
 
 .shoutbox_list li {
   margin-bottom: 8px;
+  display: block;
+  width: 100%;
 }
 
 
@@ -277,7 +300,7 @@ h2 {
 
 #shoutform input[type="text"] {
   float: left;
-  width: 165px;
+  width: 170px;
 
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
