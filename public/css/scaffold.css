@@ -43,7 +43,7 @@ h1, h2 {
 h1 {
   font-size: 28px;
   line-height: 37px;
-  margin-bottom: 11px;
+  margin-bottom: 12px;
 }
 
 h2 {
@@ -60,7 +60,7 @@ h2 {
   font-family: Verdana;
   font-weight: bold;
   background-color: #aaa;
-  color: #fff;
+  color: #f6f6f6;
   font-size: 9px;
   line-height: 9px;
   padding: 1px 3px 1px 3px;
