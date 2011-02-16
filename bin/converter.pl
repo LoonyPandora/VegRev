@@ -46,6 +46,59 @@ our %boards_to_tags = (
 # convert_poll();
 
 
+
+
+sub convert_to_quotes {
+    my $mysql_sth = $mysql->prepare("SELECT id, body FROM message");
+    $mysql_sth->execute();
+
+    # Quote formats: 
+    # [quote="lmc|Cradle Days|1280332254|833281|1292585028"]     <--- Last is timestamp of message being quoted.
+    # [quote=Hairey_Jezza  link=1017272120/0#5 date=1017885809]  <--- date is the field we want
+    
+    while (my $message = $mysql_sth->fetchrow_hashref) {
+        if ($message->{'body'} =~ m{\[quote="(.+?)"\]}) {
+            my (undef, undef, undef, $message_id, undef) = split('|', $1);
+            
+            my $quote_sth = $mysql->prepare("SELECT id, body FROM message WHERE id = ?");
+            $quote_sth->execute($message_id);
+            my $quote_message = $mysql_sth->fetchrow_hashref();
+            
+            my $quoted_body = strip_bbcode($quote_message->{'body'});
+            
+            my $sql = q{
+                INSERT INTO quote (message_id, message_id_quoted, body)
+                VALUES (?, ?, ?)
+            };
+            # TODO: Make sure we clean the quoted body of all bbcode.
+            $mysql->do($sql, undef, ($message->{'id'}, $quote_message->{'id'}, $quoted_body)) or die $mysql->errstr;
+
+        } elsif ($message->{'body'} =~ m{\[quote=(.+?)\]}) {
+            if ($1 =~ m{date=(\d+)}) {
+                my $timestamp = $1;
+
+                my $quote_sth = $mysql->prepare("SELECT id, body FROM message WHERE timestamp = FROM_UNIXTIME(?)");
+                $quote_sth->execute($timestamp);
+                my $quote_message = $mysql_sth->fetchrow_hashref();
+
+                # TODO, add proper error checking.
+                if (!$quote_message) { next; }
+
+                my $quoted_body = strip_bbcode($quote_message->{'body'});
+
+                my $sql = q{
+                    INSERT INTO quote (message_id, message_id_quoted, body)
+                    VALUES (?, ?, ?)
+                };
+                # TODO: Make sure we clean the quoted body of all bbcode.
+                $mysql->do($sql, undef, ($message->{'id'}, $quote_message->{'id'}, $quoted_body)) or die $mysql->errstr;
+                
+            }
+        }
+    }
+}
+
+
 sub convert_poll {
     my $sqlite_sth = $sqlite->prepare("SELECT * FROM polls");
     $sqlite_sth->execute();
@@ -380,6 +433,14 @@ sub convert_messages {
 
         $mysql->do($sql, undef, @binds) or die $mysql->errstr;
 
+        if ($row->{'attachment'}) {
+            $mysql->do(q{
+                    INSERT INTO attachment (message_id, original_name)
+                    VALUES (?, ?)
+                }, undef, ($row->{'message_id'}, $row->{'attachment'})
+            ) or die $mysql->errstr;
+        }
+
         $count++;
         print "DONE $count of $total\n";
     }
@@ -625,6 +686,11 @@ sub convert_users {
     }
 }
 
+
+
+sub strip_bbcode {
+    return $1;
+}
 
 
 1;
