@@ -66,13 +66,13 @@ h2 {
 #content {
   float: left;
   width: 700px;
-  margin: 2px 0 0 10px;
+  margin: 2px 0 48px 10px;
 }
 
 #sidebar {
   float: left;
   width: 229px;         /* Cheat a little here, 10px of extra width "off grid" to accomodate right margins */
-  margin: 8px 0 0 20px;
+  margin: 8px 0 48px 20px;
 }
 
 #logo {

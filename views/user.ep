@@ -1,9 +1,9 @@
-<h1><%= $t->{user}{display_name} =%></h1>
-<h2><%= $t->{user}{user_name} =%></h2>
+<h1><%= $token->{user}{display_name} =%></h1>
+<h2><%= $token->{user}{user_name} =%></h2>
 <hr />
 <ul>
-% foreach my $key (keys %{$t->{user}}) {
-% if ($t->{user}{$key}) {
-  <li><b><%= $key =%>:</b> <%= $t->{user}{$key} =%></li>
+% foreach my $key (keys %{$token->{user}}) {
+% if ($token->{user}{$key}) {
+  <li><b><%= $key =%>:</b> <%= $token->{user}{$key} =%></li>
 % }}
 </ul>

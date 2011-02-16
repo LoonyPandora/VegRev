@@ -22,8 +22,9 @@ sub config {
 
 # Generates an img tag when passed an avatar, will pass default avatar if there is none.
 sub avatar_img {
-    my ($avatar, $usertext) = @_;
+    my ($avatar, $usertext, $class) = @_;
 
+    $class //= 'avatar';
     my $base_url = 'http://www.vegetablerevolution.co.uk/uploads';
     
     # We need to encode the individual items, as this function returns HTML
@@ -32,9 +33,9 @@ sub avatar_img {
     $usertext   = encode_entities($usertext) if $usertext;
 
     if ($avatar && $avatar =~ /^\d+\.\w{3,4}/) {
-        return qq{<img src="$base_url/$avatar" alt="$usertext" />};
+        return qq{<img src="$base_url/$avatar" alt="$usertext" class="$class" />};
     } else {
-        return qq{<img src="http://vegrev.local/img/icons/user_female_128.png" alt="No Avatar" />};
+        return qq{<img src="http://vegrev.local/img/icons/user_female_128.png" alt="No Avatar" class="$class" />};
     }
 
 }

@@ -23,6 +23,8 @@
 
   <!-- Individual Template Styles -->
   <link rel="stylesheet" href="<%= config('static_url') %>/css/forum.css?v=2">
+  <link rel="stylesheet" href="<%= config('static_url') %>/css/gallery.css?v=2">
+  <link rel="stylesheet" href="<%= config('static_url') %>/css/thread.css?v=2">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Permanent+Marker">
 
   <script src="<%= config('static_url') %>/js/libs/modernizr-1.6.min.js"></script>
@@ -40,7 +42,7 @@
         <li><a href="/search/"><img src="<%= config('static_url') %>/img/icons/search_24.png" /></a></li>
         <li><a href="/administration/"><img src="<%= config('static_url') %>/img/icons/tools_24.png" /></a></li>
       </ul>
-      <span id="slogan">I switched off for large periods of the conversation, mainly due to the fact there was a black midget in the restaurant.</span>
+      <span id="slogan">I switched off for large periods of the conversation, mainly due to the fact there was a midget.</span>
     </div>
   </div>
   
