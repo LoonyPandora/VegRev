@@ -9,13 +9,20 @@ Always use regex route matching, not the named captures. It's very neat and tidy
 Note we keep bans in a file - if you are banned, you can't even cause a database hit - even to create a session. Censored words can be in the DB.
 
 
-Working with priv messages - for the message list. mail-to-user has 2 entries per message, one for sender, one for receiver.
+SELECT `from`, `to`, MAX(id) AS id, has_read
+FROM mail
+LEFT JOIN mail_read_receipt ON id = mail_id
+WHERE `TO` = 1
+GROUP BY `FROM`
+ORDER BY id DESC
 
 
-    SELECT DISTINCT(message-id) FROM mail-to-user
-    WHERE user-id IN ($session->{'user-id'}, $params->{'user-id})
-    LEFT JOIN user ON user.id = user-id
-    ORDER BY message-id DESC
+SELECT * FROM mail
+
+WHERE `to` = '1'
+AND `from` = '2'
+
+ORDER BY mail.id DESC
 
 
 Format of thread data structure - with examples
