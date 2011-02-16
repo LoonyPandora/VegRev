@@ -9,6 +9,27 @@ Always use regex route matching, not the named captures. It's very neat and tidy
 Note we keep bans in a file - if you are banned, you can't even cause a database hit - even to create a session. Censored words can be in the DB.
 
 
+MEMORY TABLE == approx 1,720,536 rows with 2x id and datetime
+
+bank on max of 1 million, directories for VR4 have a max of 32k threads, each holding ~ 10 users. so 320k items. However, this goes back MUCH further than 28 days.
+
+Priv messages are an innoDB
+
+
+on dev box, getting about 300 inserts per second.
+
+
+134,217,728 -- max_heap_table_size  (max number of rows)
+
+
+Can't update table 'thread_read_receipt' in stored function/trigger because it is already used by statement which invoked this stored function/trigger
+
+Put it on the messages table - after insert (best I can do, apart from cron or application logic - maybe put it in the viewing thread)
+
+DELETE FROM thread_read_receipt WHERE `datetime` < DATE_SUB(NOW(), INTERVAL 28 day)
+
+
+
 SELECT `from`, `to`, MAX(id) AS id, has_read
 FROM mail
 LEFT JOIN mail_read_receipt ON id = mail_id
