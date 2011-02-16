@@ -6,7 +6,7 @@ use warnings;
 use DBI;
 use Data::Dumper;
 
-our $mysql  = DBI->connect( 'DBI:mysql:database=testing',      'vegrev', 'password', { RaiseError => 1, AutoCommit => 1, mysql_enable_utf8 => 1 } );
+our $mysql  = DBI->connect( 'DBI:mysql:database=testing',      'vegrev', 'password', { RaiseError => 0, AutoCommit => 1, mysql_enable_utf8 => 1 } );
 our $sqlite = DBI->connect( 'DBI:SQLite:dbname=main.sqlite3',  '',        '',        { RaiseError => 1, AutoCommit => 0, sqlite_unicode => 1    } );
 
 our %boards_to_tags = (
@@ -41,7 +41,125 @@ our %boards_to_tags = (
 # convert_thread();
 # convert_messages();
 
-convert_pm();
+# convert_pm();
+
+# convert_poll();
+
+
+sub convert_poll {
+    my $sqlite_sth = $sqlite->prepare("SELECT * FROM polls");
+    $sqlite_sth->execute();
+    
+    my $total = $sqlite->selectrow_array("SELECT COUNT(*) AS count FROM polls");
+
+    print "CONVERTING POLLS\n---------------\n\n";
+    my $count = 0;
+
+    my $mysql_sth = $mysql->prepare("SELECT id FROM thread WHERE start_date = FROM_UNIXTIME(?) LIMIT 1");
+    while (my $row = $sqlite_sth->fetchrow_hashref) {
+        $mysql_sth->execute($row->{'thread_id'});
+        my $thread_id = $mysql_sth->fetchrow_arrayref();
+    
+        # Hardcore Data Munging!
+        $mysql_sth->execute($row->{'thread_id'} + 1);
+        my $thread_id_plus_one = $mysql_sth->fetchrow_arrayref();
+        $mysql_sth->execute($row->{'thread_id'} + 2);
+        my $thread_id_plus_two = $mysql_sth->fetchrow_arrayref();
+        $mysql_sth->execute($row->{'thread_id'} - 1);
+        my $thread_id_minus_one = $mysql_sth->fetchrow_arrayref();
+        $mysql_sth->execute($row->{'thread_id'} - 2);
+        my $thread_id_minus_two = $mysql_sth->fetchrow_arrayref();
+    
+        $mysql_sth->execute($row->{'poll_start_time'});
+        my $start_time = $mysql_sth->fetchrow_arrayref();
+        $mysql_sth->execute($row->{'poll_start_time'} + 1);
+        my $start_time_plus_one = $mysql_sth->fetchrow_arrayref();
+        $mysql_sth->execute($row->{'poll_start_time'} + 2);
+        my $start_time_plus_two = $mysql_sth->fetchrow_arrayref();
+        $mysql_sth->execute($row->{'poll_start_time'} - 1);
+        my $start_time_minus_one = $mysql_sth->fetchrow_arrayref();
+        $mysql_sth->execute($row->{'poll_start_time'} - 2);
+        my $start_time_minus_two = $mysql_sth->fetchrow_arrayref();
+    
+        $thread_id //= $start_time;
+        $thread_id //= $thread_id_plus_one;
+        $thread_id //= $thread_id_plus_two;
+        $thread_id //= $thread_id_minus_one;
+        $thread_id //= $thread_id_minus_two;
+        
+        $thread_id //= $start_time_plus_one;
+        $thread_id //= $start_time_plus_two;
+        $thread_id //= $start_time_minus_one;
+        $thread_id //= $start_time_minus_two;
+    
+        if (!$thread_id) { warn "skipping $row->{'thread_id'} - no corresponding thread"; $count++; next; }
+    
+        my %mapping = (
+            'thread_id'  => @{$thread_id},
+            'start_time' => $row->{'poll_start_time'},
+            'question'   => $row->{'question'},
+            'multi_vote' => $row->{'multi'},
+            'locked'     => $row->{'poll_locked'},
+            'user_id'    => $row->{'user_id'},
+        );
+    
+        my @holders;
+        while (my ($key, $value) = each %mapping) {
+            if (!$value) {
+                delete $mapping{$key};
+                next;
+            }
+    
+            if ($key eq 'start_time') {
+                push(@holders, 'FROM_UNIXTIME(?)');
+            } else {
+                push(@holders, '?');
+            }
+        }
+    
+        my $fields          = join(',', keys %mapping);
+        my $placeholders    = join(',', @holders);
+        my @binds           = values %mapping;
+    
+        # Don't worry, no SQL injection here.
+        my $sql = qq{
+            INSERT INTO poll ($fields)
+            VALUES ($placeholders)
+        };
+    
+        $mysql->do($sql, undef, @binds) or die $mysql->errstr;
+    
+        my $poll_option_sth = $sqlite->prepare("SELECT * FROM poll_options WHERE thread_id = ?");
+        $poll_option_sth->execute($row->{'thread_id'});
+    
+        while (my $option = $poll_option_sth->fetchrow_hashref) {
+            $mysql->do(q{
+                INSERT INTO poll_option (id, text, poll_id)
+                VALUES (?, ?, ?)},
+                undef,
+                ($option->{'poll_option_id'}, $option->{'poll_option'}, @{$thread_id})) or die $mysql->errstr;
+        }
+    
+        $count++;
+        print "DONE $count of $total\n";
+    }
+
+    my $poll_vote_sth = $sqlite->prepare("SELECT * FROM poll_votes");
+    $poll_vote_sth->execute();
+
+    while (my $vote = $poll_vote_sth->fetchrow_hashref) {
+        # Use the thread_id for a timestamp - we never recorded vote time before...
+        # Also skip if that option doesn't exist - we skip them up above, let this just fail.
+        # We get junk errors, but this is a one shot script, so screw it.
+        $mysql->do(q{
+            INSERT INTO poll_vote (user_id, option_id, ip_address, timestamp)
+            VALUES (?, ?, INET_ATON(?), FROM_UNIXTIME(?))},
+            undef,
+            ($vote->{'user_id'}, $vote->{'poll_option_id'}, $vote->{'poll_ip_address'}, $vote->{'thread_id'})
+        ) or next;
+    }
+
+}
 
 
 sub convert_pm {
@@ -326,7 +444,6 @@ sub convert_thread {
 
         $mysql->do($sql, undef, @binds) or die $mysql->errstr;
         my $thread_id = $mysql->{'mysql_insertid'};
-
 
         my $tag_sql = qq{
             INSERT INTO tagged_thread (tag_id, thread_id)
