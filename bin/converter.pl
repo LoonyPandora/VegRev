@@ -31,15 +31,83 @@ our %boards_to_tags = (
     'yahoo'            => '22',
 );
 
-convert_users();
-convert_shoutbox();
+# convert_users();
+# convert_shoutbox();
+# 
+# add_default_taggroup();
+# add_default_tags();
+# 
+# convert_boards_to_tags();
+# convert_thread();
+# convert_messages();
 
-add_default_taggroup();
-add_default_tags();
+convert_pm();
 
-convert_boards_to_tags();
-convert_thread();
-convert_messages();
+
+sub convert_pm {
+    my $sqlite_sth = $sqlite->prepare("SELECT * FROM pm_messages ORDER BY pm_post_time ASC");
+    $sqlite_sth->execute();
+    
+    my $total = $sqlite->selectrow_array("SELECT COUNT(*) AS count FROM pm_messages");
+
+    print "CONVERTING PRIVATE MESSAGES\n---------------\n\n";
+    my $count = 0;
+    while (my $row = $sqlite_sth->fetchrow_hashref) {
+        my %mapping = (
+            'ip_address' => $row->{'pm_ip'},
+            'timestamp'  => $row->{'pm_post_time'},
+            'body'       => $row->{'pm_body'},
+            'sent_from'  => $row->{'pm_sender_id'},
+            'sent_to'    => $row->{'pm_receiver_id'},
+        );
+
+        my @holders;
+        while (my ($key, $value) = each %mapping) {
+            if (!$value) {
+                delete $mapping{$key};
+                next;
+            }
+
+            if ($key eq 'timestamp') {
+                push(@holders, 'FROM_UNIXTIME(?)');
+            } elsif ($key eq 'ip_address') {
+                if ($value =~ m/ /) {
+                    my @tmp = split(/ /, $value);
+                    $mapping{$key} = $tmp[$#tmp];
+                } elsif ($value =~ m/,/) {
+                    my @tmp = split(/,/, $value);
+                    $mapping{$key} = $tmp[$#tmp];
+                } elsif ($value =~ m/\|/) {
+                    my @tmp = split(/\|/, $value);
+                    $mapping{$key} = $tmp[$#tmp];
+                }
+
+                if ($value !~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/) {
+                    $mapping{$key} = '127.0.0.3';
+                }
+
+                push(@holders, 'INET_ATON(?)');
+            } else {
+                push(@holders, '?');
+            }
+        }
+
+        my $fields          = join(',', keys %mapping);
+        my $placeholders    = join(',', @holders);
+        my @binds           = values %mapping;
+
+        # Don't worry, no SQL injection here.
+        my $sql = qq{
+            INSERT INTO mail ($fields)
+            VALUES ($placeholders)
+        };
+
+        $mysql->do($sql, undef, @binds) or die $mysql->errstr;
+
+        $count++;
+        print "DONE $count of $total\n";
+    }
+}
 
 
 sub add_default_taggroup {
