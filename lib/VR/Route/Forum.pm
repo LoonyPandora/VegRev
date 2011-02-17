@@ -4,6 +4,8 @@ use common::sense;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
 
+use VR::Model qw/pagination/;
+
 prefix '/forum';
 
 
@@ -52,6 +54,7 @@ get qr{/(\d+)/?$} => sub {
     template 'forum', {
         page_title      => 'The Forum',
         recent_threads  => \@recent_threads,
+        pagination      => pagination($page, '999'),
     };
 };
 

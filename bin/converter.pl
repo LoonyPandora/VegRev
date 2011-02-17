@@ -6,11 +6,6 @@ use warnings;
 use DBI;
 use Data::Dumper;
 
-use Encode::Guess;
-use Data::Dumper;
-
-
-
 our $mysql  = DBI->connect( 'DBI:mysql:database=testing',      'vegrev', 'password', { RaiseError => 0, AutoCommit => 1 } );
 our $sqlite = DBI->connect( 'DBI:SQLite:dbname=main.sqlite3',  '',        '',        { RaiseError => 1, AutoCommit => 0 } );
 
@@ -36,6 +31,7 @@ our %boards_to_tags = (
     'yahoo'            => '22',
 );
 
+
 convert_users();
 convert_shoutbox();
 
@@ -49,7 +45,6 @@ convert_messages();
 convert_pm();
 
 convert_poll();
-
 
 convert_to_quotes();
 

@@ -139,11 +139,13 @@
         <li><a>Start Thread</a></li>
         <li><a>Start Poll</a></li>
       </ul>
+      <%== $token->{'pagination'}->{'pages_menu'} %>
+      <%== $token->{'pagination'}->{'next_prev_block'} %>
     </div>
 
     <div class="wrapper">
       &copy; The Vegetable Revolution. All Rights Reserved<br />
-      Powered by <a href="http://perldancer.org/">Dancer</a> <%= $token->{dancer_version} %>
+      Powered by <a href="http://perldancer.org/">Dancer</a> <%= $token->{'dancer_version'} %>
     </div>
   </div>
 
