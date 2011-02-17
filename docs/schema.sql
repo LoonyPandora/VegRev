@@ -4,7 +4,7 @@
 #
 # Host: localhost (MySQL 5.1.45-log)
 # Database: testing
-# Generation Time: 2011-02-16 18:02:04 +0000
+# Generation Time: 2011-02-17 18:15:43 +0000
 # ************************************************************
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -68,7 +68,7 @@ CREATE TABLE `mail` (
   KEY `sent_from` (`sent_from`),
   CONSTRAINT `mail_ibfk_2` FOREIGN KEY (`sent_from`) REFERENCES `user` (`id`),
   CONSTRAINT `mail_ibfk_1` FOREIGN KEY (`sent_to`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28871 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -108,10 +108,11 @@ CREATE TABLE `message` (
   KEY `user_id` (`user_id`),
   KEY `editor_id` (`editor_id`),
   KEY `thread_id` (`thread_id`),
+  KEY `timestamp` (`timestamp`),
   CONSTRAINT `message_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `message_ibfk_2` FOREIGN KEY (`editor_id`) REFERENCES `user` (`id`),
   CONSTRAINT `message_ibfk_3` FOREIGN KEY (`thread_id`) REFERENCES `thread` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=833333 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -147,7 +148,7 @@ CREATE TABLE `poll_option` (
   PRIMARY KEY (`id`),
   KEY `poll_id` (`poll_id`),
   CONSTRAINT `poll_option_ibfk_1` FOREIGN KEY (`poll_id`) REFERENCES `poll` (`thread_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1326 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -298,7 +299,7 @@ CREATE TABLE `shoutbox` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `shoutbox_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6346 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -316,7 +317,7 @@ CREATE TABLE `tag` (
   PRIMARY KEY (`id`),
   KEY `group_id` (`group_id`),
   CONSTRAINT `tag_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `taggroup` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='thread has_many tags. flags lock/sticky/deleted';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='thread has_many tags. flags lock/sticky/deleted';
 
 
 
@@ -345,7 +346,7 @@ CREATE TABLE `taggroup` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -370,7 +371,7 @@ CREATE TABLE `thread` (
   KEY `first_message_id` (`first_message_id`),
   CONSTRAINT `thread_ibfk_1` FOREIGN KEY (`started_by_user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `thread_ibfk_2` FOREIGN KEY (`latest_post_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39385 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -440,7 +441,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY `user_name` (`user_name`),
   KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2168 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
