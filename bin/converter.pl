@@ -6,8 +6,13 @@ use warnings;
 use DBI;
 use Data::Dumper;
 
-our $mysql  = DBI->connect( 'DBI:mysql:database=testing',      'vegrev', 'password', { RaiseError => 0, AutoCommit => 1, mysql_enable_utf8 => 1 } );
-our $sqlite = DBI->connect( 'DBI:SQLite:dbname=main.sqlite3',  '',        '',        { RaiseError => 1, AutoCommit => 0, sqlite_unicode => 1    } );
+use Encode::Guess;
+use Data::Dumper;
+
+
+
+our $mysql  = DBI->connect( 'DBI:mysql:database=testing',      'vegrev', 'password', { RaiseError => 0, AutoCommit => 1 } );
+our $sqlite = DBI->connect( 'DBI:SQLite:dbname=main.sqlite3',  '',        '',        { RaiseError => 1, AutoCommit => 0 } );
 
 our %boards_to_tags = (
     'literature'       => '4',
@@ -31,55 +36,70 @@ our %boards_to_tags = (
     'yahoo'            => '22',
 );
 
-# convert_users();
-# convert_shoutbox();
-# 
-# add_default_taggroup();
-# add_default_tags();
-# 
-# convert_boards_to_tags();
-# convert_thread();
-# convert_messages();
+convert_users();
+convert_shoutbox();
 
-# convert_pm();
+add_default_taggroup();
+add_default_tags();
 
-# convert_poll();
+convert_boards_to_tags();
+convert_thread();
+convert_messages();
 
+convert_pm();
+
+convert_poll();
+
+
+convert_to_quotes();
 
 
 
 sub convert_to_quotes {
-    my $mysql_sth = $mysql->prepare("SELECT id, body FROM message");
+    my $mysql_sth = $mysql->prepare("SELECT id, body FROM message WHERE body LIKE '%[quote=%'");
     $mysql_sth->execute();
 
     # Quote formats: 
     # [quote="lmc|Cradle Days|1280332254|833281|1292585028"]     <--- Last is timestamp of message being quoted.
     # [quote=Hairey_Jezza  link=1017272120/0#5 date=1017885809]  <--- date is the field we want
-    
-    while (my $message = $mysql_sth->fetchrow_hashref) {
-        if ($message->{'body'} =~ m{\[quote="(.+?)"\]}) {
-            my (undef, undef, undef, $message_id, undef) = split('|', $1);
-            
-            my $quote_sth = $mysql->prepare("SELECT id, body FROM message WHERE id = ?");
-            $quote_sth->execute($message_id);
-            my $quote_message = $mysql_sth->fetchrow_hashref();
-            
-            my $quoted_body = strip_bbcode($quote_message->{'body'});
-            
-            my $sql = q{
-                INSERT INTO quote (message_id, message_id_quoted, body)
-                VALUES (?, ?, ?)
-            };
-            # TODO: Make sure we clean the quoted body of all bbcode.
-            $mysql->do($sql, undef, ($message->{'id'}, $quote_message->{'id'}, $quoted_body)) or die $mysql->errstr;
 
-        } elsif ($message->{'body'} =~ m{\[quote=(.+?)\]}) {
-            if ($1 =~ m{date=(\d+)}) {
+    my $total = $mysql->selectrow_array("SELECT COUNT(*) FROM message WHERE body LIKE '%[quote=%'");
+
+    print "CONVERTING QUOTES\n---------------\n\n";
+    my $count = 0;
+    while (my $message = $mysql_sth->fetchrow_hashref) {
+
+        my @matches = ($message->{'body'} =~ m{\[quote=(.+?)\]});
+
+        foreach my $match (@matches) {
+            
+            if ($match =~ m{\|}) {
+                my (undef, undef, undef, $message_id, undef) = split('|', $match);
+            
+                my $quote_sth = $mysql->prepare("SELECT id, body FROM message WHERE id = ?");
+                $quote_sth->execute($message_id);
+                my $quote_message = $quote_sth->fetchrow_hashref();
+
+                # TODO, add proper error checking.
+                if (!$quote_message) { next; }
+
+                my $quoted_body = strip_bbcode($quote_message->{'body'});
+                        
+                my $sql = q{
+                    INSERT INTO quote (message_id, message_id_quoted, body)
+                    VALUES (?, ?, ?)
+                };
+
+                # TODO: Make sure we clean the quoted body of all bbcode.
+                $mysql->do($sql, undef, ($message->{'id'}, $quote_message->{'id'}, $quoted_body)) or die $mysql->errstr;
+
+            } elsif ($match =~ m{date=(\d+)}) {
+
                 my $timestamp = $1;
 
                 my $quote_sth = $mysql->prepare("SELECT id, body FROM message WHERE timestamp = FROM_UNIXTIME(?)");
                 $quote_sth->execute($timestamp);
-                my $quote_message = $mysql_sth->fetchrow_hashref();
+                my $quote_message = $quote_sth->fetchrow_hashref();
 
                 # TODO, add proper error checking.
                 if (!$quote_message) { next; }
@@ -90,10 +110,14 @@ sub convert_to_quotes {
                     INSERT INTO quote (message_id, message_id_quoted, body)
                     VALUES (?, ?, ?)
                 };
+
                 # TODO: Make sure we clean the quoted body of all bbcode.
                 $mysql->do($sql, undef, ($message->{'id'}, $quote_message->{'id'}, $quoted_body)) or die $mysql->errstr;
                 
             }
+
+            $count++;
+            print "DONE $count of $total\n";
         }
     }
 }
@@ -689,8 +713,47 @@ sub convert_users {
 
 
 sub strip_bbcode {
-    return $1;
+    my ($string) = @_;
+
+    my @delete_content      = qw(img quote youtube flash);
+    my @remove_formatting   = qw(b i u s glb move tt left center centre right sub sup spoiler edit);
+
+    foreach my $tag (@delete_content) {
+        $string =~ s{\[$tag\](.*?)\[/$tag\]}{}isg;
+        $string =~ s{\[$tag\]}{}isg;
+        $string =~ s{\[/$tag\]}{}isg;
+    }
+
+    foreach my $tag (@remove_formatting) {
+        $string =~ s{\[$tag\](.*?)\[/$tag\]}{$1}isg;
+        $string =~ s{\[$tag\]}{}isg;
+        $string =~ s{\[/$tag\]}{}isg;
+    }
+
+    $string =~ s~\[color=([A-Za-z0-9# ]+)\](.+?)\[/color\]~$2~isg;
+    $string =~ s~\[font=([A-Za-z0-9'" ]+)\](.+?)\[/font\]~$2~isg;
+    $string =~ s~\[size=([6-9]|[1-7][0-9])?\](.*?)\[/size\]~$2~isg;
+    $string =~ s~\[font="(.*?)"\](.*?)\[/font\]~$2~isg;
+    $string =~ s~\[url=(http[s]?://)?(.+?)\](.+?)\[/url\]~http://$2~isg;
+    $string =~ s~\[url\](http[s]?://)?(.+?)\[/url\]~http://$2~isg;
+
+    $string =~ s{\[quote=[^\]]+\](.+?)\[/quote\]}{}isg;
+
+    $string =~ s{\[quote=[^\]]+\]}{}isg;
+    $string =~ s{\[/quote\]}{}isg;
+
+    $string =~ s~\[br\]~\n~ig;
+
+    $string =~ s/^\s+//ig;
+    $string =~ s/\s+$//ig;
+    $string =~ s/^\n+//ig;
+    $string =~ s/\n+$//ig;
+
+    $string =~ s/\n{2,}/\n\n/ig;
+
+    return $string;
 }
+
 
 
 1;

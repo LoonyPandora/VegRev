@@ -1,6 +1,38 @@
 Technical Info
 ==============
 
+KEEP AN EYE ON: 264031 - http://www.vegetablerevolution.co.uk/forum/talk/1081007796/34/ - doesn't seem to convert after the weird char. UTF-8?
+
+
+Example HTML for testing my parser:
+
+<a href="http://google.com"><b><i>a</i></b></a><a href="http://google.com"><b><i>sd</i></b></a><a href="http://google.com"><b><i>f</i></b></a><a href="http://google.com"><b><i>as</i></b></a><a href="http://google.com"><b><i>df</i></b></a><b><i>&nbsp;Lorem <span class="Apple-style-span" style="font-weight: normal;"><span class="Apple-style-span" style="font-style: normal;">ipsum</span></span> dolor sit</i> amet.</b><div><b><img src="http://google.com/intl/en_ALL/images/srpr/logo1w.png"><br></b></div><div><b><br></b></div>
+
+SHOULD BECOME:
+
+<a href="http://google.com">
+  <b>
+    <i>asdfasdf</i>
+  </b>
+</a>
+
+<b>
+  <i>Lorem</i>
+</b>
+
+<i>ipsum</i>
+
+<b>
+  <i>dolor sit</i>
+</b>
+
+<b>amet</b>
+
+<img src="http://google.com/intl/en_ALL/images/srpr/logo1w.png">
+
+
+
+
 Just some technical info that I extracted from comments in some files. Basically just some code to illustrate points.
 
 Always use regex route matching, not the named captures. It's very neat and tidy for sure - however since I'm doing proper validation of params, I'd just have to run the named match through a regex anyway - might as well cut down the amount of code and have that same regex match the route itself

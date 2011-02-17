@@ -52,6 +52,8 @@ Then use perl to parse the submitted HTML, and convert to markdown for storage. 
 
 Check out: HTML::WikiConverter::Markdown Will need to extend to support all the functionality of markdown. Or write a HTML->BBCode plugin that way.
 
+Also check out http://www.perlmonks.org/?node_id=861639 - HTML::StripScripts::Parser (and WCN fork of it) - might clean up the HTML, then write my own HTML::WikiConverter::BBCode
+
 If this fails, stick with markitup, and forget all this WYSIWYG shit.
 
 
