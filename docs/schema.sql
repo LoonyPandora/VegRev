@@ -4,7 +4,7 @@
 #
 # Host: localhost (MySQL 5.1.45-log)
 # Database: testing
-# Generation Time: 2011-02-17 18:15:43 +0000
+# Generation Time: 2011-02-18 18:32:24 +0000
 # ************************************************************
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -31,7 +31,7 @@ CREATE TABLE `attachment` (
   PRIMARY KEY (`id`),
   KEY `message_id` (`message_id`),
   CONSTRAINT `attachment_ibfk_1` FOREIGN KEY (`message_id`) REFERENCES `message` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 
@@ -59,16 +59,16 @@ DROP TABLE IF EXISTS `mail`;
 CREATE TABLE `mail` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ip_address` int(10) unsigned NOT NULL,
-  `timestamp` datetime NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `body` text COLLATE utf8_general_ci NOT NULL,
   `sent_to` int(10) unsigned NOT NULL,
   `sent_from` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sent_to` (`sent_to`),
   KEY `sent_from` (`sent_from`),
-  CONSTRAINT `mail_ibfk_2` FOREIGN KEY (`sent_from`) REFERENCES `user` (`id`),
-  CONSTRAINT `mail_ibfk_1` FOREIGN KEY (`sent_to`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  CONSTRAINT `mail_ibfk_1` FOREIGN KEY (`sent_to`) REFERENCES `user` (`id`),
+  CONSTRAINT `mail_ibfk_2` FOREIGN KEY (`sent_from`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 
@@ -80,12 +80,12 @@ DROP TABLE IF EXISTS `mail_read_receipt`;
 CREATE TABLE `mail_read_receipt` (
   `user_id` int(10) unsigned NOT NULL,
   `mail_id` int(10) unsigned NOT NULL,
-  `datetime` datetime NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY `user_id` (`user_id`),
   KEY `mail_id` (`mail_id`),
-  CONSTRAINT `mail_read_receipt_ibfk_2` FOREIGN KEY (`mail_id`) REFERENCES `mail` (`id`),
-  CONSTRAINT `mail_read_receipt_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  CONSTRAINT `mail_read_receipt_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `mail_read_receipt_ibfk_2` FOREIGN KEY (`mail_id`) REFERENCES `mail` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 
@@ -99,8 +99,8 @@ CREATE TABLE `message` (
   `user_id` int(10) unsigned NOT NULL,
   `thread_id` int(10) unsigned NOT NULL,
   `ip_address` int(10) unsigned NOT NULL,
-  `timestamp` datetime NOT NULL,
-  `edited_timestamp` datetime DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `edited_timestamp` timestamp NULL DEFAULT NULL,
   `editor_id` int(10) unsigned DEFAULT NULL,
   `deleted` tinyint(1) DEFAULT '0',
   `body` text COLLATE utf8_general_ci NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE `message` (
   CONSTRAINT `message_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `message_ibfk_2` FOREIGN KEY (`editor_id`) REFERENCES `user` (`id`),
   CONSTRAINT `message_ibfk_3` FOREIGN KEY (`thread_id`) REFERENCES `thread` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 
@@ -127,12 +127,12 @@ CREATE TABLE `poll` (
   `locked` tinyint(1) DEFAULT '0',
   `multi_vote` tinyint(1) DEFAULT '0',
   `user_id` int(10) unsigned NOT NULL,
-  `start_time` datetime NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   KEY `thread_id` (`thread_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `poll_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `poll_ibfk_1` FOREIGN KEY (`thread_id`) REFERENCES `thread` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  CONSTRAINT `poll_ibfk_1` FOREIGN KEY (`thread_id`) REFERENCES `thread` (`id`),
+  CONSTRAINT `poll_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 
@@ -148,7 +148,7 @@ CREATE TABLE `poll_option` (
   PRIMARY KEY (`id`),
   KEY `poll_id` (`poll_id`),
   CONSTRAINT `poll_option_ibfk_1` FOREIGN KEY (`poll_id`) REFERENCES `poll` (`thread_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 
@@ -161,12 +161,12 @@ CREATE TABLE `poll_vote` (
   `user_id` int(10) unsigned NOT NULL DEFAULT '0',
   `option_id` int(10) unsigned NOT NULL DEFAULT '0',
   `ip_address` int(10) unsigned NOT NULL DEFAULT '0',
-  `timestamp` datetime NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   KEY `user_id` (`user_id`),
   KEY `option_id` (`option_id`),
   CONSTRAINT `poll_vote_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `poll_vote_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `poll_option` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 
@@ -214,7 +214,7 @@ CREATE TABLE `rbac_permission` (
   `title` varchar(255) COLLATE utf8_general_ci NOT NULL DEFAULT 'default',
   `description` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 
@@ -231,7 +231,7 @@ CREATE TABLE `rbac_role` (
   `color` varchar(8) COLLATE utf8_general_ci DEFAULT NULL,
   `special_role` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 
@@ -279,6 +279,7 @@ DROP TABLE IF EXISTS `session`;
 CREATE TABLE `session` (
   `id` char(72) NOT NULL DEFAULT '',
   `session_data` varchar(1024) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8;
 
@@ -293,13 +294,13 @@ CREATE TABLE `shoutbox` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
   `ip_address` varchar(15) COLLATE utf8_general_ci NOT NULL,
-  `time` datetime NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted` tinyint(1) DEFAULT '0',
   `body` varchar(512) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `shoutbox_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 
@@ -317,7 +318,7 @@ CREATE TABLE `tag` (
   PRIMARY KEY (`id`),
   KEY `group_id` (`group_id`),
   CONSTRAINT `tag_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `taggroup` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='thread has_many tags. flags lock/sticky/deleted';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='thread has_many tags. flags lock/sticky/deleted';
 
 
 
@@ -360,7 +361,7 @@ CREATE TABLE `thread` (
   `subject` varchar(255) COLLATE utf8_general_ci NOT NULL,
   `url_slug` varchar(255) COLLATE utf8_general_ci NOT NULL,
   `icon` varchar(32) COLLATE utf8_general_ci DEFAULT NULL,
-  `start_date` datetime NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_updated` datetime NOT NULL,
   `started_by_user_id` int(10) unsigned NOT NULL,
   `latest_post_user_id` int(10) unsigned NOT NULL,
@@ -371,7 +372,7 @@ CREATE TABLE `thread` (
   KEY `first_message_id` (`first_message_id`),
   CONSTRAINT `thread_ibfk_1` FOREIGN KEY (`started_by_user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `thread_ibfk_2` FOREIGN KEY (`latest_post_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 
@@ -383,10 +384,8 @@ DROP TABLE IF EXISTS `thread_read_receipt`;
 CREATE TABLE `thread_read_receipt` (
   `thread_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
-  `datetime` datetime NOT NULL,
-  KEY `thread_id` (`thread_id`),
-  KEY `user_id` (`user_id`),
-  KEY `datetime` (`datetime`)
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`thread_id`,`user_id`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8;
 
 
@@ -432,7 +431,7 @@ CREATE TABLE `user` (
   `gender` varchar(8) COLLATE utf8_general_ci DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `gmt_offset` tinyint(3) NOT NULL DEFAULT '0',
-  `registration` datetime NOT NULL DEFAULT '2001-03-13 01:00:00',
+  `registration` timestamp NOT NULL DEFAULT '2001-03-13 01:00:00',
   `last_online` datetime DEFAULT NULL,
   `last_ip` int(10) unsigned DEFAULT NULL,
   `post_count` int(11) unsigned NOT NULL DEFAULT '0',
@@ -441,7 +440,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY `user_name` (`user_name`),
   KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 

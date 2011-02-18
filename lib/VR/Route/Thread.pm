@@ -24,22 +24,7 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
 
     my $per_page  = 20;
 
-    my $meta = database->prepare(
-        q{
-            SELECT subject, (
-                SELECT count(id)
-                FROM message
-                WHERE message.thread_id = thread.id
-                AND message.deleted != 1
-            ) AS replies
-            FROM thread
-            WHERE thread.id = ?
-            LIMIT 1
-        }
-    );
-
-    $meta->execute($thread_id);
-
+    my $meta        = get_meta($thread_id);
     my $meta_info   = $meta->fetchrow_hashref();
     my $total_pages = ceil($meta_info->{'replies'} / $per_page);
 
@@ -49,30 +34,12 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
 
     my $offset = ($per_page * $page) - $per_page;
 
-    my $messages = database->prepare(
-        q{
-            SELECT message.id, message.body, user.user_name, user.display_name, user.usertext, user.signature, user.avatar, UNIX_TIMESTAMP(message.timestamp) AS message_timestamp, INET_NTOA(message.ip_address) AS message_ip_address
-            FROM message
-            LEFT JOIN USER ON user.id = user_id
-            WHERE message.thread_id = ?
-            AND message.deleted != 1
-            LIMIT ?, ?
-        }
-    );
-    $messages->execute($thread_id, $offset, $per_page);
+    my $messages = get_messages($thread_id, $offset, $per_page);
 
     my $all_messages = $messages->fetchall_arrayref({});
     my @ids = map { $_->{'id'} } @{$all_messages};
-     
-    my $quote = database->prepare(q{
-        SELECT message_id, message_id_quoted, quote.body, UNIX_TIMESTAMP(message.timestamp) AS message_timestamp, user.user_name, user.display_name, user.avatar, user.usertext
-        FROM quote
-        LEFT JOIN message ON message_id_quoted = message.id
-        LEFT JOIN user ON message.user_id = user.id
-        WHERE message_id IN (} . join(',', map('?', @ids)) . q{)
-    });
-    
-    $quote->execute(@ids);
+
+    my $quote = get_quotes(\@ids);
 
     write_read_receipt($thread_id, session('user_id'));
 
@@ -86,6 +53,67 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
 };
 
 
+
+## Data Getters ##
+
+
+sub get_quotes {
+    my ($id_ref) = @_;
+
+    my $quote = database->prepare(q{
+        SELECT message_id, message_id_quoted, quote.body, UNIX_TIMESTAMP(message.timestamp) AS message_timestamp, user.user_name, user.display_name, user.avatar, user.usertext
+        FROM quote
+        LEFT JOIN message ON message_id_quoted = message.id
+        LEFT JOIN user ON message.user_id = user.id
+        WHERE message_id IN (} . join(',', map('?', @{$id_ref})) . q{)
+    });
+
+    $quote->execute(@{$id_ref});
+    return $quote;
+}
+
+
+sub get_meta {
+    my ($thread_id) = @_;
+
+    my $meta = database->prepare(
+        q{
+            SELECT subject, (
+                SELECT count(id)
+                FROM message
+                WHERE message.thread_id = thread.id
+                AND message.deleted != 1
+            ) AS replies
+            FROM thread
+            WHERE thread.id = ?
+            LIMIT 1
+        }
+    );
+    $meta->execute($thread_id);
+
+    return $meta;
+}
+
+
+sub get_messages {
+    my ($thread_id, $offset, $limit) = @_;
+
+    my $messages = database->prepare(
+        q{
+            SELECT message.id, message.body, user.user_name, user.display_name, user.usertext, user.signature, user.avatar, UNIX_TIMESTAMP(message.timestamp) AS message_timestamp, INET_NTOA(message.ip_address) AS message_ip_address
+            FROM message
+            LEFT JOIN USER ON user.id = user_id
+            WHERE message.thread_id = ?
+            AND message.deleted != 1
+            LIMIT ?, ?
+        }
+    );
+    $messages->execute($thread_id, $offset, $limit);
+
+    return $messages;
+}
+
+
 sub write_read_receipt {
     my ($thread_id, $user_id) = @_;
 
@@ -93,9 +121,10 @@ sub write_read_receipt {
         INSERT INTO thread_read_receipt (thread_id, user_id)
         VALUES (?, ?)
         ON DUPLICATE KEY UPDATE timestamp = NOW();
-     });
-    
-     $sth->execute($thread_id, $user_id);
+    });
+
+    $sth->execute($thread_id, $user_id) or die "couldn't write_read_receipt";
+
 }
 
 
