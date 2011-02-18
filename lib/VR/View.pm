@@ -6,10 +6,13 @@ use Dancer ':syntax';
 use HTML::Entities;
 use Time::Duration;
 use Time::Local;
+use Time::HiRes qw/time/;
 
 # This provides view helpers. Named like this so it's the right namespace
 
-
+sub run_time {    
+    return sprintf("%.3f", time() - $VR::global->{'start_time'});
+}
 
 # Access app config in templates
 sub config {

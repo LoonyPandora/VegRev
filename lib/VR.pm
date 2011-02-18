@@ -5,6 +5,7 @@ our $VERSION = '0.0.1';
 
 # Perl stuff
 use common::sense;
+use Time::HiRes qw/time/;
 
 # Dancer Plugins
 use Dancer::Plugin::Database;
@@ -29,6 +30,10 @@ use VR::Route::Thread;
 
 before sub {
   # We are already in transactional mode
+  our $global = {};
+  
+  $global->{'start_time'} = time();
+
 };
 
 after sub {

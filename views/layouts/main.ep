@@ -145,7 +145,8 @@
 
     <div class="wrapper">
       &copy; The Vegetable Revolution. All Rights Reserved<br />
-      Powered by <a href="http://perldancer.org/">Dancer</a> <%= $token->{'dancer_version'} %>
+      Powered by <a href="http://perldancer.org/">Dancer</a> <%= $token->{'dancer_version'} %><br />
+      Run Time: <%=run_time();%> seconds
     </div>
   </div>
 

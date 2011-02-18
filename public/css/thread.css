@@ -74,3 +74,43 @@
 }
 
 
+.quote_header {
+  margin-top: 16px;
+  color: #666;
+  font-size: 11px;
+  border-bottom: 1px solid #eee;
+}
+
+.quote {
+  margin-top: 8px;
+  margin-bottom: px;
+  color: #777;
+}
+
+.quote .avatar {
+  height: 24px;
+  width: 24px;
+  float: left;
+  margin-right: 8px;
+}
+
+.quote .quote_meta {
+  color: #666;
+  font-size: 10px;
+  line-height: 10px;
+  width: 545px;
+  display: block;
+  float: left;
+}
+
+.quote .quote_body {
+  font-size: 11px;
+  width: 545px;
+  display: block;
+  float: left;
+  height: 16px;
+  overflow: hidden;
+}
+
+
+
