@@ -31,7 +31,7 @@
           <p class="quote_header">In Reply To...</p>
 
           <% foreach my $key (keys %{$token->{'quotes'}->{$message->{'id'}}}) { %>
-          <div class="quote clearfix">
+          <div class="quote clearfix" id="">
             <% my $quote = $token->{'quotes'}->{$message->{'id'}}->{$key}; %>
             <%== avatar_img($quote->{'avatar'}, $quote->{'usertext'}) %>
             <span class="quote_meta">

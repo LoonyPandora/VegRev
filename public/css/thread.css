@@ -83,7 +83,6 @@
 
 .quote {
   margin-top: 8px;
-  margin-bottom: px;
   color: #777;
 }
 
@@ -105,6 +104,8 @@
 
 .quote .quote_body {
   font-size: 11px;
+  margin-top: 2px;
+  line-height: 14px;
   width: 545px;
   display: block;
   float: left;

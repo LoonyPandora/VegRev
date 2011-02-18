@@ -156,7 +156,15 @@
 
   <script>
     $(document).ready(function () {
-      $('input').placeholder();
+        $('input').placeholder();
+
+        $('.quote .quote_body').click(function(){
+          var start_height = $(this).height();
+          $(this).css( "height", "auto" );
+          var end_height = $(this).height();
+
+          $(this).height( start_height ).animate({ height: end_height });
+        });
     });
   </script>
 

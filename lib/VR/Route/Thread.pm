@@ -74,7 +74,7 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
     
     $quote->execute(@ids);
 
-    write_read_receipt($thread_id, '1');
+    write_read_receipt($thread_id, session('user_id'));
 
     template 'thread', {
         page_title  => $meta_info->{'subject'},

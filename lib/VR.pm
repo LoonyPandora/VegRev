@@ -31,9 +31,10 @@ use VR::Route::Thread;
 before sub {
   # We are already in transactional mode
   our $global = {};
-  
   $global->{'start_time'} = time();
 
+  session('user_id' => '1');
+  session('start_time' => "$global->{'start_time'}");
 };
 
 after sub {

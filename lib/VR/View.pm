@@ -116,19 +116,13 @@ sub parse_bbcode {
     $string =~ s~\[size=([6-9]|[1-7][0-9])?\](.*?)\[/size\]~<span style="font-size: $1px">$2</span>~isg;
     $string =~ s~\[font="(.*?)"\](.*?)\[/font\]~<span style="font-family: $1">$2</span>~isg;
 
-    $string =~ s~\[url=(http[s]?://)?(.+?)\](.+?)\[/url\]~<a href="http://$2" />$3</a>~isg;
-    $string =~ s~\[url\](http[s]?://)?(.+?)\[/url\]~<a href="http://$2" />$2</a>~isg;
+    $string =~ s~\[url=(http[s]?://)?(.+?)\](.+?)\[/url\]~<a href="http://$2">$3</a>~isg;
+    $string =~ s~\[url\](http[s]?://)?(.+?)\[/url\]~<a href="http://$2">$2</a>~isg;
 
     $string =~ s{\[quote=".+"](.+?)\[\/quote\]}{<q>$1</q>}isg;
     
     return $string;
 }
-
-
-
-
-
-
 
 
 
