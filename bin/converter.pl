@@ -64,7 +64,7 @@ sub convert_to_quotes {
     my $count = 0;
     while (my $message = $mysql_sth->fetchrow_hashref) {
 
-        my @matches = ($message->{'body'} =~ m{\[quote=(.+?)\]});
+        my @matches = ($message->{'body'} =~ m{\[quote=(.+?)\]}g);
 
         foreach my $match (@matches) {
             
