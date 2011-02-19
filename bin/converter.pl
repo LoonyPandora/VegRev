@@ -567,7 +567,7 @@ sub convert_shoutbox {
             'id'            => $row->{'shout_id'},
             'user_id'       => $row->{'user_id'},
             'ip_address'    => $row->{'shout_ip_address'},
-            'time'          => $row->{'shout_time'},
+            'timestamp'     => $row->{'shout_time'},
             'deleted'       => $row->{'shout_deleted'},
             'body'          => $row->{'shout_body'},
         );
