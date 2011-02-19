@@ -87,18 +87,11 @@
           <li><a>Yahoo</a></li>
         </ul>
 
-      <h2>Online Now (888)</h2>
+      <h2>Online Now (<%=scalar @{$token->{'users_online'}}%>)</h2>
         <ul class="user_list clearfix">
-          <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> James</a></li>
-          <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> Darren</a></li>
-          <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> Laura</a></li>
-          <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> Alice</a></li>
-          <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> Scott</a></li>
-          <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> Dan</a></li>
-          <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> Super Nintendo Chalmers</a></li>
-          <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> Strawberry</a></li>
-          <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /> The Doc</a></li>
-          <li><a><img src="<%= config('static_url') %>/img/placeholder.png" /></a></li>
+        <% foreach my $user (@{$token->{'users_online'}}) { %>
+          <li><%==user_link_with_avatar($user->{'user_name'}, $user->{'display_name'}, $user->{'avatar'}, $user->{'usertext'}) %></li>
+        <% } %>
         </ul>
 
       <h2>Shoutbox</h2>

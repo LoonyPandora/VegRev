@@ -43,6 +43,22 @@ sub avatar_img {
 
 }
 
+sub user_link_with_avatar {
+    my ($user_name, $display_name, $avatar, $usertext) = @_;
+    
+    my $base_url = 'http://www.vegetablerevolution.co.uk/uploads';
+
+    $avatar        = encode_entities($avatar)       if $avatar;
+    $usertext      = encode_entities($usertext)     if $usertext;
+    $user_name     = encode_entities($user_name)    if $user_name;
+    $display_name  = encode_entities($display_name) if $display_name;
+
+    if ($avatar && $avatar =~ /^\d+\.\w{3,4}/) {
+        return qq{<a href="http://vegrev.local:5000/profile/$user_name"><img src="$base_url/$avatar" alt="$usertext" /> $display_name</a>};
+    } else {
+        return qq{<a href="http://vegrev.local:5000/profile/$user_name"><img src="http://vegrev.local/img/icons/user_female_128.png" alt="No Avatar" /> $display_name</a>};
+    }
+}
 
 sub username_link {
     my ($user_name, $display_name) = @_;
