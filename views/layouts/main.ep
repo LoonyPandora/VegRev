@@ -9,7 +9,7 @@
   <meta charset="<%= config('charset') %>">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Test Page</title>
+  <title>[VR] <%=$token->{'page_title'}%></title>
   <meta name="description" content="Vegetable Revoluion">
   <meta name="author" content="James Aitken">
 

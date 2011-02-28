@@ -4,6 +4,8 @@ use common::sense;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
 
+use VR::Model qw/pagination/;
+
 prefix '/gallery';
 
 
@@ -52,6 +54,7 @@ get '/' => sub {
     template 'gallery', {
         page_title      => 'The Forum',
         recent_threads  => \@recent_threads,
+        pagination      => pagination($page, '999'),
     };
 };
 
