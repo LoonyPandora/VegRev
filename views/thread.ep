@@ -7,7 +7,6 @@
   <% my $poll_options = $token->{'poll'}->{'options'}; %>
   <% my $poll_votes   = $token->{'poll'}->{'votes'}; %>
 
-
   <div id="poll_box">
     <h6><%=$poll_meta->{'question'}%></h6>
     
@@ -28,7 +27,6 @@
   </div>
 <% } %>
   
-
 
 <% foreach my $message (@{$token->{'messages'}}) { %>
 
