@@ -72,23 +72,23 @@ sub pagination {
     my $pages_menu = q{<select>};
     for (1 .. $total_pages) {
         if ($current_page == $_) {
-            $pages_menu .= qq{\n    <option value="$_" selected="selected">$_</option>};
+            $pages_menu .= qq{\n    <option value="$_" selected="selected">$_ of $total_pages</option>};
         } else {
             $pages_menu .= qq{\n    <option value="$_">$_</option>};
         }
     }    
     $pages_menu .= qq{\n</select>};
 
-    my $next_prev_block = q{<ul>};    
+    my $next_prev_block = q{<ul id="nextprev">};    
     if ($total_pages == 1) {
         $next_prev_block .= qq{\n    <li>One Page</li>};
     } elsif ($current_page == 1) {
-        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page + 1) . q{">Next Page</a></li>};
+        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page + 1) . q{">Next Page &#x2192;</a></li>};
     } elsif ($current_page < $total_pages) {
-        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page - 1) . q{">Prev Page</a></li>};
-        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page + 1) . q{">Next Page</a></li>};
+        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page - 1) . q{">&#x2190; Prev Page</a></li>};
+        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page + 1) . q{">Next Page &#x2192;</a></li>};
     } elsif ($current_page == $total_pages) {
-        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page - 1) . q{">Prev Page</a></li>};
+        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page - 1) . q{">&#x2190; Prev Page</a></li>};
     }
     $next_prev_block .= qq{\n</ul>};
 

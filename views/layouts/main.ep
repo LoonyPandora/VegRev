@@ -128,8 +128,6 @@
     </div>
   </div>
 
-  
-
   <div id="footer">
     <div id="supernav">
       <ul>
@@ -137,8 +135,12 @@
         <li><a>Start Poll</a></li>
       </ul>
       <% if (defined $token->{'pagination'}) { %>
-      <%== $token->{'pagination'}->{'pages_menu'} %>
+      <div id="pagination">
+        <div id="page_selector_block">
+        <%== $token->{'pagination'}->{'pages_menu'} %>
+        </div>
       <%== $token->{'pagination'}->{'next_prev_block'} %>
+      </div>
       <% } %>
     </div>
 
