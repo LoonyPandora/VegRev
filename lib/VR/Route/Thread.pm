@@ -6,7 +6,7 @@ use Dancer::Plugin::Database;
 
 use POSIX qw/ceil/;
 
-use VR::Model qw/pagination users_online/;
+use VR::Model qw/pagination/;
 
 
 prefix '/thread';
@@ -49,7 +49,6 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
         quotes       => $quote->fetchall_hashref([ qw(message_id message_id_quoted) ]),
         thread_meta  => $meta_info,
         pagination   => pagination($page, $total_pages, "/thread/$thread_id-" . $meta_info->{'url_slug'}),
-        users_online => users_online('15'),
     };
 };
 

@@ -86,9 +86,9 @@
           <li><a>Yahoo</a></li>
         </ul>
 
-      <h2>Online Now (<%=scalar @{$token->{'users_online'}}%>)</h2>
+      <h2>Online Now (<%=scalar @{$VR::global->{'users_online'}}%>)</h2>
         <ul class="user_list clearfix">
-        <% foreach my $user (@{$token->{'users_online'}}) { %>
+        <% foreach my $user (@{$VR::global->{'users_online'}}) { %>
           <li><%==user_link_with_avatar($user->{'user_name'}, $user->{'display_name'}, $user->{'avatar'}, $user->{'usertext'}) %></li>
         <% } %>
         </ul>
@@ -131,8 +131,10 @@
         <li><a>Start Thread</a></li>
         <li><a>Start Poll</a></li>
       </ul>
+      <% if (defined $token->{'pagination'}) { %>
       <%== $token->{'pagination'}->{'pages_menu'} %>
       <%== $token->{'pagination'}->{'next_prev_block'} %>
+      <% } %>
     </div>
 
     <div class="wrapper">
