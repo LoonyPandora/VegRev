@@ -55,7 +55,8 @@ sub user_link_with_avatar {
     $display_name  = encode_entities($display_name) if $display_name;
 
     if ($avatar && $avatar =~ /^\d+\.\w{3,4}/) {
-        return qq{<a href="http://vegrev.local:5000/profile/$user_name"><img src="$base_url/$avatar" alt="$usertext" /> $display_name</a>};
+#        return qq{<a href="http://vegrev.local:5000/profile/$user_name"><img src="$base_url/$avatar" alt="$usertext" /> $display_name</a>};
+        return qq{<a href="http://vegrev.local:5000/profile/$user_name"><img src="http://vegrev.local/img/icons/user_female_128.png" alt="No Avatar" /> $display_name</a>};
     } else {
         return qq{<a href="http://vegrev.local:5000/profile/$user_name"><img src="http://vegrev.local/img/icons/user_female_128.png" alt="No Avatar" /> $display_name</a>};
     }
