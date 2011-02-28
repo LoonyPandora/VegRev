@@ -33,10 +33,11 @@ use VR::Model qw/users_online/;
 
 before sub {
   # We are already in transactional mode
+  
+  # TODO - Add the login system.
   our $global = {};
   $global->{'start_time'}   = time();
   $global->{'users_online'} = users_online('15'),
-
 
   session('user_id' => '1');
   session('start_time' => "$global->{'start_time'}");
