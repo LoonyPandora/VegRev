@@ -11,6 +11,11 @@ use VR::Model qw/pagination/;
 
 prefix '/forum';
 
+# If you don't spec a page in the URL, it's page one. And the clean url is best for that.
+get '/' => sub {
+    redirect '/';
+};
+
 
 # There is always a page variable passed to this, as it is a forwarded route from '/'
 get qr{/(\d+)/?$} => sub {

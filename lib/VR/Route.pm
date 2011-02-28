@@ -7,6 +7,8 @@ use Dancer ':syntax';
 
 
 # Front page is always page 1 of the forum
+# TODO DANCER BUG - forward doesn't pass along session details
+# hence you appear to be logged out on the front page
 get '/' => sub {
     forward '/forum/1/';
 };

@@ -51,7 +51,6 @@
     </div>
 
     <div id="sidebar">
-      
       <% if ( session('user_id') ) { %>      
       <h2><%= session('display_name') %></h2>
         <div class="avatar_container clearfix">
@@ -72,29 +71,14 @@
       <% if ($token->{'thread_meta'}) { %>
       <h2><%=$token->{'thread_meta'}->{'content_kind'}%> Info</h2>
         <p>Replies: <b><%=$token->{'thread_meta'}->{'replies'}=%></b></p>
-        <p>Started: <%=time_ago($token->{'thread_meta'}->{'start_date'}, 1)%></p>
-        <p>Last Updated: <%=time_ago($token->{'thread_meta'}->{'last_updated'}, 1)%></p>
+        <p>First Post: <%=time_ago($token->{'thread_meta'}->{'start_date'}, 1)%></p>
+        <p>Last Post: <%=time_ago($token->{'thread_meta'}->{'last_updated'}, 1)%></p>
         <p>Tagged: <% foreach my $tag (@{ $token->{'thread_meta'}->{'tagged'} }) { %> <span class="tiny_tag"><%=$tag->[0]=%></span><% } =%></p>
         <p>Viewing:
           <% while (my ($key, $value) = each %{ $token->{'thread_meta'}->{'reading'} }) { %>
             <%== username_link ($token->{'thread_meta'}->{'reading'}->{$key}->{'user_name'}, $token->{'thread_meta'}->{'reading'}->{$key}->{'display_name'}) =%>
           <% } =%></p>
       <% } %>
-
-      <h2>Tags</h2>
-        <ul class="tag_list clearfix">
-          <li><a>Chat</a></li>
-          <li><a>Rants</a></li>
-          <li><a>Private</a></li>
-          <li><a>Spam</a></li>
-          <li><a>Music</a></li>
-          <li><a>Literature</a></li>
-          <li><a>Zine</a></li>
-          <li><a>FAQ</a></li>
-          <li><a>News</a></li>
-          <li><a>Admin</a></li>
-          <li><a>Yahoo</a></li>
-        </ul>
 
       <h2>Online Now (<%=scalar @{$VR::global->{'users_online'}}%>)</h2>
         <ul class="user_list clearfix">
@@ -119,6 +103,21 @@
           <input type="text" id="shout_input" name="shout" placeholder="Enter your shout...">
           <input type="submit" class="blue" value="Shout">
        </form>
+
+      <h2>Tags</h2>
+        <ul class="tag_list clearfix">
+          <li><a>Chat</a></li>
+          <li><a>Rants</a></li>
+          <li><a>Private</a></li>
+          <li><a>Spam</a></li>
+          <li><a>Music</a></li>
+          <li><a>Literature</a></li>
+          <li><a>Zine</a></li>
+          <li><a>FAQ</a></li>
+          <li><a>News</a></li>
+          <li><a>Admin</a></li>
+          <li><a>Yahoo</a></li>
+        </ul>
 
       <% if ( session('user_id') ) { %>      
       <h2>Bookmarked Threads</h2>
