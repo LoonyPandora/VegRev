@@ -3,7 +3,7 @@ package VR::Route::Thread;
 use common::sense;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
-
+use Data::Dumper;
 use POSIX qw/ceil/;
 
 use VR::Model qw/pagination/;
@@ -26,7 +26,9 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
 
     my ($meta, $tags)       = get_meta($thread_id);
     my $meta_info           = $meta->fetchrow_hashref();
+    my $readers             = read_thread_receipt($thread_id);
     $meta_info->{'tagged'}  = $tags->fetchall_arrayref();
+    $meta_info->{'reading'} = $readers->fetchall_hashref('id');
 
     my $total_pages   = ceil($meta_info->{'replies'} / $per_page);
 
@@ -135,11 +137,30 @@ sub write_read_receipt {
     my $sth = database->prepare(q{
         INSERT INTO thread_read_receipt (thread_id, user_id)
         VALUES (?, ?)
-        ON DUPLICATE KEY UPDATE timestamp = NOW();
+        ON DUPLICATE KEY UPDATE timestamp = NOW()
     });
 
     $sth->execute($thread_id, $user_id) or die "couldn't write_read_receipt";
 
+}
+
+
+sub read_thread_receipt {
+    my ($thread_id) = @_;
+
+    my $sth = database->prepare(
+        q{
+            SELECT user.user_name, user.id, user.display_name
+            FROM thread_read_receipt
+            LEFT JOIN user ON user.id = user_id
+            WHERE thread_id = ?
+            AND TIMESTAMP > DATE_SUB(NOW(), INTERVAL 10 MINUTE)
+        }
+    );
+
+    $sth->execute($thread_id);
+
+    return $sth;
 }
 
 
