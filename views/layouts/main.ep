@@ -129,18 +129,24 @@
   </div>
 
   <div id="footer">
-    <div id="supernav">
-      <ul id="action_links">
-        <li><a>Start Thread</a></li>
-        <li><a>Start Poll</a></li>
-      </ul>
-      <% if (defined $token->{'pagination'}) { %>
-      <div id="pagination">
-      <%== $token->{'pagination'}->{'pages_menu'} %>
-      <%== $token->{'pagination'}->{'next_prev_block'} %>
+    <% if (defined $token->{'actions'} && defined $token->{'pagination'}) { %>
+      <div id="supernav">
+        <% if (defined $token->{'actions'}) { %>
+          <ul id="actions">
+            <% foreach my $action (@{ $token->{'actions'} }) { %>
+              <li><a href="<%= $action->{'url'}%>"><%= $action->{'title'}%></a></li>
+            <% } %>
+          </ul>
+        <% } %>
+
+        <% if (defined $token->{'pagination'}) { %>
+          <div id="pagination">
+            <%== $token->{'pagination'}->{'pages_menu'} %>
+            <%== $token->{'pagination'}->{'next_prev_block'} %>
+          </div>
+        <% } %>
       </div>
-      <% } %>
-    </div>
+    <% } %>
 
     <div class="wrapper">
       &copy; The Vegetable Revolution. All Rights Reserved<br />

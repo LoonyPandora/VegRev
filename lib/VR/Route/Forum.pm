@@ -35,36 +35,41 @@ get qr{/(\d+)/?$} => sub {
         page_title      => 'The Forum',
         recent_threads  => $recent_threads,
         pagination      => pagination($page, $total_pages, '/forum'),
+        actions => [
+            { 'title' => 'Start Thread', 'url' => '/start_thread', icon => '/img/icons/star_16.png' },
+        ]
     };
 };
+
+
 
 
 # This is tags
-get qr{/([\w-]+)/?(\d+)?/?$} => sub {
-    my ($tag, $page) = splat;
-
-    my @tags = split(/-/, $tag);
-
-    my $per_page  = 30;
-    my $offset    = ($per_page * $page) - $per_page;
-
-    my $meta        = get_meta();
-    my $meta_info   = $meta->fetchrow_hashref();
-    my $total_pages = ceil($meta_info->{'total_threads'} / $per_page);
-
-    # Sanity Check the page
-    $page = 1 unless $page;
-    $page = $total_pages if $page > $total_pages;
-
-    my $offset = ($per_page * $page) - $per_page;
-
-    my $recent_threads = get_threads($offset, $per_page);
-
-    template 'forum', {
-        page_title      => 'Tag Mode',
-        pagination      => pagination('1', '999', '/forum'),
-    };
-};
+# get qr{/([\w-]+)/?(\d+)?/?$} => sub {
+#     my ($tag, $page) = splat;
+# 
+#     my @tags = split(/-/, $tag);
+# 
+#     my $per_page  = 30;
+#     my $offset    = ($per_page * $page) - $per_page;
+# 
+#     my $meta        = get_meta();
+#     my $meta_info   = $meta->fetchrow_hashref();
+#     my $total_pages = ceil($meta_info->{'total_threads'} / $per_page);
+# 
+#     # Sanity Check the page
+#     $page = 1 unless $page;
+#     $page = $total_pages if $page > $total_pages;
+# 
+#     my $offset = ($per_page * $page) - $per_page;
+# 
+#     my $recent_threads = get_threads($offset, $per_page);
+# 
+#     template 'forum', {
+#         page_title      => 'Tag Mode',
+#         pagination      => pagination('1', '999', '/forum'),
+#     };
+# };
 
 
 

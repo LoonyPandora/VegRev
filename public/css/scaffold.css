@@ -137,7 +137,7 @@ h2 {
   float: left;
 }
 
-#action_links li a {
+#actions li a {
   background-color: rgba(0, 0, 0, 0.5);
   display: block;
   padding-left: 10px;
