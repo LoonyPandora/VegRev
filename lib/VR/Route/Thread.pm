@@ -24,9 +24,11 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
 
     my $per_page  = 20;
 
-    my $meta        = get_meta($thread_id);
-    my $meta_info   = $meta->fetchrow_hashref();
-    my $total_pages = ceil($meta_info->{'replies'} / $per_page);
+    my ($meta, $tags)       = get_meta($thread_id);
+    my $meta_info           = $meta->fetchrow_hashref();
+    $meta_info->{'tagged'}  = $tags->fetchall_arrayref();
+
+    my $total_pages   = ceil($meta_info->{'replies'} / $per_page);
 
     # Sanity Check the page
     $page = 1 unless $page;
@@ -49,6 +51,9 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
         quotes       => $quote->fetchall_hashref([ qw(message_id message_id_quoted) ]),
         thread_meta  => $meta_info,
         pagination   => pagination($page, $total_pages, "/thread/$thread_id-" . $meta_info->{'url_slug'}),
+        actions      => [
+            { 'title' => 'Reply', 'url' => '/post_reply', icon => '/img/icons/star_16.png' },
+        ]
     };
 };
 
@@ -91,7 +96,17 @@ sub get_meta {
     );
     $meta->execute($thread_id);
 
-    return $meta;
+    my $tags = database->prepare(
+        q{
+            SELECT tag.title
+            FROM tagged_thread
+            LEFT JOIN tag ON tagged_thread.tag_id = tag.id
+            WHERE tagged_thread.thread_id = ?
+        }
+    );
+    $tags->execute($thread_id);
+
+    return ($meta, $tags);
 }
 
 

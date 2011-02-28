@@ -22,6 +22,7 @@ get '/' => sub {
                 (SELECT count(*) FROM message WHERE message.thread_id = thread.id) AS replies
             FROM thread
             LEFT JOIN user ON latest_post_user_id = user.id
+            WHERE thread.id IN ( SELECT thread_id FROM tagged_thread WHERE tag_id IN (14, 15, 16, 17, 18)  )
             ORDER BY last_updated DESC
             LIMIT ?, ?
         }
@@ -31,13 +32,14 @@ get '/' => sub {
     my $recent = $sth->fetchall_hashref('id');
 
     my @thread_ids   = keys %{$recent};
-    my $placeholders = join(',', map('?', @thread_ids));
 
     my $tag_sth = database->prepare(
         qq{
-            SELECT thread_id, tag.title FROM tagged_thread
+            SELECT thread_id, tag.title
+            FROM tagged_thread
             LEFT JOIN tag ON tagged_thread.tag_id = tag.id
-            WHERE thread_id IN ($placeholders)
+            WHERE group_id = 3
+            AND thread_id IN (} . join(',', map('?', @thread_ids)) .q{)
         }
     );
 
@@ -47,16 +49,29 @@ get '/' => sub {
     }
 
     my @recent_threads;
-    foreach my $asdf ( sort { $a <=> $b } keys %{$recent} ) {
-        push (@recent_threads, $recent->{$asdf});
+    foreach my $tmp ( sort { $a <=> $b } keys %{$recent} ) {
+        push (@recent_threads, $recent->{$tmp});
     }
 
     template 'gallery', {
         page_title      => 'The Forum',
         recent_threads  => \@recent_threads,
         pagination      => pagination($page, '999'),
+        actions => [
+            { 'title' => 'Upload Picture', 'url' => '/upload_picture', icon => '/img/icons/star_16.png' },
+        ]
     };
 };
+
+
+
+
+
+
+
+
+
+
 
 
 # Matches tags - multiple tags are separated by a + - the R of CRUD

@@ -96,7 +96,8 @@ sub get_threads {
 
     my $tag_sth = database->prepare(
         qq{
-            SELECT thread_id, tag.title FROM tagged_thread
+            SELECT thread_id, tag.title
+            FROM tagged_thread
             LEFT JOIN tag ON tagged_thread.tag_id = tag.id
             WHERE thread_id IN (} . join(',', map('?', @thread_ids)) . q{)
         }
@@ -108,8 +109,8 @@ sub get_threads {
     }
 
     my @recent_threads;
-    foreach my $asdf ( sort { $a <=> $b } keys %{$recent} ) {
-        push (@recent_threads, $recent->{$asdf});
+    foreach my $tmp ( sort { $a <=> $b } keys %{$recent} ) {
+        push (@recent_threads, $recent->{$tmp});
     }
 
     return \@recent_threads;
