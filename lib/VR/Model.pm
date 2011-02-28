@@ -69,17 +69,21 @@ sub users_online {
 sub pagination {
     my ($current_page, $total_pages, $base_url) = @_;
 
-    my $pages_menu = q{<select>};
+    my $pages_menu = q{<div id="page_selector_block"><select>};
     for (1 .. $total_pages) {
         if ($current_page == $_) {
-            $pages_menu .= qq{\n    <option value="$_" selected="selected">$_ of $total_pages</option>};
+            $pages_menu .= qq{<option value="$_" selected="selected">$_ of $total_pages</option>};
         } else {
-            $pages_menu .= qq{\n    <option value="$_">$_</option>};
+            $pages_menu .= qq{<option value="$_">$_</option>};
         }
     }    
-    $pages_menu .= qq{\n</select>};
+    $pages_menu .= qq{\n</select></div};
 
-    my $next_prev_block = q{<ul id="nextprev">};    
+    if ($total_pages == 1) {
+        $pages_menu = '';
+    }
+
+    my $next_prev_block = q{<ul>};    
     if ($total_pages == 1) {
         $next_prev_block .= qq{\n    <li>One Page</li>};
     } elsif ($current_page == 1) {
