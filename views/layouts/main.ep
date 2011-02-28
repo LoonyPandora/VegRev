@@ -72,6 +72,8 @@
       <% if ($token->{'thread_meta'}) { %>
       <h2><%=$token->{'thread_meta'}->{'content_kind'}%> Info</h2>
         <p>Replies: <b><%=$token->{'thread_meta'}->{'replies'}=%></b></p>
+        <p>Started: <%=time_ago($token->{'thread_meta'}->{'start_date'}, 1)%></p>
+        <p>Last Updated: <%=time_ago($token->{'thread_meta'}->{'last_updated'}, 1)%></p>
         <p>Tagged: <% foreach my $tag (@{ $token->{'thread_meta'}->{'tagged'} }) { %> <span class="tiny_tag"><%=$tag->[0]=%></span><% } =%></p>
         <p>Viewing:
           <% while (my ($key, $value) = each %{ $token->{'thread_meta'}->{'reading'} }) { %>
