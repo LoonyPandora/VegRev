@@ -14,6 +14,16 @@ get '/' => sub {
 };
 
 
+# TODO DANCER BUG - forward doesn't work with regex matched routes
+get '/gallery' => sub {
+    forward '/gallery/1/';
+};
+
+get '/gallery/' => sub {
+    forward '/gallery/1/';
+};
+
+
 # Redirection for old fashioned route to user profiles
 get '/user/:user_name' => sub {
     redirect "/profile/" . params->{'user_name'};;

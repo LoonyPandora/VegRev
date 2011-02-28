@@ -10,7 +10,7 @@ prefix '/gallery';
 
 
 # Gallery shows recent posts, and all albums
-get '/' => sub {
+get qr{/(\d+)/?$} => sub {
     my ($page) = splat;
 
     my $per_page  = 18;
@@ -56,7 +56,7 @@ get '/' => sub {
     template 'gallery', {
         page_title      => 'The Forum',
         recent_threads  => \@recent_threads,
-        pagination      => pagination($page, '999'),
+        pagination      => pagination($page, '999', "/gallery"),
         actions => [
             { 'title' => 'Upload Picture', 'url' => '/upload_picture', icon => '/img/icons/star_16.png' },
         ]
