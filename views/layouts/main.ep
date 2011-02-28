@@ -70,10 +70,10 @@
       <% } %>
 
       <% if ($token->{'thread_meta'}) { %>
-      <h2>Thread Info</h2>
+      <h2><%=$token->{'thread_meta'}->{'content_kind'}%> Info</h2>
         <p>Replies: <b><%=$token->{'thread_meta'}->{'replies'}=%></b></p>
         <p>Tagged: <% foreach my $tag (@{ $token->{'thread_meta'}->{'tagged'} }) { %> <span class="tiny_tag"><%=$tag->[0]=%></span><% } =%></p>
-        <p>Reading Thread:
+        <p>Viewing:
           <% while (my ($key, $value) = each %{ $token->{'thread_meta'}->{'reading'} }) { %>
             <%== username_link ($token->{'thread_meta'}->{'reading'}->{$key}->{'user_name'}, $token->{'thread_meta'}->{'reading'}->{$key}->{'display_name'}) =%>
           <% } =%></p>

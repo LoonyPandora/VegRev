@@ -1,1 +1,72 @@
-<h1>The Big-Ass Photo.</h1>
+<h1 class="thread_subject"><%=$token->{thread_meta}->{subject}=%></h1>
+
+
+<div class="polaroid_container">
+  <div class="inner">
+    <img src="<%= config('static_url') %>/img/icons/picture_512.png" class="photo" />
+  </div>
+</div>
+
+
+
+
+<% foreach my $message (@{$token->{'messages'}}) { %>
+  
+    <h1><%= $; %></h1>
+  
+    <div id="<%=$message->{'id'}%>" class="message_wrapper clearfix">
+
+      <div class="avatar_box">
+        <%==avatar_img($message->{'avatar'}, $message->{'usertext'})%>
+        <p>✰✰✰✰✰✰✰</p>
+        <p class="subtext"><%= $message->{'usertext'} %></p>
+      </div>
+
+      <div class="message_box clearfix">
+        <div class="message_meta">
+          <span class="author"><%==username_link($message->{'user_name'}, $message->{'display_name'})%></span>
+          <span class="message_time"><%=time_ago($message->{'message_timestamp'}, 1)%></span>
+          <span class="message_actions">
+            <img src="<%= config('static_url') %>/img/icons/delete_16.png" />
+            <img src="<%= config('static_url') %>/img/icons/edit_16.png" />
+            <img src="<%= config('static_url') %>/img/icons/fork_16.png" />
+            <img src="<%= config('static_url') %>/img/icons/reply_16.png" />
+          </span>
+        </div>
+
+        <p>
+          <% no warnings; =%>
+          <%== parse_bbcode($message->{'body'})%>
+          <% use warnings; =%>
+        </p>
+
+        <% if ($token->{'quotes'}->{$message->{'id'}}) { %>
+          <p class="quote_header">In Reply To...</p>
+
+          <% foreach my $key (keys %{$token->{'quotes'}->{$message->{'id'}}}) { %>
+          <div class="quote clearfix" id="">
+            <% my $quote = $token->{'quotes'}->{$message->{'id'}}->{$key}; %>
+            <%== avatar_img($quote->{'avatar'}, $quote->{'usertext'}) %>
+            <span class="quote_meta">
+              <%== username_link($quote->{'user_name'}, $quote->{'display_name'}) %>, <%= time_ago($quote->{'message_timestamp'}, 1) %>
+            </span>
+            <span class="quote_body">
+              <%= $quote->{'body'} %>
+            </span>
+          </div>
+          <% } %>
+          <br />
+        <% } %>
+
+        <% if ($message->{'signature'}) { =%>
+          <div class="signature">
+            <% no warnings; %>
+            <%== parse_bbcode($message->{'signature'})%>
+            <% use warnings; %>
+          </div>
+        <% } %>
+
+      </div>
+
+    </div>
+<% } %>

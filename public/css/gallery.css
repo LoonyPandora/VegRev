@@ -30,3 +30,25 @@
   border: 1px solid #eee;
   margin: 10px 10px 8px 10px;
 }
+
+
+.polaroid_container {
+  width: 699px;
+  margin: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.polaroid_container .inner {
+  border: 1px solid #ccc;
+  width: 649px;
+  margin: 20px 0 60px 20px;
+}
+
+.inner img {
+  width: 640px;
+}
+
+
+
+
