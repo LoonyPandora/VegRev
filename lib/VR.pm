@@ -29,7 +29,7 @@ use VR::Route::Tag;
 use VR::Route::Thread;
 
 # Modules for before filter (REFACTOR ME)
-use VR::Model qw/users_online/;
+use VR::Model qw/users_online fill_session/;
 
 before sub {
   # We are already in transactional mode
@@ -37,10 +37,9 @@ before sub {
   # TODO - Add the login system.
   our $global = {};
   $global->{'start_time'}   = time();
-  $global->{'users_online'} = users_online('15'),
+  $global->{'users_online'} = users_online('15');
 
-  session('user_id' => '1');
-  session('start_time' => "$global->{'start_time'}");
+  fill_session('1');
 };
 
 after sub {

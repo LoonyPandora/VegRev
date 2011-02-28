@@ -8,8 +8,28 @@ use Data::Dumper;
 use base 'Exporter';
 use vars '@EXPORT_OK';
 
-@EXPORT_OK = qw(pagination users_online);
+@EXPORT_OK = qw(pagination users_online fill_session);
 
+
+# Loads the current viewer, and places their pertinent info into their session
+sub fill_session {
+    my ($user_id) = @_;
+
+    my $user = database->prepare(q{
+        SELECT id AS user_id, user_name, display_name, stealth_login, template, language, avatar, usertext, gmt_offset
+        FROM user
+        WHERE user.id = ?
+        LIMIT 1
+    });
+
+    $user->execute($user_id);
+
+    my $user_data = $user->fetchrow_hashref();
+
+    while (my ($key, $value) = each %{$user_data}) {
+        session($key => $value);
+    }
+}
 
 sub users_online {
     my ($minutes) = @_;
