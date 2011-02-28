@@ -1,10 +1,10 @@
-package VR::Route::Inbox;
+package VR::Route::Mail;
 
 use common::sense;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
 
-prefix '/inbox';
+prefix '/mail';
 
 
 # Shows all messages, with page numbers

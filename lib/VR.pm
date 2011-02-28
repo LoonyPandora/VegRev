@@ -17,7 +17,7 @@ use VR::Route;
 use VR::Route::Chat;
 use VR::Route::Forum;
 use VR::Route::Gallery;
-use VR::Route::Inbox;
+use VR::Route::Mail;
 use VR::Route::Member;
 use VR::Route::Photo;
 use VR::Route::Poll;
