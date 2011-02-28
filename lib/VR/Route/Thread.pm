@@ -6,7 +6,7 @@ use Dancer::Plugin::Database;
 use Data::Dumper;
 use POSIX qw/ceil/;
 
-use VR::Model qw/pagination write_thread_receipt read_thread_receipt get_thread_meta get_messages/;
+use VR::Model qw/pagination write_thread_receipt read_thread_receipt get_thread_meta get_messages load_poll/;
 
 
 prefix '/thread';
@@ -42,6 +42,7 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
     my @ids = map { $_->{'id'} } @{$all_messages};
 
     my $quote = get_quotes(\@ids);
+    my ($poll_meta, $poll_options, $poll_votes) = load_poll($thread_id);
 
 
     # Need to write before we read so we ourselves appear in the readers list
@@ -56,6 +57,12 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
         messages     => $all_messages,
         quotes       => $quote->fetchall_hashref([ qw(message_id message_id_quoted) ]),
         thread_meta  => $meta_info,
+        poll         => {
+            'has_poll'  => 1,
+            'meta'      => $poll_meta->fetchrow_hashref(),
+            'options'   => $poll_options->fetchall_hashref([ qw(id) ]),
+            'votes'     => $poll_votes->fetchall_hashref([ qw(option_id user_id) ]),
+        },
         pagination   => pagination($page, $total_pages, "/thread/$thread_id-" . $meta_info->{'url_slug'}),
         actions      => [
             { 'title' => 'Reply', 'url' => '/post_reply', icon => '/img/icons/star_16.png' },

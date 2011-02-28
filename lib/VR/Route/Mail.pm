@@ -11,7 +11,7 @@ prefix '/mail';
 get qr{/(\d+)?/?$} => sub {
     my ($page) = splat;
 
-    template 'inbox';
+    template 'mail';
 };
 
 

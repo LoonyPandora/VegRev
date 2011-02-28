@@ -8,7 +8,10 @@ use Data::Dumper;
 use base 'Exporter';
 use vars '@EXPORT_OK';
 
-@EXPORT_OK = qw(pagination users_online fill_session write_thread_receipt read_thread_receipt get_thread_meta get_messages);
+@EXPORT_OK = qw(
+    pagination              users_online            fill_session        get_messages
+    write_thread_receipt    read_thread_receipt     get_thread_meta     load_poll
+);
 
 
 # Loads the current viewer, and places their pertinent info into their session
@@ -89,7 +92,7 @@ sub get_thread_meta {
 
     my $meta = database->prepare(
         q{
-            SELECT subject, url_slug, UNIX_TIMESTAMP(start_date) AS start_date, UNIX_TIMESTAMP(last_updated) AS last_updated, (
+            SELECT id AS thread_id, subject, url_slug, UNIX_TIMESTAMP(start_date) AS start_date, UNIX_TIMESTAMP(last_updated) AS last_updated, (
                 SELECT count(id)
                 FROM message
                 WHERE message.thread_id = thread.id
@@ -146,6 +149,44 @@ sub users_online {
     $users->execute(@user_id_array);
 
     return $users->fetchall_arrayref({});
+}
+
+
+# TODO FIXME - only works on polls that have votes for each option. Can't do a multilevel hash if one is undef.
+sub load_poll {
+    my ($thread_id) = @_;
+
+    my $poll_meta = database->prepare(
+        q{
+            SELECT thread_id, question, user_name, display_name, avatar
+            FROM poll
+            LEFT JOIN user AS starter ON starter.id = poll.user_id
+            WHERE poll.thread_id = ?
+            LIMIT 1
+        }
+    );
+    $poll_meta->execute($thread_id);
+
+    my $poll_options = database->prepare(
+        q{
+            SELECT id, text
+            FROM poll_option
+            WHERE poll_option.poll_id = ?
+        }
+    );
+    $poll_options->execute($thread_id);
+
+    my $poll_votes = database->prepare(
+        q{
+            SELECT option_id, UNIX_TIMESTAMP(timestamp) AS timestamp, INET_NTOA(ip_address) AS ip_address, user.id AS user_id, user_name, display_name, avatar, usertext
+            FROM poll_vote
+            LEFT JOIN user ON user.id = user_id
+            WHERE option_id IN ( SELECT id from poll_option WHERE poll_id = ?)
+        }
+    );
+    $poll_votes->execute($thread_id);
+
+    return ($poll_meta, $poll_options, $poll_votes);
 }
 
 

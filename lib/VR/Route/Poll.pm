@@ -1,24 +1,32 @@
-package VR::Route::Photo;
+package VR::Route::Poll;
 
 use common::sense;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
+use Dancer::Plugin::Ajax;
 
 prefix '/poll';
 
 
-get '/view/:poll_id' => sub {
+ajax '/view/:poll_id' => sub {
     redirect '/';
 };
 
 
-get '/vote/:poll_id' => sub {
+ajax '/vote/:poll_id' => sub {
     redirect '/';
 };
 
 
-get '/result/:poll_id' => sub {
+ajax '/result/:poll_id' => sub {
     redirect '/';
 };
+
+
+
+
+
+
+
 
 true;

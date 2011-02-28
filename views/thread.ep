@@ -1,6 +1,38 @@
-<h1 class="thread_subject"><%=$token->{thread_meta}->{subject}=%></h1>
+<h1 class="thread_subject"><%=$token->{'thread_meta'}->{'subject'}=%></h1>
+
+
+<% if ($token->{'poll'}->{'has_poll'}) { %>
+
+  <% my $poll_meta    = $token->{'poll'}->{'meta'}; %>
+  <% my $poll_options = $token->{'poll'}->{'options'}; %>
+  <% my $poll_votes   = $token->{'poll'}->{'votes'}; %>
+
+
+  <div id="poll_box">
+    <h6><%=$poll_meta->{'question'}%></h6>
+    
+    <% foreach my $option (keys %{$poll_options}) { %>
+      <br />
+      <p><input type="radio" style="float: left; margin-right: 5px"><%= $poll_options->{$option}->{'text'} %></p>
+    <% } %>
+
+    <div id="vote_box" style="display: none;">
+      <% foreach my $vote (keys %{$poll_votes}) { %>
+        <% foreach my $tmp (keys %{$poll_votes->{$vote}}) { %>
+          <% my $user = $poll_votes->{$vote}->{$tmp}; %>
+          <%== user_link_with_avatar($user->{'user_name'}, $user->{'display_name'}, $user->{'avatar'}, $user->{'usertext'}) %>
+        <% } %>
+
+      <% } %>
+    </div>
+
+  </div>
+<% } %>
+  
+
 
 <% foreach my $message (@{$token->{'messages'}}) { %>
+
     <div id="<%=$message->{'id'}%>" class="message_wrapper clearfix">
 
       <div class="avatar_box">
