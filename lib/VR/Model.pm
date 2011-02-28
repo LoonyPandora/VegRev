@@ -21,12 +21,14 @@ sub users_online {
     });
 
     $online->execute($minutes);
-
     my $all_session_data = $online->fetchall_arrayref({});
 
     my @tmp = map { Dancer::Serializer::JSON::from_json($_->{'session_data'}) } @{$all_session_data};
     my @user_id_array = map { $_->{'user_id'} } @tmp;
 
+    # If there are no online users, we return empty arrayref.
+    my @empty;
+    return \@empty unless defined scalar @user_id_array;
 
     my $users = database->prepare(q{
         SELECT user_name, display_name, avatar, usertext
