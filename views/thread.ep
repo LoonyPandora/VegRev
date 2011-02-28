@@ -16,16 +16,15 @@
       <p><input type="radio" style="float: left; margin-right: 5px"><%= $poll_options->{$option}->{'text'} %></p>
     <% } %>
 
-    <div id="vote_box" style="display: none;">
+    <div id="vote_box">
       <% foreach my $vote (keys %{$poll_votes}) { %>
+        <%=$poll_options->{$vote}->{'text'}%>:<br />
         <% foreach my $tmp (keys %{$poll_votes->{$vote}}) { %>
           <% my $user = $poll_votes->{$vote}->{$tmp}; %>
-          <%== user_link_with_avatar($user->{'user_name'}, $user->{'display_name'}, $user->{'avatar'}, $user->{'usertext'}) %>
+          <%== user_link_with_avatar($user->{'user_name'}, $user->{'display_name'}, $user->{'avatar'}, $user->{'usertext'}) %><br />
         <% } %>
-
       <% } %>
     </div>
-
   </div>
 <% } %>
   
