@@ -55,7 +55,7 @@
       <h2><%= session('display_name') %></h2>
         <div class="avatar_container clearfix">
           <%== avatar_img( session('avatar'), session('usertext') )%>
-          <p>15th February 2011, 88:88pm</p>
+          <p><%=current_date();%></p>
           <p><a>View Profile</a> // <a>Edit Settings</a></p>
         </div>  
       <% } else { %>

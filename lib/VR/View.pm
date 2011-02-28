@@ -14,6 +14,34 @@ sub run_time {
     return sprintf("%.3f", time() - $VR::global->{'start_time'});
 }
 
+sub current_date {
+    my $offset = session('gmt_offset') * 3600;
+
+    my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = gmtime(time() + $offset);
+
+    my @months = qw(January February March April May June July August September October November December);
+
+    my $ampm;
+    if ($hour > 11) { $hour = $hour-12; $ampm = "pm"; } 
+    else { $ampm = "am"; }
+    if ($hour == 0) { $hour = 12; }
+
+    $year += 1900;
+    $min  = sprintf("%.2d", $min);
+    my $ordinal = &_get_ordinal($mday);
+
+    return qq{$mday$ordinal $months[$mon] $year, $hour:$min$ampm};
+}
+
+sub _get_ordinal {
+    $_[0] =~ /^(?:\d+|\d[,\d]+\d+)$/ or return $_[0];
+    return "nd" if $_[0] =~ /(?<!1)2$/;
+    return "rd" if $_[0] =~ /(?<!1)3$/;
+    return "st" if $_[0] =~ /(?<!1)1$/;
+    return "th";
+}
+
+
 # Access app config in templates
 sub config {
     my $setting = shift;    
