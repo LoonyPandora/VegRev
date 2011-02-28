@@ -53,9 +53,9 @@
     <div id="sidebar">
       
       <% if ( session('user_id') ) { %>      
-      <h2>Super Nintendo Chalmers</h2>
+      <h2><%= session('display_name') %></h2>
         <div class="avatar_container clearfix">
-          <img src="http://www.vegetablerevolution.co.uk/uploads/794533.png" class="avatar" />
+          <%== avatar_img( session('avatar'), session('usertext') )%>
           <p>15th February 2011, 88:88pm</p>
           <p><a>View Profile</a> // <a>Edit Settings</a></p>
         </div>  
