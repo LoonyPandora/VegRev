@@ -89,7 +89,7 @@ sub get_thread_meta {
 
     my $meta = database->prepare(
         q{
-            SELECT subject, url_slug, (
+            SELECT subject, url_slug, UNIX_TIMESTAMP(start_date) AS start_date, UNIX_TIMESTAMP(last_updated) AS last_updated, (
                 SELECT count(id)
                 FROM message
                 WHERE message.thread_id = thread.id
