@@ -168,7 +168,7 @@ sub convert_poll {
     
         my %mapping = (
             'thread_id'  => @{$thread_id},
-            'start_time' => $row->{'poll_start_time'},
+            'timestamp'  => $row->{'poll_start_time'},
             'question'   => $row->{'question'},
             'multi_vote' => $row->{'multi'},
             'locked'     => $row->{'poll_locked'},
