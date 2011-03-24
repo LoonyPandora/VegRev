@@ -22,7 +22,6 @@ get qr{/(\d+)/?$} => sub {
     my ($page) = splat;
 
     my $per_page  = 30;
-    my $offset    = ($per_page * $page) - $per_page;
 
     my $meta        = get_meta();
     my $meta_info   = $meta->fetchrow_hashref();
