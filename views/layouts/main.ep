@@ -143,10 +143,12 @@
 
   <div id="footer">
     <% if (defined $token->{'actions'} && defined $token->{'pagination'}) { %>
-      <div id="supernav">
+      <div id="supernav_container">
+        <div id="supernav">
         <% if (defined $token->{'actions'}) { %>
           <ul id="actions">
             <% foreach my $action (@{ $token->{'actions'} }) { %>
+              <li><a href="<%= $action->{'url'}%>"><%= $action->{'title'}%></a></li>
               <li><a href="<%= $action->{'url'}%>"><%= $action->{'title'}%></a></li>
             <% } %>
           </ul>
@@ -158,6 +160,7 @@
             <%== $token->{'pagination'}->{'next_prev_block'} %>
           </div>
         <% } %>
+        </div>
       </div>
     <% } %>
 

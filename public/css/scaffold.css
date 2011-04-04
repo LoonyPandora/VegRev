@@ -108,76 +108,113 @@ h2 {
 }
 
 
-#supernav {
+#supernav_container {
   position: fixed;
   bottom: 0;
   width: 100%;
   height: 32px;
-  background-color: rgba(220, 220, 220, 0.9);
-  border: 1px solid #ccc;
+  background-color: rgba(204, 204, 206, 0.7);
+  border: 1px solid #bbb;
   border-bottom: none;
 }
+
+#supernav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  margin-left: -480px;
+  width: 960px;
+  height: 32px;
+  border-left: 1px solid #aaa;
+  border-right: 1px solid #eee;
+}
+
+
+/* Gives the groove effect on edges of buttons */
+#actions    { border-left: 1px solid #eee; }
+#actions li { border-right: 1px solid #eee; }
+
 
 #supernav ul {
   float: left;
 }
 
 #supernav ul li {
-  color: #fff;
-  font-weight: bold;
   height: 32px;
   line-height: 32px;
   float: left;
 }
 
 #actions li a {
-  background-color: rgba(220, 220, 220, 0.7);
   display: block;
   padding-left: 10px;
   padding-right: 10px;
-  border-right: 1px solid #fff;
-  color: #333;
+  border-right: 1px solid #aaa;
+  background-color: #ccc;
+  color: #444;
 }
+
+#actions li a:hover {
+  color: #222;
+  background-color: #bbb;
+}
+
+
+
 
 #pagination {
   position: absolute; /* Inside relative element, positions to it's bounds - NOT the page */
   right: 0;
   top: 0;
+  width: 240px;
+  background-color: #ccc;
 }
+
+/* Gives the groove effect on edges of buttons */
+#pagination    { border-right: 1px solid #aaa; }
+#pagination li { border-left: 1px solid #aaa; }
 
 #pagination ul {
   border: none;
-  border-left: 1px solid #fff;
 }
 
 #pagination ul li {
-  background-color: rgba(220, 220, 220, 0.7);
+  height: 32px;
+  line-height: 32px;
   display: block;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-right: 1px solid #fff;
-  color: #fff;
 }
 
-#pagination ul li a {
-  color: #fff;
+#pagination li a {
+  display: block;
+  border-left: 1px solid #eee;
+  color: #444;
+  width: 65px;
+  text-align: center;
+  background-color: #ccc;
+}
+
+#pagination li a:hover {
+  color: #222;
+  background-color: #bbb;
 }
 
 #page_selector_block {
   float: left;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 0 5px 0 5px;
+  background-color: #ccc;
+  text-align: center;
+  width: 105px;
+  border-left: 1px solid #aaa;
   font-size: 10px;
   height: 32px;
   font-weight: bold;
-  color: #fff;
+  color: #444;
 }
 
 #page_selector_block select {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
+  background-color: #ddd;
+  color: #444;
   font-weight: bold;
-  border: none;
+  border: 1px solid #999;
   margin-top: 8px;
 }
 
@@ -192,6 +229,7 @@ h2 {
   font-size: 9px;
   line-height: 9px;
   padding: 1px 3px 1px 3px;
+  margin: 0 5px 0 0;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
