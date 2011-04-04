@@ -6,16 +6,10 @@
 /* Reset and baseline */
 
 body {
+  color: #111;
   background-color: #f6f6f6;
   background-image: url('http://vegrev.local/img/tile.gif');
 }
-
-::-moz-selection { background: #42a700; color:#fff; text-shadow: none; }
-::selection      { background: #42a700; color:#fff; text-shadow: none; } 
-a:link           { -webkit-tap-highlight-color: #42a700; } 
-
-a {color: #42a700;}
-a:hover {color: #666;}
 
 h1, h2 {
   text-shadow: #fff 0px 1px 1px;
@@ -46,7 +40,6 @@ h2 {
 
 #header {
   color: #fff;
-  background-color: #42a700;
   border-bottom: 2px solid rgba(0,0,0,0.2);
   width:  100%;
   padding: 0;
@@ -71,7 +64,7 @@ h2 {
 
 #sidebar {
   float: left;
-  width: 229px;         /* Cheat a little here, 10px of extra width "off grid" to accomodate right margins */
+  width: 228px;         /* Cheat a little here, 10px of extra width "off grid" to accomodate right margins */
   margin: 8px 0 48px 20px;
 }
 
@@ -118,11 +111,11 @@ h2 {
 #supernav {
   position: fixed;
   bottom: 0;
-  left: 50%;
-  margin-left: -480px;
-  width: 960px;
+  width: 100%;
   height: 32px;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(220, 220, 220, 0.9);
+  border: 1px solid #ccc;
+  border-bottom: none;
 }
 
 #supernav ul {
@@ -138,12 +131,12 @@ h2 {
 }
 
 #actions li a {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(220, 220, 220, 0.7);
   display: block;
   padding-left: 10px;
   padding-right: 10px;
   border-right: 1px solid #fff;
-  color: #fff;
+  color: #333;
 }
 
 #pagination {
@@ -158,7 +151,7 @@ h2 {
 }
 
 #pagination ul li {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(220, 220, 220, 0.7);
   display: block;
   padding-left: 10px;
   padding-right: 10px;
@@ -280,7 +273,7 @@ h2 {
   display: inline;
 }
 
-.tag_list li a, .user_list li a {
+.tag_list li a {
   border: 1px solid #ccc;
   background-color: #e0e0e0;
   font-weight: normal;
@@ -291,7 +284,7 @@ h2 {
   margin: 5px 4px 5px 0;
 }
 
-.tag_list li a:hover, .user_list li a:hover {
+.tag_list li a:hover {
   background-color: #fff;
 }
 
@@ -302,21 +295,11 @@ h2 {
   border-radius: 11px;
 }
 
-.user_list li a {
-  font-size: 11px;
-  padding: 0 8px 0 2px;
-  -webkit-border-top-right-radius: 11px;
-  -webkit-border-bottom-right-radius: 11px;
-  -moz-border-radius-topright: 11px;
-  -moz-border-radius-bottomright: 11px;
-  border-top-right-radius: 11px;
-  border-bottom-right-radius: 11px;
-}
 
 .user_list img {
-  height: 16px;
-  width: 16px;
-  margin: -4px 0 0 0;
+  height: 32px;
+  width: 32px;
+  margin: 0;
   padding: 0;
 }
 

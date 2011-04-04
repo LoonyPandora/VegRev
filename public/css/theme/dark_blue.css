@@ -1,0 +1,12 @@
+/******************************************************************************
+ dark_blue.css - Theme Styles, Just a bunch of colors
+******************************************************************************/
+
+::-moz-selection { background: #3b3bbf; color:#fff; text-shadow: none; }
+::selection      { background: #3b3bbf; color:#fff; text-shadow: none; } 
+
+a       { color: #3b3bbf; }
+a:hover { color: #666666; }
+a:link  { -webkit-tap-highlight-color: #3b3bbf; } 
+
+#header { background-color: #3b3bbf; }

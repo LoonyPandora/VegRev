@@ -1,0 +1,12 @@
+/******************************************************************************
+ lilac.css - Theme Styles, Just a bunch of colors
+******************************************************************************/
+
+::-moz-selection { background: #333333; color:#fff; text-shadow: none; }
+::selection      { background: #333333; color:#fff; text-shadow: none; } 
+
+a       { color: #333333; }
+a:hover { color: #666666; }
+a:link  { -webkit-tap-highlight-color: #333333; } 
+
+#header { background-color: #333333; }

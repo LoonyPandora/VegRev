@@ -215,12 +215,12 @@ sub pagination {
     if ($total_pages == 1) {
         $next_prev_block .= qq{\n    <li>One Page</li>};
     } elsif ($current_page == 1) {
-        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page + 1) . q{">Next Page &#x2192;</a></li>};
+        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page + 1) . q{">Next &#x2192;</a></li>};
     } elsif ($current_page < $total_pages) {
-        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page - 1) . q{">&#x2190; Prev Page</a></li>};
-        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page + 1) . q{">Next Page &#x2192;</a></li>};
+        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page - 1) . q{">&#x2190; Prev</a></li>};
+        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page + 1) . q{">Next &#x2192;</a></li>};
     } elsif ($current_page == $total_pages) {
-        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page - 1) . q{">&#x2190; Prev Page</a></li>};
+        $next_prev_block .= qq{\n    <li><a href="$base_url/} . ($current_page - 1) . q{">&#x2190; Page</a></li>};
     }
     $next_prev_block .= qq{\n</ul>};
 
