@@ -1,78 +1,41 @@
-<h1 class="thread_subject"><%=$token->{'thread_meta'}->{'subject'}=%></h1>
+<h1><%=$token->{'thread_meta'}->{'subject'}=%></h1>
 
-
-<% if ($token->{'poll'}->{'has_poll'}) { %>
-
-  <% my $poll_meta    = $token->{'poll'}->{'meta'}; %>
-  <% my $poll_options = $token->{'poll'}->{'options'}; %>
-  <% my $poll_votes   = $token->{'poll'}->{'votes'}; %>
-
-  <div id="poll_box">
-    <h6><%=$poll_meta->{'question'}%></h6>
-    
-    <% foreach my $option (keys %{$poll_options}) { %>
-      <br />
-      <p><input type="radio" style="float: left; margin-right: 5px"><%= $poll_options->{$option}->{'text'} %></p>
-    <% } %>
-
-    <div id="vote_box">
-      <% foreach my $vote (keys %{$poll_votes}) { %>
-        <%=$poll_options->{$vote}->{'text'}%>:<br />
-        <% foreach my $tmp (keys %{$poll_votes->{$vote}}) { %>
-          <% my $user = $poll_votes->{$vote}->{$tmp}; %>
-          <%== user_link_with_avatar($user->{'user_name'}, $user->{'display_name'}, $user->{'avatar'}, $user->{'usertext'}) %><br />
-        <% } %>
-      <% } %>
-    </div>
-  </div>
-<% } %>
-  
-
+<ul class="message_list">
 <% foreach my $message (@{$token->{'messages'}}) { %>
-
-    <div id="<%=$message->{'id'}%>" class="message_wrapper clearfix">
-
-      <div class="avatar_box">
-        <%==avatar_img($message->{'avatar'}, $message->{'usertext'})%>
-        <p>✰✰✰✰✰✰✰</p>
-        <p class="subtext"><%= $message->{'usertext'} %></p>
+  <li>
+      <div class="avatar">
+        <a><%==avatar_img($message->{'avatar'}, $message->{'usertext'})%></a>
+        <p><%= $message->{'usertext'} %></p>
       </div>
 
-      <div class="message_box clearfix">
-        <div class="message_meta">
-          <span class="author"><%==username_link($message->{'user_name'}, $message->{'display_name'})%></span>
-          <span class="message_time"><%=time_ago($message->{'message_timestamp'}, 1)%></span>
-          <span class="message_actions">
-            <img src="<%= config('static_url') %>/img/icons/delete_16.png" />
-            <img src="<%= config('static_url') %>/img/icons/edit_16.png" />
-            <img src="<%= config('static_url') %>/img/icons/fork_16.png" />
-            <img src="<%= config('static_url') %>/img/icons/reply_16.png" />
-          </span>
+      <div class="message">
+        <div class="meta online">
+          <div class="username"><%==username_link($message->{'user_name'}, $message->{'display_name'})%></div>
+          <div class="timestamp"><%=time_ago($message->{'message_timestamp'}, 1)%></div>
+          <ul class="actions">
+            <li><a href="#"><img src="<%= config('static_url') %>/img/icons/delete_16.png"></a></li>
+            <li><a href="#"><img src="<%= config('static_url') %>/img/icons/edit_16.png"></a></li>
+            <li><a href="#" class="post_reply"><img src="<%= config('static_url') %>/img/icons/reply_16.png"></a></li>
+          </ul>
         </div>
 
-        <p>
+        <% if ($token->{'quotes'}->{$message->{'id'}}) { %>
+          <ul class="in_reply_to">
+          <% foreach my $key (keys %{$token->{'quotes'}->{$message->{'id'}}}) { %>
+            <li>
+              <% my $quote = $token->{'quotes'}->{$message->{'id'}}->{$key}; %>
+              <%== avatar_img($quote->{'avatar'}, $quote->{'usertext'}) %>
+              <p><%= $quote->{'body'} %></p>
+            </li>
+          <% } %>
+          </ul>
+        <% } %>
+
+        <div class="body">
           <% no warnings; =%>
           <%== parse_bbcode($message->{'body'})%>
           <% use warnings; =%>
-        </p>
-
-        <% if ($token->{'quotes'}->{$message->{'id'}}) { %>
-          <p class="quote_header">In Reply To...</p>
-
-          <% foreach my $key (keys %{$token->{'quotes'}->{$message->{'id'}}}) { %>
-          <div class="quote clearfix" id="">
-            <% my $quote = $token->{'quotes'}->{$message->{'id'}}->{$key}; %>
-            <%== avatar_img($quote->{'avatar'}, $quote->{'usertext'}) %>
-            <span class="quote_meta">
-              <%== username_link($quote->{'user_name'}, $quote->{'display_name'}) %>, <%= time_ago($quote->{'message_timestamp'}, 1) %>
-            </span>
-            <span class="quote_body">
-              <%= $quote->{'body'} %>
-            </span>
-          </div>
-          <% } %>
-          <br />
-        <% } %>
+        </div>
 
         <% if ($message->{'signature'}) { =%>
           <div class="signature">
@@ -83,6 +46,7 @@
         <% } %>
 
       </div>
-
-    </div>
+  </li>
 <% } %>
+
+</ul>

@@ -26,6 +26,7 @@ plugins:
         dbi_params:
             RaiseError: 1
             AutoCommit: 0
+            mysql_enable_utf8: 1
 #        on_connect_do: ["SET NAMES 'utf8'", "SET CHARACTER SET 'utf8'" ]
 
     Params::Normalization:

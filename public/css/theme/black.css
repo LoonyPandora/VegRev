@@ -1,12 +1,22 @@
 /******************************************************************************
- lilac.css - Theme Styles, Just a bunch of colors
+ black.css - Theme Styles, Just a bunch of colors
 ******************************************************************************/
 
-::-moz-selection { background: #333333; color:#fff; text-shadow: none; }
-::selection      { background: #333333; color:#fff; text-shadow: none; } 
+a { font-weight: bold; text-decoration: none; }
 
-a       { color: #333333; }
-a:hover { color: #666666; }
-a:link  { -webkit-tap-highlight-color: #333333; } 
+ul.tag_list a.current {
+  border: 1px solid #333;
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+}
 
-#header { background-color: #333333; }
+::-moz-selection { background: #333; color:#fff; text-shadow: none; }
+::selection      { background: #333; color:#fff; text-shadow: none; } 
+
+a         { color: #333; }
+a:visited { color: #333; }
+a:hover   { color: #666; }
+a:link    { -webkit-tap-highlight-color: #333; } 
+
+#header   { background-color: #333; }

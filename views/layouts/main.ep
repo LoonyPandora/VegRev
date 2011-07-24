@@ -1,202 +1,137 @@
-<!doctype html>  
-
-<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-  <meta charset="<%= config('charset') %>">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="<%= config('charset') %>" />
+    <title>[VR] <%=$token->{'page_title'}%></title>
+    <meta name="description" content="Vegetable Revoluion">
+    <meta name="author" content="James Aitken">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>[VR] <%=$token->{'page_title'}%></title>
-  <meta name="description" content="Vegetable Revoluion">
-  <meta name="author" content="James Aitken">
+    <link rel="shortcut icon" href="<%= config('static_url') %>/favicon.ico">
+    <link rel="apple-touch-icon" href="<%= config('static_url') %>/apple-touch-icon.png">
+    
+    <!-- General -->
+    <link rel="stylesheet" href="<%= config('static_url') %>/css/scaffold.css">
+    <link rel="stylesheet" href="<%= config('static_url') %>/css/hashgrid.css">
+    <link rel="stylesheet" href="<%= config('static_url') %>/css/style.css">
+    <link rel="stylesheet" href="<%= config('static_url') %>/css/vr.css">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="<%= config('static_url') %>/favicon.ico">
-  <link rel="apple-touch-icon" href="<%= config('static_url') %>/apple-touch-icon.png">
+    <!-- Page Specific -->
+    <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/forum.css">
+    <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/thread.css">
 
-  <link rel="stylesheet" href="<%= config('static_url') %>/css/html5_boilerplate.css?v=2">
-  <link rel="stylesheet" href="<%= config('static_url') %>/css/baseline.css?v=2">
-  <link rel="stylesheet" href="<%= config('static_url') %>/css/scaffold.css?v=2">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="<%= config('static_url') %>/font/proxima_nova/stylesheet.css">
 
-  <link rel="stylesheet" href="<%= config('static_url') %>/css/theme/green.css?v=2">
-
-  <!-- Individual Template Styles -->
-  <link rel="stylesheet" href="<%= config('static_url') %>/css/forum.css?v=2">
-  <link rel="stylesheet" href="<%= config('static_url') %>/css/gallery.css?v=2">
-  <link rel="stylesheet" href="<%= config('static_url') %>/css/thread.css?v=2">
-  <link rel="stylesheet" href="<%= config('static_url') %>/css/poll.css?v=2">
-
-
-  <link href='http://fonts.googleapis.com/css?family=Permanent+Marker' rel='stylesheet' type='text/css'>
+    <!-- Colors -->
+    <link rel="stylesheet" href="<%= config('static_url') %>/css/theme/green.css">
 
 
-  <script src="<%= config('static_url') %>/js/libs/modernizr-1.7.min.js"></script>
+    <link rel="shortcut icon" href="<%= config('static_url') %>/img/favicon.ico">
+
+    <script src="<%= config('static_url') %>/js/jquery-1.6.2.min.js"></script>
+    <script src="<%= config('static_url') %>/js/hashgrid.min.js"></script>
+
+    <script src="<%= config('static_url') %>/js/app.js"></script>
+    <script src="<%= config('static_url') %>/js/punymce/puny_mce_src.js"></script>
+
 </head>
+<body>
 
 <body>
-  <div id="header">
-    <div class="wrapper">
-      <a href="/"><img src="<%= config('static_url') %>/img/vr_logo.png" id="logo" /></a>
-      <ul id="navigation">
-        <li><a href="/"><img src="<%= config('static_url') %>/img/icons/home_24.png" /></a></li>
-        <li><a href="/gallery/"><img src="<%= config('static_url') %>/img/icons/pictures_24.png" /></a></li>
-        <li><a href="/members/"><img src="<%= config('static_url') %>/img/icons/users_24.png" /></a></li>
-        <li><a href="/mail/"><img src="<%= config('static_url') %>/img/icons/mail_24.png" /></a></li>
-        <li><a href="/search/"><img src="<%= config('static_url') %>/img/icons/search_24.png" /></a></li>
-        <li><a href="/administration/"><img src="<%= config('static_url') %>/img/icons/tools_24.png" /></a></li>
-      </ul>
-      <span id="slogan">I switched off for large periods of the conversation, mainly due to the fact there was a midget.</span>
-    </div>
+
+<div id="header">
+  <div class="wrapper clearfix">
+    <a href="#"><img src="<%= config('static_url') %>/img/vr_logo.png" id="vr_logo"></a>
+    
+    <ul id="navigation">
+      <li class="action"><a href="#" class="tooltip_up">Post Message</a></li>
+
+      <li class="page"><a href="#" class="tooltip_up tooltip" title="Home"><img src="<%= config('static_url') %>/img/icons/home_24.png" /></a></li>
+      <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/picture_24.png" /></a></li>
+      <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/mail_24.png" /></a></li>
+      <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/user_24.png" /></a></li>
+      <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/tools_24.png" /></a></li>
+      <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/search_24.png" /></a></li>
+
+      <li class="pagination next"><a href="#">Next &gt;</a></li>
+      <li class="pagination pagecount"><a href="#">888<br />_</a></li>
+      <li class="pagination prev"><a href="#">&lt; Prev</a></li>
+    </ul>
   </div>
+
+  <div id="all_page_navigation">
+    <ul class="wrapper clearfix">
+      <li class="first"><a href="#">&laquo; first</a></li>
+      <li><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li><a href="#">6</a></li>
+      <li><a href="#">7</a></li>
+      <li><a href="#">8</a></li>
+      <li><a href="#">9</a></li>
+      <li><a href="#">10</a></li>
+      <li><a href="#">11</a></li>
+      <li><a href="#">12</a></li>
+      <li><a href="#" class="current">13</a></li>
+      <li><a href="#">14</a></li>
+      <li><a href="#">15</a></li>
+      <li><a href="#">16</a></li>
+      <li><a href="#">17</a></li>
+      <li><a href="#">100</a></li>
+      <li><a href="#">19</a></li>
+      <li><a href="#">20</a></li>
+      <li><a href="#">21</a></li>
+      <li><a href="#">22</a></li>
+      <li><a href="#">23</a></li>
+      <li><a href="#">24</a></li>
+      <li><a href="#">888</a></li>
+      <li><a href="#">26</a></li>
+      <li><a href="#">27</a></li>
+      <li><a href="#">28</a></li>
+      <li><a href="#">29</a></li>
+      <li><a href="#">30</a></li>
+      <li><a href="#">31</a></li>
+      <li><a href="#">32</a></li>
+      <li><a href="#">33</a></li>
+      <li class="last"><a href="#">last &raquo;</a></li>
+    </ul>
+  </div>
+
+</div>
+
+
   
-  <div class="wrapper">
+  <div id="wrapper" class="clearfix">
     <div id="content">
       <%== $token->{'content'} =%>
     </div>
 
-    <div id="sidebar">
-      <% if ( session('user_id') ) { %>      
-      <h2><%= session('display_name') %></h2>
-        <div class="avatar_container clearfix">
-          <%== avatar_img( session('avatar'), session('usertext') )%>
-          <p><%=current_date();%></p>
-          <p><a>View Profile</a> // <a>Edit Settings</a></p>
-        </div>  
-      <% } else { %>
-      <h2>Login or Register</h2>
-        <form id="loginform">
-          <input type="text" name="email" placeholder="Email Address or Username">
-          <input type="password" name="password"  placeholder="Password">
-          <p class="smallform_label"><a>Register</a> // <a>Forgot Password?</a></p>
-          <input type="submit" class="blue" value="Login">
-        </form>
-      <% } %>
+    <div id="sidebar" class="clearfix">
+    </div>
+  
+    <div id="postform" class="clearfix">
+      <label for="subject">Subject</label>
+      <input type="text" placeholder="Subject" id="subject">
 
-      <% if ($token->{'thread_meta'}) { %>
-      <h2><%=$token->{'thread_meta'}->{'content_kind'}%> Info</h2>
-        <p>Replies: <b><%=$token->{'thread_meta'}->{'replies'}=%></b></p>
-        <p>First Post: <%=time_ago($token->{'thread_meta'}->{'start_date'}, 1)%></p>
-        <p>Last Post: <%=time_ago($token->{'thread_meta'}->{'last_updated'}, 1)%></p>
-        <p>Tagged: <% foreach my $tag (@{ $token->{'thread_meta'}->{'tagged'} }) { %> <span class="tiny_tag"><%=$tag->[0]=%></span><% } =%></p>
-        <p>Viewing:
-          <% while (my ($key, $value) = each %{ $token->{'thread_meta'}->{'reading'} }) { %>
-            <%== username_link ($token->{'thread_meta'}->{'reading'}->{$key}->{'user_name'}, $token->{'thread_meta'}->{'reading'}->{$key}->{'display_name'}) =%>
-          <% } =%></p>
-      <% } %>
+      <label for="message">Message</label>
+      <textarea id="message" placeholder="Message"></textarea>
 
-      <h2>Online Now (<%=scalar @{$VR::global->{'users_online'}}%>)</h2>
-        <ul class="user_list clearfix">
-        <% foreach my $user (@{$VR::global->{'users_online'}}) { %>
-          <li><%==avatar_link($user->{'user_name'}, $user->{'display_name'}, $user->{'avatar'}, $user->{'usertext'}) %></li>
-        <% } %>
-        </ul>
+      <input type="submit" value="Post Message" />
 
-      <h2>Shoutbox</h2>
-        <ul class="shoutbox_list clearfix">
-          <li><a>Animal</a>: Would someone be so kind as to use the port scan tool at webbytools.co.UK on this ip? 82.70.62.198 thanking yew</li>
-          <li><a>SMASH</a>: SMASH SAYS GEORGE SUCKS</li>
-          <li><a>Laura</a>: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
-          <li><a>Super Nintendo Chalmers</a>: Duis aute irure dolor</li>
-          <li><a>Scott</a>: in reprehenderit in voluptate</li>
-          <li><a>Dan</a>: velit esse cillum dolore eu fugiat nulla pariatur</li>
-          <li><a>Phil</a>: Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
-          <li><a>Super Nintendo Chalmers</a>: in reprehenderit in voluptate</li>
-          <li><a>Dan</a>: velit esse cillum dolore eu fugiat nulla pariatur</li>
-       </ul>
-       <form id="shoutform" class="clearfix">
-          <input type="text" id="shout_input" name="shout" placeholder="Enter your shout...">
-          <input type="submit" class="blue" value="Shout">
-       </form>
-
-      <h2>Tags</h2>
-        <ul class="tag_list clearfix">
-          <li><a>Chat</a></li>
-          <li><a>Rants</a></li>
-          <li><a>Private</a></li>
-          <li><a>Spam</a></li>
-          <li><a>Music</a></li>
-          <li><a>Literature</a></li>
-          <li><a>Zine</a></li>
-          <li><a>FAQ</a></li>
-          <li><a>News</a></li>
-          <li><a>Admin</a></li>
-          <li><a>Yahoo</a></li>
-        </ul>
-
-      <% if ( session('user_id') ) { %>      
-      <h2>Bookmarked Threads</h2>
-        <ul class="shoutbox_list clearfix">
-          <li><a>Woop...next gigs...</a></li>
-          <li><a>What did you dream last night? Again.</a></li>
-          <li><a>VR Fantasy Football 2010/2011</a></li>
-          <li><a>Funny Pictures Thread</a></li>
-          <li><a>Singledom</a></li>
-          <li><a>Things that make you want to bury someone alive</a></li>
-          <li><a>Secret Santa</a></li>
-       </ul>
-      <% } %>
     </div>
   </div>
+
 
   <div id="footer">
-    <% if (defined $token->{'actions'} && defined $token->{'pagination'}) { %>
-      <div id="supernav_container">
-        <div id="supernav">
-        <% if (defined $token->{'actions'}) { %>
-          <ul id="actions">
-            <% foreach my $action (@{ $token->{'actions'} }) { %>
-              <li><a href="<%= $action->{'url'}%>"><%= $action->{'title'}%></a></li>
-              <li><a href="<%= $action->{'url'}%>"><%= $action->{'title'}%></a></li>
-            <% } %>
-          </ul>
-        <% } %>
-
-        <% if (defined $token->{'pagination'}) { %>
-          <div id="pagination">
-            <%== $token->{'pagination'}->{'pages_menu'} %>
-            <%== $token->{'pagination'}->{'next_prev_block'} %>
-          </div>
-        <% } %>
-        </div>
-      </div>
-    <% } %>
-
-    <div class="wrapper">
-      &copy; The Vegetable Revolution. All Rights Reserved<br />
-      Powered by <a href="http://perldancer.org/">Dancer</a> <%= $token->{'dancer_version'} %><br />
-      Run Time: <%=run_time();%> seconds
-    </div>
+  
   </div>
 
-  <script src="<%= config('static_url') %>/js/libs/jquery-1.5.1.min.js"></script>
-  <script src="<%= config('static_url') %>/js/libs/jquery.tools.min.js"></script>
-  <script src="<%= config('static_url') %>/js/libs/jquery.placeholder.js"></script>
-
-  <script>
-    $(document).ready(function () {
-        $('input').placeholder();
-
-        $('.quote .quote_body').click(function(){
-          var start_height = $(this).height();
-          $(this).css( "height", "auto" );
-          var end_height = $(this).height();
-
-          if (end_height > start_height) {
-            $(this).height( start_height ).animate({ height: end_height });
-          }
-
-        });
-    });
-  </script>
-
-
-  <!--[if lt IE 7 ]>
-    <script src="<%= config('static_url') %>/js/libs/dd_belatedpng.js"></script>
-    <script> DD_belatedPNG.fix('img, .png_bg'); </script>
-  <![endif]-->
 
   <!-- change the UA-XXXXX-X to be your site's ID -->
   <!-- <script>

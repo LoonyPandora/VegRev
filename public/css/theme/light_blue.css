@@ -1,6 +1,11 @@
 /******************************************************************************
- lilac.css - Theme Styles, Just a bunch of colors
+ light_blue.css - Theme Styles, Just a bunch of colors
 ******************************************************************************/
+
+a {
+  font-weight: bold;
+  text-decoration: none;
+}
 
 ::-moz-selection { background: #3b7dbf; color:#fff; text-shadow: none; }
 ::selection      { background: #3b7dbf; color:#fff; text-shadow: none; } 

@@ -1,0 +1,495 @@
+/* 
+* VR Styles
+*/
+
+
+
+/* Basic Styles
+================================================== */
+body {
+  background-color: #fcfcfc;
+  background-image: url('../img/bg_tile.gif');
+}
+
+
+/* Structure
+================================================== */
+
+#header {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  border-bottom: 2px solid rgba(0,0,0,0.5);;
+  z-index: 99;
+  opacity: 0.8;
+}
+
+#vr_logo {
+  margin-top: 6px;
+  width: 160px;
+  float: left;
+}
+
+#wrapper, .wrapper { width: 940px; }
+#wrapper { margin: 70px auto 20px auto; }
+.wrapper { margin: 0 auto 0 auto; }
+
+#content {
+  width: 700px;
+  float: left;
+  min-height: 400px;
+}
+
+#sidebar {
+  width: 220px;
+  margin: 10px 0 0 20px;
+  float: left;
+  min-height: 400px;
+  font-size: 12px;
+}
+
+#footer {
+  height: 40px;
+  border-top: 1px solid #ccc;
+  background-color: #f6f6f6;
+}
+
+/* Fonts
+================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444;
+  font-family: "ProximaNovaSemiBold";
+  font-weight: normal;
+}
+
+h1 {
+  color: #333;
+  font-size: 28px;
+  line-height: 40px;
+  margin: 0;
+  border-bottom:  1px dotted #ccc;
+}
+
+
+h2 {
+  font-size: 16px;
+  line-height: 25px;
+  border-bottom: 1px dotted #ccc;
+  margin: 5px 0 10px 0;
+}
+
+
+
+
+
+
+/* Header Navigation
+================================================== */
+
+#navigation {
+  display: block;
+  width: 780px;
+  margin: 10px 0 12px 0;
+  height: 30px;
+  float: left;
+  list-style: none;
+}
+
+#navigation a {
+  display: block;
+  color: #fff;
+  font-weight: bold;
+  height: 30px;
+  font-size: 12px;
+}
+
+#navigation li {
+  text-align: center;
+  background-color: rgba(0,0,0,0.1);
+  padding: 0;
+  width: 80px;
+  margin-left: 20px;
+  height: 30px;
+  line-height: 30px;
+  display: block;
+  float: left;
+}
+
+
+#navigation li.action {
+  width: 100px;
+  background-color: rgba(0,0,0,0.8);
+  margin: 0 60px 0 40px;
+}
+
+#navigation li.page { width: 40px; margin-left: 0; }
+#navigation li.page img { margin-top: 2px; }
+
+#navigation li.pagination {
+  float: right;
+}
+#navigation li.next {
+  margin-left: 10px;
+}
+#navigation li.pagecount {
+  width: 40px;
+  margin-left: 10px;
+  line-height: 0;
+  padding-top: 14px;
+  height: 16px;
+}
+
+
+
+
+/* All Pages List
+================================================== */
+
+#all_page_navigation {
+  display: none;
+  height: 26px;
+  border-bottom: 2px solid rgba(0,0,0,0.5);
+  width: 100%;
+  margin-top: 0;
+  clear: both;
+  background-color: rgba(0,0,0,0.5);
+  font-size: 10px;
+  text-align: center;
+}
+
+#all_page_navigation ul {
+  list-style: none;
+}
+
+#all_page_navigation ul li {
+  margin: 3px 0 0 2px;
+  float: left;
+  width: 24px;
+  display: block;
+}
+
+#all_page_navigation ul li.first {
+  width: 36px;
+  margin-right: 5px;
+  margin-left: 0;
+}
+#all_page_navigation ul li.last {
+  width: 36px;
+  margin-left: 5px;
+}
+
+#all_page_navigation ul li a.current {
+  background-color: rgba(0,0,0,1);
+} 
+
+#all_page_navigation ul li a {
+  color: #fff;
+  display: block;
+  background-color: rgba(0,0,0,0.6);
+}
+
+#all_page_navigation ul li a:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+
+
+/* Header Pagination
+================================================== */
+
+#pagination {
+  display: block;
+  width: 220px;
+  margin: 5px 0 5px 20px;
+  height: 40px;
+  float: left;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+}
+
+#pagination p {
+  font-size: 10px;
+  clear: both;
+  opacity: 0.8;
+}
+
+#pagination a {
+  border-radius: 5px;
+  color: #ddd;
+}
+
+#pagination a.prev,
+#pagination a.next {
+  color: #fff;
+  display: block;
+  width: 80px;
+  margin-left: 20px;
+  font-size: 12px;
+  height: 25px;
+  line-height: 25px;
+  float: left;
+  background-color: rgba(0,0,0,0.2);
+}
+
+
+
+/* Sidebar Widgets
+================================================== */
+
+
+#sidebar #loginbox input[type=text],
+#sidebar #loginbox input[type=password] {
+  width: 210px;
+}
+
+#sidebar #loginbox input[type=submit] {
+  float: right;
+  font-size: 12px;
+}
+
+#sidebar #loginbox span {
+  float: left;
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+
+#sidebar #logged_in_box img {
+  width: 40px;
+  height: 40px;
+  float: left;
+  margin-right: 20px;
+  background-color: #ddd;
+}
+
+
+
+/* Tooltips
+================================================== */
+
+
+
+/* Do some modernizr crap to show the form if we have no-js */
+#postform {
+  background-color: #222;
+  padding: 20px 20px 10px 20px;
+  display: none;
+  clear: both;
+  width: 540px;
+  margin-left: 120px;
+  -webkit-box-shadow: 0 0px 10px rgba(0, 0, 0, 0.8);
+     -moz-box-shadow: 0 0px 10px rgba(0, 0, 0, 0.8);
+          box-shadow: 0 0px 10px rgba(0, 0, 0, 0.8);
+}
+
+
+#postform input[type=text], #postform textarea {
+  width: 530px;
+  background-color: #666;
+  color: #fff;
+}
+
+#postform input[type=text]:focus, #postform textarea:focus {
+  background-color: #ddd;
+  color: #000;
+}
+
+#postform input[type=submit] {
+  float: right;
+}
+
+#postform label {
+  color: #fff;
+  display: none;
+}
+
+#close_postform {
+  font-size: 11px;
+  color: #fff;
+}
+
+
+.ie7 #postform textarea,
+.ie7 #postform input {
+  margin-left: -120px !important;
+}
+
+.ie7 #postform input[type=submit] {
+  margin-left: 0 !important;
+}
+
+.ie7 #wrapper {
+  padding-top: 70px !important;
+}
+
+
+
+/* Users Online
+================================================== */
+
+
+ul.user_icon_list {
+  list-style: none;
+  margin: 0 0 20px 0;
+  line-height: 30px;
+  text-align: center;
+}
+
+ul.user_icon_list img {
+  width: 30px;
+  height: 30px;
+}
+
+ul.user_icon_list li {
+  float: left;
+  margin: 0 1px 1px 0;
+}
+
+ul.user_icon_list li a {
+  background-color: #ddd;
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+
+
+
+
+/* Tags
+================================================== */
+
+
+
+ul.tag_list {
+  list-style: none;
+  margin: 0 0 20px 0;
+}
+
+ul.tag_list li {
+  float: left;
+  margin: 0 5px 8px 0;
+}
+
+ul.tag_list a {
+  display: block;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 4px 0 4px;
+  font-size: 11px;
+  color: #555;
+  background-color: #e3e3e3;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-weight: normal;
+}
+
+ul.tag_list a:hover {
+  color: #222;
+  border: 1px solid #999;
+}
+
+
+
+/* Saved Threads
+================================================== */
+
+ul.recent_threads {
+  font-size: 11px;
+  
+  list-style: none;
+  margin: 0 0 20px 0;
+}
+
+ul.recent_threads li {
+  line-height: 15px;
+}
+
+ul.recent_threads a {
+  color: #444;
+}
+
+ul.recent_threads a:hover {
+  color: #111;
+}
+
+
+
+
+/* Utility Classes
+================================================== */
+
+.outline {
+  outline: 1px solid red;
+}
+
+
+
+
+/* CSS Arrows
+================================================== */
+
+.arrow {
+  width:  0;
+  height: 0;
+  z-index: 99;
+  position: absolute;
+}
+
+#tooltip {
+  position:    absolute;
+  color:       #fff;
+  padding:     1px 5px;
+  font-size:   11px;
+  font-weight: bold;
+  display:     none;
+  z-index:     99;
+  background-color: #222;
+}
+
+#tooltip .arrow {
+  margin: -5px 0 0 -5px;
+  border-left:   5px solid transparent;
+  border-right:  5px solid transparent;
+  border-bottom: 5px solid #222;
+}
+
+.arrow.up {
+  margin: -20px 0 0 -10px;
+  border-left:   10px solid transparent;
+  border-right:  10px solid transparent;
+  border-bottom: 10px solid #222;
+}
+
+.arrow.right {
+  margin: -25px 0 0 0;
+  border-left:   10px solid #222;
+  border-top:    10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.arrow.down {
+  margin-left:  -10px;
+  border-left:   10px solid transparent;
+  border-right:  10px solid transparent;
+  border-top:    10px solid #222;
+}
+
+.arrow.left {
+  border-right:  10px solid #222;
+  border-top:    10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+
+
+
+
+
+
+
+

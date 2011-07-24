@@ -2,6 +2,11 @@
  red.css - Theme Styles, Just a bunch of colors
 ******************************************************************************/
 
+a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
 ::-moz-selection { background: #f23030; color:#fff; text-shadow: none; }
 ::selection      { background: #f23030; color:#fff; text-shadow: none; } 
 

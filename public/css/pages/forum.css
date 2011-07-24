@@ -1,0 +1,101 @@
+/* Forum Front Page Styles
+================================================== */
+
+ul.thread_list span,
+ul.thread_list a {
+  display: block;
+}
+
+ul.thread_list span.thread_details,
+ul.thread_list a,
+ul.thread_list img {
+  float: left;
+}
+
+ul.thread_list span.thread_tagging b,
+ul.thread_list span.thread_tagging i {
+  height:           20px;
+  line-height:      20px;
+  font-size:        9px;
+  font-family:      Verdana, sans-serif;
+  font-weight:      bold;
+  font-style:       normal;
+  text-shadow:      #666 0px 0px 2px;
+  color:            #fcfcfc;
+  background-color: #b1b1b1;
+  padding:          1px 3px;
+  border-radius:    2px;
+}
+
+ul.thread_list span.thread_tagging i {
+  text-shadow:      none
+}
+
+ul.thread_list {
+  list-style:     none;
+  margin:         0;
+}
+
+ul.thread_list li {
+  position:   relative;
+  margin:     0;
+  padding:    10px 0 10px 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+/* Clearfix here, as it's really annoying to have this class everywhere... */
+ul.thread_list li:before, ul.thread_list li:after { content: ""; display: table; }
+ul.thread_list li:after { clear: both; }
+ul.thread_list li { zoom: 1; }
+
+
+ul.thread_list li.announcement {
+  background-color: #f9f9f9;
+  margin-left:      -10px;
+  padding-left:     10px;
+}
+
+ul.thread_list a {
+  width:  100%;
+}
+
+ul.thread_list img {
+  height: 40px;
+  width:  40px;
+  margin: 0 20px 0 0;
+  background-color: #ddd;
+}
+
+ul.thread_list span.statbox {
+  position:     absolute;
+  text-shadow:  #fff 0px 1px 1px;
+  color:        #999;
+  text-align:   center;
+  right:        0;
+  width:        60px;
+}
+
+ul.thread_list span.stat_value {
+  font-weight:  bold;
+  font-size:    18px;
+}
+
+ul.thread_list span.thread_title {
+  font-size:    18px;
+  font-family:  "ProximaNovaSemiBold", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight:  normal;
+  max-width:    580px;
+  height:       20px;
+  overflow:     hidden;
+}
+
+ul.thread_list span.stat_name,
+ul.thread_list span.thread_tagging {
+  font-size:    11px;
+  font-weight:  normal;
+}
+
+ul.thread_list span.thread_tagging {
+  color: #666;
+}
+

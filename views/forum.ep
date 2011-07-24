@@ -1,20 +1,20 @@
 <h1>Hola, Mystery Person. Welcome to VR</h1>
 
-      <ul class="recent_list">
+      <ul class="thread_list">
 <% foreach my $thread (@{$token->{'recent_threads'}}) { %>
         <li>
-          <a href="/thread/<%=$thread->{'id'}%>-<%=$thread->{'url_slug'}%>/" class="thread_link">
+          <a href="/thread/<%=$thread->{'id'}%>-<%=$thread->{'url_slug'}%>/">
             <%==avatar_img($thread->{'avatar'}, $thread->{'usertext'})%>
-            <!-- <img src="<%= config('static_url') %>/img/placeholder.png" /> -->
             <span class="thread_details">
               <span class="thread_title"><%= $thread->{'subject'} %></span>
-              <span class="thread_tagging"><% foreach my $tag (@{$thread->{'tags'}}) { %><span class="tiny_tag"><%= $tag %></span><% } %> Last post by <%=$thread->{'display_name'}%>, <%=time_ago($thread->{'last_updated'}, 1)%></span>
+              <span class="thread_tagging"><% foreach my $tag (@{$thread->{'tags'}}) { %><b><%= $tag %></b><% } %> <i>NEW</i> Last post by <%=$thread->{'display_name'}%>, <%=time_ago($thread->{'last_updated'}, 1)%></span>
             </span>
             <span class="statbox">
-              <span class="stat_value"><%=$thread->{'replies'}%></span><br>
+              <span class="stat_value"><%=$thread->{'replies'}%></span>
               <span class="stat_name">replies</span>
             </span>
           </a>
         </li>
+
 <% } %>
       </ul>

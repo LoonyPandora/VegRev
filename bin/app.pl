@@ -1,19 +1,16 @@
 #!/usr/bin/env perl
 
-# Use vendor libs in preference to system defaults
-use lib 'vendor/Dancer/lib';
-use lib 'vendor/Dancer-Template-MojoTemplate/lib';
-
 use Dancer;
 use VR;
 
+use DBI;
 use Plack::Builder;
 use Plack::Middleware::Session;
 use Plack::Session::Store::DBI;
 
 my $app = sub {
     my $env     = shift;
-    my $request = Dancer::Request->new($env);
+    my $request = Dancer::Request->new( env => $env );
     Dancer->dance($request);
 };
 
