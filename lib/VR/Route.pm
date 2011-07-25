@@ -5,6 +5,11 @@ use Dancer ':syntax';
 
 # These are misc aliases and forwarding only routes
 
+get qr{/funhouse/?$} => sub {
+    template 'funhouse', {
+        page_title => 'FUNHOUSE!',
+    };
+};
 
 # Front page is always page 1 of the forum
 # TODO DANCER BUG - forward doesn't pass along session details

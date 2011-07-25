@@ -420,6 +420,109 @@ ul.recent_threads a:hover {
 
 
 
+
+
+
+/* PunyMCE Editor
+================================================== */
+
+div.punymce {
+  padding: 0;
+  margin: 0;
+}
+
+table.punymce,
+table.punymce tr,
+table.punymce td {
+  border:  none;
+  padding: 0;
+  margin:  0;
+}
+
+table.punymce {
+  margin: 0 0 10px 0;
+  width: 530px;
+  max-width: 530px;
+  border-top: 1px solid #999;
+}
+
+tr.mceBody {
+  background-color: #fff;
+}
+
+tr.mceBody td {
+  padding: 5px;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-bottom-left-radius:  2px;
+     -moz-border-radius-bottomright:  2px;
+     -moz-border-radius-bottomleft:   2px;
+          border-bottom-right-radius: 2px;
+          border-bottom-left-radius:  2px;
+}
+
+
+/* Toolbars */
+ul.puny_toolbar.formatting {
+  padding-top: 3px;
+  -webkit-border-top-left-radius:  2px;
+  -webkit-border-top-right-radius: 2px;
+     -moz-border-radius-topleft:   2px;
+     -moz-border-radius-topright:  2px;
+          border-top-left-radius:  2px;
+          border-top-right-radius: 2px;
+
+}
+
+ul.puny_toolbar.emoticons { padding-left: 2px; }
+
+ul.puny_toolbar {
+  clear:      both;
+  display:    block;
+  list-style: none;
+  height:     20px;
+  margin:     0;
+  padding:    2px 0 2px 0;
+  font-size:  12px;
+  background-color: #ddd;
+}
+
+ul.puny_toolbar li {
+  float: left;
+  margin: 0 0 0 2px;
+}
+
+ul.puny_toolbar li a {
+  display: block;
+  min-width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+ul.puny_toolbar li a img {
+  height: 18px;
+}
+
+ul.puny_toolbar select {
+  margin: 1px 2px 0 2px;
+  width: 100px;
+  font-size: 11px;
+  color: #333;
+}
+
+
+
+/*
+* Tiny Hack - We use a manual toolbar so the punymce one is hidden
+* this may not be the way forward. But it will do for now
+*/
+tr.mceToolbar {
+  display: none; 
+}
+
+
+
+
+
 /* Utility Classes
 ================================================== */
 

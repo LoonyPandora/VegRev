@@ -11,6 +11,7 @@ $(document).ready(function() {
     init_gallery();
     init_hashgrid();
     init_tabs();
+    enable_punymce();
 });
 
 
@@ -24,14 +25,38 @@ $(document).ready(function() {
 
 
 function enable_punymce() {
-    var editor1 = new punymce.Editor({
+
+
+    var message = new punymce.Editor({
         id : 'message',
-        // toolbar : 'bold,italic,underline,strike,increasefontsize,decreasefontsize,ul,ol,indent,outdent,left,center,right,style,textcolor,removeformat,link,unlink,image,emoticons,editsource',
-        // plugins : 'Paste,Image,Emoticons,Link,ForceBlocks,Protect,TextColor,EditSource,Safari2x,Entities',
-        min_width : 400,
+        content_css: '/css/punymce.css',
+        editor_css: false,
+        toolbar : 'bold',
+        spellcheck: true,
+        plugins: 'Emoticons,autoresize',
+        // plugins : 'BBCode,Image,Emoticons,Link,Protect,TextColor,EditSource,Safari2x',
+        min_width : 530,
+        max_width : 530,
+        min_height: 60,
+        height: 60,
+        width : 530,
+        resize : true,
         entities : 'numeric',
-        content_css: 'css/scaffold.css'
+        emoticons : {
+            auto_convert : true
+        }
     });
+
+
+    $('.puny_toolbar a').click(function() {
+        message.execCommand('Bold');
+
+        message.resizeBy(0, -20);
+
+        return false;
+    });
+
+   
 };
 
 
@@ -319,12 +344,20 @@ function toggle_postform(elem, options, meta_elem, is_reply) {
     $("#postform").css("position", options.position);
 
     // Show the actual form fields
-    $('#postform input, #postform textarea, #postform label').hide();
+    $('#postform input, #postform textarea, #postform label, #punymce_container').hide();
     $("input[type='submit']").show();
 
     $.each(options.fields, function(index, value) { 
         // $("label[for='" + value + "']").show();
-        $('#'+value).show();
+        
+        // Special case #message - because it's punymce
+        
+        if (value == 'message') {
+            $('#punymce_container').show();
+        } else {
+            $('#'+value).show();
+        }
+        
     });
 
     // Calculate dimensions, AFTER we've done all the resizing / hiding / showing of elements

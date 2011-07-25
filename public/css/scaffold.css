@@ -13,7 +13,7 @@
 
 html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup,
-var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody,
+var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, table,
 tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer,
 header, hgroup, menu, nav, section, summary, time, mark, audio, video {
   margin: 0;
@@ -37,9 +37,11 @@ button, input, select, textarea { width: auto; overflow: visible; margin: 0; fon
 
 /* Always force a scrollbar in non-IE */
 html {
+/*
   overflow-y: scroll;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+*/
 }
 
 /* Set an even line-height - it's approx 1.42em as opposed to 1.5em, which is a bit large for narrower columns */
@@ -195,7 +197,7 @@ tbody tr:nth-of-type(odd) { background-color: #f0f0f0; }
 
 /* code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
 .ie7 img { -ms-interpolation-mode: bicubic; }
-img      { max-width: 100%; height: auto;   }
+img      { max-width: 100%; height: auto; vertical-align: top;  }
 
 
 

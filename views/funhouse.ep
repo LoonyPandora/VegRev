@@ -1,0 +1,53 @@
+
+
+
+<div id="newpostform" class="clearfix">
+  <input type="text" placeholder="Subject" id="subject">
+
+
+  <div id="punymce_container">
+    <ul class="puny_toolbar formatting">
+      <li><a href="#">B</a></li>
+      <li><a href="#">I</a></li>
+      <li><a href="#">U</a></li>
+      <li><select><option>Helvetica</option><option>Comic Sans</option></select></li>
+      <li><select><option>Red</option><option>Blue</option></select></li>
+      <li><a href="#">I</a></li>
+      <li><a href="#">U</a></li>
+      <li><a href="#">S</a></li>
+      <li><a href="#">B</a></li>
+      <li><a href="#">I</a></li>
+      <li><a href="#">U</a></li>
+      <li><a href="#">S</a></li>
+      <li><a href="#">B</a></li>
+      <li><a href="#">B</a></li>
+    </ul>
+
+    <ul class="puny_toolbar emoticons">
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/smiley.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/sad.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/grin.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/cool.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/cry.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/shocked.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/tongue.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/cool.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/smiley.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/sad.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/grin.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/cool.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/cry.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/shocked.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/tongue.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/grin.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/smiley.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/sad.gif"></a></li>
+      <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/thumbsup.gif"></a></li>
+    </ul>
+
+    <textarea id="message" placeholder="Message"></textarea>
+  </div>
+
+  <a href="#" id="close_postform">[close]</a>
+  <input type="submit" value="Post Message" />
+</div>

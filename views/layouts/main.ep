@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/profile.css">
     <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/gallery.css">
 
+    <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/funhouse.css">
+
+
     <!-- Fonts -->
     <link rel="stylesheet" href="<%= config('static_url') %>/font/proxima_nova/stylesheet.css">
 
@@ -39,7 +42,11 @@
     <script src="<%= config('static_url') %>/js/jquery.masonry.min.js"></script>
 
     <script src="<%= config('static_url') %>/js/app.js"></script>
+    
+    <!-- PunyMCE -->
     <script src="<%= config('static_url') %>/js/punymce/puny_mce_src.js"></script>
+    <script src="<%= config('static_url') %>/js/punymce/plugins/emoticons/emoticons.js"></script>
+    <script src="<%= config('static_url') %>/js/punymce/plugins/autoresize.js"></script>
 
 </head>
 <body>
