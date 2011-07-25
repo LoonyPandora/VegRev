@@ -22,12 +22,13 @@
     <!-- Page Specific -->
     <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/forum.css">
     <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/thread.css">
+    <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/profile.css">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="<%= config('static_url') %>/font/proxima_nova/stylesheet.css">
 
     <!-- Colors -->
-    <link rel="stylesheet" href="<%= config('static_url') %>/css/theme/green.css">
+    <link rel="stylesheet" href="<%= config('static_url') %>/css/theme/black.css">
 
 
     <link rel="shortcut icon" href="<%= config('static_url') %>/img/favicon.ico">
