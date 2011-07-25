@@ -273,8 +273,6 @@ function postform_init(elem, options) {
     // Default the position values
     options['alignment'] = { top: 'auto', left: 'auto', bottom: 'auto', right:  'auto'};
 
-    
-
     // Always do the moving & hiding when the form is hidden
     // It's real ugly otherwise...
     $("#postform").fadeOut(50, function(){
@@ -363,9 +361,13 @@ function toggle_postform(elem, options, meta_elem, is_reply) {
             show_postform(options);
         }});
     } else {
-        $('.message .meta').animate( { marginBottom: '0px' }, { queue: false, duration: 100, complete: function() {
+        if ($('.message .meta').length > 0) {
+            $('.message .meta').animate( { marginBottom: '0px' }, { queue: false, duration: 100, complete: function() {
+                show_postform(options);
+            }});
+        } else {
             show_postform(options);
-        }});
+        }
     }
 
 }

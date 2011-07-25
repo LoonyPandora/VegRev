@@ -122,8 +122,8 @@
       <label for="message">Message</label>
       <textarea id="message" placeholder="Message"></textarea>
 
+      <a href="#" id="close_postform">[close]</a>
       <input type="submit" value="Post Message" />
-
     </div>
   </div>
 
