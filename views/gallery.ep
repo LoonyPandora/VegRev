@@ -1,11 +1,10 @@
 <h1>Photos and stuff.</h1>
 
-      <ul class="gallery_list">
+      <ul class="upload_list">
 <% foreach my $photo (@{$token->{'recent_threads'}}) { %>
         <li>
-          <a href="/photo/<%=$photo->{'id'}%>-<%=$photo->{'url_slug'}%>/" class="thread_link">
+          <a href="/photo/<%=$photo->{'id'}%>-<%=$photo->{'url_slug'}%>/">
             <%==avatar_img($photo->{'avatar'}, $photo->{'usertext'}, 'photo')%>
-            <p><img src="<%= config('static_url') %>/img/icons/bubble_16.png"> <%=$photo->{'replies'}%> comments</p>
           </a>
         </li>
 <% } %>

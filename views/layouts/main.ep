@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/forum.css">
     <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/thread.css">
     <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/profile.css">
+    <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/gallery.css">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="<%= config('static_url') %>/font/proxima_nova/stylesheet.css">
@@ -35,6 +36,7 @@
 
     <script src="<%= config('static_url') %>/js/jquery-1.6.2.min.js"></script>
     <script src="<%= config('static_url') %>/js/hashgrid.min.js"></script>
+    <script src="<%= config('static_url') %>/js/jquery.masonry.min.js"></script>
 
     <script src="<%= config('static_url') %>/js/app.js"></script>
     <script src="<%= config('static_url') %>/js/punymce/puny_mce_src.js"></script>
