@@ -11,21 +11,123 @@ $(document).ready(function() {
     init_gallery();
     init_hashgrid();
     init_tabs();
-    enable_punymce();
+    // enable_punymce();
+    enable_tinymce();
 });
 
 
 
 
+function emote_to_name(emote) {
+    var emote_name;
+
+    $.each(emoticons, function(title) {
+        $.each(emoticons[title], function(index) {
+            if (emoticons[title][index] === emote) {
+                emote_name = title;
+            }
+        });
+    });
+    
+    return emote_name;
+}
+
+var emoticons = {
+      smiley : [':)', '=)'],
+      unhappy : [':|', '=|'],
+      sad : [':(','=('],
+      grin : [':D', '=D'],
+      surprised : [':o',':O','=o', '=O'],
+      wink : [';)'],
+      halfhappy : [':/', '=/'],
+      tongue : [':P', ':p', '=P', '=p'],
+      lol : [],
+      mad : [],
+      rolleyes : [],
+      cool : []
+    },
+    emoReg = '';
+
+$.each(emoticons, function(title) {
+    $.each(emoticons[title], function(index) {
+        if (emoReg.length != 0) {
+            emoReg += '|';
+        }
+              
+        emoReg += emoticons[title][index].replace(/([^a-zA-Z0-9])/g, '\\$1');
+    });
+});
+
+emoReg = new RegExp(emoReg, 'g');
 
 
 
+function enable_tinymce() {
+  $('textarea#message').tinymce({
+       // Location of TinyMCE script
+       script_url : '/js/tinymce/tiny_mce_src.js',
+       // mode : "textareas",
+       // General options
+       theme : "advanced",
+       plugins : "paste,autoresize",
 
+       // Theme options
+       theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,fontselect,fontsizeselect,|,forecolor,backcolor,|,sub,sup",
+       theme_advanced_buttons2 : "",
+       theme_advanced_buttons3 : "",
+       theme_advanced_buttons4 : "",
+       theme_advanced_toolbar_location : "top",
+       theme_advanced_toolbar_align : "left",
+       theme_advanced_resizing : false,
+
+       // Example content CSS (should be your site CSS)
+       content_css : "/css/punymce.css",
+
+       setup : function(editor) {
+         editor.onKeyUp.add(function(editor, o) {
+            var text    = editor.getContent(),
+                rawtext = editor.getContent({noprocess: true});
+
+            var newtext = text.replace(emoReg, function(a) {
+                return '<img class="emoticon" title="' + a + '" src="img/emoticons/'+emote_to_name(a)+'.gif" alt="'+emote_to_name(a)+'" />';
+            });
+
+            if (rawtext === newtext) {
+                return;
+            } else {
+                editor.setContent(newtext);
+                var last_idx = editor.dom.select('img.emoticon').length - 1;
+                editor.selection.select(editor.dom.select('img.emoticon')[last_idx]);
+                editor.selection.collapse(0);
+            }
+         }),
+
+         editor.onPreProcess.add(function(editor, o) {
+             if (o.noprocess) {
+                 return;
+             } else {
+                $.each($(o.node).find('img.emoticon'), function(n) {
+                   $(this).replaceWith($(this).attr('title'));
+                });
+             }
+         });
+
+       }               
+  });
+}
 
 
 
 function enable_punymce() {
 
+    // <script src="<%= config('static_url') %>/js/punymce/plugins/emoticons/emoticons.js"></script>
+    // <script src="<%= config('static_url') %>/js/punymce/plugins/editsource/editsource.js"></script>
+    // <script src="<%= config('static_url') %>/js/punymce/plugins/autoresize.js"></script>
+    // <script src="<%= config('static_url') %>/js/punymce/plugins/foreblocks.js"></script>
+    // <script src="<%= config('static_url') %>/js/punymce/plugins/bbcode.js"></script>
+    // <script src="<%= config('static_url') %>/js/punymce/plugins/paste.js"></script>
+    // <script src="<%= config('static_url') %>/js/punymce/plugins/tabfocus.js"></script>
+    // <script src="<%= config('static_url') %>/js/punymce/plugins/forcenl.js"></script>
 
     var message = new punymce.Editor({
         id : 'message',
@@ -33,7 +135,7 @@ function enable_punymce() {
         editor_css: false,
         toolbar : 'bold',
         spellcheck: true,
-        plugins: 'Emoticons,autoresize',
+        plugins: 'Emoticons,autoresize,EditSource,ForceBlocks,Protect,BBCode',
         // plugins : 'BBCode,Image,Emoticons,Link,Protect,TextColor,EditSource,Safari2x',
         min_width : 530,
         max_width : 530,

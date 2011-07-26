@@ -426,32 +426,35 @@ ul.recent_threads a:hover {
 /* PunyMCE Editor
 ================================================== */
 
-div.punymce {
-  padding: 0;
-  margin: 0;
+
+table.mceLayout,
+table.mceLayout tr,
+table.mceLayout td {
+  border:  none !important;
+  padding: 0 !important;
+  margin:  0 !important;
 }
 
-table.punymce,
-table.punymce tr,
-table.punymce td {
-  border:  none;
-  padding: 0;
-  margin:  0;
-}
-
-table.punymce {
+#tinymce_container {
   margin: 0 0 10px 0;
-  width: 530px;
-  max-width: 530px;
-  border-top: 1px solid #999;
+  width: 540px;
+  max-width: 540px;
+  overflow: hidden;
 }
 
-tr.mceBody {
+#tinymce_container table.mceLayout {
+  width: 540px !important;
+  max-width: 540px !important;
+}
+
+table.mceLayout tr.mceLast {
   background-color: #fff;
+  display: block;
+  border-top: 1px solid #ccc !important;
 }
 
-tr.mceBody td {
-  padding: 5px;
+table.mceLayout td.mceIframeContainer {
+  padding: 5px !important;
   -webkit-border-bottom-right-radius: 2px;
   -webkit-border-bottom-left-radius:  2px;
      -moz-border-radius-bottomright:  2px;

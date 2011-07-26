@@ -44,9 +44,18 @@
     <script src="<%= config('static_url') %>/js/app.js"></script>
     
     <!-- PunyMCE -->
+    
     <script src="<%= config('static_url') %>/js/punymce/puny_mce_src.js"></script>
     <script src="<%= config('static_url') %>/js/punymce/plugins/emoticons/emoticons.js"></script>
+    <script src="<%= config('static_url') %>/js/punymce/plugins/editsource/editsource.js"></script>
     <script src="<%= config('static_url') %>/js/punymce/plugins/autoresize.js"></script>
+    <script src="<%= config('static_url') %>/js/punymce/plugins/forceblocks.js"></script>
+    <script src="<%= config('static_url') %>/js/punymce/plugins/bbcode.js"></script>
+    <script src="<%= config('static_url') %>/js/punymce/plugins/paste_src.js"></script>
+    <script src="<%= config('static_url') %>/js/punymce/plugins/tabfocus.js"></script>
+    <script src="<%= config('static_url') %>/js/punymce/plugins/protect.js"></script>
+ 
+    <script src="<%= config('static_url') %>/js/tinymce/jquery.tinymce.js"></script>
 
 </head>
 <body>

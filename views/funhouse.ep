@@ -44,7 +44,9 @@
       <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/sad.gif"></a></li>
       <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/thumbsup.gif"></a></li>
     </ul>
+  </div>
 
+  <div id="tinymce_container" class="clearfix">
     <textarea id="message" placeholder="Message"></textarea>
   </div>
 
