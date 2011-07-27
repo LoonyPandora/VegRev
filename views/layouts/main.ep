@@ -12,50 +12,36 @@
 
     <link rel="shortcut icon" href="<%= config('static_url') %>/favicon.ico">
     <link rel="apple-touch-icon" href="<%= config('static_url') %>/apple-touch-icon.png">
-    
-    <!-- General -->
-    <link rel="stylesheet" href="<%= config('static_url') %>/css/scaffold.css">
-    <link rel="stylesheet" href="<%= config('static_url') %>/css/hashgrid.css">
-    <link rel="stylesheet" href="<%= config('static_url') %>/css/style.css">
-    <link rel="stylesheet" href="<%= config('static_url') %>/css/vr.css">
 
-    <!-- Page Specific -->
-    <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/forum.css">
-    <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/thread.css">
-    <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/profile.css">
-    <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/gallery.css">
+<%
+my @stylesheets = qw(
+  scaffold.css
+  hashgrid.css
+  style.css
+  vr.css
+  proxima_nova.css
+);
 
-    <link rel="stylesheet" href="<%= config('static_url') %>/css/pages/funhouse.css">
+push (@stylesheets, "pages/$token->{page_css}.css") if $token->{page_css};
+push (@stylesheets, "theme/black.css");
 
+my @scripts = qw(
+  jquery-1.6.2.min.js
+  hashgrid.min.js
+  jquery.masonry.min.js
+  tinymce/jquery.tinymce.js
+  app.js
+);
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="<%= config('static_url') %>/font/proxima_nova/stylesheet.css">
+=%>
 
-    <!-- Colors -->
-    <link rel="stylesheet" href="<%= config('static_url') %>/css/theme/black.css">
+% for my $stylesheet ( output_css(\@stylesheets) ) {
+    <link rel="stylesheet" href="<%=$stylesheet%>">
+% }
+% for my $script ( output_js(\@scripts) ) {
+    <script src="<%=$script%>"></script>
+% }
 
-
-    <link rel="shortcut icon" href="<%= config('static_url') %>/img/favicon.ico">
-
-    <script src="<%= config('static_url') %>/js/jquery-1.6.2.min.js"></script>
-    <script src="<%= config('static_url') %>/js/hashgrid.min.js"></script>
-    <script src="<%= config('static_url') %>/js/jquery.masonry.min.js"></script>
-
-    <script src="<%= config('static_url') %>/js/app.js"></script>
-    
-    <!-- PunyMCE -->
-    
-    <script src="<%= config('static_url') %>/js/punymce/puny_mce_src.js"></script>
-    <script src="<%= config('static_url') %>/js/punymce/plugins/emoticons/emoticons.js"></script>
-    <script src="<%= config('static_url') %>/js/punymce/plugins/editsource/editsource.js"></script>
-    <script src="<%= config('static_url') %>/js/punymce/plugins/autoresize.js"></script>
-    <script src="<%= config('static_url') %>/js/punymce/plugins/forceblocks.js"></script>
-    <script src="<%= config('static_url') %>/js/punymce/plugins/bbcode.js"></script>
-    <script src="<%= config('static_url') %>/js/punymce/plugins/paste_src.js"></script>
-    <script src="<%= config('static_url') %>/js/punymce/plugins/tabfocus.js"></script>
-    <script src="<%= config('static_url') %>/js/punymce/plugins/protect.js"></script>
- 
-    <script src="<%= config('static_url') %>/js/tinymce/jquery.tinymce.js"></script>
 
 </head>
 <body>

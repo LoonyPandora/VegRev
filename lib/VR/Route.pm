@@ -7,6 +7,7 @@ use Dancer ':syntax';
 
 get qr{/funhouse/?$} => sub {
     template 'funhouse', {
+        page_css   => 'funhouse',
         page_title => 'FUNHOUSE!',
     };
 };

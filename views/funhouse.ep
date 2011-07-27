@@ -51,5 +51,7 @@
   </div>
 
   <a href="#" id="close_postform">[close]</a>
+  <a href="#" id="get_content">[Get content]</a>
+
   <input type="submit" value="Post Message" />
 </div>

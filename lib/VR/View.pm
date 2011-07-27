@@ -3,6 +3,7 @@ package VR::View;
 use common::sense;
 use Dancer ':syntax';
 
+use Digest::SHA;
 use HTML::Entities;
 use Time::Duration;
 use Time::Local;
@@ -169,6 +170,92 @@ sub parse_bbcode {
     
     return $string;
 }
+
+
+
+
+# Template Stuff
+# Outputs all JS for the requested page.
+sub output_js {
+    my ($scripts) = @_;
+
+    return merge_media({
+        extension => 'js',
+        files     => $scripts,
+    });
+}
+
+# Outputs all CSS for the requested page.
+sub output_css {
+    my ($sheets) = @_;
+
+    return merge_media({
+        extension => 'css',
+        files     => $sheets,
+    });
+}
+
+# Returns a list of all js / css that is used on a given page.
+# Handles caching also
+sub merge_media {
+    my ($args) = @_;
+
+    my $settings  = Dancer::Config->settings();
+    my $sha       = Digest::SHA->new(256);
+    my $base_path = $settings->{public};
+    my $base_url  = $settings->{config}->{static_url};
+
+    # Calculating SH256 of all files to check for changes
+    for my $file (@{ $args->{files} }) {
+        my $file_path = "$base_path/$args->{extension}";
+
+        if (-f "$file_path/$file") {
+            $sha->addfile("$file_path/$file");
+        }
+    }
+
+    # Check if we've already cached this exact combination
+    my $new_digest = $sha->hexdigest;    
+    if ( -f "$base_path/cache/$new_digest.$args->{extension}" && -s "$base_path/cache/$new_digest.$args->{extension}") {
+
+        # Cache file exists and has content, so lets use it!
+        return ("$base_url/cache/$new_digest.$args->{extension}");
+
+    } elsif (open my $outfile, '>', "$base_path/cache/$new_digest.$args->{extension}") {
+
+        # Cache needs to be recreated, and we have write permission
+        my @contents;
+        for my $file (@{ $args->{files} }) {
+            my $file_path = "$base_path/$args->{extension}";
+
+            if (open my $infile, '<', "$file_path/$file") {
+                push @contents, do { local $/; <$infile>; };
+                push @contents, "\n";
+                close $infile;
+            }
+
+        }
+
+        print $outfile @contents;
+        close $outfile;
+
+        # Check we've really got data in there
+        if (-s "$base_path/cache/$new_digest.$args->{extension}") {
+            return ("$base_url/cache/$new_digest.$args->{extension}");
+        } else {
+            unlink "$base_url/cache/$new_digest.$args->{extension}";
+            return map { "$base_url/$args->{extension}/$_" } @{ $args->{files} };
+        }
+
+    } else {
+
+        # Cache needs to be recreated, but we can't for some reason
+        # So just return original css files
+        return map { "$base_url/$args->{extension}/$_" } @{ $args->{files} };
+    }
+
+}
+
 
 
 
