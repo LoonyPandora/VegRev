@@ -81,7 +81,7 @@ function init_emoticons() {
         grin:       [':D', '=D'],
         surprised:  [':o', ':O', '=o', '=O'],
         wink:       [';)'],
-        halfhappy:  [':/', '=/'],
+        halfhappy:  [':-/', '=/'],
         tongue:     [':P', ':p', '=P', '=p'],
         lol:        [],
         mad:        [],
@@ -97,10 +97,15 @@ function init_tinymce() {
     tinymce_binding();
 
     $('#newpostform textarea#message').tinymce({
-        script_url: '/js/tinymce/tiny_mce.js',
         theme: "advanced",
-        skin: 'vegrev',
-        plugins: "paste,autoresize",
+        skin: "vegrev",
+        plugins: "paste,autoresize,tabfocus",
+
+        paste_auto_cleanup_on_paste: true,
+        paste_block_drop: true,
+        paste_strip_class_attributes: 'all',
+        paste_remove_spans: true,
+        paste_remove_styles: true,
 
         theme_advanced_buttons1: "",
         theme_advanced_buttons2: "",
@@ -154,47 +159,52 @@ function init_tinymce() {
 }
 
 function tinymce_binding() {
-    $('.puny_toolbar a.bold').click(      function() { tinymce.execCommand('bold');          return false; });
-    $('.puny_toolbar a.italic').click(    function() { tinymce.execCommand('italic');        return false; });
-    $('.puny_toolbar a.underline').click( function() { tinymce.execCommand('underline');     return false; });
-    $('.puny_toolbar a.strike').click(    function() { tinymce.execCommand('strikethrough'); return false; });
+    $('.mce_toolbar a.bold').click(      function() { tinymce.execCommand('bold');          return false; });
+    $('.mce_toolbar a.italic').click(    function() { tinymce.execCommand('italic');        return false; });
+    $('.mce_toolbar a.underline').click( function() { tinymce.execCommand('underline');     return false; });
+    $('.mce_toolbar a.strike').click(    function() { tinymce.execCommand('strikethrough'); return false; });
 
-    $('.puny_toolbar a.left').click(   function() { tinymce.execCommand('justifyleft');   return false; });
-    $('.puny_toolbar a.center').click( function() { tinymce.execCommand('justifycenter'); return false; });
-    $('.puny_toolbar a.right').click(  function() { tinymce.execCommand('justifyright');  return false; });
+    $('.mce_toolbar a.left').click(   function() { tinymce.execCommand('justifyleft');   return false; });
+    $('.mce_toolbar a.center').click( function() { tinymce.execCommand('justifycenter'); return false; });
+    $('.mce_toolbar a.right').click(  function() { tinymce.execCommand('justifyright');  return false; });
 
-    $('.puny_toolbar a.sup').click( function() { tinymce.execCommand('superscript'); return false; });
-    $('.puny_toolbar a.sub').click( function() { tinymce.execCommand('subscript');   return false; });
+    $('.mce_toolbar a.sup').click( function() { tinymce.execCommand('superscript'); return false; });
+    $('.mce_toolbar a.sub').click( function() { tinymce.execCommand('subscript');   return false; });
 
 
-    $('.puny_toolbar select.fontname').change(function() {
+    $('.mce_toolbar select.fontname').change(function() {
         tinymce.execCommand('FontName', false, $(this).val());
         return false;
     });
 
-    $('.puny_toolbar select.fontsize').change(function() {
+    $('.mce_toolbar select.fontsize').change(function() {
         tinymce.execCommand('FontSize', false, $(this).val());
         return false;
     });
 
-    $('.puny_toolbar select.fontcolor').change(function() {
+    $('.mce_toolbar select.fontcolor').change(function() {
         tinymce.execCommand('ForeColor', false, $(this).val());
         tinymce.execCommand('HiLiteColor', false, '#fff');
         return false;
     });
 
 
-    $('.puny_toolbar a.spoiler').click(function() {
+    $('.mce_toolbar a.spoiler').click(function() {
         tinymce.execCommand('ForeColor', false, '#ffff00');
         tinymce.execCommand('HiLiteColor', false, '#ffff00');
         return false;
     });
 
+    // TODO trigger a re-render efficiently
+    $('.mce_toolbar.emoticons').click(function() {
+        tinymce.execCommand('mceInsertContent', false, ':\)&nbsp;');
+        return false;
+    });
 
-    // $('.puny_toolbar a.font').click(function() {
-    //     tinymce.execCommand('FontName', false, 'Comic Sans MS');
-    //     return false;
-    // });
+    $('.mce_toolbar a.quote').click(function() {
+        tinymce.execCommand('mceBlockQuote');
+        return false;
+    });
 
     $('#get_content').click(function() {
         console.log($('#newpostform textarea#message').html());

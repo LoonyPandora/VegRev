@@ -37,8 +37,9 @@ button, input, select, textarea { width: auto; overflow: visible; margin: 0; fon
 
 /* Always force a scrollbar in non-IE */
 html {
-/*
+
   overflow-y: scroll;
+/*
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 */

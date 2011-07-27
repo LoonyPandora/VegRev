@@ -4,7 +4,6 @@
 <div id="newpostform" class="clearfix">
   <input type="text" placeholder="Subject" id="subject">
 
-
   <ul class="mce_toolbar formatting">
     <li><a href="#" class="bold">B</a></li>
     <li><a href="#" class="italic"><i>I</i></a></li>
@@ -44,7 +43,7 @@
   </ul>
 
   <ul class="mce_toolbar emoticons">
-    <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/smiley.gif"></a></li>
+    <li><a href="#" class="smiley"><img src="<%= config('static_url') %>/img/emoticons/smiley.gif"></a></li>
     <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/sad.gif"></a></li>
     <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/grin.gif"></a></li>
     <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/cool.gif"></a></li>
@@ -66,7 +65,7 @@
   </ul>
 
   <div id="tinymce_container" class="clearfix">
-    <textarea id="message" placeholder="Message"></textarea>
+    <textarea id="message" placeholder="Message"><p></p></textarea>
   </div>
 
   <a href="#" id="close_postform">[close]</a>
