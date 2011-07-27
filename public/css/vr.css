@@ -423,7 +423,7 @@ ul.recent_threads a:hover {
 
 
 /* TinyMCE will show these - stays hidden if JS is disabled */
-ul.puny_toolbar {
+ul.mce_toolbar {
   display: none;
 }
 
