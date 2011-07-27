@@ -24,7 +24,8 @@ get qr{/(\w+)/?$} => sub {
     }
 
     template 'user', {
-        user => values %{$user},
+        page_css => 'profile',
+        user     => values %{$user},
     };
 };
 

@@ -1,7 +1,7 @@
 
 
 
-#newpostform {
+#postform {
   background-color: #222;
   padding: 20px 20px 10px 20px;
   clear: both;
@@ -18,15 +18,15 @@
 }
 
 
-#newpostform input[type=text],
-#newpostform textarea {
+#postform input[type=text],
+#postform textarea {
   width: 532px;
   background-color: #eee;
   color: #111;
   border: none;
 }
 
-#newpostform input[type=submit] {
+#postform input[type=submit] {
   float: right;
 }
 

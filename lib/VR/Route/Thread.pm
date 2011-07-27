@@ -53,6 +53,7 @@ get qr{/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
     $meta_info->{'content_kind'} = 'Thread';
 
     template 'thread', {
+        page_css     => 'thread',
         page_title   => $meta_info->{'subject'},
         messages     => $all_messages,
         quotes       => $quote->fetchall_hashref([ qw(message_id message_id_quoted) ]),

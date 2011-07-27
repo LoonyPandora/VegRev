@@ -36,6 +36,7 @@ get qr{/(\d+)/?$} => sub {
     my $recent_threads = get_threads($offset, $per_page);
 
     template 'forum', {
+        page_css        => 'forum',
         page_title      => 'The Forum',
         recent_threads  => $recent_threads,
         pagination      => pagination($page, $total_pages, '/forum'),

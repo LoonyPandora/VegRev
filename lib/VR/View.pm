@@ -205,7 +205,7 @@ sub merge_media {
     my ($args) = @_;
 
     my $settings  = Dancer::Config->settings();
-    my $sha       = Digest::SHA->new(256);
+    my $sha       = Digest::SHA->new(1);
     my $base_path = $settings->{public};
     my $base_url  = $settings->{config}->{static_url};
 
@@ -219,7 +219,8 @@ sub merge_media {
     }
 
     # Check if we've already cached this exact combination
-    my $new_digest = $sha->hexdigest;    
+    # Shorter filenames so it looks prettier. It's good enough for git
+    my $new_digest = substr($sha->hexdigest, 0, 20);
     if ( -f "$base_path/cache/$new_digest.$args->{extension}" && -s "$base_path/cache/$new_digest.$args->{extension}") {
 
         # Cache file exists and has content, so lets use it!

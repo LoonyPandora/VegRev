@@ -96,7 +96,7 @@ function init_tinymce() {
     var emoRegex = emo_regex();
     tinymce_binding();
 
-    $('#newpostform textarea#message').tinymce({
+    $('#postform textarea#message').tinymce({
         theme: "advanced",
         skin: "vegrev",
         plugins: "paste,autoresize,tabfocus",
@@ -114,6 +114,9 @@ function init_tinymce() {
         theme_advanced_toolbar_location: "top",
         theme_advanced_toolbar_align: "left",
         theme_advanced_resizing: true,
+        theme_advanced_resize_horizontal : false,
+
+        relative_urls: false,
 
         height: 80,
         min_height: 80,
@@ -122,14 +125,14 @@ function init_tinymce() {
 
         setup: function(editor) {
             editor.onKeyUp.add(function(editor, o) {
-                var text = editor.getContent(),
-                rawtext = editor.getContent({
-                    noprocess: true
-                });
+                var text    = editor.getContent(),
+                    rawtext = editor.getContent({
+                        noprocess: true
+                    });
 
                 var newtext = text.replace(emoRegex,
                 function(a) {
-                    return '<img class="emoticon" title="' + a + '" src="img/emoticons/' + emote_to_name(a) + '.gif" alt="' + emote_to_name(a) + '" />';
+                    return '<img class="emoticon" title="' + a + '" src="/img/emoticons/' + emote_to_name(a) + '.gif" alt="' + emote_to_name(a) + '" />';
                 });
 
                 if (rawtext === newtext) {
@@ -207,7 +210,7 @@ function tinymce_binding() {
     });
 
     $('#get_content').click(function() {
-        console.log($('#newpostform textarea#message').html());
+        console.log($('#postform textarea#message').html());
     });
 
 }
