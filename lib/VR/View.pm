@@ -9,6 +9,10 @@ use Time::Duration;
 use Time::Local;
 use Time::HiRes qw/time/;
 
+use JavaScript::Minifier::XS;
+use CSS::Minifier::XS;
+
+
 # This provides view helpers. Named like this so it's the right namespace
 
 sub run_time {    
@@ -236,7 +240,14 @@ sub merge_media {
 
         }
 
-        print $outfile @contents;
+        my $all_files;
+        if ($args->{extension} eq 'js') {
+            $all_files = JavaScript::Minifier::XS::minify(join("\n", @contents));
+        } elsif ($args->{extension} eq 'css') {
+            $all_files = CSS::Minifier::XS::minify(join("\n", @contents));
+        }
+
+        print $outfile $all_files;
         close $outfile;
 
         # Check we've really got data in there

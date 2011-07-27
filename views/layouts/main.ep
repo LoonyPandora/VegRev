@@ -25,6 +25,7 @@ my @stylesheets = qw(
 push (@stylesheets, "pages/$token->{page_css}.css") if $token->{page_css};
 push (@stylesheets, "theme/black.css");
 
+# JS is loaded at the bottom - so it doesn't block page display.
 my @scripts = qw(
   jquery-1.6.2.min.js
   hashgrid.min.js
@@ -40,9 +41,7 @@ my @scripts = qw(
 % for my $stylesheet ( output_css(\@stylesheets) ) {
     <link rel="stylesheet" href="<%=$stylesheet%>">
 % }
-% for my $script ( output_js(\@scripts) ) {
-    <script src="<%=$script%>"></script>
-% }
+
 </head>
 <body>
 
@@ -137,6 +136,10 @@ my @scripts = qw(
   
   </div>
 
+%# JS loaded at the bottom
+% for my $script ( output_js(\@scripts) ) {
+    <script src="<%=$script%>"></script>
+% }
 
   <!-- change the UA-XXXXX-X to be your site's ID -->
   <!-- <script>
