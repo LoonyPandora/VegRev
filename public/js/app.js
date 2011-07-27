@@ -39,24 +39,6 @@ $(document).ready(function() {
 /* Sets up TinyMCE
 ********************************/
 
-function init_emoticons() {
-    var emoticons = {
-        smiley:     [':)', '=)'],
-        unhappy:    [':|', '=|'],
-        sad:        [':(', '=('],
-        grin:       [':D', '=D'],
-        surprised:  [':o', ':O', '=o', '=O'],
-        wink:       [';)'],
-        halfhappy:  [':/', '=/'],
-        tongue:     [':P', ':p', '=P', '=p'],
-        lol:        [],
-        mad:        [],
-        rolleyes:   [],
-        cool:       []
-    };
-
-    return emoticons;
-}
 
 function emo_regex() {
     var emoticons = init_emoticons(),
@@ -91,24 +73,47 @@ function emote_to_name(emote) {
     return emote_name;
 }
 
+function init_emoticons() {
+    var emoticons = {
+        smiley:     [':)', '=)'],
+        unhappy:    [':|', '=|'],
+        sad:        [':(', '=('],
+        grin:       [':D', '=D'],
+        surprised:  [':o', ':O', '=o', '=O'],
+        wink:       [';)'],
+        halfhappy:  [':/', '=/'],
+        tongue:     [':P', ':p', '=P', '=p'],
+        lol:        [],
+        mad:        [],
+        rolleyes:   [],
+        cool:       []
+    };
+
+    return emoticons;
+}
+
 function init_tinymce() {
     var emoRegex = emo_regex();
+    tinymce_binding();
 
-    $('textarea#message').tinymce({
+    $('#newpostform textarea#message').tinymce({
         script_url: '/js/tinymce/tiny_mce.js',
         theme: "advanced",
+        skin: 'vegrev',
         plugins: "paste,autoresize",
 
-        // Theme options
-        theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,fontselect,fontsizeselect,|,forecolor,backcolor,|,sub,sup",
+        theme_advanced_buttons1: "",
         theme_advanced_buttons2: "",
         theme_advanced_buttons3: "",
         theme_advanced_buttons4: "",
         theme_advanced_toolbar_location: "top",
         theme_advanced_toolbar_align: "left",
-        theme_advanced_resizing: false,
+        theme_advanced_resizing: true,
 
-        content_css: "/css/tinymce.css",
+        height: 80,
+        min_height: 80,
+        autoresize_min_height: 80,
+        autoresize_bottom_margin: 20,
 
         setup: function(editor) {
             editor.onKeyUp.add(function(editor, o) {
@@ -148,6 +153,54 @@ function init_tinymce() {
 
 }
 
+function tinymce_binding() {
+    $('.puny_toolbar a.bold').click(      function() { tinymce.execCommand('bold');          return false; });
+    $('.puny_toolbar a.italic').click(    function() { tinymce.execCommand('italic');        return false; });
+    $('.puny_toolbar a.underline').click( function() { tinymce.execCommand('underline');     return false; });
+    $('.puny_toolbar a.strike').click(    function() { tinymce.execCommand('strikethrough'); return false; });
+
+    $('.puny_toolbar a.left').click(   function() { tinymce.execCommand('justifyleft');   return false; });
+    $('.puny_toolbar a.center').click( function() { tinymce.execCommand('justifycenter'); return false; });
+    $('.puny_toolbar a.right').click(  function() { tinymce.execCommand('justifyright');  return false; });
+
+    $('.puny_toolbar a.sup').click( function() { tinymce.execCommand('superscript'); return false; });
+    $('.puny_toolbar a.sub').click( function() { tinymce.execCommand('subscript');   return false; });
+
+
+    $('.puny_toolbar select.fontname').change(function() {
+        tinymce.execCommand('FontName', false, $(this).val());
+        return false;
+    });
+
+    $('.puny_toolbar select.fontsize').change(function() {
+        tinymce.execCommand('FontSize', false, $(this).val());
+        return false;
+    });
+
+    $('.puny_toolbar select.fontcolor').change(function() {
+        tinymce.execCommand('ForeColor', false, $(this).val());
+        tinymce.execCommand('HiLiteColor', false, '#fff');
+        return false;
+    });
+
+
+    $('.puny_toolbar a.spoiler').click(function() {
+        tinymce.execCommand('ForeColor', false, '#ffff00');
+        tinymce.execCommand('HiLiteColor', false, '#ffff00');
+        return false;
+    });
+
+
+    // $('.puny_toolbar a.font').click(function() {
+    //     tinymce.execCommand('FontName', false, 'Comic Sans MS');
+    //     return false;
+    // });
+
+    $('#get_content').click(function() {
+        console.log($('#newpostform textarea#message').html());
+    });
+
+}
 
 
 
