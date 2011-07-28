@@ -4,7 +4,7 @@
 <% foreach my $message (@{$token->{'messages'}}) { %>
   <li>
       <div class="avatar">
-        <a><%==avatar_img($message->{'avatar'}, $message->{'usertext'})%></a>
+        <a><%#==avatar_img($message->{'avatar'}, $message->{'usertext'})%></a>
         <p><%= $message->{'usertext'} %></p>
       </div>
 

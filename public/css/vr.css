@@ -274,9 +274,8 @@ h2 {
 
 #postform {
   background-color: #222;
-  padding: 20px 20px 10px 20px;
   clear: both;
-  width: 540px;
+  width: 580px;
   margin-left: 120px;
 
   -webkit-border-radius: 2px;
@@ -288,6 +287,10 @@ h2 {
           box-shadow: 0 0px 10px rgba(0, 0, 0, 0.8);
 }
 
+#postform div.formcontainer {
+  position: relative;
+  padding: 20px 20px 20px 20px;
+}
 
 #postform input[type=text],
 #postform textarea {
@@ -299,6 +302,12 @@ h2 {
 
 #postform input[type=submit] {
   float: right;
+}
+
+#postform textarea {
+  border: none;
+  height: 103px;
+  margin: 0;
 }
 
 #close_postform {
@@ -318,6 +327,12 @@ h2 {
 .ie7 #wrapper {
   padding-top: 70px !important;
 }
+
+/* TinyMCE will show these - stays hidden if JS is disabled */
+ul.mce_toolbar {
+  display: none;
+}
+
 
 
 
@@ -414,12 +429,6 @@ ul.recent_threads a:hover {
 
 
 
-/* TinyMCE will show these - stays hidden if JS is disabled */
-ul.mce_toolbar {
-  display: none;
-}
-
-
 
 /* Utility Classes
 ================================================== */
@@ -438,7 +447,7 @@ ul.mce_toolbar {
   width:  0;
   height: 0;
   z-index: 99;
-  position: absolute;
+  position: relative;
 }
 
 #tooltip {
@@ -460,7 +469,7 @@ ul.mce_toolbar {
 }
 
 .arrow.up {
-  margin: -20px 0 0 -10px;
+  margin: -10px 0 0 -10px;
   border-left:   10px solid transparent;
   border-right:  10px solid transparent;
   border-bottom: 10px solid #222;

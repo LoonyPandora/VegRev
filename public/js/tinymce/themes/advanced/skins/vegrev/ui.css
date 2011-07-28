@@ -74,6 +74,7 @@ ul.mce_toolbar {
 ul.mce_toolbar li {
   float: left;
   margin: 0 0 0 2px;
+  padding: 0;
 }
 
 ul.mce_toolbar li a {

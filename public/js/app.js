@@ -5,21 +5,15 @@
 ********************************/
 
 $(document).ready(function() {
-    event_binding();
     key_binding();
     init_tooltips();
     init_gallery();
     init_hashgrid();
     init_tabs();
     init_tinymce();
+    init_postform();
+    init_quotes();
 });
-
-
-
-
-
-
-
 
 
 
@@ -215,6 +209,18 @@ function tinymce_binding() {
 
 }
 
+function mce_control(type, callback) {
+    // So we can have a callback when we've completed
+    if (type === 'add') {
+        tinymce.execCommand( 'mceAddControl', false, 'message' );
+    } else {
+        tinymce.execCommand( 'mceRemoveControl', false, 'message' );
+    }
+
+    if (callback && typeof(callback) === "function") {
+        callback();
+    }
+}
 
 
 
@@ -280,14 +286,8 @@ function init_gallery() {
 
 
 
-/* Binding to elements & keys
+/* Binds escape to close form
 ********************************/
-
-function event_binding() {
-    postform_binding();
-    all_page_navigation_binding();
-    show_quotes();
-}
 
 function key_binding() {
   $(document).keyup(function (e) {
@@ -307,7 +307,7 @@ function key_binding() {
 /* Showing quoted messages
 ********************************/
 
-function show_quotes() {
+function init_quotes() {
     $('.in_reply_to li').click(function() {
 
         if ($(this).css('height') != '20px') {
@@ -358,199 +358,138 @@ function init_tooltips() {
 
 
 
-
-/* All pages sub navigation
-********************************/
-
-function all_page_navigation_binding() {
-    $('#navigation li.pagecount').click(function() {
-
-        if ($('#wrapper').css('margin-top') !=  '70px') {
-            $('#wrapper').animate( { marginTop: '70px' }, { queue: false, duration: 100 } );
-        } else {
-            $('#wrapper').animate( { marginTop: '100px' }, { queue: false, duration: 100 } );
-        }
-
-        $('#all_page_navigation').slideToggle(100);
-
-        return false;
-    });
-}
-
-
-
-
 /* Postform functions
 ********************************/
 
-function postform_binding() {
+function init_postform() {
     // Post button in the header
-    $("#header a.tooltip_up").click(function() { postform_init(this, {
+    $("#header a.tooltip_up").click(function() { toggle_postform({
         direction: 'up',
         position: 'fixed',
         nudge: 25,
+        link: this,
         fields: ['subject', 'message']
     });
         return false;
     });
 
     // Replying to an individual message
-    $(".actions a.post_reply").click(function() { postform_init(this, {
+    $(".actions a.post_reply").click(function() { toggle_postform({
         direction: 'up',
-        position: 'absolute',
+        position: 'static',
         nudge: 15,
+        link: this,
         fields: ['message']
     });
         return false;
     });
 
     $("#close_postform").click(function() { close_postform(); return false; } );
-
-
 }
 
+function toggle_postform(options) {
+    // Set some defaults
+    options.alignment = { top: 'auto', left: 'auto', bottom: 'auto', right:  'auto'};
+    options.parent    = {
+        top:    $(options.link).position().top  || $(options.link).offset().top,
+        left:   $(options.link).position().left || $(options.link).offset().left,
+        height: $(options.link).outerHeight(),
+        width:  $(options.link).outerWidth()
+    };
 
-function close_postform() {
-    $("#postform").fadeOut(100, function() {
-        $('.message .meta, #header a.tooltip_up').removeClass('active_postform_link');
-        $('.message .meta').animate( { marginBottom: '0px' }, { queue: false, duration: 100 } );
+    // Hide the postform, and move it about while hidden.
+    $('#postform').slideUp(100, function() {
+        // We've clicked the same link twice, so leave it hidden
+        if ( $(options.link).hasClass('active_postform_link') ) {
+            $(options.link).removeClass('active_postform_link');
+            return;
+        }
+
+        // Remove TinyMCE as it goes wonky when its moved about in the DOM
+        mce_control('remove');
+
+        if (options.position === 'static') {
+            show_inline_postform(options);
+        } else {
+            show_fixed_postform(options);
+        }
+
+        // Remove all other instances of the active class before applying it to the clicked link
+        $('.active_postform_link').removeClass('active_postform_link');
+        $(options.link).addClass('active_postform_link');
+
+        // Hide all form fields, and only show the ones that are needed Remember textarea#message becomes tinymce
+        $('#postform input, #postform textarea, #postform label').hide();
+        $.each(options.fields, function(index, value) {  $('#'+value).show(); });
+        $("input[type='submit']").show();
+
+        $('#postform div.formcontainer').css({opacity: 0});
+
+        mce_control('add', function() {
+            // All fields are visible, the element is in position, TinyMCE is active...
+            // Let's GO GO GO!
+            $('#postform div.formcontainer').animate({opacity: 1.0}, { duration: 50, complete: function() {
+                $('#postform').slideDown(200);
+            } });
+            
+        });
     });
 }
 
+function create_postform_arrow(options) {
 
-function show_postform(options) {
+    switch (options.direction) {
+      case 'up':
+        options.alignment.top  = (options.parent.top + options.parent.height + options.nudge) + 'px';
+        options.tip_horizontal = (options.parent.left + (options.parent.width / 2)) - ($('#wrapper').offset().left + 120);
+        options.tip_vertical   = 0;
+        break;
+      case 'right':
+        options.alignment.top  = (options.parent.top + (options.parent.height / 2) - ($("#postform").outerHeight() / 2)) + 5 + 'px';
+        options.tip_horizontal = $("#postform").outerWidth();
+        options.tip_vertical   = ($("#postform").outerHeight() / 2) + (options.parent.height / 2);
+        break;
+    };
+
     // Remove any other arrows before adding a new one.
     $('#postform .arrow').remove();
     $("<div/>", { 'class': 'arrow ' + options.direction })
-        .appendTo("#postform")
-        .css("top",  options.tip_vertical   + 'px')
+        .prependTo("#postform")
+        .css("top", options.tip_vertical + 'px')
         .css("left", options.tip_horizontal + 'px');
 
-
-    // Finally fade in the form
-    $("#postform")
-        .css("top",     options.alignment.top)
-        .css("right",   options.alignment.bottom)
-        .css("bottom",  options.alignment.bottom)
-        .css("left",    options.alignment.left)
-        .fadeIn(200, function() {
-            // focus textarea for easy typing
-            // $("#message").focus();
-    });
-            
 }
 
-
-function postform_init(elem, options) {
-
-    // Default the position values
-    options['alignment'] = { top: 'auto', left: 'auto', bottom: 'auto', right:  'auto'};
-
-    // Always do the moving & hiding when the form is hidden
-    // It's real ugly otherwise...
-    $("#postform").fadeOut(50, function(){
-    
-        // Determine if this is a reply link, or a new post link
-        var meta_elem = $(elem).parent('li').parent('.actions').parent('.meta'),
-            is_reply  = meta_elem.length == 1 ? true : false;
-
-        // We've clicked on the same link twice, close up the reply box, and return
-        if (is_reply && $(meta_elem).css('margin-bottom') != '0px') {
-            $(meta_elem).animate( { marginBottom: '0px' }, { queue: false, duration: 100 } );
-            return;
-        } else if (!is_reply){
-            toggle_postform(elem, options, meta_elem, is_reply);
-            return;
-        }
-
-        // Slide up all messages except the one we've clicked
-        $('.message .meta').not($(meta_elem)).animate( { marginBottom: '0px' }, {
-            queue:    false,
-            duration: 100,
-            complete: function() {
-                toggle_postform(elem, options, meta_elem, is_reply);
-            }
-        });
-
-    });
-}
-
-
-function toggle_postform(elem, options, meta_elem, is_reply) {
-
-    // We've clicked the same link twice - so keep the postform closed & return.
-    if ( $(elem).hasClass('active_postform_link') ) {
-        $(elem).removeClass('active_postform_link');
-        return;
-    }
-
-    // Remove all other instances of the active class before applying it to the clicked link
-    $('.active_postform_link').removeClass('active_postform_link');
-    $(elem).addClass('active_postform_link');
-
-    // Set the position
+function show_fixed_postform(options) {
+    $("#postform").appendTo($('#wrapper'));
     $("#postform").css("position", options.position);
 
-    // Show the actual form fields
-    $('#postform input, #postform textarea, #postform label, #punymce_container').hide();
-    $("input[type='submit']").show();
+    create_postform_arrow(options);
 
-    $.each(options.fields, function(index, value) { 
-        // $("label[for='" + value + "']").show();
-        
-        // Special case #message - because it's punymce
-        
-        if (value == 'message') {
-            $('#punymce_container').show();
-        } else {
-            $('#'+value).show();
-        }
-        
+    $("#postform")
+        .css("top",         options.alignment.top)
+        .css("right",       options.alignment.bottom)
+        .css("bottom",      options.alignment.bottom)
+        .css("left",        options.alignment.left)
+        .css("margin-left", '120px');
+}
+
+function show_inline_postform(options) {
+    var meta_container = $(options.link).parent().parent().parent();
+    $(meta_container).after($('#postform'));
+    $(meta_container).css('margin-bottom', options.nudge + 'px');
+
+    create_postform_arrow(options);
+
+    $("#postform")
+        .css("position",    options.position)
+        .css("margin-left", '0px');
+}
+
+function close_postform() {
+    $("#postform").slideUp(100, function() {
+        $('.active_postform_link').removeClass('active_postform_link');
     });
-
-    // Calculate dimensions, AFTER we've done all the resizing / hiding / showing of elements
-    var parent = {
-        top:    $(elem).position().top  || $(elem).offset().top,
-        left:   $(elem).position().left || $(elem).offset().left,
-        height: $(elem).outerHeight(),
-        width:  $(elem).outerWidth()
-    };
-
-    var tooltip = {
-        width:  $("#postform").outerWidth(),
-        height: $("#postform").outerHeight()
-    };
-
-    // Sort out alignment around the element we clicked on, depending on arrow direction
-    // NOTE the word is the direction the arrow points - NOT the side that the box appears on
-    switch (options.direction) {
-      case 'up':
-        options.alignment.top     = (parent.top + parent.height + options.nudge) + 'px';
-        options['tip_horizontal'] = (parent.left + (parent.width / 2)) - ($('#wrapper').offset().left + 120);
-        options['tip_vertical']   = 10;
-        break;
-      case 'right':
-        options.alignment.top      = (parent.top + (parent.height / 2) - (tooltip.height / 2)) + 5 + 'px';
-        options['tip_horizontal']  = (tooltip.width);
-        options['tip_vertical']    = (tooltip.height / 2) + (parent.height / 2);
-        break;
-    };
-
-    // Slide the message area down if it's a reply, we've already slid all others back up
-    if (is_reply) {
-        $(meta_elem).animate( { marginBottom: tooltip.height + 25 + 'px' }, { queue: false, duration: 100, complete: function() {
-            show_postform(options);
-        }});
-    } else {
-        if ($('.message .meta').length > 0) {
-            $('.message .meta').animate( { marginBottom: '0px' }, { queue: false, duration: 100, complete: function() {
-                show_postform(options);
-            }});
-        } else {
-            show_postform(options);
-        }
-    }
-
 }
 
 
