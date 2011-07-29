@@ -146,57 +146,6 @@ h2 {
 
 
 
-/* All Pages List
-================================================== */
-
-#all_page_navigation {
-  display: none;
-  height: 26px;
-  border-bottom: 2px solid rgba(0,0,0,0.5);
-  width: 100%;
-  margin-top: 0;
-  clear: both;
-  background-color: rgba(0,0,0,0.5);
-  font-size: 10px;
-  text-align: center;
-}
-
-#all_page_navigation ul {
-  list-style: none;
-}
-
-#all_page_navigation ul li {
-  margin: 3px 0 0 2px;
-  float: left;
-  width: 24px;
-  display: block;
-}
-
-#all_page_navigation ul li.first {
-  width: 36px;
-  margin-right: 5px;
-  margin-left: 0;
-}
-#all_page_navigation ul li.last {
-  width: 36px;
-  margin-left: 5px;
-}
-
-#all_page_navigation ul li a.current {
-  background-color: rgba(0,0,0,1);
-} 
-
-#all_page_navigation ul li a {
-  color: #fff;
-  display: block;
-  background-color: rgba(0,0,0,0.6);
-}
-
-#all_page_navigation ul li a:hover {
-  background-color: rgba(0,0,0,0.8);
-}
-
-
 
 /* Header Pagination
 ================================================== */
@@ -273,6 +222,7 @@ h2 {
 ================================================== */
 
 #postform {
+/*  display: none;*/
   background-color: #222;
   clear: both;
   width: 580px;
@@ -292,8 +242,8 @@ h2 {
   padding: 20px 20px 20px 20px;
 }
 
-#postform input[type=text],
-#postform textarea {
+#subject,
+#message {
   width: 532px;
   background-color: #eee;
   color: #111;
@@ -304,10 +254,16 @@ h2 {
   float: right;
 }
 
-#postform textarea {
+#postform textarea#message {
   border: none;
   height: 103px;
   margin: 0;
+}
+
+#postform input#subject {
+  height: 22px;
+  font-weight: bold;
+  text-indent: 2px;
 }
 
 #close_postform {
@@ -428,6 +384,84 @@ ul.recent_threads a:hover {
 
 
 
+/* Tag Selector
+================================================== */
+
+select#tag_select {
+  width: 540px;
+  height: 60px;
+  border: none;
+}
+
+div.chzn-container {
+  margin-bottom: 10px;
+}
+
+div.chzn-container ul.chzn-choices {
+  background-color: #eee;
+  padding-top: 2px;
+  background-image: none;
+  border: none;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
+
+div.chzn-container div.chzn-drop {
+  border: none;
+  background-image: none;
+  background-color: #eee;
+}
+
+div.chzn-container input.default {
+  color: #999 !important;
+}
+
+
+
+
+
+
+
+/* Postform Extras
+================================================== */
+
+
+ul.mce_toolbar.optional {
+  background-color: #ccc;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+  padding: 10px 10px 5px 7px;
+  display: none;
+
+}
+
+ul.mce_toolbar.optional li {
+  margin: 0 0 5px 0;
+  clear: both;
+  width: 100%;
+/*  display: none;*/
+}
+
+ul.mce_toolbar.optional input[type=text] {
+  float: left;
+  border: 1px solid #999 !important;
+  font-size: 11px;
+  height: 14px;
+  padding: 2px 4px;
+  margin: 0 10px 0 0;
+  width: 430px;
+}
+
+ul.mce_toolbar.optional a.button {
+  float: right;
+  width: 60px;
+}
+
+ul.mce_toolbar.optional li.add_link input.urlbox   { width: 260px; }
+ul.mce_toolbar.optional li.add_link input.titlebox { width: 150px; }
+
+
 
 
 /* Utility Classes
@@ -503,3 +537,23 @@ ul.recent_threads a:hover {
 
 
 
+a.button.small, button.small,
+input[type="submit"].small,
+input[type="reset"].small,
+input[type="button"].small {
+  color: #444;
+  font-family:     Verdana, sans-serif;
+  font-size:       9px;
+  font-weight:     normal;
+  text-shadow:     0 1px rgba(255, 255, 255, .75);
+  text-decoration: none;
+  display: inline-block;
+  cursor:  pointer;
+  margin:  0;
+  padding: 0 5px;
+  line-height: 18px;
+  vertical-align: top;
+  -moz-border-radius:    3px;
+  -webkit-border-radius: 3px;
+  border-radius:         3px;
+}

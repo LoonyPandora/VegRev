@@ -13,6 +13,10 @@ $(document).ready(function() {
     init_tinymce();
     init_postform();
     init_quotes();
+    
+    
+    $('#tag_select').chosen();
+    
 });
 
 
@@ -203,6 +207,48 @@ function tinymce_binding() {
         return false;
     });
 
+
+    $('.mce_toolbar a.link').click(function() {
+        $('ul.mce_toolbar.optional li.add_link').show(0, function() {
+            $('ul.mce_toolbar.optional li').not('.add_link').hide();
+            $('ul.mce_toolbar.optional').slideToggle(200);
+        });
+
+        return false;
+    });
+
+    $('.mce_toolbar a.youtube').click(function() {
+        $('ul.mce_toolbar.optional li.youtube').show(0, function() {
+            $('ul.mce_toolbar.optional li').not('.youtube').hide();
+            $('ul.mce_toolbar.optional').slideToggle(200);
+        });
+
+        return false;
+    });
+
+    $('.mce_toolbar a.picture').click(function() {
+        $('ul.mce_toolbar.optional li.picture').show(0, function() {
+            $('ul.mce_toolbar.optional li').not('.picture').hide();
+            $('ul.mce_toolbar.optional').slideToggle(200);
+        });
+
+        return false;
+    });
+
+
+    $('.mce_toolbar a.attachment').click(function() {
+        $('ul.mce_toolbar.optional li.add_attachment').show(0, function() {
+            $('ul.mce_toolbar.optional li').not('.add_attachment').hide();
+            $('ul.mce_toolbar.optional').slideToggle(200);
+        });
+
+        return false;
+    });
+
+
+
+
+
     $('#get_content').click(function() {
         console.log($('#postform textarea#message').html());
     });
@@ -368,7 +414,7 @@ function init_postform() {
         position: 'fixed',
         nudge: 25,
         link: this,
-        fields: ['subject', 'message']
+        fields: ['subject', 'message', 'tag_select']
     });
         return false;
     });
@@ -418,9 +464,17 @@ function toggle_postform(options) {
         $('.active_postform_link').removeClass('active_postform_link');
         $(options.link).addClass('active_postform_link');
 
-        // Hide all form fields, and only show the ones that are needed Remember textarea#message becomes tinymce
-        $('#postform input, #postform textarea, #postform label').hide();
-        $.each(options.fields, function(index, value) {  $('#'+value).show(); });
+        // Hide all form fields, and only show the ones that are needed.
+        // Remember #message becomes tinymce, and .chzn becomes "chosen"
+        $('#subject, #message, #tag_select, div.chzn-container').hide();
+        $.each(options.fields, function(index, value) {
+            if (value === 'tag_select') {
+                $('div.chzn-container').show();
+                return true;
+            }
+
+            $('#'+value).show();
+        });
         $("input[type='submit']").show();
 
         $('#postform div.formcontainer').css({opacity: 0});

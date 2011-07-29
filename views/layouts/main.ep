@@ -18,12 +18,10 @@ my @stylesheets = qw(
   scaffold.css
   hashgrid.css
   style.css
+  chosen.css
   vr.css
   proxima_nova.css
 );
-
-push (@stylesheets, "pages/$token->{page_css}.css") if $token->{page_css};
-push (@stylesheets, "theme/black.css");
 
 # JS is loaded at the bottom - so it doesn't block page display.
 my @scripts = qw(
@@ -33,6 +31,8 @@ my @scripts = qw(
   tinymce/config.js
   tinymce/jquery.tinymce.js
   tinymce/tiny_mce.js
+  tinymce/tiny_mce.js
+  jquery.chosen.min.js
   app.js
 );
 
@@ -40,6 +40,22 @@ my @scripts = qw(
 
 % for my $stylesheet ( output_css(\@stylesheets) ) {
     <link rel="stylesheet" href="<%=$stylesheet%>">
+% }
+
+% for my $stylesheet ( output_css(["pages/$token->{page_css}.css"]) ) {
+    <link rel="stylesheet" href="<%=$stylesheet%>">
+% }
+
+% for my $stylesheet ( output_css(['theme/black.css']) ) {
+    <link rel="stylesheet" href="<%=$stylesheet%>">
+% }
+
+% for my $script ( output_js(\@scripts) ) {
+    <script src="<%=$script%>"></script>
+% }
+
+% for my $script ( output_js(["pages/$token->{page_css}.js"]) ) {
+    <script src="<%=$script%>"></script>
 % }
 
 
@@ -67,67 +83,24 @@ my @scripts = qw(
       <li class="pagination prev"><a href="#">&lt; Prev</a></li>
     </ul>
   </div>
-
-  <div id="all_page_navigation">
-    <ul class="wrapper clearfix">
-      <li class="first"><a href="#">&laquo; first</a></li>
-      <li><a href="#">1</a></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-      <li><a href="#">6</a></li>
-      <li><a href="#">7</a></li>
-      <li><a href="#">8</a></li>
-      <li><a href="#">9</a></li>
-      <li><a href="#">10</a></li>
-      <li><a href="#">11</a></li>
-      <li><a href="#">12</a></li>
-      <li><a href="#" class="current">13</a></li>
-      <li><a href="#">14</a></li>
-      <li><a href="#">15</a></li>
-      <li><a href="#">16</a></li>
-      <li><a href="#">17</a></li>
-      <li><a href="#">100</a></li>
-      <li><a href="#">19</a></li>
-      <li><a href="#">20</a></li>
-      <li><a href="#">21</a></li>
-      <li><a href="#">22</a></li>
-      <li><a href="#">23</a></li>
-      <li><a href="#">24</a></li>
-      <li><a href="#">888</a></li>
-      <li><a href="#">26</a></li>
-      <li><a href="#">27</a></li>
-      <li><a href="#">28</a></li>
-      <li><a href="#">29</a></li>
-      <li><a href="#">30</a></li>
-      <li><a href="#">31</a></li>
-      <li><a href="#">32</a></li>
-      <li><a href="#">33</a></li>
-      <li class="last"><a href="#">last &raquo;</a></li>
-    </ul>
-  </div>
-
 </div>
 
 
   
   <div id="wrapper" class="clearfix">
     <div id="content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<a href="#" class="button small">this is a test button</a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       <%== $token->{'content'} =%>
     </div>
 
     <div id="sidebar" class="clearfix">
     </div>
-  
-
-
 
     <div id="postform" class="clearfix">
       <div class="formcontainer">
         <input type="text" placeholder="Subject" id="subject">
 
-        <ul class="mce_toolbar formatting">
+        <ul class="mce_toolbar formatting clearfix">
           <li><a href="#" class="bold">B</a></li>
           <li><a href="#" class="italic"><i>I</i></a></li>
           <li><a href="#" class="underline"><u>U</u></a></li>
@@ -155,9 +128,10 @@ my @scripts = qw(
           <li><a href="#" class="center">•</a></li>
           <li><a href="#" class="right">-&gt;</a></li>
           <li><a href="#" class="spoiler">H</a></li>
-          <li><a href="#" class="picutre">P</a></li>
+          <li><a href="#" class="picture">P</a></li>
           <li><a href="#" class="youtube">Y</a></li>
           <li><a href="#" class="link">L</a></li>
+          <li><a href="#" class="attachment">A</a></li>
           <li><a href="#" class="quote">Q</a></li>
       <!--
           <li><a href="#" class="sup"><sup>sup</sup></a></li>
@@ -165,7 +139,15 @@ my @scripts = qw(
       -->
         </ul>
 
-        <ul class="mce_toolbar emoticons">
+        <ul class="mce_toolbar optional clearfix">
+            <li class="youtube"><input type="text" placeholder="Video URL" /> <a href="#" class="button small">Add Video</a></li>
+            <li class="picture"><input type="text" placeholder="Picture URL" /> <a href="#" class="button small">Add Picture</a></li>
+            <li class="add_link"><input type="text" class="urlbox" placeholder="Link URL" /> <input type="text" class="titlebox" placeholder="Link Title" /> <a href="#" class="button small">Add Link</a></li>
+            <li class="add_attachment"><input type="text" placeholder="Upload Attachment (Vallums File Uploader)" /> <a href="#" class="button small">Upload File</a></li>
+        </ul>
+
+
+        <ul class="mce_toolbar emoticons clearfix">
           <li><a href="#" class="smiley"><img src="<%= config('static_url') %>/img/emoticons/smiley.gif"></a></li>
           <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/sad.gif"></a></li>
           <li><a href="#"><img src="<%= config('static_url') %>/img/emoticons/grin.gif"></a></li>
@@ -191,10 +173,29 @@ my @scripts = qw(
           <textarea id="message"></textarea>
         </div>
 
+
+        <ul class="attachment_container">
+            
+        </ul>
+
+        <select title="Tag this post" multiple id="tag_select">
+          <option value="chat">Chat</option>
+          <option value="rants">Rants</option>
+          <option value="private">Private</option>
+          <option value="spam">Spam</option>
+          <option value="music">Music</option>
+          <option value="literature">Literature</option>
+          <option value="zine">Zine</option>
+          <option value="meta">Meta</option>
+          <option value="admin">Admin</option>
+          <option value="archive">Archive</option>
+        </select>
+
         <a href="#" id="close_postform">[close]</a>
         <a href="#" id="get_content">[Get content]</a>
 
         <input type="submit" value="Post Message" />
+
       </div>
     </div>
 
@@ -204,11 +205,6 @@ my @scripts = qw(
   <div id="footer">
   
   </div>
-
-%# JS loaded at the bottom
-% for my $script ( output_js(\@scripts) ) {
-    <script src="<%=$script%>"></script>
-% }
 
   <!-- change the UA-XXXXX-X to be your site's ID -->
   <!-- <script>

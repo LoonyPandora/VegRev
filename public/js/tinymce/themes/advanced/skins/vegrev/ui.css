@@ -58,13 +58,12 @@ ul.mce_toolbar.formatting {
 
 }
 
-ul.mce_toolbar.emoticons { padding-left: 2px; }
+ul.mce_toolbar.emoticons { padding: 5px 2px 2px 2px; }
 
 ul.mce_toolbar {
   clear:      both;
   display:    block;
   list-style: none;
-  height:     20px;
   margin:     0;
   padding:    2px 0 2px 0;
   font-size:  12px;
@@ -80,7 +79,6 @@ ul.mce_toolbar li {
 ul.mce_toolbar li a {
   display: block;
   min-width: 20px;
-  height: 20px;
   text-align: center;
 }
 
