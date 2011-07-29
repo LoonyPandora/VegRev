@@ -255,7 +255,7 @@ sub merge_media {
         if (-s "$base_path/cache/$new_digest.$args->{extension}") {
             return ("$base_url/cache/$new_digest.$args->{extension}");
         } else {
-            unlink "$base_url/cache/$new_digest.$args->{extension}";
+            unlink "$base_path/cache/$new_digest.$args->{extension}";
             return map { "$base_url/$args->{extension}/$_" } @{ $args->{files} };
         }
 
