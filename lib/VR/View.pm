@@ -178,30 +178,27 @@ sub parse_bbcode {
 
 
 
-# Template Stuff
-# Outputs all JS for the requested page.
-sub output_js {
-    my ($scripts) = @_;
 
-    return merge_media({
-        extension => 'js',
-        files     => $scripts,
+sub asset_pipeline {
+    my ($files) = @_;
+
+    my @js_tags = map { qq~<script src="$_"></script>~; } merge_and_concatenate({
+        type  => 'js',
+        files => [grep(/\.js$/, @$files)],
     });
+
+    my @css_tags = map { qq~<link rel="stylesheet" href="$_">~; } merge_and_concatenate({
+        type  => 'css',
+        files => [grep(/\.css$/, @$files)],
+    });
+
+    return join("\n", @css_tags, @js_tags);
 }
 
-# Outputs all CSS for the requested page.
-sub output_css {
-    my ($sheets) = @_;
-
-    return merge_media({
-        extension => 'css',
-        files     => $sheets,
-    });
-}
 
 # Returns a list of all js / css that is used on a given page.
 # Handles caching also
-sub merge_media {
+sub merge_and_concatenate {
     my ($args) = @_;
 
     my $settings  = Dancer::Config->settings();
@@ -211,7 +208,7 @@ sub merge_media {
 
     # Calculating hash of all files to check for changes
     for my $file (@{ $args->{files} }) {
-        my $file_path = "$base_path/$args->{extension}";
+        my $file_path = "$base_path/$args->{type}";
 
         if (-f "$file_path/$file") {
             $sha->addfile("$file_path/$file");
@@ -221,17 +218,17 @@ sub merge_media {
     # Check if we've already cached this exact combination
     # Shorter filenames so it looks prettier. It's good enough for git
     my $new_digest = substr($sha->hexdigest, 0, 8);
-    if ( -f "$base_path/cache/$new_digest.$args->{extension}" && -s "$base_path/cache/$new_digest.$args->{extension}") {
+    if ( -f "$base_path/cache/$new_digest.$args->{type}" && -s "$base_path/cache/$new_digest.$args->{type}") {
 
         # Cache file exists and has content, so lets use it!
-        return ("$base_url/cache/$new_digest.$args->{extension}");
+        return ("$base_url/cache/$new_digest.$args->{type}");
 
-    } elsif (open my $outfile, '>', "$base_path/cache/$new_digest.$args->{extension}") {
+    } elsif (open my $outfile, '>', "$base_path/cache/$new_digest.$args->{type}") {
 
         # Cache needs to be recreated, and we have write permission
         my @contents;
         for my $file (@{ $args->{files} }) {
-            my $file_path = "$base_path/$args->{extension}";
+            my $file_path = "$base_path/$args->{type}";
 
             if (open my $infile, '<', "$file_path/$file") {
                 push @contents, do { local $/; <$infile>; };
@@ -242,9 +239,9 @@ sub merge_media {
         }
 
         my $all_files;
-        if ($args->{extension} eq 'js') {
+        if ($args->{type} eq 'js') {
             $all_files = JavaScript::Minifier::XS::minify(join("\n", @contents));
-        } elsif ($args->{extension} eq 'css') {
+        } elsif ($args->{type} eq 'css') {
             $all_files = CSS::Minifier::XS::minify(join("\n", @contents));
         }
 
@@ -252,18 +249,18 @@ sub merge_media {
         close $outfile;
 
         # Check we've really got data in there
-        if (-s "$base_path/cache/$new_digest.$args->{extension}") {
-            return ("$base_url/cache/$new_digest.$args->{extension}");
+        if (-s "$base_path/cache/$new_digest.$args->{type}") {
+            return ("$base_url/cache/$new_digest.$args->{type}");
         } else {
-            unlink "$base_path/cache/$new_digest.$args->{extension}";
-            return map { "$base_url/$args->{extension}/$_" } @{ $args->{files} };
+            unlink "$base_path/cache/$new_digest.$args->{type}";
+            return map { "$base_url/$args->{type}/$_" } @{ $args->{files} };
         }
 
     } else {
 
         # Cache needs to be recreated, but we can't for some reason
         # So just return original css files
-        return map { "$base_url/$args->{extension}/$_" } @{ $args->{files} };
+        return map { "$base_url/$args->{type}/$_" } @{ $args->{files} };
     }
 
 }

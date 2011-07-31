@@ -13,52 +13,34 @@
     <link rel="shortcut icon" href="<%= config('static_url') %>/favicon.ico">
     <link rel="apple-touch-icon" href="<%= config('static_url') %>/apple-touch-icon.png">
 
-<%
-my @stylesheets = qw(
-  scaffold.css
-  hashgrid.css
-  style.css
-  chosen.css
-  vr.css
-  postform.css
-  proxima_nova.css
-);
 
-# JS is loaded at the bottom - so it doesn't block page display.
-my @scripts = qw(
-  jquery-1.6.2.min.js
-  hashgrid.min.js
-  jquery.masonry.min.js
-  tinymce/config.js
-  tinymce/jquery.tinymce.js
-  tinymce/tiny_mce.js
-  tinymce/tiny_mce.js
-  jquery.chosen.min.js
-  app.js
-  postform.js
-);
+<%==
+    asset_pipeline([qw(
+      scaffold.css
+      hashgrid.css
+      style.css
+      chosen.css
+      vr.css
+      postform.css
+      proxima_nova.css
+      jquery-1.6.2.min.js
+      hashgrid.min.js
+      jquery.masonry.min.js
+      tinymce/config.js
+      tinymce/jquery.tinymce.js
+      tinymce/tiny_mce.js
+      tinymce/tiny_mce.js
+      jquery.chosen.min.js
+      app.js
+      postform.js
+    )]);
+%>
 
-=%>
 
-% for my $stylesheet ( output_css(\@stylesheets) ) {
-    <link rel="stylesheet" href="<%=$stylesheet%>">
-% }
-
-% for my $stylesheet ( output_css(["pages/$token->{page_css}.css"]) ) {
-    <link rel="stylesheet" href="<%=$stylesheet%>">
-% }
-
-% for my $stylesheet ( output_css(['theme/green.css']) ) {
-    <link rel="stylesheet" href="<%=$stylesheet%>">
-% }
-
-% for my $script ( output_js(\@scripts) ) {
-    <script src="<%=$script%>"></script>
-% }
-
-% for my $script ( output_js(["pages/$token->{page_css}.js"]) ) {
-    <script src="<%=$script%>"></script>
-% }
+%# Do these separate so we don't cache
+%== asset_pipeline(["pages/$token->{page_css}.css"]);
+%== asset_pipeline(["theme/green.css"]);
+%== asset_pipeline(["pages/$token->{page_css}.js"]);
 
 
 </head>
