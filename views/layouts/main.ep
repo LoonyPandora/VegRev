@@ -22,13 +22,14 @@
       chosen.css
       vr.css
       postform.css
+      sidebar.css
+      footer.css
       proxima_nova.css
       jquery-1.6.2.min.js
       hashgrid.min.js
       jquery.masonry.min.js
       tinymce/config.js
       tinymce/jquery.tinymce.js
-      tinymce/tiny_mce.js
       tinymce/tiny_mce.js
       jquery.chosen.min.js
       app.js
@@ -50,17 +51,17 @@
 
 <div id="header">
   <div class="wrapper clearfix">
-    <a href="#"><img src="<%= config('static_url') %>/img/vr_logo.png" id="vr_logo"></a>
+    <a href="/"><img src="<%= config('static_url') %>/img/vr_logo.png" id="vr_logo"></a>
     
     <ul id="navigation">
       <li class="action"><a href="#" class="tooltip_up">Post Message</a></li>
 
-      <li class="page"><a href="#" class="tooltip_up" title="Home"><img src="<%= config('static_url') %>/img/icons/home_24.png" /></a></li>
-      <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/picture_24.png" /></a></li>
-      <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/mail_24.png" /></a></li>
-      <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/user_24.png" /></a></li>
-      <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/tools_24.png" /></a></li>
-      <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/search_24.png" /></a></li>
+      <li class="page"><a href="/" title="Home"><img src="<%= config('static_url') %>/img/icons/home_24.png" /></a></li>
+      <li class="page"><a href="/gallery/" title="Gallery"><img src="<%= config('static_url') %>/img/icons/picture_24.png" /></a></li>
+      <li class="page"><a href="#"><img src="<%= config('static_url') %>/img/icons/mail_24.png" /></a></li>
+      <li class="page"><a href="/profile/admin" title="View Profile"><img src="<%= config('static_url') %>/img/icons/user_24.png" /></a></li>
+      <li class="page"><a href="#"><img src="<%= config('static_url') %>/img/icons/tools_24.png" /></a></li>
+      <li class="page"><a href="#"><img src="<%= config('static_url') %>/img/icons/search_24.png" /></a></li>
 
       <li class="pagination next"><a href="#">Next &gt;</a></li>
       <li class="pagination pagecount"><a href="#">888<br />_</a></li>
@@ -187,14 +188,88 @@
     </div>
 
     <div id="sidebar" class="clearfix">
-    </div>
+        <div id="loginbox" class="widget clearfix">
+          <h2>Login</h2>
+          <input type="text" placeholder="Email Address or Username">
+          <input type="password" placeholder="Password">
+          <p class="clearfix"><input type="submit" class="" value="Login">
+          <span><a>Register</a> // <a>Forgot Password?</a></span></p>
+        </div>
 
+        <div class="widget clearfix">
+          <h2>Online Now (88)</h2>
+          <ul class="user_icon_list clearfix">
+            <li><a href="#" title="LoonyPandora"><img src="<%= config('static_url') %>/img/icons/user_24.png"></a></li>
+            <li><a href="#" title="Random Person With a Really Really Long Name"><img src="<%= config('static_url') %>/img/icons/user_24.png"></a></li>
+            <li><a href="#" title="lorem"><img src="<%= config('static_url') %>/img/icons/user_24.png"></a></li>
+            <li><a href="#"><img src="<%= config('static_url') %>/img/daftcow.png"></a></li>
+            <li><a href="#"><img src="<%= config('static_url') %>/img/icons/user_24.png"></a></li>
+            <li><a href="#"><img src="<%= config('static_url') %>/img/icons/user_24.png"></a></li>
+            <li><a href="#"><img src="<%= config('static_url') %>/img/icons/user_24.png"></a></li>
+          </ul>
+        </div>
+
+        <div class="widget clearfix">
+          <h2>Tags</h2>
+          <ul class="tag_list clearfix">
+            <li><a href="#">Chat</a></li>
+            <li><a href="#">Rants</a></li>
+            <li><a href="#">Private</a></li>
+            <li><a href="#">Spam</a></li>
+            <li><a href="#">Music</a></li>
+            <li><a href="#">Literature</a></li>
+            <li><a href="#" class="current">Zine</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Admin</a></li>
+            <li><a href="#">Yahoo</a></li>
+          </ul>
+        </div>
+
+        <div class="widget clearfix">
+          <h2>Recently Read</h2>
+          <ul class="recent_threads clearfix">
+            <li><a href="#">My [milestone] Post!!!</a></li>
+            <li><a href="#">Introduce Yourself To VR! (New Members Post Here)</a></li>
+            <li><a href="#">Woop...next gigs...</a></li>
+            <li><a href="#">WTF of the day</a></li>
+            <li><a href="#">Sup My Brothers and Sisters!? Psychedelic Abstract Artist Matt Crux Here! =)</a></li>
+            <li><a href="#">The last book you bought was...............</a></li>
+            <li><a href="#">Now Listening to.. #10</a></li>
+            <li><a href="#">The News Thread</a></li>
+            <li><a href="#">Things that make you want to bury someone alive</a></li>
+            <li><a href="#">Death Pool 11 (months since we're a month late with this)</a></li>
+          </ul>
+        </div>
+    </div>
 
   </div>
 
 
-  <div id="footer">
-  
+  <div id="footer" class="clearfix">
+    <div class="wrapper clearfix">
+        <div id="sosumi">
+            <p>&copy; Vegetable Revolution &amp; Authors – 2011</p>
+            <p>Powered by <a href="https://github.com/LoonyPandora/VegRev">VR</a> and <a href="http://perldancer.org">Dancer</a></p>
+        </div>
+        
+        
+        
+        <ul class="pagination">
+            <li class="first"><a href="#">&lt;&lt; First</a></li>
+            <li class="current"><a href="#">888</a></li>
+            <li class="last"><a href="#">Last &gt;&gt;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">7</a></li>
+            <li><a href="#">8</a></li>
+            <li><a href="#">9</a></li>
+        </ul>
+    </div>
   </div>
 
   <!-- change the UA-XXXXX-X to be your site's ID -->

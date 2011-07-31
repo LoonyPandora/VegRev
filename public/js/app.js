@@ -105,7 +105,7 @@ function init_tooltips() {
             .fadeIn(100);
 
         $("#tooltip .arrow")
-            .css("left", ($('#tooltip').outerWidth() / 2) + "px");
+            .css("left", ($('#tooltip').outerWidth() / 2) - 3 + "px");
 
     },
     function(){
