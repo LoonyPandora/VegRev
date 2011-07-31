@@ -1,0 +1,182 @@
+
+/* Postform
+================================================== */
+
+#postform {
+/*  display: none;*/
+  background-color: #222;
+  clear: both;
+  width: 580px;
+  margin-left: 120px;
+
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+
+  -webkit-box-shadow: 0 0px 10px rgba(0, 0, 0, 0.8);
+     -moz-box-shadow: 0 0px 10px rgba(0, 0, 0, 0.8);
+          box-shadow: 0 0px 10px rgba(0, 0, 0, 0.8);
+}
+
+#postform div.formcontainer {
+  position: relative;
+  padding: 20px 20px 20px 20px;
+}
+
+#subject,
+#message {
+  width: 532px;
+  background-color: #eee;
+  color: #111;
+  border: none;
+}
+
+#postform input[type=submit] {
+  float: right;
+}
+
+#postform textarea#message {
+  border: none;
+  height: 103px;
+  margin: 0;
+}
+
+#postform input#subject {
+  height: 22px;
+  font-weight: bold;
+  text-indent: 2px;
+}
+
+#close_postform {
+  font-size: 11px;
+  color: #fff;
+}
+
+.ie7 #postform textarea,
+.ie7 #postform input {
+  margin-left: -120px !important;
+}
+
+.ie7 #postform input[type=submit] {
+  margin-left: 0 !important;
+}
+
+.ie7 #wrapper {
+  padding-top: 70px !important;
+}
+
+div#tinymce_container {
+  background-color: #fff;
+  -webkit-border-bottom-right-radius: 3px;
+  -webkit-border-bottom-left-radius:  3px;
+     -moz-border-radius-bottomright:  3px;
+     -moz-border-radius-bottomleft:   3px;
+          border-bottom-right-radius: 3px;
+          border-bottom-left-radius:  3px;
+
+}
+
+/* TinyMCE will show these - stays hidden if JS is disabled */
+ul.mce_toolbar {
+  display: none;
+}
+
+
+
+/* Tag Selector
+================================================== */
+
+select#tag_select {
+  display: none;
+  width: 540px;
+  height: 60px;
+  border: none;
+}
+
+div.chzn-container {
+  margin-bottom: 10px;
+}
+
+div.chzn-container ul.chzn-choices {
+  background-color: #eee;
+  padding-top: 2px;
+  background-image: none;
+  border: none;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
+
+div.chzn-container div.chzn-drop {
+  border: none;
+  background-image: none;
+  background-color: #eee;
+}
+
+div.chzn-container input.default {
+  color: #999 !important;
+}
+
+
+
+
+
+/* Postform Extras
+================================================== */
+
+
+ul#mce_attachments {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0 0 0;
+  display: block;
+  border-top: 1px solid #eee;
+}
+
+ul#mce_attachments li {
+  float: left;
+  display: block;
+  overflow: hidden;
+  width: 80px;
+  max-height: 80px;
+  margin-left: 8px;
+}
+
+
+ul.mce_toolbar.emoticons li a { opacity: 0.5; }
+ul.mce_toolbar.emoticons li a:hover { opacity: 1; }
+
+ul.mce_toolbar.optional {
+  background-color: #ccc;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+  padding: 10px 10px 5px 7px;
+  display: none;
+
+}
+
+ul.mce_toolbar.optional li {
+  margin: 0 0 5px 0;
+  clear: both;
+  width: 100%;
+/*  display: none;*/
+}
+
+ul.mce_toolbar.optional input[type=text] {
+  float: left;
+  border: 1px solid #999 !important;
+  font-size: 11px;
+  height: 14px;
+  padding: 2px 4px;
+  margin: 0 10px 0 0;
+  width: 430px;
+}
+
+ul.mce_toolbar.optional a.button {
+  float: right;
+  width: 60px;
+}
+
+ul.mce_toolbar.optional li.add_link input.urlbox   { width: 260px; }
+ul.mce_toolbar.optional li.add_link input.titlebox { width: 150px; }
+

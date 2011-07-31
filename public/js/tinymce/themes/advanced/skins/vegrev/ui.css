@@ -32,12 +32,6 @@ table.mceLayout td {
 table.mceLayout td.mceIframeContainer {
   padding: 5px 5px 0 5px;
   vertical-align: top;
-  -webkit-border-bottom-right-radius: 3px;
-  -webkit-border-bottom-left-radius:  3px;
-     -moz-border-radius-bottomright:  3px;
-     -moz-border-radius-bottomleft:   3px;
-          border-bottom-right-radius: 3px;
-          border-bottom-left-radius:  3px;
 }
 
 

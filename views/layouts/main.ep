@@ -20,6 +20,7 @@ my @stylesheets = qw(
   style.css
   chosen.css
   vr.css
+  postform.css
   proxima_nova.css
 );
 
@@ -34,6 +35,7 @@ my @scripts = qw(
   tinymce/tiny_mce.js
   jquery.chosen.min.js
   app.js
+  postform.js
 );
 
 =%>
@@ -46,7 +48,7 @@ my @scripts = qw(
     <link rel="stylesheet" href="<%=$stylesheet%>">
 % }
 
-% for my $stylesheet ( output_css(['theme/black.css']) ) {
+% for my $stylesheet ( output_css(['theme/green.css']) ) {
     <link rel="stylesheet" href="<%=$stylesheet%>">
 % }
 
@@ -71,7 +73,7 @@ my @scripts = qw(
     <ul id="navigation">
       <li class="action"><a href="#" class="tooltip_up">Post Message</a></li>
 
-      <li class="page"><a href="#" class="tooltip_up tooltip" title="Home"><img src="<%= config('static_url') %>/img/icons/home_24.png" /></a></li>
+      <li class="page"><a href="#" class="tooltip_up" title="Home"><img src="<%= config('static_url') %>/img/icons/home_24.png" /></a></li>
       <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/picture_24.png" /></a></li>
       <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/mail_24.png" /></a></li>
       <li class="page"><a href="#" class="tooltip_up"><img src="<%= config('static_url') %>/img/icons/user_24.png" /></a></li>
@@ -88,13 +90,6 @@ my @scripts = qw(
 
   
   <div id="wrapper" class="clearfix">
-    <div id="content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<a href="#" class="button small">this is a test button</a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <%== $token->{'content'} =%>
-    </div>
-
-    <div id="sidebar" class="clearfix">
-    </div>
 
     <div id="postform" class="clearfix">
       <div class="formcontainer">
@@ -129,7 +124,7 @@ my @scripts = qw(
           <li><a href="#" class="right">-&gt;</a></li>
           <li><a href="#" class="spoiler">H</a></li>
           <li><a href="#" class="picture">P</a></li>
-          <li><a href="#" class="youtube">Y</a></li>
+          <li><a href="#" class="video">Y</a></li>
           <li><a href="#" class="link">L</a></li>
           <li><a href="#" class="attachment">A</a></li>
           <li><a href="#" class="quote">Q</a></li>
@@ -140,8 +135,8 @@ my @scripts = qw(
         </ul>
 
         <ul class="mce_toolbar optional clearfix">
-            <li class="youtube"><input type="text" placeholder="Video URL" /> <a href="#" class="button small">Add Video</a></li>
-            <li class="picture"><input type="text" placeholder="Picture URL" /> <a href="#" class="button small">Add Picture</a></li>
+            <li class="add_video"><input type="text" placeholder="Video URL" /> <a href="#" class="button small">Add Video</a></li>
+            <li class="add_picture"><input type="text" placeholder="Picture URL" /> <a href="#" class="button small">Add Picture</a></li>
             <li class="add_link"><input type="text" class="urlbox" placeholder="Link URL" /> <input type="text" class="titlebox" placeholder="Link Title" /> <a href="#" class="button small">Add Link</a></li>
             <li class="add_attachment"><input type="text" placeholder="Upload Attachment (Vallums File Uploader)" /> <a href="#" class="button small">Upload File</a></li>
         </ul>
@@ -171,6 +166,11 @@ my @scripts = qw(
 
         <div id="tinymce_container" class="clearfix">
           <textarea id="message"></textarea>
+          
+          <ul id="mce_attachments" class="clearfix">
+          </ul>
+          
+          
         </div>
 
 
@@ -198,6 +198,15 @@ my @scripts = qw(
 
       </div>
     </div>
+
+
+    <div id="content">
+      <%== $token->{'content'} =%>
+    </div>
+
+    <div id="sidebar" class="clearfix">
+    </div>
+
 
   </div>
 

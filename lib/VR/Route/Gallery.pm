@@ -54,6 +54,7 @@ get qr{/(\d+)/?$} => sub {
     }
 
     template 'gallery', {
+        page_css        => 'gallery',
         page_title      => 'The Forum',
         recent_threads  => \@recent_threads,
         pagination      => pagination($page, '999', "/gallery"),
