@@ -9,7 +9,6 @@ use Time::HiRes qw/time/;
 
 # Dancer Plugins
 use Dancer::Plugin::Database;
-use Dancer::Plugin::Params::Normalization;
 
 # Extra Routes
 use VR::Route;
