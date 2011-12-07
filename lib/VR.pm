@@ -30,7 +30,7 @@ use VR::Route::Thread;
 # Modules for before filter (REFACTOR ME)
 use VR::Model qw/users_online fill_session/;
 
-before sub {
+hook 'before' => sub {
   # We are already in transactional mode
   
   # TODO - Add the login system.
@@ -41,7 +41,7 @@ before sub {
   fill_session('1');
 };
 
-after sub {
+hook 'after' => sub {
   # Make sure we commit any open transactions. The entire request depends on it.
   eval      { database->commit; };
   if ($@)   { die "Committing Transaction Failed: $@"; }
