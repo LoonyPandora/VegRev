@@ -1,8 +1,0 @@
-<h1>Messages</h1>
-
-
-: for $messages -> $item {
-    <: $item.avatar :>
-    <: $item.display_name :>
-    <br />
-: }

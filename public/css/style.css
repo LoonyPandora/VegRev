@@ -1,228 +1,189 @@
 
-/* Tabs
-================================================== */
-ul.tabs {
-  color: #111;
-  display: block;
-  margin: 0;
-  padding: 0;
-  border-bottom: solid 1px #ddd;
+body {
+margin: 0;
+margin-bottom: 25px;
+padding: 0;
+background-color: #ddd;
+background-image: url("/images/perldancer-bg.jpg");
+background-repeat: no-repeat;
+background-position: top left;
+
+font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana";
+font-size: 13px;
+color: #333;
 }
 
-ul.tabs li {
-  display: block;
-  width: auto;
-  height: 30px;
-  padding: 0;
-  float: left;
-  margin-bottom: 0;
+h1 {
+font-size: 28px;
+color: #000;
 }
 
-ul.tabs li a {
-  color: #444;
-  display: block;
-  text-decoration: none;
-  width: auto;
-  height: 29px;
-  padding: 0px 14px;
-  line-height: 30px;
-  border: solid 1px #ddd;
-  border-width: 1px 0 0 1px;
-  margin: 0;
-  background-color: #f5f5f5;
-  font-size: 13px;
+a  {color: #03c}
+a:hover {
+background-color: #03c;
+color: white;
+text-decoration: none;
 }
 
-ul.tabs li a:hover {
-  color: #222;
+#page {
+background-color: #ddd;
+width: 750px;
+margin: auto;
+margin-left: auto;
+padding-left: 0px;
+margin-right: auto;
 }
 
-ul.tabs li a.active {
-  background-color: #fff;
-  height: 30px;
-  line-height: 26px;
-  position: relative;
-  top: -4px;
-  padding-top: 4px;
-  border-right-width: 1px;
-  margin: 0 -1px 0 0;
-  color: #222;
-  -moz-border-radius-topleft:      2px;
-  -webkit-border-top-left-radius:  2px;
-  border-top-left-radius:          2px;
-  -moz-border-radius-topright:     2px;
-  -webkit-border-top-right-radius: 2px;
-  border-top-right-radius:         2px;
+#content {
+background-color: white;
+border: 3px solid #aaa;
+border-top: none;
+padding: 25px;
+width: 500px;
 }
 
-ul.tabs li:first-child a {
-  -moz-border-radius-topleft:      2px;
-  -webkit-border-top-left-radius:  2px;
-  border-top-left-radius:          2px;
+#sidebar {
+float: right;
+width: 175px;
 }
 
-ul.tabs li:last-child a {
-  border-width: 1px 1px 0 1px;
-  -moz-border-radius-topright:     2px;
-  -webkit-border-top-right-radius: 2px;
-  border-top-right-radius:         2px;
-}
-
-ul.tabs_content {
-  margin: 0 0 20px 0;
-  padding: 14px 0 5px 0;
-  display: block;
-}
-
-ul.tabs_content > li        { list-style: none; display: none;  }
-ul.tabs_content > li.active { list-style: none; display: block; }
-
-/* Clearfixing the tabs directly */
-ul.tabs:before, ul.tabs:after { content:""; display: table; }
-ul.tabs:after { clear:both; }
-ul.tabs { zoom:1; }
-
-
-
-/* Button Colors
-================================================== */
-
-
-/* Blue */
-a.button.blue, button.blue,
-input[type="submit"].blue,
-input[type="reset"].blue,
-input[type="button"].blue {
-  background-color: #518cc6;
-  border:       1px solid #2a65a0;
-  border-top:   1px solid #518cc6;
-  border-left:  1px solid #518cc6;
-  text-shadow:  0 -1px rgba(0, 0, 0, .3);
-  color: #fcfcfc;
-}
-
-a.button.blue:active, button.blue:active,
-input[type="submit"].blue:active,
-input[type="reset"].blue:active,
-input[type="button"].blue:active {
-  border:        1px solid #2a65a0;
-  border-bottom: 1px solid #518cc6;
-  border-right:  1px solid #518cc6;
+#header, #about, #getting-started {
+padding-left: 75px;
+padding-right: 30px;
 }
 
 
-
-/* Red */
-a.button.red, button.red,
-input[type="submit"].red,
-input[type="reset"].red,
-input[type="button"].red {
-  background-color: #d1544e;  
-  border:       1px solid #a15f59;
-  border-top:   1px solid #d15f59;
-  border-left:  1px solid #d15f59;
-  text-shadow: 0 -1px rgba(0, 0, 0, .3);
-  color: #fcfcfc;
+#header {
+background-image: url("/images/perldancer.jpg");
+background-repeat: no-repeat;
+background-position: top left;
+height: 64px;
+}
+#header h1, #header h2 {margin: 0}
+#header h2 {
+color: #888;
+font-weight: normal;
+font-size: 16px;
 }
 
-a.button.red:active, button.red:active,
-input[type="submit"].red:active,
-input[type="reset"].red:active,
-input[type="button"].red:active {
-  border:        1px solid #a15f59;
-  border-bottom: 1px solid #d15f59;
-  border-right:  1px solid #d15f59;
+#about h3 {
+margin: 0;
+margin-bottom: 10px;
+font-size: 14px;
 }
 
+#about-content {
+background-color: #ffd;
+border: 1px solid #fc0;
+margin-left: -11px;
+}
+#about-content table {
+margin-top: 10px;
+margin-bottom: 10px;
+font-size: 11px;
+border-collapse: collapse;
+}
+#about-content td {
+padding: 10px;
+padding-top: 3px;
+padding-bottom: 3px;
+}
+#about-content td.name  {color: #555}
+#about-content td.value {color: #000}
 
-
-/* Destructive (red text, red bg on hover) */
-a.button.destructive, button.destructive,
-input[type="submit"].destructive,
-input[type="reset"].destructive,
-input[type="button"].destructive {
-  color: #c33;
+#about-content.failure {
+background-color: #fcc;
+border: 1px solid #f00;
+}
+#about-content.failure p {
+margin: 0;
+padding: 10px;
 }
 
-a.button.destructive:hover, button.destructive:hover,
-input[type="submit"].destructive:hover,
-input[type="reset"].destructive:hover,
-input[type="button"].destructive:hover {
-  background-color: #d1544e !important;
-  color: #fff;
-  text-shadow: 0 0 1px rgba(0, 0, 0, 0.75);
-  border:       1px solid #a15f59;
-  border-top:   1px solid #d15f59;
-  border-left:  1px solid #d15f59;
+#getting-started {
+border-top: 1px solid #ccc;
+margin-top: 25px;
+padding-top: 15px;
+}
+#getting-started h1 {
+margin: 0;
+font-size: 20px;
+}
+#getting-started h2 {
+margin: 0;
+font-size: 14px;
+font-weight: normal;
+color: #333;
+margin-bottom: 25px;
+}
+#getting-started ol {
+margin-left: 0;
+padding-left: 0;
+}
+#getting-started li {
+font-size: 18px;
+color: #888;
+margin-bottom: 25px;
+}
+#getting-started li h2 {
+margin: 0;
+font-weight: normal;
+font-size: 18px;
+color: #333;
+}
+#getting-started li p {
+color: #555;
+font-size: 13px;
 }
 
-a.button.destructive:active, button.destructive:active,
-input[type="submit"].destructive:active,
-input[type="reset"].destructive:active,
-input[type="button"].destructive:active {
-  border:        1px solid #a15f59;
-  border-bottom: 1px solid #d15f59;
-  border-right:  1px solid #d15f59;
+#search {
+margin: 0;
+padding-top: 10px;
+padding-bottom: 10px;
+font-size: 11px;
+}
+#search input {
+font-size: 11px;
+margin: 2px;
+}
+#search-text {width: 170px}
+
+#sidebar ul {
+margin-left: 0;
+padding-left: 0;
+}
+#sidebar ul h3 {
+margin-top: 25px;
+font-size: 16px;
+padding-bottom: 10px;
+border-bottom: 1px solid #ccc;
+}
+#sidebar li {
+list-style-type: none;
+}
+#sidebar ul.links li {
+margin-bottom: 5px;
 }
 
-
-
-/* Confirm (Green text, Green bg on hover) */
-a.button.confirm, button.confirm,
-input[type="submit"].confirm,
-input[type="reset"].confirm,
-input[type="button"].confirm {
-  color: #090;
+h1, h2, h3, h4, h5 {
+font-family: sans-serif;
+margin: 1.2em 0 0.6em 0;
 }
 
-a.button.confirm:hover, button.confirm:hover,
-input[type="submit"].confirm:hover,
-input[type="reset"].confirm:hover,
-input[type="button"].confirm:hover {
-  background-color: #494 !important;
-  color: #fff;
-  text-shadow: 0 0 1px rgba(0, 0, 0, 0.75);
-  border: 1px solid #494;
+p {
+line-height: 1.5em;
+margin: 1.6em 0;
 }
 
-
-
-/* Disabled */
-a.button.disabled, button.disabled,
-input[type="submit"].disabled,
-input[type="reset"].disabled,
-input[type="button"].disabled {
-  background: #ddd;
-  color: #888;
-  border: 1px solid #aaa;
-  cursor: default;
+code, tt {
+    font-family: 'Andale Mono', Monaco, 'Liberation Mono', 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', monospace;
 }
 
-
-
-
-
-
-
-/* Small */
-a.button.small, button.small,
-input[type="submit"].small,
-input[type="reset"].small,
-input[type="button"].small {
-  color: #444;
-  font-family:     Verdana, sans-serif;
-  font-size:       9px;
-  font-weight:     normal;
-  text-shadow:     0 1px rgba(255, 255, 255, .75);
-  text-decoration: none;
-  display: inline-block;
-  cursor:  pointer;
-  margin:  0;
-  padding: 0 5px;
-  line-height: 18px;
-  vertical-align: top;
-  -moz-border-radius:    3px;
-  -webkit-border-radius: 3px;
-  border-radius:         3px;
+#footer {
+clear: both;
+padding-top: 2em;
+text-align: center;
+padding-right: 160px;
+font-family: sans-serif;
+font-size: 10px;
 }
-
