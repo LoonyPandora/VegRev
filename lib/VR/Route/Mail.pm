@@ -16,7 +16,7 @@ get qr{/?$} => sub {
     set template => 'xslate';
 
     template 'mail' , {
-        messages => get_mail_threads('2')
+        messages => get_mail_threads('1')
     };
 };
 
@@ -50,7 +50,10 @@ sub get_mail_messages {
     });
 
     $sth->execute($viewer_id, $user_id, $viewer_id, $user_id);
-    my $recent = $sth->fetchall_arrayref();
+    my $recent = $sth->fetchall_arrayref({});
+    
+    die Dumper($recent);
+    
 }
 
 
@@ -76,8 +79,7 @@ sub get_mail_threads {
     });
 
     $sth->execute($user_id, $user_id);
-    my $recent = $sth->fetchall_arrayref();
-
+    my $recent = $sth->fetchall_arrayref({});
 }
 
 
