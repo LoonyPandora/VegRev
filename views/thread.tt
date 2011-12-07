@@ -1,0 +1,48 @@
+<h1><:$thread.subject:></h1>
+
+
+<ul class="message_list">
+
+: for $thread.messages -> $message {
+    <li>
+        <div class="avatar">
+            <a><: $message.avatar :></a>
+            <p><: $message.usertext :></p>
+        </div>
+        
+        <div class="message">
+            <div class="meta online">
+                <div class="username"><: $message.display_name :></div>
+                <div class="timestamp"><: $message.timestamp :></div>
+                <ul class="actions">
+                    <li><a href="#"><img src="<: $settings.static_url :>/img/icons/delete_16.png"></a></li>
+                    <li><a href="#"><img src="<: $settings.static_url :>/img/icons/edit_16.png"></a></li>
+                    <li><a href="#" class="post_reply"><img src="<: $settings.static_url :>/img/icons/reply_16.png"></a></li>
+                </ul>
+            </div>
+
+            <: if $message.quotes != nil { :>
+            <ul class="in_reply_to">        
+                <: for $message.quotes -> $quote { :>
+                    <li>
+                        <p><: $quote.body :></p>
+                    </li>
+                <: } :>
+            </ul>
+            <: } :>
+
+            <div class="body">
+                <: $message.body :>
+            </div>
+        
+            <: if $message.signature != nil { :>
+            <div class="signature">
+                <: $message.signature :>
+            </div>
+            <: } :>
+        </div>
+    </li>
+: }
+
+</ul>
+

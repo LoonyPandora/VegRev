@@ -1,0 +1,37 @@
+
+/* Hashgrid */
+
+#grid {
+    position: absolute;
+    top:      0;
+    left:     0;
+    right:    0;
+    margin:   10px 0 0 0;
+    z-index:  9999 !important;
+}
+
+#grid div.horiz {
+    height:  19px;
+    border-bottom: 1px dotted #c99;
+    margin:  0;
+    padding: 0;
+}
+
+
+
+body, ul, li {
+    line-height: 20px;
+}
+
+/* Using Twitter Bootstrap Header */
+body {
+    padding-top: 40px;
+}
+
+
+/* TODO: Move to the theme dir */
+.topbar-inner {
+    background-image: -webkit-linear-gradient(top, #2f992f, #299329);
+}
+
+
