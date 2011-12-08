@@ -1,37 +1,242 @@
 
-/* Hashgrid */
+/* Bootstrap overrides
+================================================== */
+
+body, ul, li, a { line-height: 20px; }
+body { padding-top: 40px; }
+
+
+/* Global Styles
+================================================== */
+
+body {
+    background-color: #fcfcfc;
+    background-image: url('../img/bg_tile.gif');
+}
+
+
+
+/* Fonts
+================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444;
+  font-family: "ProximaNovaSemiBold";
+  font-weight: normal;
+}
+
+h1 {
+  color: #333;
+  font-size: 28px;
+  line-height: 39px;
+  margin: 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+h2 {
+  font-size: 16px;
+  line-height: 24px;
+  border-bottom: 1px dotted #ccc;
+  margin: 5px 0 10px 0;
+}
+
+
+
+
+/* Header (TODO Fix this up)
+================================================== */
+
+a.brand {
+    padding: 0;
+    height: 20px;
+}
+
+#logo {
+    margin: -3px 0 0 0;
+    height: 28px;
+    line-height: 0;
+}
+
+
+/* Main Body
+================================================== */
+
+#content {
+    margin-top: 20px;
+    width: 700px;
+    float: left;
+}
+
+#sidebar {
+    width: 220px;
+    margin: 30px 0 0 20px;
+    float: left;
+    min-height: 400px;
+    font-size: 12px;
+}
+
+
+/* Sidebar Widgets
+================================================== */
+
+#sidebar #loginbox input[type=text],
+#sidebar #loginbox input[type=password] {
+  width: 210px;
+  margin-bottom: 10px;
+  line-height: 0px;
+}
+
+#sidebar #loginbox input[type=submit] {
+  float: right;
+  margin-bottom: 16px;
+}
+
+#sidebar #loginbox span {
+  float: left;
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+#sidebar #logged_in_box img {
+  width: 40px;
+  height: 40px;
+  float: left;
+  margin-right: 20px;
+  background-color: #ddd;
+}
+
+
+
+
+
+
+
+/* Users Online
+================================================== */
+
+ul.user_icon_list {
+  list-style: none;
+  margin: 0 0 20px 0;
+  line-height: 30px;
+  text-align: center;
+}
+
+ul.user_icon_list img {
+  width: 30px;
+  height: 30px;
+}
+
+ul.user_icon_list li {
+  float: left;
+  margin: 0 1px 1px 0;
+}
+
+ul.user_icon_list li a {
+  background-color: #ddd;
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+
+
+
+
+/* Tags
+================================================== */
+
+ul.tag_list {
+  list-style: none;
+  margin: 0 0 20px 0;
+}
+
+ul.tag_list li {
+  float: left;
+  margin: 0 5px 8px 0;
+}
+
+ul.tag_list a {
+  display: block;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 4px 0 4px;
+  font-size: 11px;
+  color: #555;
+  background-color: #e3e3e3;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-weight: normal;
+}
+
+ul.tag_list a:hover {
+  color: #222;
+  border: 1px solid #999;
+  text-decoration: none;
+}
+
+
+
+/* Saved Threads
+================================================== */
+
+ul.recent_threads {
+  font-size: 11px;
+  list-style: none;
+  margin: 0 0 20px 0;
+}
+
+ul.recent_threads li {
+  line-height: 15px;
+}
+
+ul.recent_threads a {
+  color: #444;
+}
+
+ul.recent_threads a:hover {
+  color: #111;
+}
+
+
+
+
+
+
+
+
+/* Hashgrid
+================================================== */
 
 #grid {
+    width: 940px;
     position: absolute;
-    top:      0;
-    left:     0;
-    right:    0;
-    margin:   10px 0 0 0;
-    z-index:  9999 !important;
+    top: 0;
+    left: 50%;
+    margin-left: -470px;
+}
+
+#grid div.vert {
+    width: 40px;
+    margin-left: 20px;
+    background-color: rgba(255,0,0,0.05);
+}
+
+#grid div.vert.first-line {
+    margin-left: 0;
 }
 
 #grid div.horiz {
-    height:  19px;
-    border-bottom: 1px dotted #c99;
-    margin:  0;
+    height: 19px;
+    border-bottom: 1px dotted #ccc;
+    margin: 0;
     padding: 0;
 }
 
 
+/* Clearfix
+================================================== */
 
-body, ul, li {
-    line-height: 20px;
-}
-
-/* Using Twitter Bootstrap Header */
-body {
-    padding-top: 40px;
-}
-
-
-/* TODO: Move to the theme dir */
-.topbar-inner {
-    background-image: -webkit-linear-gradient(top, #2f992f, #299329);
-}
+.clearfix:before, .clearfix:after { content:""; display: table; }
+.clearfix:after { clear:both; }
+.clearfix { zoom:1; }
 
 

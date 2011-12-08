@@ -1,0 +1,17 @@
+/******************************************************************************
+ purple.css - Theme Styles, Just a bunch of colors
+******************************************************************************/
+
+a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+::-moz-selection { background: #7d3bbf; color:#fff; text-shadow: none; }
+::selection      { background: #7d3bbf; color:#fff; text-shadow: none; } 
+
+a       { color: #7d3bbf; }
+a:hover { color: #666666; }
+a:link  { -webkit-tap-highlight-color: #7d3bbf; } 
+
+#header { background-color: #7d3bbf; }

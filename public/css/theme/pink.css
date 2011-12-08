@@ -1,0 +1,17 @@
+/******************************************************************************
+ pink.css - Theme Styles, Just a bunch of colors
+******************************************************************************/
+
+a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+::-moz-selection { background: #f23091; color:#fff; text-shadow: none; }
+::selection      { background: #f23091; color:#fff; text-shadow: none; } 
+
+a       { color: #f23091; }
+a:hover { color: #666666; }
+a:link  { -webkit-tap-highlight-color: #f23091; } 
+
+#header { background-color: #f23091; }

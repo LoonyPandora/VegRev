@@ -11,9 +11,6 @@ use Dancer qw(:moose);
 use Dancer::Plugin::Database;
 use Carp;
 
-use VegRev::User;
-
-
 
 # A thread object should conceptually be a collection of VegRev::Message objects
 # But that would mean extra DB queries, and essentially I would be creating an ORM
@@ -93,7 +90,6 @@ sub new_from_id {
     my @messages;
     for my $key (sort keys $messages) {
         push @messages, $messages->{$key};
-       # print "\t\t$key \t\t$grades{$key}\n";
     }
 
     return VegRev::Thread->new({

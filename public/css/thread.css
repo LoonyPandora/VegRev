@@ -63,6 +63,11 @@ ul.message_list div.meta.online {
   border-left: 5px solid green;
 }
 
+ul.message_list div.meta.offline {
+  border-left: 5px solid red;
+}
+
+
 ul.message_list div.meta div.username {
   float:       left;
   font-weight: bold;
@@ -132,7 +137,7 @@ ul.message_list div.signature {
   font-size:  11px;
   border-top: 1px solid #ddd;
   max-height: 80px;
-  padding:    5px 15px;
+  padding:    5px 15px 4px 15px;
 }
 
 ul.message_list div.signature img {
@@ -141,7 +146,7 @@ ul.message_list div.signature img {
 
 
 
-/* in Reply To Box
+/* In Reply To Box
 ================================================== */
 
 ul.message_list ul.in_reply_to {
@@ -179,7 +184,6 @@ ul.message_list ul.in_reply_to li p {
 /* Message Attachments
 ================================================== */
 
-
 ul.message_list ul.attachments {
   list-style: none;
   margin:     0;
@@ -191,7 +195,7 @@ ul.message_list ul.attachments {
 
 ul.message_list ul.attachments li {
   display: block;
-  float: left;
+  float:   left;
 }
 
 ul.message_list ul.attachments img {

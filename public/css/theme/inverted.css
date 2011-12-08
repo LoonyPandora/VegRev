@@ -1,0 +1,49 @@
+/******************************************************************************
+ black.css - Theme Styles, Just a bunch of colors
+******************************************************************************/
+
+
+body {
+  background-image: none;
+  background-color: #333;
+  color: #fff;
+}
+
+a { font-weight: bold; text-decoration: none; }
+
+ul.tag_list a.current {
+  border: 1px solid #ccc;
+  background-color: #ccc;
+  color: #fff;
+  font-weight: bold;
+}
+
+::-moz-selection { background: #ccc; color:#fff; text-shadow: none; }
+::selection      { background: #ccc; color:#fff; text-shadow: none; } 
+
+a         { color: #ccc; }
+a:visited { color: #ccc; }
+a:hover   { color: #999; }
+a:link    { -webkit-tap-highlight-color: #ccc; } 
+
+#header   { background-color: #ccc; }
+
+ul.thread_list li.announcement {
+  background-color: #000;
+}
+
+
+ul.thread_list {
+  border-bottom:  1px dotted #333;
+}
+
+ul.thread_list li {
+  border-top: 1px dotted #333;
+}
+
+ul.thread_list img {
+  height: 40px;
+  width:  40px;
+  margin: 0 20px 0 0;
+  background-color: #000;
+}

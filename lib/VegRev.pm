@@ -20,6 +20,22 @@ use VegRev::Thread;
 our $VERSION = '0.0.1';
 
 
+
+set 'engines' => {
+    xslate => {
+        path     => '/',
+        cache    => 0,
+        syntax   => 'Kolon',
+        function => {
+            uppercase => sub {
+                return uc $_[0]
+            },
+        },
+    }
+};
+
+set 'template' => 'xslate';
+
 # Loads the viewer, should get the user ID from the cookie
 # Should also do some authentication here
 hook 'before' => sub {
@@ -33,6 +49,8 @@ hook 'before' => sub {
 
 hook 'before_template' => sub {
     my $tokens = shift;
+
+    $tokens->{theme} = session->{theme};
 
     # Add the Plack::Middleware::Assets used in all routes
 #    $tokens->{base_css} = request->env->{'psgix.assets'}->[0];
@@ -64,13 +82,12 @@ get qr{/(\d+)} => sub {
         offset => 0,
         limit  => 100,
     });
-
+    
     template 'thread', {
         template => 'thread',
         thread   => $thread
     };
 };
-
 
 
 1;

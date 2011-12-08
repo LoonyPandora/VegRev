@@ -19,9 +19,3 @@ plugins:
             AutoCommit: 0
             mysql_enable_utf8: 1
 
-template: "xslate"
-engines:
-  xslate:
-    path:   '/'
-    cache:  0
-    syntax: "Kolon"
