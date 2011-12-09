@@ -40,6 +40,7 @@ sub new_from_id {
         LEFT JOIN user ON user.id = user_id
         WHERE message.thread_id = ?
         AND message.deleted != 1
+        ORDER BY message.id ASC
         LIMIT ?, ?
     });
     $msg_sth->execute($args->{id}, $args->{offset}, $args->{limit});
@@ -69,6 +70,12 @@ sub new_from_id {
     my $tags     = $tag_sth->fetchall_arrayref({});
     my $messages = $msg_sth->fetchall_hashref('id');
 
+    # No messages
+    if (keys %$messages < 1) {
+        redirect '/';
+        return;
+    }
+
     my $quote_sth = database->prepare(q{
         SELECT quote.id, message_id, message_id_quoted, quote.body, UNIX_TIMESTAMP(message.timestamp) AS message_timestamp, user.user_name, user.display_name, user.avatar, user.usertext
         FROM quote
@@ -78,10 +85,8 @@ sub new_from_id {
     });
     $quote_sth->execute(keys %$messages);
 
-    my $quote_array = $quote_sth->fetchall_arrayref({});
-
     # Add the quotes to the message pseudo object by matching message_id's
-    for my $quote (@$quote_array) {
+    for my $quote (@{ $quote_sth->fetchall_arrayref({}) }) {
         push(@{ $messages->{ $quote->{message_id} }->{quotes} }, $quote);
     }
 

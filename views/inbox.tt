@@ -1,0 +1,22 @@
+<h1>Private Messages</h1>
+
+<ul class="inbox_list">
+
+: for $inbox.threads -> $thread {
+    <li>
+        <a href="/chat/<: $thread.user_id :>/">
+            <: $thread.avatar_img :><: avatar_img($thread.avatar, $thread.usertext) | raw :>
+            <span class="thread_details">
+                <span class="thread_title">
+                    <: $thread.display_name :> 
+                </span>
+
+                <span class="statbox">
+                    <b class="label important">new</b> <: $thread.last_updated :>
+                </span>
+            </span>
+        </a>
+    </li>
+: }
+
+</ul>

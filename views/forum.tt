@@ -1,0 +1,30 @@
+<h1>Hola, Mystery Person. Welcome to VR</h1>
+
+<ul class="thread_list">
+: for $forum.threads -> $thread {
+
+    <li>
+        <a href="/thread/<: $thread.id :>-<: $thread.url_slug :>/">
+            <: $thread.avatar_img :><: avatar_img($thread.avatar, $thread.usertext) | raw :>
+            <span class="thread_details">
+                <span class="thread_title">
+                    <: $thread.subject :>
+                </span>
+                <span class="thread_tagging">
+                <: for $thread.tags -> $tag { :>
+                    <b class="label"><: $tag :></b>
+                <: } :>
+                    <b class="label important">new</b>
+                Last post by <: $thread.display_name :>, <: $thread.last_updated :>
+                </span>
+            </span>
+            <span class="statbox">
+                <span class="stat_value"><: $thread.replies :></span>
+                <span class="stat_name">replies</span>
+            </span>
+        </a>
+    </li>
+
+: }
+
+</ul>

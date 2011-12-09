@@ -14,36 +14,25 @@ use Data::Dumper;
 
 use Carp;
 use VegRev::User;
+use VegRev::Forum;
 use VegRev::Thread;
+use VegRev::Inbox;
+use VegRev::Chat;
+
+
+
+use VegRev::ViewHelpers;
 
 
 our $VERSION = '0.0.1';
 
 
 
-set 'engines' => {
-    xslate => {
-        path     => '/',
-        cache    => 0,
-        syntax   => 'Kolon',
-        function => {
-            uppercase => sub {
-                return uc $_[0]
-            },
-        },
-    }
-};
-
-set 'template' => 'xslate';
-
 # Loads the viewer, should get the user ID from the cookie
 # Should also do some authentication here
 hook 'before' => sub {
-
     my $viewer = VegRev::User->new({ id => 1 })->load_extra;
-
     $viewer->store_session;
-
 };
 
 
@@ -68,26 +57,91 @@ hook 'after' => sub {
 };
 
 
-get '/' => sub {
-    template 'index';
+
+# Matches / and /:page
+get qr{/(\d+)?/?$} => sub {
+    my ($page) = splat;
+
+    $page = $page // 1;
+    my $per_page = 30;
+
+    my $forum = VegRev::Forum::new_from_tag({
+        tag    => undef,
+        offset => ($page * $per_page) - $per_page,
+        limit  => $per_page,
+    });
+
+    template 'forum', {
+        forum    => $forum,
+        template => 'forum',
+    };
 };
 
 
 
-get qr{/(\d+)} => sub {
-    my ($thread_id) = splat;
+# Matches /thread/:thread_id-:url_slug/:page - URL slug is acutally ignored.
+get qr{/thread/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
+    my ($thread_id, $page) = splat;
+
+    $page = $page // 1;
+    my $per_page = 30;
 
     my $thread = VegRev::Thread::new_from_id({
         id     => $thread_id,
-        offset => 0,
-        limit  => 100,
+        offset => ($page * $per_page) - $per_page,
+        limit  => $per_page,
     });
-    
+
     template 'thread', {
         template => 'thread',
         thread   => $thread
     };
 };
+
+
+
+# Matches /inbox
+get qr{/inbox/?(\d+)?/?$} => sub {
+    my ($page) = splat;
+
+    $page = $page // 1;
+    my $per_page = 50;
+
+    my $inbox = VegRev::Inbox->new({
+        user_id => session->{user_id},
+        offset  => ($page * $per_page) - $per_page,
+        limit   => $per_page,
+    });
+
+    template 'inbox', {
+        inbox    => $inbox,
+        template => 'inbox',
+    };
+};
+
+
+# Matches /thread/:thread_id-:url_slug/:page - URL slug is acutally ignored.
+get qr{/chat/(\d+)/?(\d+)?/?$} => sub {
+    my ($chat_id, $page) = splat;
+
+    $page = $page // 1;
+    my $per_page = 50;
+
+    my $thread = VegRev::Chat::new_from_id({
+        chat_id => $chat_id,
+        user_id => session->{user_id},
+        offset  => ($page * $per_page) - $per_page,
+        limit   => $per_page,
+    });
+
+    template 'chat', {
+        template => 'thread',
+        thread   => $thread
+    };
+};
+
+
+
 
 
 1;

@@ -17,20 +17,58 @@ use Carp;
 
 
 # From the DB
-has id            => ( is => 'rw' );
-has subject       => ( is => 'rw' );
-has url_slug      => ( is => 'rw' );
-has icon          => ( is => 'rw' );
-has start_date    => ( is => 'rw' );
-has last_updated  => ( is => 'rw' );
-has replies       => ( is => 'rw' );
-has started_by    => ( is => 'rw' );
-has latest_poster => ( is => 'rw' );
-has messages      => ( is => 'rw' );
-has tags          => ( is => 'rw' );
+has tag     => ( is => 'rw' );
+has threads => ( is => 'rw' );
 
 
+sub new_from_tag {
+    my $args = shift;
 
+    my $thread_sth = database->prepare(q{
+        SELECT thread.id, subject, url_slug, UNIX_TIMESTAMP(last_updated) AS last_updated, user_name, display_name, avatar, usertext,
+            (SELECT count(*) FROM message WHERE message.thread_id = thread.id) AS replies
+        FROM thread
+        LEFT JOIN USER ON latest_post_user_id = user.id
+        WHERE thread.id IN (SELECT thread_id
+        FROM tagged_thread
+        LEFT JOIN tag ON tagged_thread.tag_id = tag.id
+        WHERE group_id IN (1, 2, 4)
+        AND tag_id != 2)
+        ORDER BY last_updated DESC
+        LIMIT ?, ?
+    });
+    $thread_sth->execute($args->{offset}, $args->{limit});
+
+    # As an arrayref to keep the ordering
+    my $threads = $thread_sth->fetchall_arrayref({});
+
+    # No threads
+    if (scalar @$threads < 1) {
+        redirect '/';
+        return;
+    }
+
+    # Gets the thread id's from the returned array
+    my @thread_ids = map { $_->{id} } @$threads;
+
+    my $tag_sth = database->prepare(q{
+        SELECT thread_id, tag.title
+        FROM tagged_thread
+        LEFT JOIN tag ON tagged_thread.tag_id = tag.id
+        WHERE thread_id IN (} . join(',', map('?', @thread_ids)) . q{)
+    });
+    $tag_sth->execute(@thread_ids);
+
+    my $taglist = $tag_sth->fetchall_hashref(['thread_id', 'title']);
+
+    for my $thread (@$threads) {
+        push @{$thread->{tags}}, keys $taglist->{ $thread->{id} };
+    }
+
+    return VegRev::Forum->new({
+        threads => $threads,
+    });
+}
 
 
 1;

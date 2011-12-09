@@ -36,17 +36,25 @@ ul.message_list div.avatar a {
 
 ul.message_list div.avatar p {
   margin: 0;
+  font-size: 10px;
+}
+
+ul.message_list div.avatar img {
+    -webkit-border-radius: 2px;
+       -moz-border-radius: 2px;
+         -o-border-radius: 2px;
+            border-radius: 2px;
 }
 
 ul.message_list div.message {
-  width:            580px;
-  overflow:         hidden;
-  background-color: #fff;
+  width:              580px;
+  overflow:           hidden;
+  background-color:   #fff;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+       -o-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
-
 
 
 /* Message Meta

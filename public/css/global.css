@@ -4,7 +4,7 @@
 
 body, ul, li, a { line-height: 20px; }
 body { padding-top: 40px; }
-
+a:hover { text-decoration: none; }
 
 /* Global Styles
 ================================================== */
@@ -14,7 +14,13 @@ body {
     background-image: url('../img/bg_tile.gif');
 }
 
-
+img {
+    max-width:  100%;
+    max-height: 100%;
+    height: auto;
+    vertical-align: top; 
+    -ms-interpolation-mode: bicubic;
+}
 
 /* Fonts
 ================================================== */
@@ -41,20 +47,12 @@ h2 {
 }
 
 
-
-
-/* Header (TODO Fix this up)
+/* Header (TODO Fix this up with proper classes / logo)
 ================================================== */
 
-a.brand {
-    padding: 0;
-    height: 20px;
-}
-
-#logo {
-    margin: -3px 0 0 0;
-    height: 28px;
-    line-height: 0;
+.topbar .brand {
+    padding: 8px 14px 8px 15px;
+    height: 24px;
 }
 
 
@@ -106,24 +104,19 @@ a.brand {
 }
 
 
-
-
-
-
-
 /* Users Online
 ================================================== */
 
 ul.user_icon_list {
   list-style: none;
   margin: 0 0 20px 0;
-  line-height: 30px;
+  line-height: 29px;
   text-align: center;
 }
 
 ul.user_icon_list img {
-  width: 30px;
-  height: 30px;
+  width: 29px;
+  height: 29px;
 }
 
 ul.user_icon_list li {
@@ -134,11 +127,9 @@ ul.user_icon_list li {
 ul.user_icon_list li a {
   background-color: #ddd;
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 29px;
+  height: 29px;
 }
-
-
 
 
 /* Tags
@@ -151,7 +142,7 @@ ul.tag_list {
 
 ul.tag_list li {
   float: left;
-  margin: 0 5px 8px 0;
+  margin: 0 5px 5px 0;
 }
 
 ul.tag_list a {
@@ -174,7 +165,6 @@ ul.tag_list a:hover {
 }
 
 
-
 /* Saved Threads
 ================================================== */
 
@@ -195,11 +185,6 @@ ul.recent_threads a {
 ul.recent_threads a:hover {
   color: #111;
 }
-
-
-
-
-
 
 
 

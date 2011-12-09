@@ -1,4 +1,4 @@
-<h1><:$thread.subject:></h1>
+<h1>Chat With</h1>
 
 <ul class="message_list">
 
@@ -20,25 +20,9 @@
                 </ul>
             </div>
 
-            <: if $message.quotes != nil { :>
-            <ul class="in_reply_to">        
-                <: for $message.quotes -> $quote { :>
-                    <li>
-                        <p><: $quote.body :></p>
-                    </li>
-                <: } :>
-            </ul>
-            <: } :>
-
             <div class="body">
                 <: $message.body | bbcode | raw :>
             </div>
-
-            <: if $message.signature != nil { :>
-            <div class="signature">
-                <: $message.signature | bbcode | raw :>
-            </div>
-            <: } :>
         </div>
     </li>
 : }

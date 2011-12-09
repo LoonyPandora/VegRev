@@ -1,0 +1,68 @@
+/* Forum Front Page Styles
+================================================== */
+
+ul.inbox_list span,
+ul.inbox_list a {
+  display: block;
+}
+
+ul.inbox_list span.thread_details,
+ul.inbox_list a,
+ul.inbox_list img {
+  float: left;
+}
+
+ul.inbox_list {
+  list-style: none;
+  margin:     0;
+}
+
+ul.inbox_list li {
+  position:   relative;
+  margin:     0;
+  padding:    10px 0 9px 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+/* Clearfix here, as it's really annoying to have this class everywhere... */
+ul.inbox_list li:before, ul.inbox_list li:after { content: ""; display: table; }
+ul.inbox_list li:after { clear: both; }
+ul.inbox_list li { zoom: 1; }
+
+ul.inbox_list a {
+  width:  100%;
+}
+
+ul.inbox_list img {
+  height: 40px;
+  width:  40px;
+  margin: 0 20px 0 0;
+  background-color: #ddd;
+}
+
+ul.inbox_list span.statbox {
+  position:     absolute;
+  text-shadow:  #fff 0px 1px 1px;
+  color:        #999;
+  text-align:   right;
+  right:        0;
+  width:        180px;
+  height:       40px;
+  line-height:  40px;
+}
+
+ul.inbox_list span.statbox b {
+  text-shadow:  none;
+  margin-right: 5px;
+}
+
+ul.inbox_list span.thread_title {
+  font-size:    18px;
+  font-family:  "ProximaNovaSemiBold", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight:  normal;
+  max-width:    510px;
+  height:       40px;
+  line-height:  40px;
+  overflow:     hidden;
+  float:        left;
+}
