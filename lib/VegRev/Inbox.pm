@@ -13,7 +13,6 @@ use Dancer::Plugin::Database;
 use Carp;
 
 
-
 # From the DB
 has threads => ( is => 'rw' );
 has offset  => ( is => 'rw' );
@@ -22,7 +21,7 @@ has user_id => ( is => 'rw' );
 
 
 sub BUILD {
-    my $args = shift;
+    my $self = shift;
 
     my $thread_sth = database->prepare(q{
         SELECT DISTINCT(user_id), display_name, usertext, avatar, timestamp AS last_updated
@@ -43,7 +42,7 @@ sub BUILD {
         ORDER BY timestamp DESC
         LIMIT ?, ?
     });
-    $thread_sth->execute($args->user_id, $args->user_id, $args->offset, $args->limit);
+    $thread_sth->execute($self->user_id, $self->user_id, $self->offset, $self->limit);
 
     # As an arrayref to keep the ordering
     my $threads = $thread_sth->fetchall_arrayref({});
@@ -54,7 +53,7 @@ sub BUILD {
         return;
     }
 
-    $args->threads($threads);
+    $self->threads($threads);
 }
 
 

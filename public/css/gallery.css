@@ -1,0 +1,50 @@
+/* Photo Gallery Styles
+================================================== */
+
+
+ul.upload_list {
+  list-style: none;
+  margin:     10px 0 0 -20px;
+}
+
+ul.upload_list li {
+  margin:  0 0 20px 20px;
+  padding: 0;
+  float:   left;
+}
+
+ul.upload_list a,
+ul.upload_list img {
+  width: 160px;
+  min-height: 20px;
+  display: block;
+  margin: 0;
+  background-color: #eee;
+}
+
+
+ul.upload_list .photo_meta {
+    padding: 5px;
+    font-size: 11px;
+}
+ul.upload_list .photo_meta img {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px 0 0;
+    float: left;
+}
+
+
+ul.upload_list a {
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+     -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+ul.upload_list a:hover {
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+     -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+          box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+}
+
+

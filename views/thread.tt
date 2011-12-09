@@ -3,7 +3,7 @@
 <ul class="message_list">
 
 : for $thread.messages -> $message {
-    <li>
+    <li id="<:$message.id:>">
         <div class="avatar">
             <a><: avatar_img($message.avatar, $message.usertext) | raw :></a>
             <p><: $message.usertext :></p>

@@ -1,0 +1,19 @@
+<h1>Photos and stuff.</h1>
+
+
+
+<ul class="upload_list">
+
+: for $gallery.pictures -> $picture {
+    <li>
+        <a href="/message/<:$picture.message_id:>/">
+            <: avatar_img($picture.avatar, $picture.usertext) | raw :>
+            <div class="photo_meta">
+                <: avatar_img($picture.avatar, $picture.usertext) | raw :>
+                <: $picture.display_name :>
+            </div>
+        </a>
+    </li>
+: }
+
+</ul>
