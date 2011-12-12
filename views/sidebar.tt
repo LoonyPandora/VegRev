@@ -1,0 +1,53 @@
+        <div id="loginbox" class="widget clearfix">
+          <h2>Login</h2>
+          <input type="text" placeholder="Email Address or Username">
+          <input type="password" placeholder="Password">
+              <input type="submit" class="btn success" value="Login">
+        </div>
+    
+        <div class="widget clearfix">
+          <h2>Online Now (88)</h2>
+          <ul class="user_icon_list clearfix">
+            <li><a href="#" title="LoonyPandora"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
+            <li><a href="#" title="Random Person With a Really Really Long Name"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
+            <li><a href="#" title="lorem"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
+          </ul>
+        </div>
+    
+        <div class="widget clearfix">
+          <h2>Tags</h2>
+          <ul class="tag_list clearfix">
+            <li><a href="#">Chat</a></li>
+            <li><a href="#">Rants</a></li>
+            <li><a href="#">Private</a></li>
+            <li><a href="#">Spam</a></li>
+            <li><a href="#">Music</a></li>
+            <li><a href="#">Literature</a></li>
+            <li><a href="#" class="current">Zine</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Admin</a></li>
+            <li><a href="#">Yahoo</a></li>
+          </ul>
+        </div>
+    
+        <div class="widget clearfix">
+          <h2>Recently Read</h2>
+          <ul class="recent_threads clearfix">
+            <li><a href="#">My [milestone] Post!!!</a></li>
+            <li><a href="#">Introduce Yourself To VR! (New Members Post Here)</a></li>
+            <li><a href="#">Woop...next gigs...</a></li>
+            <li><a href="#">WTF of the day</a></li>
+            <li><a href="#">Sup My Brothers and Sisters!? Psychedelic Abstract Artist Matt Crux Here! =)</a></li>
+            <li><a href="#">The last book you bought was...............</a></li>
+            <li><a href="#">Now Listening to.. #10</a></li>
+            <li><a href="#">The News Thread</a></li>
+            <li><a href="#">Things that make you want to bury someone alive</a></li>
+            <li><a href="#">Death Pool 11 (months since we're a month late with this)</a></li>
+          </ul>
+        </div>

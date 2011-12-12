@@ -1,0 +1,6 @@
+    <div class="container clearfix">
+        <div id="sosumi">
+            <p>&copy; Vegetable Revolution &amp; Authors – 2011</p>
+            <p>Powered by <a href="https://github.com/LoonyPandora/VegRev">VR</a> and <a href="http://perldancer.org">Dancer</a></p>
+        </div>
+    </div>

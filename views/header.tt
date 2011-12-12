@@ -1,0 +1,14 @@
+    <div class="topbar-inner" id="header">
+        <div class="container">
+            <a class="brand" href="/">
+                <img src="<: $settings.static_url :>/img/vr_logo.png" alt="Vegetable Revolution" id="logo">
+            </a>
+            <ul class="nav">
+                <li><a href="/">Post New Message</a></li>
+                <li class="active"><a href="/">Forum</a></li>
+                <li><a href="/gallery">Gallery</a></li>
+                <li><a href="/profile/<: $my_user_name :>">Profile</a></li>
+                <li><a href="/inbox">Messages</a></li>
+            </ul>
+        </div>
+    </div>

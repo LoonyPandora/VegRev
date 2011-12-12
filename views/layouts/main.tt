@@ -4,7 +4,7 @@
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-    <meta charset="<: $settings.charset | uppercase :>">
+    <meta charset="<: $settings.charset :>">
     <meta http-equiv="Content-type" content="text/html; charset=<: $settings.charset :>">
     <title>VegRev</title>
 
@@ -18,20 +18,9 @@
 </head>
 <body>
 
+
 <div class="topbar">
-    <div class="topbar-inner" id="header">
-        <div class="container">
-            <a class="brand" href="/">
-                <img src="<: $settings.static_url :>/img/vr_logo.png" alt="Vegetable Revolution" id="logo">
-            </a>
-            <ul class="nav">
-                <li class="active"><a href="/">Forum</a></li>
-                <li><a href="/gallery">Gallery</a></li>
-                <li><a href="/profile/<: $my_user_name :>">Profile</a></li>
-                <li><a href="/inbox">Messages</a></li>
-            </ul>
-        </div>
-    </div>
+    <: include "/Users/james/Sites/VegRev/views/header.tt" :>
 </div>
 
 
@@ -41,70 +30,29 @@
     </div>
 
     <div id="sidebar" class="clearfix">
-        <div id="loginbox" class="widget clearfix">
-          <h2>Login</h2>
-          <input type="text" placeholder="Email Address or Username">
-          <input type="password" placeholder="Password">
-              <input type="submit" class="btn success" value="Login">
-        </div>
-    
-        <div class="widget clearfix">
-          <h2>Online Now (88)</h2>
-          <ul class="user_icon_list clearfix">
-            <li><a href="#" title="LoonyPandora"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#" title="Random Person With a Really Really Long Name"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#" title="lorem"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-          </ul>
-        </div>
-    
-        <div class="widget clearfix">
-          <h2>Tags</h2>
-          <ul class="tag_list clearfix">
-            <li><a href="#">Chat</a></li>
-            <li><a href="#">Rants</a></li>
-            <li><a href="#">Private</a></li>
-            <li><a href="#">Spam</a></li>
-            <li><a href="#">Music</a></li>
-            <li><a href="#">Literature</a></li>
-            <li><a href="#" class="current">Zine</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">News</a></li>
-            <li><a href="#">Admin</a></li>
-            <li><a href="#">Yahoo</a></li>
-          </ul>
-        </div>
-    
-        <div class="widget clearfix">
-          <h2>Recently Read</h2>
-          <ul class="recent_threads clearfix">
-            <li><a href="#">My [milestone] Post!!!</a></li>
-            <li><a href="#">Introduce Yourself To VR! (New Members Post Here)</a></li>
-            <li><a href="#">Woop...next gigs...</a></li>
-            <li><a href="#">WTF of the day</a></li>
-            <li><a href="#">Sup My Brothers and Sisters!? Psychedelic Abstract Artist Matt Crux Here! =)</a></li>
-            <li><a href="#">The last book you bought was...............</a></li>
-            <li><a href="#">Now Listening to.. #10</a></li>
-            <li><a href="#">The News Thread</a></li>
-            <li><a href="#">Things that make you want to bury someone alive</a></li>
-            <li><a href="#">Death Pool 11 (months since we're a month late with this)</a></li>
-          </ul>
-        </div>
+        <: include "/Users/james/Sites/VegRev/views/sidebar.tt" :>
     </div>
-
-
-
 </div>
+
+
+<div id="footer" class="clearfix">
+    <: include "/Users/james/Sites/VegRev/views/footer.tt" :>
+</div>
+
 
 
 <!-- JS at the bottom so it doesn't block -->
 <script src="<: $settings.static_url :>/js/jquery.1.7.1.min.js"></script>
 <script src="<: $settings.static_url :>/js/jquery.masonry.2011.10.15.min.js"></script>
 <script src="<: $settings.static_url :>/js/hashgrid.js"></script>
+
+<script src="<: $settings.static_url :>/js/bootstrap-modal.js"></script>
+<script src="<: $settings.static_url :>/js/bootstrap-buttons.js"></script>
+<script src="<: $settings.static_url :>/js/bootstrap-alerts.js"></script>
+<script src="<: $settings.static_url :>/js/bootstrap-twipsy.js"></script>
+<script src="<: $settings.static_url :>/js/bootstrap-popover.js"></script>
+<script src="<: $settings.static_url :>/js/bootstrap-tabs.js"></script>
+
 <script src="<: $settings.static_url :>/js/app.js"></script>
 <script src="<: $settings.static_url :>/js/<:$template:>.js"></script>
 

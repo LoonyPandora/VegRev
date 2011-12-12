@@ -55,8 +55,8 @@ hook 'before_template' => sub {
 
 # Make sure we commit any open transactions. The entire request depends on it.
 hook 'after' => sub {
-  eval      { database->commit; };
-  if ($@)   { die "Committing Transaction Failed: $@"; }
+    eval    { database->commit; };
+    if ($@) { die "Committing Transaction Failed: $@"; }
 };
 
 
@@ -82,8 +82,10 @@ get qr{/(\d+)?/?$} => sub {
 
 
 
-# Matches /thread/:thread_id-:url_slug/:page - URL slug is acutally ignored.
-get qr{/thread/(\d+)\-?[\w\-]+?/?(\d+)?/?$} => sub {
+# Matches /thread/:thread_id-:url_slug/ - URL slug is acutally ignored.
+# TODO Need a route that matches page. Be careful with routes that contain a number
+# like: http://vegrev.local/thread/39218-vr-fantasy-football-20102011/2
+get qr{/thread/(\d+).*/?$} => sub {
     my ($thread_id, $page) = splat;
 
     $page = $page // 1;
@@ -188,9 +190,7 @@ get qr{/message/?(\d+)?/?$} => sub {
     my $per_page   = 30;
     my $start_page = floor($messages->{count} / $per_page) + 1;
 
-    my $redirect_page = '/thread/' . $messages->{thread_id};
-    $redirect_page .= '-' . $messages->{url_slug};
-
+    my $redirect_page = '/thread/' . $messages->{thread_id} . '-' . $messages->{url_slug};
 
     # Page one threads don't need the page number
     $redirect_page .= '/' . $start_page    if $start_page > 1;

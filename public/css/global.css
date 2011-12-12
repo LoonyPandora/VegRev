@@ -6,6 +6,7 @@ body, ul, li, a { line-height: 20px; }
 body { padding-top: 40px; }
 a:hover { text-decoration: none; }
 
+
 /* Global Styles
 ================================================== */
 
@@ -21,6 +22,7 @@ img {
     vertical-align: top; 
     -ms-interpolation-mode: bicubic;
 }
+
 
 /* Fonts
 ================================================== */
@@ -184,6 +186,28 @@ ul.recent_threads a {
 
 ul.recent_threads a:hover {
   color: #111;
+}
+
+
+/* Footer
+================================================== */
+
+#footer {
+    border-top: 1px solid #ccc;
+    padding: 0 0 10px 0;
+    margin: 59px 0 0 0;
+    background-color: #f6f6f6;
+}
+
+#sosumi {
+    float: left;
+    margin: 10px 0 0 5px;
+}
+
+#sosumi p {
+    font-size: 11px;
+    color: #666;
+    margin: 0;
 }
 
 
