@@ -16,7 +16,6 @@ use Data::Dumper;
 
 set 'engines' => {
     xslate => {
-        path     => '/',
         cache    => 0,
         syntax   => 'Kolon',
         function => {
