@@ -1,0 +1,144 @@
+
+/* Postform
+================================================== */
+
+#postform {
+  display: none;
+  width: 580px;
+}
+
+#postform #subject {
+    width: 540px;
+    display: block;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    border-bottom: 1px solid #eee;
+    box-shadow: none;
+}
+
+#postform div.formcontainer {
+  position: relative;
+  padding: 10px 15px 0 15px;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+#postform textarea#message {
+  border: none;
+  height: 103px;
+  margin: 0;
+}
+
+/* TinyMCE will show these - stays hidden if JS is disabled */
+ul.mce_toolbar {
+  display: none;
+}
+
+
+
+/* Override MCE Junk
+================================================== */
+
+.mceBlocker, .mceProgress {
+    display: none;
+    visibility: hidden;
+}
+
+
+/* Tag Selector
+================================================== */
+
+select#tag_select {
+  display: block;
+  width: 550px;
+  height: 60px;
+  border: none;
+}
+
+div.chzn-container {
+  margin-bottom: 10px;
+}
+
+div.chzn-container ul.chzn-choices {
+  background-color: #eee;
+  padding-top: 2px;
+  background-image: none;
+  border: none;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
+
+div.chzn-container div.chzn-drop {
+  border: none;
+  background-image: none;
+  background-color: #eee;
+}
+
+div.chzn-container input.default {
+  color: #999 !important;
+}
+
+div.chzn-container {
+  margin-left: 15px;
+}
+
+
+
+
+
+/* Postform Extras
+================================================== */
+
+
+ul#mce_attachments {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 0;
+  display: block;
+}
+
+ul#mce_attachments li {
+  float: left;
+  display: block;
+  overflow: hidden;
+  width: 80px;
+  max-height: 80px;
+  margin-left: 8px;
+}
+
+ul.mce_toolbar.optional {
+  background-color: #ccc;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+  padding: 10px 10px 5px 7px;
+  display: none;
+}
+
+ul.mce_toolbar.optional li {
+  margin: 0 0 5px 0;
+  clear: both;
+  width: 100%;
+/*  display: none;*/
+}
+
+ul.mce_toolbar.optional input[type=text] {
+  float: left;
+  border: 1px solid #999 !important;
+  font-size: 11px;
+  height: 14px;
+  padding: 2px 4px;
+  margin: 0 10px 0 0;
+  width: 430px;
+}
+
+ul.mce_toolbar.optional a.button {
+  float: right;
+  width: 60px;
+}
+
+ul.mce_toolbar.optional li.add_link input.urlbox   { width: 260px; }
+ul.mce_toolbar.optional li.add_link input.titlebox { width: 150px; }
+
