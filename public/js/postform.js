@@ -148,14 +148,14 @@ function init_tinymce() {
 }
 
 function tinymce_binding() {
-    $('.mce_toolbar a.bold').click(      function() { tinymce.execCommand('bold');          return false; });
-    $('.mce_toolbar a.italic').click(    function() { tinymce.execCommand('italic');        return false; });
-    $('.mce_toolbar a.underline').click( function() { tinymce.execCommand('underline');     return false; });
-    $('.mce_toolbar a.strike').click(    function() { tinymce.execCommand('strikethrough'); return false; });
+    $('.mce_toolbar .sprite-edit-bold a').click(      function() { tinymce.execCommand('bold');          return false; });
+    $('.mce_toolbar .sprite-edit-italic a').click(    function() { tinymce.execCommand('italic');        return false; });
+    $('.mce_toolbar .sprite-edit-underline a').click( function() { tinymce.execCommand('underline');     return false; });
+    $('.mce_toolbar .sprite-edit-strike a').click(    function() { tinymce.execCommand('strikethrough'); return false; });
 
-    $('.mce_toolbar a.left').click(   function() { tinymce.execCommand('justifyleft');   return false; });
-    $('.mce_toolbar a.center').click( function() { tinymce.execCommand('justifycenter'); return false; });
-    $('.mce_toolbar a.right').click(  function() { tinymce.execCommand('justifyright');  return false; });
+    $('.mce_toolbar .sprite-edit-alignment-left a').click(  function() { tinymce.execCommand('justifyleft');   return false; });
+    $('.mce_toolbar .sprite-edit-alignment-center a').click(  function() { tinymce.execCommand('justifycenter'); return false; });
+    $('.mce_toolbar .sprite-edit-alignment-right a').click( function() { tinymce.execCommand('justifyright');  return false; });
 
     $('.mce_toolbar select.fontname').change(function() {
         tinymce.execCommand('FontName', false, $(this).val());
@@ -173,7 +173,7 @@ function tinymce_binding() {
         return false;
     });
 
-    $('.mce_toolbar a.spoiler').click(function() {
+    $('.mce_toolbar .sprite-edit-highlight a').click(function() {
         tinymce.execCommand('ForeColor', false, '#ffff00');
         tinymce.execCommand('HiLiteColor', false, '#ffff00');
         return false;
@@ -185,51 +185,47 @@ function tinymce_binding() {
         return false;
     });
 
-    $('.mce_toolbar a.quote').click(function() {
+    $('.mce_toolbar .sprite-edit-quotation a').click(function() {
         tinymce.execCommand('mceBlockQuote');
         return false;
     });
 
-    $('.mce_toolbar a.link').click(function() {
-        $('ul.mce_toolbar.optional li.add_link').show(0, function() {
-            $('ul.mce_toolbar.optional li').not('.add_link').hide();
-            $('ul.mce_toolbar.optional').slideToggle(200);
-        });
 
+
+    // Items that load a sub toolboar
+    $('.mce_toolbar .sprite-link a').click(function() {
+        $('ul.mce_toolbar.add_link').slideToggle(200);
         return false;
     });
 
-    $('.mce_toolbar a.video').click(function() {
-        $('ul.mce_toolbar.optional li.add_video').show(0, function() {
-            $('ul.mce_toolbar.optional li').not('.add_video').hide();
-            $('ul.mce_toolbar.optional').slideToggle(200);
-        });
-
+    $('.mce_toolbar .sprite-youtube a').click(function() {
+        $('ul.mce_toolbar.add_youtube').slideToggle(200);
         return false;
     });
 
-    $('.mce_toolbar a.picture').click(function() {
-        $('ul.mce_toolbar.optional li.add_picture').show(0, function() {
-            $('ul.mce_toolbar.optional li').not('.add_picture').hide();
-            $('ul.mce_toolbar.optional').slideToggle(200);
-        });
-
+    $('.mce_toolbar .sprite-picture a').click(function() {
+        $('ul.mce_toolbar.add_picture').slideToggle(200);
         return false;
     });
 
+    $('.mce_toolbar .sprite-attachment a').click(function() {
+        $('ul.mce_toolbar.add_attachment').slideToggle(200);
+        return false;
+    });
 
-    $('.mce_toolbar a.attachment').click(function() {
-        $('ul.mce_toolbar.optional li.add_attachment').show(0, function() {
-            $('ul.mce_toolbar.optional li').not('.add_attachment').hide();
-            $('ul.mce_toolbar.optional').slideToggle(200);
-        });
+    $('.mce_toolbar .sprite-emoticon a').click(function() {
+        $('ul.mce_toolbar.emoticons').slideToggle(200);
+        return false;
+    });
 
+    $('.mce_toolbar .sprite-edit-extra a').click(function() {
+        $('ul.mce_toolbar.extra_formatting').slideToggle(200);
         return false;
     });
 
 
 
-
+    // Functions within the secondary toolbar
     $('.mce_toolbar li.add_link a').click(function() {
         var link = validate_url({ string: $('input.urlbox').val() }),
             title = $('input.titlebox').val() || link;

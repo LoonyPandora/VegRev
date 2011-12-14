@@ -327,16 +327,13 @@ ul.mce_attachments li a {
 
 div.subject         { display: none; }
 div.tag_select      { display: none; }
-
 ul.formatting       { display: block; }
 ul.extra_formatting { display: none; }
-
 ul.add_link         { display: none; }
 ul.add_youtube      { display: none; }
 ul.add_picture      { display: none; }
 ul.add_attachment   { display: none; }
 ul.emoticons        { display: none; }
-
 ul.mce_attachments  { display: none; }
 
 

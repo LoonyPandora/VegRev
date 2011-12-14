@@ -86,6 +86,28 @@
             </li>
         </ul>
 
+        <ul class="clearfix mce_toolbar emoticons">
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/smiley.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/sad.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/grin.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/cool.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/cry.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/shocked.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/tongue.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/cool.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/smiley.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/sad.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/grin.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/evil.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/cry.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/shocked.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/tongue.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/grin.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/smiley.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/sad.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/thumbsup.gif"></a></li>
+        </ul>
+
         <ul class="clearfix mce_toolbar add_link">
             <li>
                 <input type="text" placeholder="Link URL" class="link_url"></input>
@@ -115,31 +137,7 @@
             </li>
         </ul>
 
-
-        <ul class="clearfix mce_toolbar emoticons">
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/smiley.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/sad.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/grin.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/cool.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/cry.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/shocked.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/tongue.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/cool.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/smiley.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/sad.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/grin.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/evil.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/cry.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/shocked.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/tongue.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/grin.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/smiley.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/sad.gif"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/thumbsup.gif"></a></li>
-        </ul>
-
         <textarea id="message"></textarea>
-
 
         <ul class="mce_attachments">
             <li><a href="#"><img src="apple-touch-icon.png"></a></li>
@@ -155,6 +153,7 @@
 
 
 <div class="modal-footer">
+    <a href="#" id="get_content">Get Content</a>
     <input type="submit" class="btn success" value="Post Message">
 </div>
 
