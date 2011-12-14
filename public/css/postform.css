@@ -17,8 +17,8 @@
 
 #postform textarea#message {
   border: none;
-  height: 103px;
-  margin: 0 ;
+  height: 137px;
+  margin: 0;
 }
 
 .modal-header {
@@ -45,11 +45,6 @@ ul.mce_toolbar {
     display: none;
     visibility: hidden;
 }
-
-
-
-
-
 
 
 
@@ -285,8 +280,6 @@ ul.mce_toolbar .picture_url { width: 446px; }
 ul.mce_toolbar .uploader    { width: 446px; }
 
 
-
-
 ul.mce_toolbar.extra_formatting li select {
     height: 19px;
     margin: 5px 10px 0 10px;
@@ -301,16 +294,50 @@ ul.mce_toolbar.extra_formatting .fontsize  { width: 70px; }
 ul.mce_toolbar.extra_formatting .fontcolor { width: 90px; }
 
 
+
+
+/* Attachment View at the bottom
+================================================== */
+
+ul.mce_attachments {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #ddd;
+}
+
+ul.mce_attachments li {
+    width: 100px;
+    margin: 5px 5px 5px 5px;
+    display: block;
+    float: left;
+}
+
+ul.mce_attachments li a {
+    display: block;
+}
+
+
+
+
+
+
 /* All optional toolbars hidden by default
 ================================================== */
 
-ul.add_link       { display: none; }
-ul.add_youtube    { display: none; }
-ul.add_picture    { display: none; }
-ul.add_attachment { display: none; }
-ul.emoticons      { display: none; }
+div.subject         { display: none; }
+div.tag_select      { display: none; }
 
+ul.formatting       { display: block; }
+ul.extra_formatting { display: none; }
 
+ul.add_link         { display: none; }
+ul.add_youtube      { display: none; }
+ul.add_picture      { display: none; }
+ul.add_attachment   { display: none; }
+ul.emoticons        { display: none; }
+
+ul.mce_attachments  { display: none; }
 
 
 

@@ -104,10 +104,10 @@ function init_tinymce() {
 
         relative_urls: false,
 
-        height: 80,
-        min_height: 80,
-        autoresize_min_height: 80,
-        autoresize_bottom_margin: 20,
+        height: 140,
+        min_height: 140,
+        autoresize_min_height: 140,
+        autoresize_bottom_margin: 40,
 
         setup: function(editor) {
             editor.onKeyUp.add(function(editor, o) {

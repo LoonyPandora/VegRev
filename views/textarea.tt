@@ -140,11 +140,15 @@
 
         <textarea id="message"></textarea>
 
-<!--
+
         <ul class="mce_attachments">
-            <li><a href="#"><img src=""></a></li>
+            <li><a href="#"><img src="apple-touch-icon.png"></a></li>
+            <li><a href="#"><img src="apple-touch-icon.png"></a></li>
+            <li><a href="#"><img src="apple-touch-icon.png"></a></li>
+            <li><a href="#"><img src="apple-touch-icon.png"></a></li>
+            <li><a href="#"><img src="apple-touch-icon.png"></a></li>
         </ul>
--->
+
     </div>
 </div>
 
