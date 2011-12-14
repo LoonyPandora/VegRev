@@ -157,9 +157,6 @@ function tinymce_binding() {
     $('.mce_toolbar a.center').click( function() { tinymce.execCommand('justifycenter'); return false; });
     $('.mce_toolbar a.right').click(  function() { tinymce.execCommand('justifyright');  return false; });
 
-    $('.mce_toolbar a.sup').click( function() { tinymce.execCommand('superscript'); return false; });
-    $('.mce_toolbar a.sub').click( function() { tinymce.execCommand('subscript');   return false; });
-
     $('.mce_toolbar select.fontname').change(function() {
         tinymce.execCommand('FontName', false, $(this).val());
         return false;
@@ -175,7 +172,6 @@ function tinymce_binding() {
         tinymce.execCommand('HiLiteColor', false, '#fff');
         return false;
     });
-
 
     $('.mce_toolbar a.spoiler').click(function() {
         tinymce.execCommand('ForeColor', false, '#ffff00');
@@ -193,8 +189,6 @@ function tinymce_binding() {
         tinymce.execCommand('mceBlockQuote');
         return false;
     });
-
-
 
     $('.mce_toolbar a.link').click(function() {
         $('ul.mce_toolbar.optional li.add_link').show(0, function() {

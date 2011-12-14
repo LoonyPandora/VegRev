@@ -3,24 +3,14 @@
 ================================================== */
 
 #postform {
-  display: none;
+  display: block;
   width: 580px;
-}
-
-#postform #subject {
-    width: 540px;
-    display: block;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 0;
-    margin: 0;
-    border-bottom: 1px solid #eee;
-    box-shadow: none;
+  background-color: #fff;
 }
 
 #postform div.formcontainer {
   position: relative;
-  padding: 10px 15px 0 15px;
+  padding: 0 15px 0 15px;
   max-height: 400px;
   overflow-y: scroll;
 }
@@ -28,12 +18,17 @@
 #postform textarea#message {
   border: none;
   height: 103px;
-  margin: 0;
+  margin: 0 ;
 }
 
-/* TinyMCE will show these - stays hidden if JS is disabled */
-ul.mce_toolbar {
-  display: none;
+.modal-header {
+    background-color: whiteSmoke;
+    -webkit-border-top-left-radius: 6px;
+    -webkit-border-top-right-radius: 6px;
+    -moz-border-radius-topleft: 6px;
+    -moz-border-radius-topright: 6px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 
 
@@ -41,104 +36,296 @@ ul.mce_toolbar {
 /* Override MCE Junk
 ================================================== */
 
+/* TinyMCE will show these - stays hidden if JS is disabled */
+ul.mce_toolbar {
+  display: none;
+}
+
 .mceBlocker, .mceProgress {
     display: none;
     visibility: hidden;
 }
 
 
-/* Tag Selector
+
+
+
+
+
+
+/* New Postform
 ================================================== */
 
-select#tag_select {
-  display: block;
+#postform label,
+#postform #subject {
+    padding: 5px 0;
+    height: 19px;
+    line-height: 19px;
+}
+
+#postform label {
+    background-color: #fff;
+    float: left;
+    width: 70px;
+    border-bottom: 1px solid #ddd;
+    padding-right: 5px;
+    font-weight: bold;
+    color: #ccc;
+    text-align: right;
+    clear: both;
+}
+
+#postform #subject {
+    float: left;
+    width: 475px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+
+
+
+
+
+
+/* Chosen Overrides
+================================================== */
+
+div.tag_select {
+    height: 30px !important;
+}
+
+#tag_select {
+    padding: 0 !important;
+    height: 30px !important;
+}
+
+.chzn-container {
+    width: 475px !important;
+    height: 29px;
+    margin: 0 !important;
+    padding: 0;
+}
+
+.chzn-container .chzn-choices {
+    border: none;
+    background-image: none;
+    height: 28px !important;
+    padding-top: 1px;
+    border-bottom: 1px solid #ddd;
+}
+
+.chzn-container-active .chzn-choices {
+    box-shadow: none;
+}
+
+.chzn-drop {
+    width: 480px !important;
+    margin-left: -5px;
+    border-left: 1px solid #ddd !important;
+    border-bottom: 1px solid #ddd !important;
+    border-top: 1px solid #ddd !important;
+    z-index: 999 !important;
+    position: absolute !important;
+}
+
+.chzn-results {
+    height: 100px;
+}
+
+.search-choice {
+    height: 18px !important;
+    line-height: 18px !important;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666 !important;
+    padding: 0 18px 0 5px !important;
+    margin: 3px 5px 0 0 !important;
+}
+
+
+
+
+
+/* TinyMCE Editor
+================================================== */
+
+table.mceLayout {
+  height: auto !important;
+  background-color: transparent !important;
+  width: 100% !important;
+}
+
+table.mceLayout,
+table.mceLayout tr,
+table.mceLayout td {
+  border:  none;
+  padding: 0;
+  margin:  0;
+  background-color: #fff;
+}
+
+#tinymce_container {
+  margin: 10px 0 10px 0;
   width: 550px;
-  height: 60px;
-  border: none;
+  max-width: 550px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
 }
 
-div.chzn-container {
-  margin-bottom: 10px;
+#tinymce_container table.mceLayout {
+  width: 540px;
+  max-width: 540px;
 }
 
-div.chzn-container ul.chzn-choices {
-  background-color: #eee;
-  padding-top: 2px;
-  background-image: none;
-  border: none;
-  -webkit-border-radius: 2px;
-     -moz-border-radius: 2px;
-          border-radius: 2px;
-}
-
-div.chzn-container div.chzn-drop {
-  border: none;
-  background-image: none;
-  background-color: #eee;
-}
-
-div.chzn-container input.default {
-  color: #999 !important;
-}
-
-div.chzn-container {
-  margin-left: 15px;
+table.mceLayout td.mceIframeContainer {
+  padding: 5px 5px 0 5px;
+  vertical-align: top;
 }
 
 
 
-
-
-/* Postform Extras
+/* TinyMCE Toolbars Generic
 ================================================== */
 
 
-ul#mce_attachments {
-  list-style: none;
-  margin: 0;
-  padding: 0 0 0 0;
-  display: block;
+ul.mce_toolbar {
+    clear:      both;
+    display:    block;
+    list-style: none;
+    margin:     0;
+    padding:    0 0 0 4px;
+    height:     29px;
+    font-size:  12px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
 }
 
-ul#mce_attachments li {
-  float: left;
-  display: block;
-  overflow: hidden;
-  width: 80px;
-  max-height: 80px;
-  margin-left: 8px;
+ul.mce_toolbar li {
+    width: 100%;
 }
 
-ul.mce_toolbar.optional {
-  background-color: #ccc;
-  border-top: 1px solid #999;
-  border-bottom: 1px solid #999;
-  padding: 10px 10px 5px 7px;
-  display: none;
+ul.mce_toolbar li input[type=text] {
+    border: 0;
+    padding: 5px 0;
+    height: 19px;
+    line-height: 0px;
+    box-shadow: none;
+    float: left;
+    display: block;
+    border-radius: 0;
+    border-right: 1px solid #ddd;
+    padding-left: 5px;
 }
 
-ul.mce_toolbar.optional li {
-  margin: 0 0 5px 0;
-  clear: both;
-  width: 100%;
-/*  display: none;*/
+ul.mce_toolbar button {
+    width: 80px;
+    height: 18px;
+    padding: 0;
+    margin: 5px 5px 0 0;
+    font-size: 11px !important;
+    line-height: 0;
+    float: right;
+    display: block;
+    color: #666;
 }
 
-ul.mce_toolbar.optional input[type=text] {
-  float: left;
-  border: 1px solid #999 !important;
-  font-size: 11px;
-  height: 14px;
-  padding: 2px 4px;
-  margin: 0 10px 0 0;
-  width: 430px;
+
+
+/* TinyMCE Main Toolbars
+================================================== */
+
+
+
+ul.emoticons li, ul.formatting li {
+    float: left;
+    margin: 2px 0 0 1px;
+    padding: 0;
+    height: 26px;
+    width: 26px;
 }
 
-ul.mce_toolbar.optional a.button {
-  float: right;
-  width: 60px;
+ul.emoticons li a, ul.formatting li a {
+    display: block;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
 }
 
-ul.mce_toolbar.optional li.add_link input.urlbox   { width: 260px; }
-ul.mce_toolbar.optional li.add_link input.titlebox { width: 150px; }
+ul.emoticons li a img, ul.formatting li a img {
+    vertical-align: bottom;
+    margin-bottom: 4px;
+}
+
+
+
+
+
+
+
+
+/* TinyMCE Optional Toolbars Specific
+================================================== */
+
+ul.mce_toolbar .link_url  { width: 239px; }
+ul.mce_toolbar .link_text { width: 201px; }
+
+ul.mce_toolbar .youtube_url { width: 446px; }
+ul.mce_toolbar .picture_url { width: 446px; }
+ul.mce_toolbar .uploader    { width: 446px; }
+
+
+
+
+/* All optional toolbars hidden by default
+================================================== */
+
+
+
+ul.add_link       { display: none; }
+ul.add_youtube    { display: none; }
+ul.add_picture    { display: none; }
+ul.add_attachment { display: none; }
+ul.emoticons      { display: none; }
+
+
+
+
+
+
+/* Formatting Sprites
+================================================== */
+
+ul.formatting li a {
+    text-indent: -9999px;
+}
+
+ul.formatting li {
+   background: url('../img/editor-sprite.png') no-repeat top center;
+}
+
+ul.formatting li.sprite-attachment            { background-position: center 0;    } 
+ul.formatting li.sprite-edit-alignment-center { background-position: center -46px;  } 
+ul.formatting li.sprite-edit-alignment-left   { background-position: center -92px;  } 
+ul.formatting li.sprite-edit-alignment-right  { background-position: center -138px; } 
+ul.formatting li.sprite-edit-bold             { background-position: center -184px; } 
+ul.formatting li.sprite-edit-extra            { background-position: center -230px; } 
+ul.formatting li.sprite-edit-highlight        { background-position: center -276px; } 
+ul.formatting li.sprite-edit-italic           { background-position: center -322px; } 
+ul.formatting li.sprite-edit-quotation        { background-position: center -368px; } 
+ul.formatting li.sprite-edit-strike           { background-position: center -414px; } 
+ul.formatting li.sprite-edit-underline        { background-position: center -460px; } 
+ul.formatting li.sprite-emoticon              { background-position: center -506px; } 
+ul.formatting li.sprite-link                  { background-position: center -552px; } 
+ul.formatting li.sprite-picture               { background-position: center -598px; } 
+ul.formatting li.sprite-youtube               { background-position: center -644px; } 
+
+
 

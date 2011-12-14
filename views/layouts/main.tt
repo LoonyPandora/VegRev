@@ -10,15 +10,13 @@
 
     <link rel="stylesheet" href="<: $settings.static_url :>/css/bootstrap.1.4.0.min.css">
     <link rel="stylesheet" href="<: $settings.static_url :>/css/global.css">
-    <link rel="stylesheet" href="<: $settings.static_url :>/css/postform.css">
     <link rel="stylesheet" href="<: $settings.static_url :>/css/proxima_nova.css">
 
     <link rel="stylesheet" href="<: $settings.static_url :>/css/<:$template:>.css">
     <link rel="stylesheet" href="<: $settings.static_url :>/css/theme/<:$theme:>.css">
     
     <link rel="stylesheet" href="<: $settings.static_url :>/css/chosen.css">
-
-    <link rel="stylesheet" href="<: $settings.static_url :>/js/tinymce/themes/advanced/skins/vegrev/ui.css">
+    <link rel="stylesheet" href="<: $settings.static_url :>/css/postform.css">
 
 </head>
 <body>
@@ -29,6 +27,12 @@
 </div>
 
 <div class="container clearfix">
+
+<div id="postform" class="clearfix modal">
+    <: include "textarea.tt" :>
+</div>
+
+
     <div id="content">
         <: $content | raw :>
     </div>
@@ -41,11 +45,6 @@
 
 <div id="footer" class="clearfix">
     <: include "footer.tt" :>
-</div>
-
-
-<div id="postform" class="clearfix modal hide fade">
-    <: include "textarea.tt" :>
 </div>
 
 
