@@ -78,5 +78,6 @@ ul.thread_list span.thread_tagging {
 
 ul.thread_list span.thread_tagging {
   color: #666;
+  height: 20px;
 }
 

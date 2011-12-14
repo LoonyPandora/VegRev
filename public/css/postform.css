@@ -12,7 +12,7 @@
   position: relative;
   padding: 0 15px 0 15px;
   max-height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 #postform textarea#message {
@@ -66,11 +66,11 @@ ul.mce_toolbar {
 #postform label {
     background-color: #fff;
     float: left;
-    width: 70px;
+    width: 65px;
     border-bottom: 1px solid #ddd;
-    padding-right: 5px;
+    padding-right: 10px;
     font-weight: bold;
-    color: #ccc;
+    color: #aaa;
     text-align: right;
     clear: both;
 }
@@ -83,6 +83,8 @@ ul.mce_toolbar {
     outline: none;
     box-shadow: none;
     border-radius: 0;
+    color: #333;
+    font-weight: bold;
 }
 
 
@@ -130,6 +132,7 @@ div.tag_select {
     border-top: 1px solid #ddd !important;
     z-index: 999 !important;
     position: absolute !important;
+    font-size: 11px;
 }
 
 .chzn-results {
@@ -142,7 +145,7 @@ div.tag_select {
     font-size: 11px;
     font-weight: bold;
     color: #666 !important;
-    padding: 0 18px 0 5px !important;
+    padding: 1px 18px 0 5px !important;
     margin: 3px 5px 0 0 !important;
 }
 
@@ -284,10 +287,22 @@ ul.mce_toolbar .uploader    { width: 446px; }
 
 
 
+ul.mce_toolbar.extra_formatting li select {
+    height: 19px;
+    margin: 5px 10px 0 10px;
+    font-size: 11px;
+    color: #666;
+    float: left;
+}
+
+
+ul.mce_toolbar.extra_formatting .fontname  { width: 120px; }
+ul.mce_toolbar.extra_formatting .fontsize  { width: 70px; }
+ul.mce_toolbar.extra_formatting .fontcolor { width: 90px; }
+
+
 /* All optional toolbars hidden by default
 ================================================== */
-
-
 
 ul.add_link       { display: none; }
 ul.add_youtube    { display: none; }
@@ -299,19 +314,13 @@ ul.emoticons      { display: none; }
 
 
 
-
 /* Formatting Sprites
 ================================================== */
 
-ul.formatting li a {
-    text-indent: -9999px;
-}
+ul.formatting li { background: url('../img/editor-sprite.png') no-repeat top center; }
 
-ul.formatting li {
-   background: url('../img/editor-sprite.png') no-repeat top center;
-}
-
-ul.formatting li.sprite-attachment            { background-position: center 0;    } 
+ul.formatting li.spacer                       { background-image: none; width: 13px;}
+ul.formatting li.sprite-attachment            { background-position: center 0;      } 
 ul.formatting li.sprite-edit-alignment-center { background-position: center -46px;  } 
 ul.formatting li.sprite-edit-alignment-left   { background-position: center -92px;  } 
 ul.formatting li.sprite-edit-alignment-right  { background-position: center -138px; } 
@@ -327,5 +336,6 @@ ul.formatting li.sprite-link                  { background-position: center -552
 ul.formatting li.sprite-picture               { background-position: center -598px; } 
 ul.formatting li.sprite-youtube               { background-position: center -644px; } 
 
+ul.formatting li a { text-indent: -9999px; }
 
 

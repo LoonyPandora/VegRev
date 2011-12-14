@@ -1,17 +1,15 @@
 
-
 <div class="modal-header">
     <a href="#" class="close">&times;</a>
     <h3>Start a new Thread.</h3>
 </div>
-
 
 <div class="formcontainer modal-body">
     <div id="tinymce_container" class="clearfix">
         <div class="clearfix subject">
             <label for="subject">Subject:</label><input type="text" id="subject">
         </div>
-        
+
         <div class="clearfix tag_select">
             <label for="tag_select">Tagged:</label>
             <select data-placeholder=" " multiple id="tag_select">
@@ -33,16 +31,59 @@
             <li class="sprite-edit-italic"><a href="#">Italic</a></li>
             <li class="sprite-edit-underline"><a href="#">Underline</a></li>
             <li class="sprite-edit-strike"><a href="#">Strike-through</a></li>
-            <li class="sprite-edit-quotation"><a href="#">Quote</a></li>
+            <li class="spacer"></li>
             <li class="sprite-edit-alignment-left"><a href="#">Align Left</a></li>
             <li class="sprite-edit-alignment-center"><a href="#">Align Center</a></li>
             <li class="sprite-edit-alignment-right"><a href="#">Align Right</a></li>
-            <li class="sprite-edit-highlight"><a href="#">Highlight / Spoilter</a></li>
+            <li class="spacer"></li>
+            <li class="sprite-edit-quotation"><a href="#">Quote</a></li>
+            <li class="sprite-edit-highlight"><a href="#">Highlight / Spoiler</a></li>
+            <li class="spacer"></li>
             <li class="sprite-picture"><a href="#">Add Picture</a></li>
             <li class="sprite-youtube"><a href="#">Add YouTube / Video</a></li>
             <li class="sprite-link"><a href="#">Add Link</a></li>
             <li class="sprite-attachment"><a href="#">Attach a file</a></li>
             <li class="sprite-emoticon"><a href="#">Add Emoticon</a></li>
+            <li class="sprite-edit-extra"><a href="#">Extra Formatting Options</a></li>
+        </ul>
+
+        <ul class="clearfix extra_formatting mce_toolbar">
+            <li>
+                <select name="fontname" class="fontname">
+                    <option value="helvetica" selected>Helvetica</option>
+                    <option value="comic sans ms">Comic Sans</option>
+                    <option value="verdana">Verdana</option>
+                    <option value="georgia">Georgia</option>
+                    <option value="impact">Impact</option>
+                </select>
+
+                <select name="fontsize" class="fontsize">
+                    <option value="9">9px</option>
+                    <option value="10">10px</option>
+                    <option value="11">11px</option>
+                    <option value="12">12px</option>
+                    <option value="14" selected>14px</option>
+                    <option value="18">18px</option>
+                    <option value="21">21px</option>
+                    <option value="24">24px</option>
+                    <option value="36">36px</option>
+                    <option value="48">48px</option>
+                    <option value="60">60px</option>
+                    <option value="72">72px</option>
+                </select>
+
+                <select name="fontcolor" class="fontcolor">
+                    <option value="black" selected>Black</option>
+                    <option value="white">White</option>
+                    <option value="red">Red</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="pink">Pink</option>
+                    <option value="green">Green</option>
+                    <option value="purple">Purple</option>
+                    <option value="orange">Orange</option>
+                    <option value="blue">Blue</option>
+                </select>
+            </li>
         </ul>
 
         <ul class="clearfix mce_toolbar add_link">
@@ -76,7 +117,7 @@
 
 
         <ul class="clearfix mce_toolbar emoticons">
-            <li><a href="#" class="smiley"><img src="<: $settings.static_url :>/img/emoticons/smiley.gif"></a></li>
+            <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/smiley.gif"></a></li>
             <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/sad.gif"></a></li>
             <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/grin.gif"></a></li>
             <li><a href="#"><img src="<: $settings.static_url :>/img/emoticons/cool.gif"></a></li>

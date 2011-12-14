@@ -7,6 +7,11 @@ body { padding-top: 40px; }
 a:hover { text-decoration: none; }
 
 
+body, label, input, select, textarea{
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
+
 /* Global Styles
 ================================================== */
 
