@@ -27,12 +27,6 @@
 </div>
 
 <div class="container clearfix">
-
-<div id="postform" class="clearfix modal">
-    <: include "textarea.tt" :>
-</div>
-
-
     <div id="content">
         <: $content | raw :>
     </div>
@@ -42,6 +36,9 @@
     </div>
 </div>
 
+<div id="postform" class="clearfix modal fade">
+    <: include "textarea.tt" :>
+</div>
 
 <div id="footer" class="clearfix">
     <: include "footer.tt" :>

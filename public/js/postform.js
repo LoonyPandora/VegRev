@@ -194,32 +194,32 @@ function tinymce_binding() {
 
     // Items that load a sub toolboar
     $('.mce_toolbar .sprite-link a').click(function() {
-        $('ul.mce_toolbar.add_link').slideToggle(200);
+        $('ul.mce_toolbar.add_link').stop(true, true).slideToggle(200);
         return false;
     });
 
     $('.mce_toolbar .sprite-youtube a').click(function() {
-        $('ul.mce_toolbar.add_youtube').slideToggle(200);
+        $('ul.mce_toolbar.add_youtube').stop(true, true).slideToggle(200);
         return false;
     });
 
     $('.mce_toolbar .sprite-picture a').click(function() {
-        $('ul.mce_toolbar.add_picture').slideToggle(200);
+        $('ul.mce_toolbar.add_picture').stop(true, true).slideToggle(200);
         return false;
     });
 
     $('.mce_toolbar .sprite-attachment a').click(function() {
-        $('ul.mce_toolbar.add_attachment').slideToggle(200);
+        $('ul.mce_toolbar.add_attachment').stop(true, true).slideToggle(200);
         return false;
     });
 
     $('.mce_toolbar .sprite-emoticon a').click(function() {
-        $('ul.mce_toolbar.emoticons').slideToggle(200);
+        $('ul.mce_toolbar.emoticons').stop(true, true).slideToggle(200);
         return false;
     });
 
     $('.mce_toolbar .sprite-edit-extra a').click(function() {
-        $('ul.mce_toolbar.extra_formatting').slideToggle(200);
+        $('ul.mce_toolbar.extra_formatting').stop(true, true).slideToggle(200);
         return false;
     });
 
@@ -282,6 +282,7 @@ function tinymce_binding() {
 
     $('#get_content').click(function() {
         console.log($('#postform textarea#message').html());
+        return false;
     });
 
 }

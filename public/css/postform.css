@@ -22,6 +22,7 @@
 }
 
 .modal-header {
+    height: 33px;
     background-color: whiteSmoke;
     -webkit-border-top-left-radius: 6px;
     -webkit-border-top-right-radius: 6px;
@@ -325,16 +326,16 @@ ul.mce_attachments li a {
 /* All optional toolbars hidden by default
 ================================================== */
 
-div.subject         { display: none; }
-div.tag_select      { display: none; }
+div.subject         { display: none;  }
+div.tag_select      { display: none;  }
 ul.formatting       { display: block; }
-ul.extra_formatting { display: none; }
-ul.add_link         { display: none; }
-ul.add_youtube      { display: none; }
-ul.add_picture      { display: none; }
-ul.add_attachment   { display: none; }
-ul.emoticons        { display: none; }
-ul.mce_attachments  { display: none; }
+ul.extra_formatting { display: none;  }
+ul.add_link         { display: none;  }
+ul.add_youtube      { display: none;  }
+ul.add_picture      { display: none;  }
+ul.add_attachment   { display: none;  }
+ul.emoticons        { display: none;  }
+ul.mce_attachments  { display: none;  }
 
 
 
