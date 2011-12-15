@@ -1,0 +1,68 @@
+/* Profile Page Styles
+================================================== */
+
+
+#profile_data {
+  list-style: none;
+  margin: 10px 0 0 0;
+  padding: 20px 0 0 0;
+  float: left;
+  width: 520px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+#profile_data dt,
+#profile_data dd {
+  margin: 0 20px 20px 0;
+  float:  left;
+}
+
+#profile_data dt {
+  color: #666;
+  width: 100px;
+  text-align: right;
+}
+
+#profile_data dd {
+  width: 380px;
+}
+
+#social_icons {
+  list-style: none;
+  margin:     0;
+  width:      160px;
+}
+
+#social_icons li {
+  float:  left;
+  margin: 0;
+  width:  40px;
+}
+
+#social_icons li a { display: block; opacity: 0.6; }
+#social_icons li a:hover { opacity: 1; }
+
+#profile_info {
+  float:  left;
+  width:  160px;
+  margin: 10px 20px 0 0;
+}
+
+#profile_info p {
+  text-align: center;
+}
+
+#profile_info img.avatar {
+  width: 150px;
+  padding: 5px;
+  max-height: 300px;
+  background-color: #ddd;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+

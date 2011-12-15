@@ -21,8 +21,6 @@ use VegRev::Inbox;
 use VegRev::Chat;
 use VegRev::Gallery;
 
-
-
 use VegRev::ViewHelpers;
 
 
@@ -38,19 +36,17 @@ hook 'before' => sub {
 };
 
 
+# Add the Plack::Middleware::Assets used in all routes
 hook 'before_template' => sub {
     my $tokens = shift;
 
     $tokens->{theme}        = session->{theme};
     $tokens->{my_user_name} = session->{user_name};
 
-    # Add the Plack::Middleware::Assets used in all routes
 #    $tokens->{base_css} = request->env->{'psgix.assets'}->[0];
 #    $tokens->{base_js}  = request->env->{'psgix.assets'}->[1];
 
 };
-
-
 
 
 # Make sure we commit any open transactions. The entire request depends on it.
@@ -59,6 +55,10 @@ hook 'after' => sub {
     if ($@) { die "Committing Transaction Failed: $@"; }
 };
 
+
+
+# GET Routes
+#####################
 
 
 # Matches / and /:page
@@ -81,11 +81,8 @@ get qr{/(\d+)?/?$} => sub {
 };
 
 
-
-# Matches /thread/:thread_id-:url_slug/ - URL slug is acutally ignored.
-# TODO Need a route that matches page. Be careful with routes that contain a number
-# like: http://vegrev.local/thread/39218-vr-fantasy-football-20102011/2
-get qr{/thread/(\d+).*/?$} => sub {
+# Matches /thread/:thread_id-:url_slug/:page - URL slug is acutally ignored.
+get qr{/thread/(\d+).+?/?(\d+)?$} => sub {
     my ($thread_id, $page) = splat;
 
     $page = $page // 1;
@@ -104,8 +101,7 @@ get qr{/thread/(\d+).*/?$} => sub {
 };
 
 
-
-# Matches /inbox
+# Matches /inbox/:page
 get qr{/inbox/?(\d+)?/?$} => sub {
     my ($page) = splat;
 
@@ -125,7 +121,7 @@ get qr{/inbox/?(\d+)?/?$} => sub {
 };
 
 
-# Matches /thread/:thread_id-:url_slug/:page - URL slug is acutally ignored.
+# Matches /chat/:page
 get qr{/chat/(\d+)/?(\d+)?/?$} => sub {
     my ($chat_id, $page) = splat;
 
@@ -146,9 +142,7 @@ get qr{/chat/(\d+)/?(\d+)?/?$} => sub {
 };
 
 
-
-
-# Matches /thread/:thread_id-:url_slug/:page - URL slug is acutally ignored.
+# Matches /gallery/:page
 get qr{/gallery/?(\d+)?/?$} => sub {
     my ($chat_id, $page) = splat;
 
@@ -168,6 +162,33 @@ get qr{/gallery/?(\d+)?/?$} => sub {
 
 
 
+# Matches GET /profile/:user_name
+get qr{/profile/(\w+)/?$} => sub {
+    my ($user_name) = splat;
+
+    my $sth = database->prepare(q{
+        SELECT *
+        FROM user
+        WHERE user_name = ?
+    });
+
+    $sth->execute($user_name);
+    my $user = $sth->fetchall_hashref('id');
+
+    # Send to 404 if user doesn't exist
+    unless (scalar keys %{$user}) {
+        return pass();
+    }
+
+    template 'user', {
+        template => 'profile',
+        user     => values %{$user},
+    };
+
+};
+
+# Misc Routes
+################
 
 # Redirects to a specific message when given a message id
 get qr{/message/?(\d+)?/?$} => sub {

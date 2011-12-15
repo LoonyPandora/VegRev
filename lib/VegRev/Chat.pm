@@ -38,7 +38,7 @@ sub new_from_id {
     my $messages = $thread_sth->fetchall_arrayref({});
 
     # No threads
-    if (scalar $messages < 1) {
+    if (scalar @$messages < 1) {
         redirect '/';
         return;
     }
