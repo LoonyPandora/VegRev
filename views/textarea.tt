@@ -4,8 +4,12 @@
     <h3>Start a new Thread.</h3>
 </div>
 
+<form id="messageform" name="messageforom" action="/post" method="POST">
+
 <div class="formcontainer modal-body">
     <div id="tinymce_container" class="clearfix">
+        
+        
         <div class="clearfix subject">
             <label for="subject">Subject:</label><input type="text" id="subject">
         </div>
@@ -138,7 +142,7 @@
             </li>
         </ul>
 
-        <textarea id="message"></textarea>
+        <textarea id="message" name="message"></textarea>
 
         <ul class="mce_attachments">
             <li><a href="#"><img src="apple-touch-icon.png"></a></li>
@@ -147,6 +151,7 @@
             <li><a href="#"><img src="apple-touch-icon.png"></a></li>
         </ul>
 
+        
     </div>
 </div>
 
@@ -157,3 +162,4 @@
     <input type="submit" class="btn success" value="Post Message">
 </div>
 
+</form>

@@ -81,7 +81,7 @@ get qr{/(\d+)?/?$} => sub {
 };
 
 
-# Matches /thread/:thread_id-:url_slug/:page - URL slug is acutally ignored.
+# Matches /thread/:thread_id-:url_slug/:page - URL slug is ignored.
 get qr{/thread/(\d+).+?/?(\d+)?$} => sub {
     my ($thread_id, $page) = splat;
 
@@ -161,8 +161,7 @@ get qr{/gallery/?(\d+)?/?$} => sub {
 };
 
 
-
-# Matches GET /profile/:user_name
+# Matches /profile/:user_name
 get qr{/profile/(\w+)/?$} => sub {
     my ($user_name) = splat;
 
@@ -186,6 +185,36 @@ get qr{/profile/(\w+)/?$} => sub {
     };
 
 };
+
+
+
+
+
+# POST Routes
+################
+
+
+post qr{/thread/(\d+).+?/?$} => sub {
+    my ($thread_id) = splat;
+
+    template 'thread', {
+        template => 'thread',
+    };
+};
+
+
+post qr{/post/?$} => sub {
+
+    my %params = params;
+
+    croak Dumper \%params;
+
+};
+
+
+
+
+
 
 # Misc Routes
 ################

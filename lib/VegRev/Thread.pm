@@ -107,4 +107,10 @@ sub new_from_id {
 
 
 
+# Writes a new thread - not OO
+sub write_new_thread {
+
+}
+
+
 1;

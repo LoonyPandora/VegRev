@@ -64,6 +64,8 @@
 
 <script src="<: $settings.static_url :>/js/jquery.chosen.min.js"></script>
 
+<script src="<: $settings.static_url :>/js/jquery.form.js"></script>
+
 <script src="<: $settings.static_url :>/js/app.js"></script>
 <script src="<: $settings.static_url :>/js/postform.js"></script>
 <script src="<: $settings.static_url :>/js/<:$template:>.js"></script>

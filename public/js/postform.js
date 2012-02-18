@@ -18,6 +18,19 @@ $(document).ready(function() {
 
     $('#tag_select').chosen();
 
+
+    $('#messageform').submit(function() { 
+        // inside event callbacks 'this' is the DOM element so we first 
+        // wrap it in a jQuery object and then invoke ajaxSubmit 
+        $(this).ajaxSubmit(); 
+ 
+        // !!! Important !!! 
+        // always return false to prevent standard browser submit and page navigation 
+        return false; 
+    }); 
+
+
+
 });
 
 
@@ -82,7 +95,7 @@ function init_tinymce() {
     var emoRegex = emo_regex();
     tinymce_binding();
 
-    $('#postform textarea#message').tinymce({
+    $('#message').tinymce({
         theme: "advanced",
         skin: "vegrev",
         plugins: "paste,autoresize,tabfocus",
