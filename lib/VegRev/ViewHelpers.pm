@@ -12,7 +12,7 @@ use Carp;
 use Data::Dumper;
 
 # Because you cannot set engine configs individually, view helpers go in here
-# and the settings for template engine are in here.
+# and the settings for template engine are in here.
 
 set 'engines' => {
     xslate => {

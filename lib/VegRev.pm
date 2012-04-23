@@ -9,6 +9,8 @@ use Dancer ':syntax';
 
 use Time::HiRes qw/time/;
 
+use HTML::Tidy;
+
 use Dancer::Plugin::Database;
 use Data::Dumper;
 use POSIX qw/ceil floor/;
@@ -204,8 +206,38 @@ post qr{/thread/(\d+).+?/?$} => sub {
 
 
 post qr{/post/?$} => sub {
-
     my %params = params;
+
+    # Try and clean up the browser supplied "WYSIWYG" mess
+    if (defined $params{message}) {
+        my $tidy = HTML::Tidy->new({
+            char_encoding               => 'utf8',
+            input_encoding              => 'utf8',
+            output_encoding             => 'utf8',
+            newline                     => 'LF',
+            sort_attributes             => 'alpha',
+            doctype                     => 'omit',
+            tidy_mark                   => 0,
+            bare                        => 0,
+            clean                       => 0,
+            fix_backslash               => 1,
+            indent                      => 1,
+            break_before_br             => 1,
+            merge_divs                  => 1,
+            merge_spans                 => 1,
+            drop_empty_paras            => 1,
+            drop_proprietary_attributes => 1,
+            logical_emphasis            => 1,
+            quote_ampersand             => 1,
+            quote_nbsp                  => 1,
+            show_body_only              => 1,
+            word_2000                   => 1,
+        });
+
+        $tidy->ignore( type => 1, type => 2 );
+
+        $params{tidy_message} = $tidy->clean($params{message});
+    }
 
     croak Dumper \%params;
 
