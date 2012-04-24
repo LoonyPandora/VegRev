@@ -6,16 +6,20 @@
 
 <form id="messageform" name="messageforom" action="/post" method="POST">
 
+<select multiple id="message_picture" class="totally_hidden" name="message_picture"></select>
+<select multiple id="message_video" class="totally_hidden" name="message_video"></select>
+<select multiple id="message_attachment" class="totally_hidden" name="message_attachment"></select>
+
 <div class="formcontainer modal-body">
     <div id="tinymce_container" class="clearfix">
         
         <div class="clearfix subject">
-            <label for="subject">Subject:</label><input type="text" id="subject">
+            <label for="subject">Subject:</label><input type="text" id="subject" name="subject">
         </div>
 
         <div class="clearfix tag_select">
             <label for="tag_select">Tagged:</label>
-            <select data-placeholder=" " multiple id="tag_select">
+            <select multiple data-placeholder=" " id="tag_select" name="tag_select">
                 <option value="chat" selected>Chat</option>
                 <option value="rants">Rants</option>
                 <option value="private">Private</option>
@@ -52,7 +56,7 @@
 
         <ul class="clearfix extra_formatting mce_toolbar">
             <li>
-                <select name="fontname" class="fontname">
+                <select class="fontname">
                     <option value="helvetica" selected>Helvetica</option>
                     <option value="comic sans ms">Comic Sans</option>
                     <option value="verdana">Verdana</option>
@@ -60,7 +64,7 @@
                     <option value="impact">Impact</option>
                 </select>
 
-                <select name="fontsize" class="fontsize">
+                <select class="fontsize">
                     <option value="9">9px</option>
                     <option value="10">10px</option>
                     <option value="11">11px</option>
@@ -76,7 +80,7 @@
                     <option value="72">72px</option>
                 </select>
 
-                <select name="fontcolor" class="fontcolor">
+                <select class="fontcolor">
                     <option value="black" selected>Black</option>
                     <option value="white">White</option>
                     <option value="red">Red</option>
@@ -150,8 +154,6 @@
         
     </div>
 </div>
-
-
 
 <div class="modal-footer">
     <input type="submit" class="btn btn-success" value="Post Message">

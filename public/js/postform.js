@@ -262,7 +262,15 @@ function tinymce_binding() {
         if (!video_id) {
             return false;
         }
-        
+
+        // Add the video URL to the hidden select box that is actually submitted
+        // We re-make the video url from the video ID, stripping tracking tags
+        $('#message_picture').append(
+            $("<option/>")
+                .attr("value", picture)
+                .attr("selected", "selected")
+                .text(picture)
+        );
         // We create a new item in the attachment / image list, and a href
         // a href onclick will remove it from the list.
         $('<li/>')
@@ -276,11 +284,11 @@ function tinymce_binding() {
             }).append(
                 $('<img/>', {
                     src: 'http://img.youtube.com/vi/' + video_id + '/0.jpg',
-                    alt: 'Thumnail Preview',
+                    alt: 'Thumbnail Preview',
                 })
             )
         ).appendTo($('.mce_attachments'));
-        
+
         $('.mce_attachments').show();
         
         return false;
@@ -295,10 +303,17 @@ function tinymce_binding() {
             return false;
         }
 
+        // Add the picture to the hidden select box that is actually submitted
+        $('#message_picture').append(
+            $("<option/>")
+                .attr("value", picture)
+                .attr("selected", "selected")
+                .text(picture)
+        );
+
         // We create a new item in the attachment / image list, and a href
         // a href onclick will remove it from the list.
-        $('<li/>')
-        .append(
+        $('<li/>').append(
             $('<a/>', {
                 href: '#',
                 title: 'Thumnail Preview'
@@ -319,16 +334,10 @@ function tinymce_binding() {
     });
 
 
-    $('ul#mce_attachments li a').click(function() {
+    $('.mce_attachments li a').click(function() {
         console.log('clicked');
         return false;
     })
-
-
-    $('#get_content').click(function() {
-        console.log($('#postform textarea#message').html());
-        return false;
-    });
 
 }
 

@@ -255,3 +255,13 @@ ul.recent_threads a:hover {
 .clearfix { zoom:1; }
 
 
+/* Utility Classes
+================================================== */
+
+.totally_hidden {
+    display: none;
+    visibility: hidden;
+}
+ 
+ 
+ 

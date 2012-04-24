@@ -330,8 +330,8 @@ ul.mce_attachments li a {
 /* All optional toolbars hidden by default
 ================================================== */
 
-div.subject         { display: none;  }
-div.tag_select      { display: none;  }
+div.subject         { display: block;  }
+div.tag_select      { display: block;  }
 ul.formatting       { display: block; }
 ul.extra_formatting { display: none;  }
 ul.add_link         { display: none;  }
