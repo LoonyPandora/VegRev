@@ -239,9 +239,9 @@ function tinymce_binding() {
 
 
     // Functions within the secondary toolbar
-    $('.mce_toolbar li.add_link a').click(function() {
-        var link = validate_url({ string: $('input.urlbox').val() }),
-            title = $('input.titlebox').val() || link;
+    $('.mce_toolbar.add_link button').click(function() {
+        var link  = validate_url({ string: $('input.link_url').val() }),
+            title = $('input.link_text').val() || link;
 
         // Link isn't valid
         if (!link) {
@@ -249,16 +249,46 @@ function tinymce_binding() {
         }
 
         tinymce.execCommand('mceInsertContent', false, '<a href="'+link+'">'+title+'</a>');
-        $('input.urlbox').val('');
-        $('input.titlebox').val('');
-        $('ul.mce_toolbar.optional').slideUp(200);
+        $('input.link_url').val('');
+        $('input.link_text').val('');
+        
+        return false;
+    });
 
+    $('.mce_toolbar.add_youtube button').click(function() {
+        var video_id = validate_url({ string: $('.youtube_url').val(), type: 'video' });
+
+        // Video isn't from youtube (all I support atm)
+        if (!video_id) {
+            return false;
+        }
+        
+        // We create a new item in the attachment / image list, and a href
+        // a href onclick will remove it from the list.
+        $('<li/>')
+        .append(
+            $('<a/>', {
+                href: '#',
+                title: 'Thumnail Preview'
+            }).click(function() {
+                $(this).parent().remove();
+                return false;
+            }).append(
+                $('<img/>', {
+                    src: 'http://img.youtube.com/vi/' + video_id + '/0.jpg',
+                    alt: 'Thumnail Preview',
+                })
+            )
+        ).appendTo($('.mce_attachments'));
+        
+        $('.mce_attachments').show();
+        
         return false;
     });
 
 
-    $('.mce_toolbar li.add_picture a').click(function() {
-        var picture = validate_url({ string: $('li.add_picture input').val(), type: 'image' });
+    $('.mce_toolbar.add_picture button').click(function() {
+        var picture = validate_url({ string: $('.picture_url').val(), type: 'image' });
 
         // Picture isn't valid
         if (!picture) {
@@ -281,7 +311,9 @@ function tinymce_binding() {
                     alt: picture,
                 })
             )
-        ).appendTo($('ul#mce_attachments'));
+        ).appendTo($('.mce_attachments'));
+
+        $('.mce_attachments').show();
 
         return false;
     });
@@ -327,7 +359,7 @@ function validate_url(options) {
     }
 
     // Not an image with valid extension
-    if (options.type === 'image') {
+    if (options['type'] === 'image') {
         var valid_extensions = ['jpeg', 'jpg', 'png', 'gif'],
             extension_regex  = valid_extensions.join('$|\\.');
             extension_regex  = new RegExp('\\.'+extension_regex+'$', 'i');
@@ -336,6 +368,17 @@ function validate_url(options) {
             return false;
         }
     }
+
+    if (options['type'] === 'video') {
+        var video_id = options.string.match("[\?&]v=([^&#]*)");
+
+        if ( !video_id ) {
+            return false;
+        }
+
+        return video_id[1];
+    }
+
 
     // It's passed all the tests, so return the link
     return options.string;
