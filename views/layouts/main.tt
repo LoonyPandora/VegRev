@@ -8,7 +8,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=<: $settings.charset :>">
     <title>VegRev</title>
 
-    <link rel="stylesheet" href="<: $settings.static_url :>/css/bootstrap.1.4.0.min.css">
+    <link rel="stylesheet" href="<: $settings.static_url :>/css/bootstrap.min.css">
     <link rel="stylesheet" href="<: $settings.static_url :>/css/global.css">
     <link rel="stylesheet" href="<: $settings.static_url :>/css/proxima_nova.css">
 
@@ -22,7 +22,7 @@
 <body>
 
 
-<div class="topbar">
+<div class="navbar navbar-fixed-top">
     <: include "header.tt" :>
 </div>
 
@@ -51,12 +51,7 @@
 <script src="<: $settings.static_url :>/js/jquery.masonry.2011.10.15.min.js"></script>
 <script src="<: $settings.static_url :>/js/hashgrid.js"></script>
 
-<script src="<: $settings.static_url :>/js/bootstrap-modal.js"></script>
-<script src="<: $settings.static_url :>/js/bootstrap-buttons.js"></script>
-<script src="<: $settings.static_url :>/js/bootstrap-alerts.js"></script>
-<script src="<: $settings.static_url :>/js/bootstrap-twipsy.js"></script>
-<script src="<: $settings.static_url :>/js/bootstrap-popover.js"></script>
-<script src="<: $settings.static_url :>/js/bootstrap-tabs.js"></script>
+<script src="<: $settings.static_url :>/js/bootstrap.min.js"></script>
 
 <script src="<: $settings.static_url :>/js/tinymce/config.js"></script>
 <script src="<: $settings.static_url :>/js/tinymce/jquery.tinymce.js"></script>

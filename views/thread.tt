@@ -12,7 +12,7 @@
         <div class="message">
             <div class="meta online">
                 <div class="username"><: $message.display_name :></div>
-                <div class="timestamp"><: $message.timestamp :></div>
+                <div class="timestamp"><: $message.timestamp :> a few minutes ago</div>
                 <ul class="actions">
                     <li><a href="#"><img src="<: $settings.static_url :>/img/icons/delete_16.png"></a></li>
                     <li><a href="#"><img src="<: $settings.static_url :>/img/icons/edit_16.png"></a></li>

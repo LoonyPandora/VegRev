@@ -11,10 +11,10 @@
                     <: $thread.subject :>
                 </span>
                 <span class="thread_tagging">
+                    <b class="label label-important">new</b>
                 <: for $thread.tags -> $tag { :>
-                    <b class="label"><: $tag :></b>
+                    <b class="label"><: lowercase($tag) :></b>
                 <: } :>
-                    <b class="label important">new</b>
                 Last post by <: $thread.display_name :>, <: $thread.last_updated :>
                 </span>
             </span>

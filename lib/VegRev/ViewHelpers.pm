@@ -20,6 +20,7 @@ set 'engines' => {
         syntax   => 'Kolon',
         function => {
             uppercase  => \&uppercase,
+            lowercase  => \&lowercase,
             bbcode     => \&bbcode,
             avatar_img => \&avatar_img,
         },
@@ -31,6 +32,10 @@ set 'template' => 'xslate';
 
 sub uppercase {
     return uc $_[0]
+}
+
+sub lowercase {
+    return lc $_[0]
 }
 
 

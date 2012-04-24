@@ -57,9 +57,17 @@ h2 {
 /* Header (TODO Fix this up with proper classes / logo)
 ================================================== */
 
-.topbar .brand {
+.navbar {
+    height: 40px !important;
+}
+
+.navbar .brand {
     padding: 8px 14px 8px 15px;
     height: 24px;
+}
+
+.navbar .nav .active > a {
+    background-color: rgba(0,0,0,0.3);
 }
 
 
@@ -88,7 +96,6 @@ h2 {
 #sidebar #loginbox input[type=password] {
   width: 210px;
   margin-bottom: 10px;
-  line-height: 0px;
 }
 
 #sidebar #loginbox input[type=submit] {
@@ -149,26 +156,15 @@ ul.tag_list {
 
 ul.tag_list li {
   float: left;
-  margin: 0 5px 5px 0;
+  margin: 0 4px 0 0;
 }
 
 ul.tag_list a {
-  display: block;
-  height: 18px;
-  line-height: 18px;
-  padding: 0 4px 0 4px;
-  font-size: 11px;
-  color: #555;
-  background-color: #e3e3e3;
-  border: 1px solid #bbb;
-  border-radius: 4px;
-  font-weight: normal;
+  color: #fff;
 }
 
 ul.tag_list a:hover {
-  color: #222;
-  border: 1px solid #999;
-  text-decoration: none;
+  color: #eee;
 }
 
 

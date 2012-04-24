@@ -22,7 +22,6 @@
 }
 
 .modal-header {
-    height: 33px;
     background-color: whiteSmoke;
     -webkit-border-top-left-radius: 6px;
     -webkit-border-top-right-radius: 6px;
@@ -52,8 +51,14 @@ ul.mce_toolbar {
 /* New Postform
 ================================================== */
 
+#postform form {
+    margin: 0;
+    padding: 0;
+}
+
 #postform label,
 #postform #subject {
+    margin: 0;
     padding: 5px 0;
     height: 19px;
     line-height: 19px;
@@ -212,9 +217,9 @@ ul.mce_toolbar li {
 
 ul.mce_toolbar li input[type=text] {
     border: 0;
+    margin: 0;
     padding: 5px 0;
     height: 19px;
-    line-height: 0px;
     box-shadow: none;
     float: left;
     display: block;
@@ -229,7 +234,6 @@ ul.mce_toolbar button {
     padding: 0;
     margin: 5px 5px 0 0;
     font-size: 11px !important;
-    line-height: 0;
     float: right;
     display: block;
     color: #666;
@@ -362,5 +366,18 @@ ul.formatting li.sprite-picture               { background-position: center -598
 ul.formatting li.sprite-youtube               { background-position: center -644px; } 
 
 ul.formatting li a { text-indent: -9999px; }
+
+
+
+
+
+/* jQuery Chosen style override to match bootstrap labels
+================================================== */
+
+.chzn-container-multi .chzn-choices .search-choice {
+    border: 1px solid #e4e4e4;
+}
+
+
 
 
