@@ -66,8 +66,13 @@ h2 {
     height: 24px;
 }
 
-.navbar .nav .active > a {
+.navbar .nav .active > a,
+.navbar .nav .active > a:hover {
     background-color: rgba(0,0,0,0.3);
+}
+
+.navbar .nav > li > a:hover {
+    background-color: rgba(0,0,0,0.1);
 }
 
 
