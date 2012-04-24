@@ -2,7 +2,6 @@
 
 <ul class="thread_list">
 : for $forum.threads -> $thread {
-
     <li>
         <a href="/thread/<: $thread.id :>-<: $thread.url_slug :>/">
             <: avatar_img($thread.avatar, $thread.usertext) | raw :>
@@ -11,11 +10,13 @@
                     <: $thread.subject :>
                 </span>
                 <span class="thread_tagging">
+                <: if ($thread.last_updated > $thread.last_read) { :>
                     <b class="label label-important">new</b>
+                <: } :>
                 <: for $thread.tags -> $tag { :>
                     <b class="label"><: lowercase($tag) :></b>
                 <: } :>
-                Last post by <: $thread.display_name :>, <: $thread.last_updated | humanize :>
+                Last post by <: $thread.display_name :>, <: $thread.last_updated | humanize :> - <: $thread.last_read | humanize :>
                 </span>
             </span>
             <span class="statbox">

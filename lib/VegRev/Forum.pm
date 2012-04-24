@@ -27,9 +27,12 @@ sub new_from_tag {
 
     my $thread_sth = database->prepare(q{
         SELECT thread.id, subject, url_slug, UNIX_TIMESTAMP(last_updated) AS last_updated, user_name, display_name, avatar, usertext,
-            (SELECT count(*) FROM message WHERE message.thread_id = thread.id) AS replies
+            (SELECT count(*) FROM message WHERE message.thread_id = thread.id) AS replies,
+            UNIX_TIMESTAMP(thread_read_receipt.timestamp) AS last_read
         FROM thread
-        LEFT JOIN USER ON latest_post_user_id = user.id
+        LEFT JOIN user ON latest_post_user_id = user.id
+        LEFT JOIN thread_read_receipt ON thread_read_receipt.user_id = '1'
+            AND thread_read_receipt.thread_id = thread.id
         WHERE thread.id IN (SELECT thread_id
         FROM tagged_thread
         LEFT JOIN tag ON tagged_thread.tag_id = tag.id

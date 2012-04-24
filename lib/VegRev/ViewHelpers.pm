@@ -11,6 +11,7 @@ use HTML::Entities;
 use Carp;
 use Data::Dumper;
 use DateTime;
+use Time::Local qw/timegm/;
 
 
 
@@ -23,6 +24,7 @@ set 'engines' => {
         syntax   => 'Kolon',
         function => {
             uppercase  => \&uppercase,
+            timestamp  => \&timestamp,
             humanize   => \&humanize,
             lowercase  => \&lowercase,
             bbcode     => \&bbcode,
@@ -43,7 +45,6 @@ sub lowercase {
 }
 
 sub humanize {
-    
     return unless $_[0];
     
     my $dt = DateTime->from_epoch(epoch => $_[0]);
@@ -51,6 +52,9 @@ sub humanize {
     return $dt->ymd . ' - ' . $dt->hms;
 }
 
+sub timestamp {
+    return timegm gmtime;
+}
 
 sub avatar_img {
     my ($avatar, $usertext, $class) = @_;

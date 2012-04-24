@@ -12,7 +12,7 @@ use Time::HiRes qw/time/;
 use HTML::Tidy;
 
 use Dancer::Plugin::Database;
-use Data::Dumper;
+use Data::Dump qw/dump/;
 use POSIX qw/ceil floor/;
 
 use Carp;
@@ -95,6 +95,8 @@ get qr{/thread/(\d+).+?/?(\d+)?$} => sub {
         offset => ($page * $per_page) - $per_page,
         limit  => $per_page,
     });
+
+    $thread->mark_as_read();
 
     template 'thread', {
         template => 'thread',
@@ -239,7 +241,7 @@ post qr{/post/?$} => sub {
         $params{tidy_message} = $tidy->clean($params{message});
     }
 
-    croak Dumper \%params;
+    croak dump \%params;
 
 };
 
