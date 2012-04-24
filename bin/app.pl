@@ -9,8 +9,13 @@ use Plack::Middleware::Session;
 use Plack::Session::Store::DBI;
 
 my $app = sub {
-    my $env     = shift;
+    my $env = shift;
+
+    # This should be the default...
+    $env->{'psgix.session.options'}{'httponly'} = 1;
+
     my $request = Dancer::Request->new( env => $env );
+
     Dancer->dance($request);
 };
 

@@ -5,6 +5,8 @@ static_url: 'http://vegrev.local'
 serializer: "JSON"
 
 session: "PSGI"
+session_name: 'plack_session'
+session_is_http_only: 1
 
 plugins:
     Database:
