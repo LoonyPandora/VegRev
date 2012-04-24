@@ -10,6 +10,9 @@ use Dancer qw(:moose);
 use HTML::Entities;
 use Carp;
 use Data::Dumper;
+use DateTime;
+
+
 
 # Because you cannot set engine configs individually, view helpers go in here
 # and the settings for template engine are in here.
@@ -20,6 +23,7 @@ set 'engines' => {
         syntax   => 'Kolon',
         function => {
             uppercase  => \&uppercase,
+            humanize   => \&humanize,
             lowercase  => \&lowercase,
             bbcode     => \&bbcode,
             avatar_img => \&avatar_img,
@@ -36,6 +40,15 @@ sub uppercase {
 
 sub lowercase {
     return lc $_[0]
+}
+
+sub humanize {
+    
+    return unless $_[0];
+    
+    my $dt = DateTime->from_epoch(epoch => $_[0]);
+    
+    return $dt->ymd . ' - ' . $dt->hms;
 }
 
 

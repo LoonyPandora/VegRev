@@ -20,7 +20,7 @@ sub new_from_id {
     my $args = shift;
 
     my $thread_sth = database->prepare(q{
-        SELECT mail.id, ip_address, timestamp, body, sender.display_name, sender.user_name, sender.avatar
+        SELECT mail.id, ip_address, UNIX_TIMESTAMP(timestamp) AS timestamp, body, sender.display_name, sender.user_name, sender.avatar
         FROM mail
         LEFT JOIN USER AS sender ON sent_from = sender.id
         WHERE sent_from IN (?, ?)

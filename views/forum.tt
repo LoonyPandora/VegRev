@@ -15,7 +15,7 @@
                 <: for $thread.tags -> $tag { :>
                     <b class="label"><: lowercase($tag) :></b>
                 <: } :>
-                Last post by <: $thread.display_name :>, <: $thread.last_updated :>
+                Last post by <: $thread.display_name :>, <: $thread.last_updated | humanize :>
                 </span>
             </span>
             <span class="statbox">

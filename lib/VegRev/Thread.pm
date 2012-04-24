@@ -35,7 +35,7 @@ sub new_from_id {
     my $args = shift;
 
     my $msg_sth = database->prepare(q{
-        SELECT message.id, message.body, user.user_name, user.display_name, user.usertext, user.signature, user.avatar, INET_NTOA(message.ip_address) AS ip_address
+        SELECT message.id, message.body, UNIX_TIMESTAMP(message.timestamp) AS timestamp, user.user_name, user.display_name, user.usertext, user.signature, user.avatar, INET_NTOA(message.ip_address) AS ip_address
         FROM message
         LEFT JOIN user ON user.id = user_id
         WHERE message.thread_id = ?

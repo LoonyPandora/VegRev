@@ -24,7 +24,7 @@ sub BUILD {
     my $self = shift;
 
     my $thread_sth = database->prepare(q{
-        SELECT DISTINCT(user_id), display_name, usertext, avatar, timestamp AS last_updated
+        SELECT DISTINCT(user_id), display_name, usertext, avatar, UNIX_TIMESTAMP(timestamp) AS last_updated
         FROM
             (SELECT sent_from AS user_id, TIMESTAMP
             FROM mail
