@@ -4,13 +4,11 @@ $(document).ready(function() {
     // Workaround for tinyMCE in a modal
     // https://github.com/twitter/bootstrap/issues/549
     $('#postform').bind('shown', function() {
-        mce_control('remove');
-    });
-
-    $('#postform').bind('shown', function() {
         mce_control('add');
     });
     
+    // Track bug for fix to error on close in 3.5b3
+    // http://www.tinymce.com/develop/bugtracker_view.php?id=5136
     $('#postform').bind('hide', function() {
         mce_control('remove');
     });
@@ -98,7 +96,7 @@ function init_tinymce() {
     $('#message').tinymce({
         theme: "advanced",
         skin: "vegrev",
-        plugins: "paste,autoresize,tabfocus",
+        plugins: "autoresize,paste,tabfocus",
 
         paste_auto_cleanup_on_paste: true,
         paste_block_drop: true,
