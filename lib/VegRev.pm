@@ -77,6 +77,7 @@ get qr{/(\d+)?/?$} => sub {
     });
 
     template 'forum', {
+        recent   => session('recent_threads'),
         forum    => $forum,
         template => 'forum',
     };
@@ -99,6 +100,7 @@ get qr{/thread/(\d+).+?/?(\d+)?$} => sub {
     $thread->mark_as_read();
 
     template 'thread', {
+        recent   => session('recent_threads'),
         template => 'thread',
         thread   => $thread
     };
@@ -119,6 +121,7 @@ get qr{/inbox/?(\d+)?/?$} => sub {
     });
 
     template 'inbox', {
+        recent   => session('recent_threads'),
         inbox    => $inbox,
         template => 'inbox',
     };
@@ -140,6 +143,7 @@ get qr{/chat/(\d+)/?(\d+)?/?$} => sub {
     });
 
     template 'chat', {
+        recent   => session('recent_threads'),
         template => 'thread',
         thread   => $thread
     };
@@ -159,6 +163,7 @@ get qr{/gallery/?(\d+)?/?$} => sub {
     });
 
     template 'gallery', {
+        recent   => session('recent_threads'),
         template => 'gallery',
         gallery  => $gallery
     };
@@ -184,6 +189,7 @@ get qr{/profile/(\w+)/?$} => sub {
     }
 
     template 'user', {
+        recent   => session('recent_threads'),
         template => 'profile',
         user     => values %{$user},
     };

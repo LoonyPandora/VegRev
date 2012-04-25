@@ -77,19 +77,41 @@ sub load_extra {
 }
 
 
+# Returns an arrayref of all recently viewed threads.
+sub recently_viewed {
+    my $self = shift;
+    
+    my $recent_sth = database->prepare(q{
+        SELECT thread_id, subject, url_slug
+        FROM thread_read_receipt
+        LEFT JOIN thread ON thread.id = thread_id
+        WHERE user_id = ?
+        ORDER BY timestamp DESC
+        LIMIT 10
+    });
+    $recent_sth->execute($self->id);
+
+    my $threads = $recent_sth->fetchall_arrayref({});
+
+    return $threads;
+}
+
+
+
 
 # Stores any useful information about the user in the session
 sub store_session {
     my $self = shift;
 
-    session(user_id      => $self->id);
-    session(user_name    => $self->user_name);
-    session(display_name => $self->display_name);
-    session(theme        => $self->theme);
-    session(language     => $self->language);
-    session(avatar       => $self->avatar);
-    session(gmt_offset   => $self->gmt_offset);
-
+    session(user_id        => $self->id);
+    session(user_name      => $self->user_name);
+    session(display_name   => $self->display_name);
+    session(theme          => $self->theme);
+    session(language       => $self->language);
+    session(avatar         => $self->avatar);
+    session(gmt_offset     => $self->gmt_offset);
+    session(recent_threads => $self->recently_viewed);
+    
 }
 
 

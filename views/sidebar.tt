@@ -39,15 +39,10 @@
         <div class="widget clearfix">
           <h2>Recently Read</h2>
           <ul class="recent_threads clearfix">
-            <li><a href="#">My [milestone] Post!!!</a></li>
-            <li><a href="#">Introduce Yourself To VR! (New Members Post Here)</a></li>
-            <li><a href="#">Woop...next gigs...</a></li>
-            <li><a href="#">WTF of the day</a></li>
-            <li><a href="#">Sup My Brothers and Sisters!? Psychedelic Abstract Artist Matt Crux Here! =)</a></li>
-            <li><a href="#">The last book you bought was...............</a></li>
-            <li><a href="#">Now Listening to.. #10</a></li>
-            <li><a href="#">The News Thread</a></li>
-            <li><a href="#">Things that make you want to bury someone alive</a></li>
-            <li><a href="#">Death Pool 11 (months since we're a month late with this)</a></li>
+            : for $recent -> $thread {
+                <li>
+                    <a href="/thread/<: $thread.id :>-<: $thread.url_slug :>/"><: $thread.subject :></a>
+                </li>
+            : }
           </ul>
         </div>
