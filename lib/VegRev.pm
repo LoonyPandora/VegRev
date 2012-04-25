@@ -48,8 +48,15 @@ hook 'before' => sub {
 hook 'before_template' => sub {
     my $tokens = shift;
 
-    $tokens->{theme}        = session->{theme};
-    $tokens->{my_user_name} = session->{user_name};
+    $tokens->{theme}        = session('theme');
+    $tokens->{my_user_name} = session('user_name');
+    $tokens->{recent}       = session('recent_threads');
+
+    $tokens->{tags}   = VegRev::Misc::list_tags();
+    $tokens->{online} = VegRev::Misc::currently_online();
+
+    $tokens->{request} = request;
+
 
 #    $tokens->{base_css} = request->env->{'psgix.assets'}->[0];
 #    $tokens->{base_js}  = request->env->{'psgix.assets'}->[1];
@@ -83,8 +90,6 @@ get qr{/(\d+)?/?$} => sub {
     });
 
     template 'forum', {
-        online   => VegRev::Misc::currently_online(),
-        recent   => session('recent_threads'),
         forum    => $forum,
         template => 'forum',
     };
@@ -107,7 +112,6 @@ get qr{/thread/(\d+).+?/?(\d+)?$} => sub {
     $thread->mark_as_read();
 
     template 'thread', {
-        recent   => session('recent_threads'),
         template => 'thread',
         thread   => $thread
     };
@@ -128,7 +132,6 @@ get qr{/inbox/?(\d+)?/?$} => sub {
     });
 
     template 'inbox', {
-        recent   => session('recent_threads'),
         inbox    => $inbox,
         template => 'inbox',
     };
@@ -150,7 +153,6 @@ get qr{/chat/(\d+)/?(\d+)?/?$} => sub {
     });
 
     template 'chat', {
-        recent   => session('recent_threads'),
         template => 'thread',
         thread   => $thread
     };
