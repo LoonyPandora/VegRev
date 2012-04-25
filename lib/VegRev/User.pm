@@ -17,6 +17,7 @@ has display_name     => ( is => 'rw' );
 has real_name        => ( is => 'rw' );
 has email            => ( is => 'rw' );
 has password         => ( is => 'rw' );
+has old_password     => ( is => 'ro' );
 has hide_email       => ( is => 'rw' );
 has mail_notify      => ( is => 'rw' );
 has stealth_login    => ( is => 'rw' );
@@ -55,6 +56,25 @@ has account_disabled => ( is => 'rw' );
 
 
 
+sub new_from_email {
+    my $self = shift;
+    my $args = shift;
+
+    my $sth = database->prepare(q{
+        SELECT id, user_name, display_name, email, password, old_password, avatar
+        FROM user
+        WHERE email = ?
+        LIMIT 1
+    });
+    $sth->execute($args->{email});
+
+    my $user_data = $sth->fetchall_arrayref({})->[0];
+
+    return VegRev::User->new({
+        %$user_data,
+    });
+}
+
 
 # Loads a user when you've given an id
 sub load_extra {
@@ -65,15 +85,43 @@ sub load_extra {
     $fields = $fields // ['*'];
 
     my $sth = database->prepare('
-        SELECT '. join(",", @$fields ).' FROM user WHERE id = ?
+        SELECT '. join(",", @$fields ).'
+        FROM user
+        WHERE id = ?
         LIMIT 1
     ');
 
     $sth->execute($self->id);
+    my $user_data = $sth->fetchall_arrayref({})->[0];
 
-    return VegRev::User->new(
-       $sth->fetchall_arrayref({})->[0]
-    );
+    while (my ($key, $value) = each %{$user_data}) {
+        next if $key eq 'old_password'; # It's read-only
+        $self->$key($value);
+    }
+
+    return $self;
+}
+
+sub save {
+    my $self   = shift;
+    my $fields = shift;
+
+    # Must provide the fields to save. Too risky to save the entire user 
+    # might have had an error when loading it, and then we've just lost the user
+    if (!$fields) {
+        die "No fields passed to save";
+    }
+
+    my @update_data = map { $self->$_ } @$fields;
+    my $sth = database->prepare('
+        UPDATE user
+        SET '. join(" = ?, ", @$fields ).' = ?
+        WHERE id = ?
+        LIMIT 1
+    ');
+    $sth->execute(@update_data, $self->id);
+
+    return $self;
 }
 
 

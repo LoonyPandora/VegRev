@@ -6,6 +6,7 @@ use utf8;
 use common::sense;
 
 use Dancer ':syntax';
+use Dancer::Plugin::Passphrase;
 
 use Time::HiRes qw/time/;
 
@@ -29,17 +30,17 @@ use VegRev::Misc;
 
 our $VERSION = '0.0.1';
 
-
-
+set environment => 'sensitive';
+ 
 # Loads the viewer, should get the user ID from the cookie
 # Should also do some authentication here
 hook 'before' => sub {
     if (!session('user_id')) {
-        my $viewer = VegRev::User->new({ id => 1 })->load_extra;
-        $viewer->store_session;
+        # my $viewer = VegRev::User->new({ id => 1 })->load_extra;
+        # $viewer->store_session;
     } else {
-        my $viewer = VegRev::User->new({ id => session('user_id') })->load_extra;
-        $viewer->store_session;
+        # my $viewer = VegRev::User->new({ id => session('user_id') })->load_extra;
+        # $viewer->store_session;
     }    
 };
 
@@ -261,6 +262,36 @@ post qr{/post/?$} => sub {
 };
 
 
+post qr{/login/?$} => sub {
+
+    if (!param('email') || !param('password')) {
+        return undef;
+    }
+
+    # FIXME: Fugly
+    my $user = VegRev::User->new_from_email({ email=> param('email') });
+
+    # We upgrade the password if old_password exists
+    if (!$user->password) {
+        my $hash = passphrase(setting('password_key') . "|" . param('password'))->generate_hash({scheme=>'MD5'})->hash_hex;
+
+        if ($hash eq $user->{old_password}) {
+            my $new_hash = passphrase(param('password'))->generate_hash({cost=>8});
+
+            $user->password($new_hash);
+            $user->save([qw(password)]);
+        }
+    }
+
+    # We've upgraded the password if it's right
+    if ( passphrase( param('password') )->matches( $user->password ) ) {
+        $user->load_extra;
+        $user->store_session;
+    } else {
+        # TODO: Error handling
+
+    }
+};
 
 
 

@@ -21,3 +21,10 @@ plugins:
             AutoCommit: 0
             mysql_enable_utf8: 1
 
+    Passphrase:
+        default: 'Bcrypt'
+        Bcrypt:
+            cost: 8
+
+        MD5:
+            salt: ''
