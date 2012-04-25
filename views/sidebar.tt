@@ -18,17 +18,9 @@
         <div class="widget clearfix">
           <h2>Tags</h2>
           <ul class="tag_list clearfix">
-            <li><a href="#" class="label">chat</a></li>
-            <li><a href="#" class="label">rants</a></li>
-            <li><a href="#" class="label">private</a></li>
-            <li><a href="#" class="label">spam</a></li>
-            <li><a href="#" class="label">music</a></li>
-            <li><a href="#" class="label">literature</a></li>
-            <li><a href="#" class="label label-inverse">zine</a></li>
-            <li><a href="#" class="label">faq</a></li>
-            <li><a href="#" class="label">news</a></li>
-            <li><a href="#" class="label">admin</a></li>
-            <li><a href="#" class="label">yahoo</a></li>
+          <: for $tags -> $tag { :>
+            <li><a href="<:$request.base:>tag/<: $tag.url_slug :>" class="label" rel="tooltip" title="<: $tag.description :>"><: lowercase($tag.title) :></a></li>
+          <: } :>                           
           </ul>
         </div>
     

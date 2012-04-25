@@ -47,6 +47,19 @@ sub currently_online {
     return \@online
 }
 
+sub list_tags {
+    my $sth = database->prepare(q{
+        SELECT title, url_slug, description
+        FROM tag
+        WHERE group_id IN (2,3)
+    });
+    $sth->execute();
+
+    my $all_tags = $sth->fetchall_arrayref({});
+
+    return $all_tags;
+}
+
 
 
 1;

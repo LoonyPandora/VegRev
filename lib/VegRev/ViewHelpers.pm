@@ -82,6 +82,10 @@ sub user_link {
     return qq{<a href="$profile_url" title="$display_name" rel="tooltip">}.avatar_img($avatar, $display_name).q{</a>};
 }
 
+sub tag_link {
+
+}
+
 
 # Junk, just parses the basics. Will have to write proper BBCode parser
 sub bbcode {
