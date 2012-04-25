@@ -24,6 +24,7 @@ use VegRev::Chat;
 use VegRev::Gallery;
 
 use VegRev::ViewHelpers;
+use VegRev::Misc;
 
 
 our $VERSION = '0.0.1';
@@ -33,8 +34,13 @@ our $VERSION = '0.0.1';
 # Loads the viewer, should get the user ID from the cookie
 # Should also do some authentication here
 hook 'before' => sub {
-    my $viewer = VegRev::User->new({ id => 1 })->load_extra;
-    $viewer->store_session;
+    if (!session('user_id')) {
+        my $viewer = VegRev::User->new({ id => 1 })->load_extra;
+        $viewer->store_session;
+    } else {
+        my $viewer = VegRev::User->new({ id => session('user_id') })->load_extra;
+        $viewer->store_session;
+    }    
 };
 
 
@@ -77,6 +83,7 @@ get qr{/(\d+)?/?$} => sub {
     });
 
     template 'forum', {
+        online   => VegRev::Misc::currently_online(),
         recent   => session('recent_threads'),
         forum    => $forum,
         template => 'forum',

@@ -29,6 +29,7 @@ set 'engines' => {
             lowercase  => \&lowercase,
             bbcode     => \&bbcode,
             avatar_img => \&avatar_img,
+            user_link  => \&user_link,
         },
     }
 };
@@ -70,7 +71,15 @@ sub avatar_img {
     } else {
         return qq{<img src="http://vegrev.local/img/icons/user_female_128.png" alt="No Avatar" class="$class" />};
     }
+}
 
+sub user_link {
+    my ($user_name, $display_name, $avatar) = @_;
+
+#    my $link = "http://www.vegetablerevolution.co.uk/profile/$username";
+    my $profile_url = "http://www.vegrev.local/profile/$user_name";
+
+    return qq{<a href="$profile_url" title="$display_name" rel="tooltip">}.avatar_img($avatar, $display_name).q{</a>};
 }
 
 

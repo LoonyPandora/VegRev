@@ -6,15 +6,11 @@
         </div>
     
         <div class="widget clearfix">
-          <h2>Online Now (88)</h2>
+          <h2>Online Now (<: $online.size() :>)</h2>
           <ul class="user_icon_list clearfix">
-            <li><a href="#" title="LoonyPandora"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#" title="Random Person With a Really Really Long Name"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#" title="lorem"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
-            <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
+          <: for $online -> $user { :>
+            <li><: user_link($user.user_name, $user.display_name, $user.avatar) | raw :></li>
+          <: } :>                           
             <li><a href="#"><img src="<: $settings.static_url :>/img/icons/user_32.png"></a></li>
           </ul>
         </div>
@@ -39,10 +35,10 @@
         <div class="widget clearfix">
           <h2>Recently Read</h2>
           <ul class="recent_threads clearfix">
-            : for $recent -> $thread {
+            <: for $recent -> $thread { :>
                 <li>
                     <a href="/thread/<: $thread.id :>-<: $thread.url_slug :>/"><: $thread.subject :></a>
                 </li>
-            : }
+            <: } :>
           </ul>
         </div>
