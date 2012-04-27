@@ -35,15 +35,11 @@
         <: include "sidebar.tt" :>
     </div>
 
-    <div id="pagination" class="clearfix pagination">
+    <div id="pagination" class="clearfix">
         <: include "pagination.tt" :>
     </div>
 </div>
 
-
-<div id="postform" class="clearfix modal fade">
-    <: include "textarea.tt" :>
-</div>
 
 <div id="footer" class="clearfix">
     <: include "footer.tt" :>
@@ -55,20 +51,25 @@
 <script src="<: $settings.static_url :>/js/jquery.1.7.1.min.js"></script>
 <script src="<: $settings.static_url :>/js/jquery.masonry.min.js"></script>
 <script src="<: $settings.static_url :>/js/hashgrid.js"></script>
-
 <script src="<: $settings.static_url :>/js/bootstrap.min.js"></script>
-
-<script src="<: $settings.static_url :>/js/tinymce/config.js"></script>
-<script src="<: $settings.static_url :>/js/tinymce/jquery.tinymce.js"></script>
-<script src="<: $settings.static_url :>/js/tinymce/tiny_mce.js"></script>
-
 <script src="<: $settings.static_url :>/js/jquery.chosen.min.js"></script>
-
 <script src="<: $settings.static_url :>/js/jquery.form.js"></script>
 
 <script src="<: $settings.static_url :>/js/app.js"></script>
 <script src="<: $settings.static_url :>/js/postform.js"></script>
 <script src="<: $settings.static_url :>/js/<:$template:>.js"></script>
+
+<: if ($viewer.user_id) { :>
+
+<script src="<: $settings.static_url :>/js/tinymce/config.js"></script>
+<script src="<: $settings.static_url :>/js/tinymce/jquery.tinymce.js"></script>
+<script src="<: $settings.static_url :>/js/tinymce/tiny_mce.js"></script>
+
+<div id="postform" class="clearfix modal fade">
+    <: include "postform.tt" :>
+</div>
+<: } :>
+
 
 </body>
 </html>

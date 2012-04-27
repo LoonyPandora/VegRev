@@ -117,6 +117,10 @@ h2 {
   margin-top: 8px;
 }
 
+#sidebar #threadinfo {
+    margin-bottom: 20px;
+}
+
 
 /* Menus
 ================================================== */
@@ -221,17 +225,60 @@ ul.recent_threads a:hover {
 
 #pagination {
     clear: both;
-    padding: 42px 0 0 0;
+    padding: 40px 0 0 0;
+    width: 700px;
 }
 
-#pagination ul {
-    background-color: #f6f6f6;
+#pagination-list {
+    height: 0;
 }
 
-#pagination ul li.active a {
-    background-color: #c99;
-    color: #fff;
+#pagination-list ul {
+    background-color: #fff;
 }
+
+#pagination-list a {
+    text-align: center;
+    width: 33px;
+}
+
+#pagination-list .disabled a {
+    width: 50px;
+    text-align: right;
+    background-color: #f5f5f5;
+}
+
+#sidebar .statbox_list {
+    color: #666;
+    line-height: 20px;
+}
+
+#sidebar .statbox_list dt {
+    text-align: left;
+    width: 80px;
+    line-height: 20px;
+}
+
+#sidebar .statbox_list dd {
+    margin-left: 80px;
+    line-height: 20px;
+}
+
+#sidebar .pagination {
+    margin: 0 0 4px 0;
+}
+
+#sidebar .pagination ul li a {
+    padding: 0;
+    background: #fff;
+    width: 53px;
+    text-align: center;
+}
+
+#sidebar .pagination ul li a:hover {
+    background: #f5f5f5;
+}
+
 
 /* Footer
 ================================================== */

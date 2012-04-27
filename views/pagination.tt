@@ -1,17 +1,63 @@
-      <ul class="clearfix">
-        <li class="previous"><a href="#">&larr; Prev</a></li>
-        <li><a href="#">88</a></li>
-        <li><a href="#">88</a></li>
-        <li><a href="#">88</a></li>
-        <li class="disabled"><a href="#">...</a></li>
-        <li><a href="#">88</a></li>
-        <li><a href="#">88</a></li>
-        <li class="active"><a href="#">88</a></li>
-        <li><a href="#">88</a></li>
-        <li><a href="#">88</a></li>
-        <li class="disabled"><a href="#">...</a></li>
-        <li><a href="#">88</a></li>
-        <li><a href="#">88</a></li>
-        <li><a href="#">88</a></li>
-        <li><a href="#">Next &rarr;</a></li>
+
+    <ul class="pager">
+      <li><a href="#">&larr; Previous Page</a></li>
+      <li><a href="#pagination-list" data-toggle="collapse">Show Pages</a></li>
+      <li><a href="#">Next Page &rarr;</a></li>
+    </ul>
+
+
+    <div id="pagination-list" class="collapse pagination">
+      <ul>
+        <li class="disabled"><a href="#">1-10</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li><a href="#">7</a></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#">9</a></li>
+        <li><a href="#">10</a></li>
       </ul>
+      <ul>
+        <li class="disabled"><a href="#">11-20</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+      </ul>
+      <ul>
+        <li class="disabled"><a href="#">21-30</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+      </ul>
+      <ul>
+        <li class="disabled"><a href="#">888-888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+        <li><a href="#">888</a></li>
+      </ul>
+    </div>
+

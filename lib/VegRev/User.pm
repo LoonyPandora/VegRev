@@ -21,6 +21,7 @@ has old_password     => ( is => 'ro' );
 has hide_email       => ( is => 'rw' );
 has mail_notify      => ( is => 'rw' );
 has stealth_login    => ( is => 'rw' );
+has is_admin         => ( is => 'rw' );
 has theme            => ( is => 'rw' );
 has language         => ( is => 'rw' );
 has tumblr           => ( is => 'rw' );
@@ -157,6 +158,7 @@ sub store_session {
     session(theme          => $self->theme);
     session(language       => $self->language);
     session(avatar         => $self->avatar);
+    session(is_admin       => $self->is_admin);
     session(gmt_offset     => $self->gmt_offset);
     session(recent_threads => $self->recently_viewed);
     

@@ -1,7 +1,7 @@
 
 <div class="modal-header">
     <a class="close" data-dismiss="modal">×</a>
-    <h3>Start a new Thread.</h3>
+    <h3><:$postform.header:></h3>
 </div>
 
 <form id="messageform" name="messageforom" action="/post" method="POST">
@@ -10,11 +10,15 @@
 <select multiple id="message_video" class="totally_hidden" name="message_video"></select>
 <select multiple id="message_attachment" class="totally_hidden" name="message_attachment"></select>
 
+<input type="hidden" id="thread_id" class="totally_hidden" name="thread_id" value="<:$thread.id:>" />
+<input type="hidden" id="in_reply_to" class="totally_hidden" name="in_reply_to" />
+
+
 <div class="formcontainer modal-body">
     <div id="tinymce_container" class="clearfix">
-        
+
         <div class="clearfix subject">
-            <label for="subject">Subject:</label><input type="text" id="subject" name="subject">
+            <label for="subject">Subject:</label><input type="text" id="subject" name="subject" value="<:$thread.subject:>">
         </div>
 
         <div class="clearfix tag_select">

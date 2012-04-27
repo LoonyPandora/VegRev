@@ -1,6 +1,6 @@
 <h1><:$thread.subject:></h1>
 
-<ul class="message_list">
+<ul id="<:$thread.id:>" class="message_list">
 
 : for $thread.messages -> $message {
     <li id="<:$message.id:>">
@@ -30,7 +30,7 @@
             </ul>
             <: } :>
 
-            <div class="body">
+            <div class="body">                
                 <: $message.body | bbcode | raw :>
             </div>
 

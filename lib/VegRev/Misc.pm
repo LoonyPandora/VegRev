@@ -30,12 +30,12 @@ sub currently_online {
     my $online = $sth->fetchall_arrayref({});
 
     # We don't return the whole session in case we reveal something sensitive
-    my @online;
+    my %online;
     for my $session_json (@$online) {
         my $session = Dancer::Serializer::JSON::from_json($session_json->{session_data});
 
         if ($session->{user_id}) {
-            push @online, {
+            $online{$session->{user_id}} = {
                 user_id      => $session->{user_id},
                 user_name    => $session->{user_name},
                 display_name => $session->{display_name},
@@ -44,7 +44,10 @@ sub currently_online {
         }
     }
 
-    return \@online
+    # If logged in from multiple devices, will have multiple sessions.
+    my @unduped = values %online;
+
+    return \@unduped;
 }
 
 sub list_tags {

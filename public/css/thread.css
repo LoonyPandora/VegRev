@@ -109,7 +109,7 @@ ul.message_list ul.actions:hover {
 
 ul.message_list ul.actions li {
   border:   none;
-  margin:   0;
+  margin:   0 0 0 5px;
   padding:  0;
   float:    left;
   width:    20px;

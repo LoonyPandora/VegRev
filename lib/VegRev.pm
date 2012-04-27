@@ -96,6 +96,7 @@ get qr{/(\d+)?/?$} => sub {
     });
 
     template 'forum', {
+        postform => { header => 'Start a new thread' },
         active   => { forum => 'active'},
         forum    => $forum,
         template => 'forum',
@@ -119,7 +120,8 @@ get qr{/thread/(\d+).+?/?(\d+)?$} => sub {
     $thread->mark_as_read();
 
     template 'thread', {
-        active   => { forum => 'active'},
+        postform => { header => 'Post a reply' },
+        active   => { forum => 'active' },
         template => 'thread',
         thread   => $thread
     };
