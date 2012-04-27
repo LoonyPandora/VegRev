@@ -108,6 +108,8 @@ sub new_from_id {
 sub mark_as_read {
     my $self = shift;
 
+    return unless session('user_id');
+
     my $msg_sth = database->prepare(q{
         INSERT INTO thread_read_receipt (thread_id, user_id, timestamp)
         VALUES (?, ?, NOW())
