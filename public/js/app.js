@@ -8,7 +8,6 @@ $(document).ready(function(){
     });
 
 
-
     $('#loginform').submit(function() { 
         // inside event callbacks 'this' is the DOM element so we first 
         // wrap it in a jQuery object and then invoke ajaxSubmit 
@@ -18,6 +17,13 @@ $(document).ready(function(){
         // always return false to prevent standard browser submit and page navigation 
         return false; 
     }); 
+
+
+    $('#logout-link').click(function() {
+        console.log('logging out...');
+        return false;
+    });
+
 
 
 });

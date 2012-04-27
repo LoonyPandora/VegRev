@@ -1,3 +1,9 @@
+        <div id="threadinfo" class="widget clearfix">
+          <h2>Thread Info</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+
+        <: if (!$viewer.user_id) { :>
         <div id="loginbox" class="widget clearfix">
           <h2>Login</h2>
           <form id="loginform" name="loginform" action="/login" method="POST">
@@ -6,17 +12,8 @@
               <input type="submit" class="btn btn-success" value="Login">
           </form>
         </div>
+        <: } :>
 
-        <div id="logged_in_box" class="widget clearfix">
-          <h2>Welcome Back </h2>
-          <form id="loginform" name="loginform" action="/login" method="POST">
-              <input type="text" name="email" placeholder="Email Address">
-              <input type="password" name="password" placeholder="Password">
-              <input type="submit" class="btn btn-success" value="Login">
-          </form>
-        </div>
-    
-    
         <div class="widget clearfix">
           <h2>Online Now (<: $online.size() :>)</h2>
           <ul class="user_icon_list clearfix">
@@ -35,7 +32,8 @@
           <: } :>                           
           </ul>
         </div>
-    
+
+        <: if ($viewer.user_id) { :>
         <div class="widget clearfix">
           <h2>Recently Read</h2>
           <ul class="recent_threads clearfix">
@@ -46,3 +44,4 @@
             <: } :>
           </ul>
         </div>
+        <: } :>

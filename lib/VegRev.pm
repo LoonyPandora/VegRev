@@ -11,6 +11,7 @@ use Dancer::Plugin::Passphrase;
 use Time::HiRes qw/time/;
 
 use HTML::Tidy;
+use Data::Structure::Util qw/unbless/;
 
 use Dancer::Plugin::Database;
 use Data::Dump qw/dump/;
@@ -36,11 +37,12 @@ set environment => 'sensitive';
 # Should also do some authentication here
 hook 'before' => sub {
     if (!session('user_id')) {
+        warn "hello";
         # my $viewer = VegRev::User->new({ id => 1 })->load_extra;
         # $viewer->store_session;
     } else {
-        # my $viewer = VegRev::User->new({ id => session('user_id') })->load_extra;
-        # $viewer->store_session;
+        my $viewer = VegRev::User->new({ id => session('user_id') })->load_extra;
+        $viewer->store_session;
     }    
 };
 
@@ -49,8 +51,11 @@ hook 'before' => sub {
 hook 'before_template' => sub {
     my $tokens = shift;
 
+    # Xslate seems to get horribly confused with session stuff
+    ($tokens->{viewer}) = unbless session();
+
     $tokens->{theme}        = session('theme');
-    $tokens->{my_user_name} = session('user_name');
+    $tokens->{user_name}    = session('user_name');
     $tokens->{recent}       = session('recent_threads');
 
     $tokens->{tags}   = VegRev::Misc::list_tags();
@@ -91,6 +96,7 @@ get qr{/(\d+)?/?$} => sub {
     });
 
     template 'forum', {
+        active   => { forum => 'active'},
         forum    => $forum,
         template => 'forum',
     };
@@ -113,6 +119,7 @@ get qr{/thread/(\d+).+?/?(\d+)?$} => sub {
     $thread->mark_as_read();
 
     template 'thread', {
+        active   => { forum => 'active'},
         template => 'thread',
         thread   => $thread
     };
@@ -127,12 +134,13 @@ get qr{/inbox/?(\d+)?/?$} => sub {
     my $per_page = 50;
 
     my $inbox = VegRev::Inbox->new({
-        user_id => session->{user_id},
+        user_id => session('user_id'),
         offset  => ($page * $per_page) - $per_page,
         limit   => $per_page,
     });
 
     template 'inbox', {
+        active   => { inbox => 'active'},
         inbox    => $inbox,
         template => 'inbox',
     };
@@ -154,6 +162,7 @@ get qr{/chat/(\d+)/?(\d+)?/?$} => sub {
     });
 
     template 'chat', {
+        active   => { inbox => 'active'},
         template => 'thread',
         thread   => $thread
     };
@@ -173,6 +182,7 @@ get qr{/gallery/?(\d+)?/?$} => sub {
     });
 
     template 'gallery', {
+        active   => { gallery => 'active'},
         recent   => session('recent_threads'),
         template => 'gallery',
         gallery  => $gallery

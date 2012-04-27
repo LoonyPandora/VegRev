@@ -1,0 +1,17 @@
+      <ul class="clearfix">
+        <li class="previous"><a href="#">&larr; Prev</a></li>
+        <li><a href="#">88</a></li>
+        <li><a href="#">88</a></li>
+        <li><a href="#">88</a></li>
+        <li class="disabled"><a href="#">...</a></li>
+        <li><a href="#">88</a></li>
+        <li><a href="#">88</a></li>
+        <li class="active"><a href="#">88</a></li>
+        <li><a href="#">88</a></li>
+        <li><a href="#">88</a></li>
+        <li class="disabled"><a href="#">...</a></li>
+        <li><a href="#">88</a></li>
+        <li><a href="#">88</a></li>
+        <li><a href="#">88</a></li>
+        <li><a href="#">Next &rarr;</a></li>
+      </ul>

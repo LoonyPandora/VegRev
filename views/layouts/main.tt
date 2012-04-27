@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="<: $settings.static_url :>/css/proxima_nova.css">
 
     <link rel="stylesheet" href="<: $settings.static_url :>/css/<:$template:>.css">
-    <link rel="stylesheet" href="<: $settings.static_url :>/css/theme/<:$theme:>.css">
+    <link rel="stylesheet" href="<: $settings.static_url :>/css/theme/<:$viewer.theme:>.css">
     
     <link rel="stylesheet" href="<: $settings.static_url :>/css/chosen.css">
     <link rel="stylesheet" href="<: $settings.static_url :>/css/postform.css">
@@ -27,14 +27,19 @@
 </div>
 
 <div class="container clearfix">
-    <div id="content">
+    <div id="content">        
         <: $content | raw :>
     </div>
 
     <div id="sidebar" class="clearfix">
         <: include "sidebar.tt" :>
     </div>
+
+    <div id="pagination" class="clearfix pagination">
+        <: include "pagination.tt" :>
+    </div>
 </div>
+
 
 <div id="postform" class="clearfix modal fade">
     <: include "textarea.tt" :>

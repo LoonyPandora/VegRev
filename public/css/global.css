@@ -11,6 +11,9 @@ body, label, input, select, textarea{
     font-family: "Helvetica", "Arial", sans-serif;
 }
 
+.badge {
+    font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
 
 /* Global Styles
 ================================================== */
@@ -114,12 +117,29 @@ h2 {
   margin-top: 8px;
 }
 
-#sidebar #logged_in_box img {
-  width: 40px;
-  height: 40px;
-  float: left;
-  margin-right: 20px;
-  background-color: #ddd;
+
+/* Menus
+================================================== */
+
+.header-avatar {
+    padding: 0;
+    margin: -4px 5px -11px -5px;
+    max-height: 30px;
+    display: inline;
+    border-radius: 2px;
+}
+
+.menu-user {
+    width: 225px;
+    white-space: nowrap;
+}
+
+.menu-user span {
+    display: inline-block;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 
@@ -195,13 +215,31 @@ ul.recent_threads a:hover {
 }
 
 
+
+/* Bottom Pagination Bar
+================================================== */
+
+#pagination {
+    clear: both;
+    padding: 42px 0 0 0;
+}
+
+#pagination ul {
+    background-color: #f6f6f6;
+}
+
+#pagination ul li.active a {
+    background-color: #c99;
+    color: #fff;
+}
+
 /* Footer
 ================================================== */
 
 #footer {
     border-top: 1px solid #ccc;
     padding: 0 0 10px 0;
-    margin: 59px 0 0 0;
+    margin: 19px 0 0 0;
     background-color: #f6f6f6;
 }
 

@@ -3,12 +3,35 @@
             <a class="brand" href="/">
                 <img src="<: $settings.static_url :>/img/vr_logo.png" alt="Vegetable Revolution" id="logo">
             </a>
-            <ul class="nav">
-                <li><a href="#" id="postform-modal" data-toggle="modal" data-target="#postform" data-backdrop="true" data-keyboard="true">Post New Message</a></li>
-                <li class="active"><a href="/">Forum</a></li>
-                <li><a href="/gallery">Gallery</a></li>
-                <li><a href="/profile/<: $my_user_name :>">Profile</a></li>
-                <li><a href="/inbox">Messages</a></li>
+
+            <ul class="nav pull-left">
+                <li class="<:$active.forum:>"><a href="/">Forum</a></li>
+                <li class="<:$active.gallery:>"><a href="/gallery">Gallery</a></li>
+                <: if ($viewer.user_id) { :><li class="<:$active.inbox:>"><a href="/inbox">Inbox &nbsp; <span class="badge">8</span></a></li><: } :>
             </ul>
+
+            <: if ($viewer.user_id) { :>
+            <ul class="nav pull-right menu-user">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="http://www.vegetablerevolution.co.uk/uploads/794533.png" class="header-avatar" />
+                    <span><: $viewer.display_name :></span>
+                    <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/profile/<: $viewer.user_name :>">View Profile</a></li>
+                    <li><a href="/settings">Settings</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/inbox">Inbox <span class="badge">8</span></a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout" id="logout-link">Logout</a></li>
+                  </ul>
+                </li>
+            </ul>
+            
+            <div class="pull-right">
+                <a href="#" class="btn btn-primary"id="postform-modal" data-toggle="modal" data-target="#postform" data-backdrop="true" data-keyboard="true">New Post</a>                
+            </div>
+            <: } :>
         </div>
     </div>
