@@ -1,24 +1,8 @@
         <div id="threadinfo" class="widget clearfix">
           <h2>Pages</h2>
 
-            <div class="pagination">
-              <ul>
-                  <: if ($pages.current == 1) {:>
-                  <li class="disabled"><a href="#">First</a></li>
-                  <li class="disabled"><a href="#">Prev</a></li>
-                  <: } else { :>      
-                  <li><a href="/thread/<:$thread.id:>-<:$thread.url_slug:>/1">First</a></li>
-                  <li><a href="/thread/<:$thread.id:>-<:$thread.url_slug:>/<:$pages.current-1:>">Prev</a></li>
-                  <: } :>
-                  <: if ($pages.current == $pages.last) {:>
-                  <li class="disabled"><a href="#">Next</a></li>
-                  <li class="disabled next"><a href="#">Last</a></li>
-                  <: } else { :>      
-                  <li><a href="/thread/<:$thread.id:>-<:$thread.url_slug:>/<:$pages.current+1:>">Next</a></li>
-                  <li class="next"><a href="/thread/<:$thread.id:>-<:$thread.url_slug:>/<:$pages.last:>">Last</a></li>
-                  <: } :>
-              </ul>
-            </div>
+            <: if ($template == 'thread') { include "pagination-thread-sidebar.tt" } :>
+            <: if ($template == 'forum') { include "pagination-forum-sidebar.tt" } :>
           
           <: if ($viewer.is_admin) { :>
               <!--

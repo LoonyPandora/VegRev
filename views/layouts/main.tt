@@ -36,7 +36,8 @@
     </div>
 
     <div id="pagination" class="clearfix">
-        <: include "pagination.tt" :>
+        <: if ($template == 'thread') { include "pagination-thread.tt" } :>
+        <: if ($template == 'forum')  { include "pagination-forum.tt" } :>
     </div>
 </div>
 
