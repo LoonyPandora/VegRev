@@ -31,7 +31,7 @@ sub new_from_tag {
             UNIX_TIMESTAMP(thread_read_receipt.timestamp) AS last_read
         FROM thread
         LEFT JOIN user ON latest_post_user_id = user.id
-        LEFT JOIN thread_read_receipt ON thread_read_receipt.user_id = '1'
+        LEFT JOIN thread_read_receipt ON thread_read_receipt.user_id = ?
             AND thread_read_receipt.thread_id = thread.id
         WHERE thread.id IN (SELECT thread_id
         FROM tagged_thread
@@ -42,7 +42,7 @@ sub new_from_tag {
         LIMIT ?, ?
     });
 
-    $thread_sth->execute($args->{offset}, $args->{limit});
+    $thread_sth->execute(session('user_id'), $args->{offset}, $args->{limit});
 
     # As an arrayref to keep the ordering
     my $threads = $thread_sth->fetchall_arrayref({});
