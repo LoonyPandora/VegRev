@@ -15,6 +15,7 @@ $(document).ready(function() {
 
 
     $('#tag_select').chosen();
+    $('#user_select').chosen();
 
 
     $('#messageform').submit(function() { 

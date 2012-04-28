@@ -37,6 +37,14 @@
             </select>
         </div>
 
+        <div class="clearfix user_select">
+            <label for="user_select">Send To:</label>
+            <select data-placeholder=" " id="user_select" name="user_select">
+                <option value="1">LoonyPandora (admin)</option>
+                <option value="2">The Dude (girlpants)</option>
+            </select>
+        </div>
+
         <ul class="clearfix formatting mce_toolbar">
             <li class="sprite-edit-bold"><a href="#">Bold</a></li>
             <li class="sprite-edit-italic"><a href="#">Italic</a></li>
