@@ -37,7 +37,6 @@ set environment => 'sensitive';
 # Should also do some authentication here
 hook 'before' => sub {
     if (!session('user_id')) {
-        warn "hello";
         # my $viewer = VegRev::User->new({ id => 1 })->load_extra;
         # $viewer->store_session;
     } else {
@@ -95,9 +94,13 @@ get qr{/(\d+)?/?$} => sub {
         limit  => $per_page,
     });
 
+    # TODO: Check object was created
+    my $last_page = ceil($forum->tag_meta()->{total_threads} / $per_page);
+
     template 'forum', {
         postform => { header => 'Start a new thread' },
         active   => { forum => 'active'},
+        pages    => { current => $page, last => $last_page, list => [1 .. $last_page]},
         forum    => $forum,
         template => 'forum',
     };
@@ -119,8 +122,6 @@ get qr{/thread/(\d+).+?/?(\d+)?$} => sub {
 
     # TODO: Check thread object was created
     my $last_page = ceil($thread->replies / $per_page);
-
-    # die $last_page;
 
     $thread->mark_as_read();
 

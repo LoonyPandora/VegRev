@@ -239,29 +239,13 @@ ul.recent_threads a:hover {
 
 #pagination-list a {
     text-align: center;
-    width: 33px;
+    width: 32px;
 }
 
 #pagination-list .disabled a {
-    width: 50px;
+    width: 60px;
     text-align: right;
     background-color: #f5f5f5;
-}
-
-#sidebar .statbox_list {
-    color: #666;
-    line-height: 20px;
-}
-
-#sidebar .statbox_list dt {
-    text-align: left;
-    width: 80px;
-    line-height: 20px;
-}
-
-#sidebar .statbox_list dd {
-    margin-left: 80px;
-    line-height: 20px;
 }
 
 #sidebar .pagination {
@@ -277,6 +261,26 @@ ul.recent_threads a:hover {
 
 #sidebar .pagination ul li a:hover {
     background: #f5f5f5;
+}
+
+
+/* Sidebar statboxes
+================================================== */
+
+#sidebar .statbox_list {
+    color: #666;
+    line-height: 20px;
+}
+
+#sidebar .statbox_list dt {
+    text-align: left;
+    width: 80px;
+    line-height: 20px;
+}
+
+#sidebar .statbox_list dd {
+    margin-left: 80px;
+    line-height: 20px;
 }
 
 

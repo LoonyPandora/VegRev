@@ -17,9 +17,9 @@ use Carp;
 
 
 # From the DB
-has tag     => ( is => 'rw' );
-has threads => ( is => 'rw' );
-
+has tag      => ( is => 'rw' );
+has threads  => ( is => 'rw' );
+has tag_meta => ( is => 'rw' );
 
 
 sub new_from_tag {
@@ -41,6 +41,7 @@ sub new_from_tag {
         ORDER BY last_updated DESC
         LIMIT ?, ?
     });
+
     $thread_sth->execute($args->{offset}, $args->{limit});
 
     # As an arrayref to keep the ordering
@@ -69,8 +70,21 @@ sub new_from_tag {
         push @{$thread->{tags}}, keys $taglist->{ $thread->{id} };
     }
 
+    # Required for pagination
+    my $meta_sth = database->prepare(q{
+        SELECT COUNT(DISTINCT thread_id) AS total_threads
+        FROM tagged_thread
+        LEFT JOIN tag ON tagged_thread.tag_id = tag.id
+        WHERE group_id IN (1, 2, 4)
+        AND tag_id != 2
+    });
+    $meta_sth->execute();
+
+    my $meta = $meta_sth->fetchall_arrayref({})->[0];
+
     return VegRev::Forum->new({
-        threads => $threads,
+        tag_meta => $meta,
+        threads  => $threads,
     });
 }
 
