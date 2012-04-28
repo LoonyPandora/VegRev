@@ -77,7 +77,7 @@ sub user_link {
     my ($user_name, $display_name, $avatar) = @_;
 
 #    my $link = "http://www.vegetablerevolution.co.uk/profile/$username";
-    my $profile_url = "http://www.vegrev.local/profile/$user_name";
+    my $profile_url = "http://vegrev.local/profile/$user_name";
 
     return qq{<a href="$profile_url" title="$display_name" rel="tooltip">}.avatar_img($avatar, $display_name).q{</a>};
 }
