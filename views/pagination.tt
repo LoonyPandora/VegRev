@@ -1,63 +1,34 @@
 
     <ul class="pager">
-      <li><a href="#">&larr; Previous Page</a></li>
+      <: if ($pages.current == 1) {:>
+      <li class="disabled"><a href="#">&larr; Previous Page</a></li>
+      <: } else { :>      
+      <li><a href="/thread/<:$thread.id:>-<:$thread.url_slug:>/<:$pages.current-1:>">&larr; Previous Page</a></li>
+      <: } :>
+
       <li><a href="#pagination-list" data-toggle="collapse">Show Pages</a></li>
-      <li><a href="#">Next Page &rarr;</a></li>
+      
+      <: if ($pages.current == $pages.last) {:>
+      <li class="disabled"><a href="#">Next Page &rarr;</a></li>
+      <: } else { :>      
+      <li><a href="/thread/<:$thread.id:>-<:$thread.url_slug:>/<:$pages.current+1:>">Next Page &rarr;</a></li>
+      <: } :>
     </ul>
 
 
     <div id="pagination-list" class="collapse pagination">
-      <ul>
-        <li class="disabled"><a href="#">1-10</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">6</a></li>
-        <li><a href="#">7</a></li>
-        <li><a href="#">8</a></li>
-        <li><a href="#">9</a></li>
-        <li><a href="#">10</a></li>
-      </ul>
-      <ul>
-        <li class="disabled"><a href="#">11-20</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-      </ul>
-      <ul>
-        <li class="disabled"><a href="#">21-30</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-      </ul>
-      <ul>
-        <li class="disabled"><a href="#">888-888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
-        <li><a href="#">888</a></li>
+      <ul><li class="disabled"><a href="#">1-9</a></li>
+        <: for $pages.list -> $page_number { :>
+
+            <: if ($page_number % 10 == 0) {:>
+            </ul><ul><li class="disabled"><a href="#"><:$page_number:>-<:$page_number+9:></a></li>
+            <: } :>
+            
+            <: if ($page_number == $pages.current) { :><li class="active">
+            <: } else { :><li><:}:>
+                <a href="/thread/<:$thread.id:>-<:$thread.url_slug:>/<:$page_number:>"><:$page_number:></a>
+            </li>
+        <: } :>
       </ul>
     </div>
 

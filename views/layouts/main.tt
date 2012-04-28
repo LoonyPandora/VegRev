@@ -55,21 +55,17 @@
 <script src="<: $settings.static_url :>/js/jquery.chosen.min.js"></script>
 <script src="<: $settings.static_url :>/js/jquery.form.js"></script>
 
-<script src="<: $settings.static_url :>/js/app.js"></script>
-<script src="<: $settings.static_url :>/js/postform.js"></script>
-<script src="<: $settings.static_url :>/js/<:$template:>.js"></script>
-
-<: if ($viewer.user_id) { :>
-
 <script src="<: $settings.static_url :>/js/tinymce/config.js"></script>
 <script src="<: $settings.static_url :>/js/tinymce/jquery.tinymce.js"></script>
 <script src="<: $settings.static_url :>/js/tinymce/tiny_mce.js"></script>
 
+<script src="<: $settings.static_url :>/js/app.js"></script>
+<script src="<: $settings.static_url :>/js/postform.js"></script>
+<script src="<: $settings.static_url :>/js/<:$template:>.js"></script>
+
 <div id="postform" class="clearfix modal fade">
     <: include "postform.tt" :>
 </div>
-<: } :>
-
 
 </body>
 </html>

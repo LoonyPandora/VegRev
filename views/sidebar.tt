@@ -3,19 +3,31 @@
 
             <div class="pagination">
               <ul>
-                <li class="previous"><a href="#">First</a></li>
-                <li><a href="#">Prev</a></li>
-                <li><a href="#">Next</a></li>
-                <li class="next"><a href="#">Last</a></li>
+                  <: if ($pages.current == 1) {:>
+                  <li class="disabled"><a href="#">First</a></li>
+                  <li class="disabled"><a href="#">Prev</a></li>
+                  <: } else { :>      
+                  <li><a href="/thread/<:$thread.id:>-<:$thread.url_slug:>/1">First</a></li>
+                  <li><a href="/thread/<:$thread.id:>-<:$thread.url_slug:>/<:$pages.current-1:>">Prev</a></li>
+                  <: } :>
+                  <: if ($pages.current == $pages.last) {:>
+                  <li class="disabled"><a href="#">Next</a></li>
+                  <li class="disabled next"><a href="#">Last</a></li>
+                  <: } else { :>      
+                  <li><a href="/thread/<:$thread.id:>-<:$thread.url_slug:>/<:$pages.current+1:>">Next</a></li>
+                  <li class="next"><a href="/thread/<:$thread.id:>-<:$thread.url_slug:>/<:$pages.last:>">Last</a></li>
+                  <: } :>
               </ul>
             </div>
           
-          <: if (!$viewer.is_admin) { :>
+          <: if ($viewer.is_admin) { :>
+              <!--
             <div class="btn-group">
               <button class="btn"><i class="icon-remove"></i> Delete</button>
               <button class="btn"><i class="icon-lock"></i> Lock</button>
               <button class="btn"><i class="icon-wrench"></i> Edit</button>
             </div>
+              -->
            <: } :>
         </div>
         

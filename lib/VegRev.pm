@@ -117,13 +117,19 @@ get qr{/thread/(\d+).+?/?(\d+)?$} => sub {
         limit  => $per_page,
     });
 
+    # TODO: Check thread object was created
+    my $last_page = ceil($thread->replies / $per_page);
+
+    # die $last_page;
+
     $thread->mark_as_read();
 
     template 'thread', {
-        postform => { header => 'Post a reply' },
-        active   => { forum => 'active' },
-        template => 'thread',
-        thread   => $thread
+        postform  => { header => 'Post a reply' },
+        active    => { forum => 'active' },
+        template  => 'thread',
+        pages     => { current => $page, last => $last_page, list => [1 .. $last_page]},
+        thread    => $thread
     };
 };
 
