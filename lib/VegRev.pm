@@ -53,9 +53,9 @@ hook 'before_template' => sub {
     # Xslate seems to get horribly confused with session stuff
     ($tokens->{viewer}) = unbless session();
 
-    $tokens->{theme}        = session('theme');
-    $tokens->{user_name}    = session('user_name');
-    $tokens->{recent}       = session('recent_threads');
+    $tokens->{theme}     = session('theme');
+    $tokens->{user_name} = session('user_name');
+    $tokens->{recent}    = session('recent_threads');
 
     $tokens->{tags}   = VegRev::Misc::list_tags();
     $tokens->{online} = VegRev::Misc::currently_online();
@@ -235,14 +235,6 @@ get qr{/profile/(\w+)/?$} => sub {
 ################
 
 
-post qr{/thread/(\d+).+?/?$} => sub {
-    my ($thread_id) = splat;
-
-    template 'thread', {
-        template => 'thread',
-    };
-};
-
 
 post qr{/post/?$} => sub {
     my %params = params;
@@ -253,7 +245,27 @@ post qr{/post/?$} => sub {
     }
 
     croak dump \%params;
+};
 
+
+
+# For updating an existing thread. Should be PATCH if it were RESTful
+# Matches /thread/:thread_id-:url_slug/:page - URL slug is ignored.
+# Same as the get route, minus the page id.
+# Matches /thread/:thread_id-:url_slug/:page - URL slug is ignored.
+post qr{/thread/(\d+)/?$} => sub {
+    my ($thread_id) = splat;
+    my %params      = params;
+
+    my $thread = VegRev::Thread->new();
+    
+    $thread->add_message({
+        thread_id => $thread_id,
+        raw_body  => $params{message},
+        body      => VegRev::Misc::cleanup_wysiwyg($params{message}),
+    });
+
+    return redirect "/thread/$thread_id";
 };
 
 

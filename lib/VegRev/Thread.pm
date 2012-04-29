@@ -122,4 +122,38 @@ sub mark_as_read {
 }
 
 
+
+sub add_message {
+    my $self = shift;
+    my $args = shift;
+    
+    # TODO: Error handling
+    # return unless session('user_id');
+
+    my $msg_sth = database->prepare(q{
+        INSERT INTO message (user_id, thread_id, ip_address, timestamp, body, raw_body)
+        VALUES (?, ?, INET_ATON(?), NOW(), ?, ?)
+    });
+
+    my $thread_sth = database->prepare(q{
+        UPDATE thread
+        SET last_updated = NOW(), latest_post_user_id = ?
+        WHERE id = ?
+        LIMIT 1
+    });
+
+    # We are always in a transaction - so this works.
+    $msg_sth->execute(
+        session('user_id'), $args->{thread_id},  session('ip_address'),
+        $args->{body},      $args->{raw_body}
+    );
+
+    $thread_sth->execute(
+        session('user_id'), session('user_id')
+    );
+
+    return $self;
+}
+
+
 1;

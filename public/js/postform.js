@@ -21,7 +21,18 @@ $(document).ready(function() {
     $('#messageform').submit(function() { 
         // inside event callbacks 'this' is the DOM element so we first 
         // wrap it in a jQuery object and then invoke ajaxSubmit 
-        $(this).ajaxSubmit(); 
+        $(this).ajaxSubmit({
+            error : function(a,b,c,d) {
+                
+              console.log(a,b,c,d);
+            },
+            success : function(a,b,c,d) {
+                
+              console.log(a,b,c,d);
+            }
+            
+            
+        }); 
  
         // !!! Important !!! 
         // always return false to prevent standard browser submit and page navigation 

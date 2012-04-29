@@ -4,7 +4,9 @@
     <h3><:$postform.header:></h3>
 </div>
 
-<form id="messageform" name="messageforom" action="/post" method="POST">
+<!--<form id="messageform" name="messageforom" action="/post" method="POST"> -->
+
+<form id="messageform" name="messageforom" action="/thread/<:$thread.id:>" method="POST">
 
 <select multiple id="message_picture" class="totally_hidden" name="message_picture"></select>
 <select multiple id="message_video" class="totally_hidden" name="message_video"></select>

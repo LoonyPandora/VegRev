@@ -64,6 +64,7 @@ sub list_tags {
 }
 
 
+# TODO: Can this add classes instead of inline style tags?
 sub cleanup_wysiwyg {
     my $unclean_html = shift;
 

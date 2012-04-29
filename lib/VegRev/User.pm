@@ -56,7 +56,6 @@ has shout_count      => ( is => 'rw' );
 has account_disabled => ( is => 'rw' );
 
 
-
 sub new_from_email {
     my $self = shift;
     my $args = shift;
@@ -161,7 +160,7 @@ sub store_session {
     session(is_admin       => $self->is_admin);
     session(gmt_offset     => $self->gmt_offset);
     session(recent_threads => $self->recently_viewed);
-    
+    session(ip_address     => '127.0.0.1');
 }
 
 
