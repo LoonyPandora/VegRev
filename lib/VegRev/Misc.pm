@@ -64,5 +64,40 @@ sub list_tags {
 }
 
 
+sub cleanup_wysiwyg {
+    my $unclean_html = shift;
+
+    my $tidy = HTML::Tidy->new({
+        char_encoding               => 'utf8',
+        input_encoding              => 'utf8',
+        output_encoding             => 'utf8',
+        newline                     => 'LF',
+        sort_attributes             => 'alpha',
+        doctype                     => 'omit',
+        tidy_mark                   => 0,
+        bare                        => 0,
+        clean                       => 0,
+        fix_backslash               => 1,
+        indent                      => 1,
+        break_before_br             => 1,
+        merge_divs                  => 1,
+        merge_spans                 => 1,
+        drop_empty_paras            => 1,
+        drop_proprietary_attributes => 1,
+        logical_emphasis            => 1,
+        quote_ampersand             => 1,
+        quote_nbsp                  => 1,
+        show_body_only              => 1,
+        word_2000                   => 1,
+    });
+
+    $tidy->ignore( type => 1, type => 2 );
+
+    my $clean_html = $tidy->clean($unclean_html);
+
+    return $clean_html;
+}
+
+
 
 1;
