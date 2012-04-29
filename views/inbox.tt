@@ -12,7 +12,7 @@
                 </span>
 
                 <span class="statbox">
-                    <b class="label important">new</b> <: $thread.last_updated | humanize :>
+                    <b class="label label-important">new</b> <: $thread.last_updated | humanize :>
                 </span>
             </span>
         </a>
