@@ -149,6 +149,7 @@ get qr{/inbox/?(\d+)?/?$} => sub {
     });
 
     template 'inbox', {
+        postform => { header => 'Send a Private Message' },
         active   => { inbox => 'active'},
         inbox    => $inbox,
         template => 'inbox',
@@ -161,7 +162,7 @@ get qr{/chat/(\d+)/?(\d+)?/?$} => sub {
     my ($chat_id, $page) = splat;
 
     $page = $page // 1;
-    my $per_page = 50;
+    my $per_page = 999;
 
     my $thread = VegRev::Chat::new_from_id({
         chat_id => $chat_id,
@@ -171,8 +172,9 @@ get qr{/chat/(\d+)/?(\d+)?/?$} => sub {
     });
 
     template 'chat', {
+        postform => { header => 'Send a Private Message' },
         active   => { inbox => 'active'},
-        template => 'thread',
+        template => 'chat',
         thread   => $thread
     };
 };

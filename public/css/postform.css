@@ -332,6 +332,7 @@ ul.mce_attachments li a {
 
 div.subject         { display: none;  }
 div.tag_select      { display: none;  }
+div.user_select     { display: none;  }
 ul.formatting       { display: block; }
 ul.extra_formatting { display: none;  }
 ul.add_link         { display: none;  }

@@ -13,11 +13,6 @@
             <div class="meta online">
                 <div class="username"><: $message.display_name :></div>
                 <div class="timestamp"><: $message.timestamp | humanize :></div>
-                <ul class="actions">
-                    <li><a href="#"><img src="<: $settings.static_url :>/img/icons/delete_16.png"></a></li>
-                    <li><a href="#"><img src="<: $settings.static_url :>/img/icons/edit_16.png"></a></li>
-                    <li><a href="#" class="post_reply"><img src="<: $settings.static_url :>/img/icons/reply_16.png"></a></li>
-                </ul>
             </div>
 
             <div class="body">

@@ -10,7 +10,7 @@
 <select multiple id="message_video" class="totally_hidden" name="message_video"></select>
 <select multiple id="message_attachment" class="totally_hidden" name="message_attachment"></select>
 
-<input type="hidden" id="thread_id" class="totally_hidden" name="thread_id" value="<:$thread.id:>" />
+<input type="hidden" id="thread_id" class="totally_hidden" name="thread_id" value="" />
 <input type="hidden" id="in_reply_to" class="totally_hidden" name="in_reply_to" />
 
 
@@ -18,7 +18,7 @@
     <div id="tinymce_container" class="clearfix">
 
         <div class="clearfix subject">
-            <label for="subject">Subject:</label><input type="text" id="subject" name="subject" value="<:$thread.subject:>">
+            <label for="subject">Subject:</label><input type="text" id="subject" name="subject">
         </div>
 
         <div class="clearfix tag_select">

@@ -34,8 +34,8 @@ ul.inbox_list a {
 }
 
 ul.inbox_list img {
-  height: 40px;
-  width:  40px;
+  height: 20px;
+  width:  20px;
   margin: 0 20px 0 0;
   background-color: #ddd;
 }
@@ -47,8 +47,8 @@ ul.inbox_list span.statbox {
   text-align:   right;
   right:        0;
   width:        180px;
-  height:       40px;
-  line-height:  40px;
+  height:       20px;
+  line-height:  20px;
 }
 
 ul.inbox_list span.statbox b {
@@ -61,8 +61,18 @@ ul.inbox_list span.thread_title {
   font-family:  "ProximaNovaSemiBold", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight:  normal;
   max-width:    510px;
-  height:       40px;
-  line-height:  40px;
+  height:       20px;
+  line-height:  20px;
   overflow:     hidden;
   float:        left;
 }
+
+
+
+/* User Selection Listbox
+================================================== */
+
+div.user_select {
+    display: block;
+}
+
