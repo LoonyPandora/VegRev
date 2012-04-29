@@ -135,6 +135,11 @@ ul.message_list div.body {
   width:      550px;
 }
 
+ul.message_list div.body,
+ul.message_list div.body p {
+    line-height: 1.54;
+}
+
 ul.message_list div.body :last-child,
 ul.message_list div.signature :last-child {
   margin-bottom: 0;
