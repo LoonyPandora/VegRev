@@ -90,6 +90,24 @@ sub new_from_id {
         push(@{ $messages->{ $quote->{message_id} }->{quotes} }, $quote);
     }
 
+    my $attachment_sth = database->prepare(q{
+        SELECT id, message_id, url
+        FROM attachment
+        WHERE message_id IN (} . join(',', map('?', keys %$messages)) . q{)
+    });
+    $attachment_sth->execute(keys %$messages);
+
+    # Add any attachments
+    for my $attachment (@{ $attachment_sth->fetchall_arrayref({}) }) {        
+        if ($attachment->{url} =~ m/(:?\.jpg|\.jpeg|\.gif|\.png)$/) {
+            $attachment->{type} = 'image';
+        } else {
+            $attachment->{type} = 'youtube';
+        }
+
+        push(@{ $messages->{ $attachment->{message_id} }->{attachments} }, $attachment);
+    }
+
     # We don't sort in SQL because we return a hashref to add the quotes
     # Hashes aren't sorted... So sort here in perl
     my @messages;

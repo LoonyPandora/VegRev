@@ -275,9 +275,9 @@ function tinymce_binding() {
         // We re-make the video url from the video ID, stripping tracking tags
         var option = $('#message_attachment').append(
             $("<option/>")
-                .attr("value", 'http://youtu.be/'+video_id)
+                .attr("value", 'http://www.youtube-nocookie.com/embed/'+video_id)
                 .attr("selected", "selected")
-                .text('http://youtu.be/'+video_id)
+                .text('http://www.youtube-nocookie.com/embed/'+video_id)
         );
         
         // We create a new item in the attachment / image list, and a href

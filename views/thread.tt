@@ -30,9 +30,21 @@
             </ul>
             <: } :>
 
-            <div class="body">                
+            <div class="body">
                 <: $message.body | bbcode | raw :>
             </div>
+
+            <: if $message.attachments != nil { :>
+            <ul class="attachments">        
+                <: for $message.attachments -> $attachment { :>
+                    <: if ($attachment.type == 'image') { :>
+                    <li><img src="<:$attachment.url:>" /></li>
+                    <: } else { :>
+                    <li><iframe width="550" height="315" src="<:$attachment.url:>" frameborder="0" allowfullscreen></iframe></li>
+                    <: } :>
+                <: } :>
+            </ul>
+            <: } :>
 
             <: if $message.signature != nil { :>
             <div class="signature">

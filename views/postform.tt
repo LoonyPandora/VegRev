@@ -159,10 +159,7 @@
 
         <textarea id="message" name="message"></textarea>
 
-        <ul class="mce_attachments">
-            <li><a href="#"><img src="/apple-touch-icon.png"></a></li>
-        </ul>
-
+        <ul class="mce_attachments"></ul>
         
     </div>
 </div>
