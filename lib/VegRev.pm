@@ -309,6 +309,39 @@ post qr{/login/?$} => sub {
 # Misc Routes
 ################
 
+
+# Marks a specific message as deleted
+post qr{/delete_message/??$} => sub {
+    my %params = params;
+
+    # TODO: Better Error handling
+    return unless session('user_id');
+    return unless $params{delete_message_id};
+
+    # Only the original poster and mods can delete a message
+    my $clause = 'AND user_id = ?';
+    if (session('is_admin')) {
+        $clause = '';
+    }
+
+    my $message_sth = database->prepare(qq{
+        UPDATE message
+        SET deleted = 1
+        WHERE id = ?
+        $clause
+        LIMIT 1
+    });
+
+    # FIXME: This be fugly
+    if (session('is_admin')) {
+        $message_sth->execute($params{delete_message_id});        
+    } else {
+        $message_sth->execute($params{delete_message_id}, session('user_id'));        
+    }
+};
+
+
+
 # Redirects to a specific message when given a message id
 get qr{/message/?(\d+)?/?$} => sub {
     my ($message_id) = splat;

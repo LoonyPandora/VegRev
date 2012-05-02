@@ -1,7 +1,26 @@
 <h1><:$thread.subject:></h1>
 
-<ul id="<:$thread.id:>" class="message_list">
+<div id="confirm-delete" class="clearfix modal fade">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Are you sure you want to delete this post?</h3>
+    </div>  
 
+    <form id="deleteform" name="deleteform" action="/delete_message/" method="POST">
+        <input type="hidden" id="delete_message_id" class="totally_hidden" name="delete_message_id" value="" />
+
+        <div class="formcontainer modal-body">
+            <p>This can't be undone. Once you delete this message, it's gone forever…</p>
+        </div>
+
+        <div class="modal-footer">
+            <a href="#" data-dismiss="modal" class="btn" value="Cancel">Cancel</a>
+            <input type="submit" class="btn btn-danger" value="Delete Message">
+        </div>
+    </form>
+</div>
+
+<ul id="<:$thread.id:>" class="message_list">
 : for $thread.messages -> $message {
     <li id="<:$message.id:>">
         <div class="avatar">
@@ -14,8 +33,7 @@
                 <div class="username"><: $message.display_name :></div>
                 <div class="timestamp"><: $message.timestamp | humanize :> </div>
                 <ul class="actions">
-                    <li><a href="#"><img src="<: $settings.static_url :>/img/icons/delete_16.png"></a></li>
-                    <li><a href="#"><img src="<: $settings.static_url :>/img/icons/edit_16.png"></a></li>
+                    <li><a href="#" class="delete_message" data-message-id="<:$message.id:>" data-toggle="modal" data-target="#confirm-delete" data-backdrop="true" data-keyboard="true"><img src="<: $settings.static_url :>/img/icons/delete_16.png"></a></li>
                     <li><a href="#" class="post_reply"><img src="<: $settings.static_url :>/img/icons/reply_16.png"></a></li>
                 </ul>
             </div>

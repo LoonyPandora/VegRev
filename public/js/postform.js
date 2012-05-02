@@ -14,6 +14,11 @@ $(document).ready(function() {
     });
 
 
+    // Sets the form up for deleting messages
+    $('.delete_message').click(function() {        
+        $('#delete_message_id').val($(this).data('message-id'));
+    });
+
     $('#tag_select').chosen();
     $('#user_select').chosen();
 
@@ -37,6 +42,24 @@ $(document).ready(function() {
         return false; 
     }); 
 
+    $('#deleteform').submit(function() { 
+        // inside event callbacks 'this' is the DOM element so we first 
+        // wrap it in a jQuery object and then invoke ajaxSubmit 
+        $(this).ajaxSubmit({
+            error : function(a,b,c,d) {
+                
+              console.log(a,b,c,d);
+            },
+            success : function(a,b,c,d) {
+                
+              console.log(a,b,c,d);
+            }
+        }); 
+ 
+        // !!! Important !!! 
+        // always return false to prevent standard browser submit and page navigation 
+        return false; 
+    }); 
 
 
 });

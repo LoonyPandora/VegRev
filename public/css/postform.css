@@ -8,6 +8,10 @@
   background-color: #fff;
 }
 
+#deleteform {
+    margin: 0;
+}
+
 #postform div.formcontainer {
   position: relative;
   padding: 0 15px 0 15px;
@@ -30,6 +34,8 @@
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
 }
+
+
 
 
 

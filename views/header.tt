@@ -30,7 +30,7 @@
             </ul>
             
             <div class="pull-right">
-                <a href="#" class="btn btn-primary"id="postform-modal" data-toggle="modal" data-target="#postform" data-backdrop="true" data-keyboard="true">New Post</a>                
+                <a href="#" class="btn btn-primary" id="postform-modal" data-toggle="modal" data-target="#postform" data-backdrop="true" data-keyboard="true">New Post</a>                
             </div>
             <: } :>
         </div>
