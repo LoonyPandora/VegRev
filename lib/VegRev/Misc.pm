@@ -10,6 +10,10 @@ use Dancer::Plugin::Database;
 
 use Data::Dump qw/dump/;
 
+use HTML::StripScripts::Parser;
+use HTML::FormatText;
+use HTML::TreeBuilder;
+
 
 
 # Misc functions that aren't appropriate in the view
@@ -96,9 +100,33 @@ sub cleanup_wysiwyg {
 
     my $clean_html = $tidy->clean($unclean_html);
 
+    # Now check for XSS and dodgy tags
+    my $hss = HTML::StripScripts::Parser->new({
+        Context        => 'Flow',
+        BanList        => [qw( div img hr ul ol dl li dt dd )],
+        AllowSrc       => 1,
+        AllowHref      => 1,
+        AllowRelURL    => 1,
+        EscapeFiltered => 1,
+    });
+
+    return $hss->filter_html($clean_html);
+
     return $clean_html;
 }
 
+sub make_plaintext {
+    my $html = shift;
 
+    my $tree = HTML::TreeBuilder->new_from_content($html);
+    
+    my $formatter = HTML::FormatText->new();
+    
+    my $plaintext = $formatter->format($tree);    
+    $plaintext =~ s/\s+/ /g;
+    $plaintext =~ s/^\s+|\s+$//g;
+
+    return $plaintext;
+}
 
 1;

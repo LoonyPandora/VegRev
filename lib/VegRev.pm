@@ -164,7 +164,7 @@ get qr{/chat/(\d+)/?(\d+)?/?$} => sub {
     $page = $page // 1;
     my $per_page = 999;
 
-    my $thread = VegRev::Chat::new_from_id({
+    my $chat = VegRev::Chat::new_from_id({
         chat_id => $chat_id,
         user_id => session->{user_id},
         offset  => ($page * $per_page) - $per_page,
@@ -175,7 +175,7 @@ get qr{/chat/(\d+)/?(\d+)?/?$} => sub {
         postform => { header => 'Send a Private Message' },
         active   => { inbox => 'active'},
         template => 'chat',
-        thread   => $thread
+        chat     => $chat,
     };
 };
 
@@ -263,7 +263,9 @@ post qr{/thread/(\d+)/?$} => sub {
         thread_id   => $thread_id,
         raw_body    => $params{message},
         body        => VegRev::Misc::cleanup_wysiwyg($params{message}),
+        plaintext   => VegRev::Misc::make_plaintext($params{message}),
         attachments => $params{message_attachment},
+        quote       => $params{in_reply_to}
     });
 
     return redirect "/thread/$thread_id";

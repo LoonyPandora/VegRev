@@ -1,19 +1,20 @@
 <h1>Photos and stuff.</h1>
 
-
-
 <ul class="upload_list">
-
-: for $gallery.pictures -> $picture {
+: for $gallery.attachments -> $attachment {
     <li>
-        <a href="/message/<:$picture.message_id:>/">
-            <: avatar_img($picture.avatar, $picture.usertext) | raw :>
+        <a href="/message/<:$attachment.message_id:>/">
+            <: if ($attachment.type == 'image') { :>
+                <img src="<:$attachment.url:>" />
+            <: } else { :>
+                <iframe width="160" height="100" src="<:$attachment.url:>" frameborder="0" allowfullscreen></iframe>
+            <: } :>
+            
             <div class="photo_meta">
-                <: avatar_img($picture.avatar, $picture.usertext) | raw :>
-                <: $picture.display_name :>
+                <: avatar_img($attachment.avatar, $attachment.usertext) | raw :>
+                <: $attachment.display_name :>
             </div>
         </a>
     </li>
 : }
-
 </ul>

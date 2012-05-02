@@ -17,27 +17,37 @@ use Carp;
 
 
 # From the DB
-has pictures => ( is => 'rw' );
+has attachments => ( is => 'rw' );
 
 
 sub new_from_tag {
     my $args = shift;
 
-    my $picture_sth = database->prepare(q{
-        SELECT attachment.id, original_name, message_id, user.display_name, user.user_name, user.avatar, user.usertext, thread_id, timestamp, body
+    my $attachment_sth = database->prepare(q{
+        SELECT attachment.id, message_id, url, user.display_name, user.user_name, user.avatar, user.usertext, thread_id, timestamp, body
         FROM attachment
         LEFT JOIN message ON attachment.message_id = message.id
         LEFT JOIN user ON user_id = user.id
         ORDER BY attachment.id DESC
         LIMIT ?, ?
     });
-    $picture_sth->execute($args->{offset}, $args->{limit});
+    $attachment_sth->execute($args->{offset}, $args->{limit});
 
     # As an arrayref to keep the ordering
-    my $pictures = $picture_sth->fetchall_arrayref({});
+    my $attachments = $attachment_sth->fetchall_arrayref({});
+
+    for my $attachment (@{$attachments}) {        
+        if ($attachment->{url} =~ m/(:?\.jpg|\.jpeg|\.gif|\.png)$/) {
+            $attachment->{type} = 'image';
+        } else {
+            $attachment->{type} = 'youtube';
+        }
+    }
+
+    # die Data::Dump::dump $attachments;
 
     return VegRev::Gallery->new({
-        pictures => $pictures,
+        attachments => $attachments,
     });
 }
 

@@ -11,7 +11,6 @@ use Dancer qw(:moose);
 use Dancer::Plugin::Database;
 use Carp;
 
-
 # A thread object should conceptually be a collection of VegRev::Message objects
 # But that would mean extra DB queries, and essentially I would be creating an ORM
 
@@ -149,8 +148,8 @@ sub add_message {
     return unless session('user_id');
 
     my $msg_sth = database->prepare(q{
-        INSERT INTO message (user_id, thread_id, ip_address, timestamp, body, raw_body)
-        VALUES (?, ?, INET_ATON(?), NOW(), ?, ?)
+        INSERT INTO message (user_id, thread_id, ip_address, timestamp, body, raw_body, plaintext)
+        VALUES (?, ?, INET_ATON(?), NOW(), ?, ?, ?)
     });
 
     my $thread_sth = database->prepare(q{
@@ -165,10 +164,15 @@ sub add_message {
         VALUES (?, ?)
     });
 
+    my $quote_sth = database->prepare(q{
+        INSERT INTO quote (message_id, message_id_quoted, body)
+        VALUES (?, ?, (SELECT plaintext FROM message WHERE id = ?))
+    });
+
     # We are always in a transaction - so this works.
     $msg_sth->execute(
         session('user_id'), $args->{thread_id},  session('ip_address'),
-        $args->{body},      $args->{raw_body}
+        $args->{body},      $args->{raw_body},   $args->{plaintext}
     );
 
     $thread_sth->execute(
@@ -186,6 +190,13 @@ sub add_message {
         $attach_sth->execute(
             $msg_sth->{mysql_insertid}, $args->{attachments}
         );    
+    }
+    
+    # insert the quotes
+    if ($args->{quote}) {
+        $quote_sth->execute(
+            $msg_sth->{mysql_insertid}, $args->{quote}, $args->{quote}
+        );
     }
 
     return $self;
