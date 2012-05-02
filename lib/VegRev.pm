@@ -108,7 +108,7 @@ get qr{/(\d+)?/?$} => sub {
 
 
 # Matches /thread/:thread_id-:url_slug/:page - URL slug is ignored.
-get qr{/thread/(\d+).+?/?(\d+)?$} => sub {
+get qr{/thread/(\d+)(?:.*?)?/?(\d+)?/?$} => sub {
     my ($thread_id, $page) = splat;
 
     $page = $page // 1;
