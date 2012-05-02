@@ -258,11 +258,12 @@ post qr{/thread/(\d+)/?$} => sub {
     my %params      = params;
 
     my $thread = VegRev::Thread->new();
-    
+
     $thread->add_message({
-        thread_id => $thread_id,
-        raw_body  => $params{message},
-        body      => VegRev::Misc::cleanup_wysiwyg($params{message}),
+        thread_id   => $thread_id,
+        raw_body    => $params{message},
+        body        => VegRev::Misc::cleanup_wysiwyg($params{message}),
+        attachments => $params{message_attachment},
     });
 
     return redirect "/thread/$thread_id";

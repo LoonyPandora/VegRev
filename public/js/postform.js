@@ -30,8 +30,6 @@ $(document).ready(function() {
                 
               console.log(a,b,c,d);
             }
-            
-            
         }); 
  
         // !!! Important !!! 
@@ -275,21 +273,22 @@ function tinymce_binding() {
 
         // Add the video URL to the hidden select box that is actually submitted
         // We re-make the video url from the video ID, stripping tracking tags
-        $('#message_picture').append(
+        var option = $('#message_attachment').append(
             $("<option/>")
-                .attr("value", picture)
+                .attr("value", 'http://youtu.be/'+video_id)
                 .attr("selected", "selected")
-                .text(picture)
+                .text('http://youtu.be/'+video_id)
         );
+        
         // We create a new item in the attachment / image list, and a href
         // a href onclick will remove it from the list.
-        $('<li/>')
-        .append(
+        $('<li/>').append(
             $('<a/>', {
                 href: '#',
-                title: 'Thumnail Preview'
+                title: 'Thumbnail Preview'
             }).click(function() {
                 $(this).parent().remove();
+                $(option).find('option:selected').removeAttr("selected");
                 return false;
             }).append(
                 $('<img/>', {
@@ -314,7 +313,7 @@ function tinymce_binding() {
         }
 
         // Add the picture to the hidden select box that is actually submitted
-        $('#message_picture').append(
+        var option = $('#message_attachment').append(
             $("<option/>")
                 .attr("value", picture)
                 .attr("selected", "selected")
@@ -329,6 +328,7 @@ function tinymce_binding() {
                 title: 'Thumnail Preview'
             }).click(function() {
                 $(this).parent().remove();
+                $(option).find('option:selected').removeAttr("selected");
                 return false;
             }).append(
                 $('<img/>', {
@@ -342,12 +342,6 @@ function tinymce_binding() {
 
         return false;
     });
-
-
-    $('.mce_attachments li a').click(function() {
-        console.log('clicked');
-        return false;
-    })
 
 }
 
@@ -390,6 +384,9 @@ function validate_url(options) {
 
     if (options['type'] === 'video') {
         var video_id = options.string.match("[\?&]v=([^&#]*)");
+
+        // FIXME: Make youtu.be urls work
+        // http://youtu.be/xP1-oquwoL8
 
         if ( !video_id ) {
             return false;

@@ -128,7 +128,7 @@ sub add_message {
     my $args = shift;
     
     # TODO: Error handling
-    # return unless session('user_id');
+    return unless session('user_id');
 
     my $msg_sth = database->prepare(q{
         INSERT INTO message (user_id, thread_id, ip_address, timestamp, body, raw_body)
@@ -142,6 +142,11 @@ sub add_message {
         LIMIT 1
     });
 
+    my $attach_sth = database->prepare(q{
+        INSERT INTO attachment (message_id, url)
+        VALUES (?, ?)
+    });
+
     # We are always in a transaction - so this works.
     $msg_sth->execute(
         session('user_id'), $args->{thread_id},  session('ip_address'),
@@ -151,6 +156,19 @@ sub add_message {
     $thread_sth->execute(
         session('user_id'), session('user_id')
     );
+
+    # Multiple attachments are an arrayref from the POST params
+    if (ref $args->{attachments} eq 'ARRAY') {
+        for my $attachment (@{$args->{attachments}}) {        
+            $attach_sth->execute(
+                $msg_sth->{mysql_insertid}, $attachment
+            );
+        }
+    } elsif (defined $args->{attachments}) {
+        $attach_sth->execute(
+            $msg_sth->{mysql_insertid}, $args->{attachments}
+        );    
+    }
 
     return $self;
 }

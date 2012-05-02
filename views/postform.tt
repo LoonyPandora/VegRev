@@ -8,8 +8,6 @@
 
 <form id="messageform" name="messageforom" action="/thread/<:$thread.id:>" method="POST">
 
-<select multiple id="message_picture" class="totally_hidden" name="message_picture"></select>
-<select multiple id="message_video" class="totally_hidden" name="message_video"></select>
 <select multiple id="message_attachment" class="totally_hidden" name="message_attachment"></select>
 
 <input type="hidden" id="thread_id" class="totally_hidden" name="thread_id" value="" />
@@ -162,7 +160,7 @@
         <textarea id="message" name="message"></textarea>
 
         <ul class="mce_attachments">
-            <li><a href="#"><img src="apple-touch-icon.png"></a></li>
+            <li><a href="#"><img src="/apple-touch-icon.png"></a></li>
         </ul>
 
         
