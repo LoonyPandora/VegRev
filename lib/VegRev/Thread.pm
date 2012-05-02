@@ -23,10 +23,13 @@ has icon          => ( is => 'rw' );
 has start_date    => ( is => 'rw' );
 has last_updated  => ( is => 'rw' );
 has replies       => ( is => 'rw' );
-has started_by    => ( is => 'rw' );
-has latest_poster => ( is => 'rw' );
 has messages      => ( is => 'rw' );
 has tags          => ( is => 'rw' );
+
+has latest_user_name     => ( is => 'rw' );
+has latest_display_name  => ( is => 'rw' );
+has started_user_name    => ( is => 'rw' );
+has started_display_name => ( is => 'rw' );
 
 
 # Creates a new VegRev::Thread object from a thread ID
@@ -45,20 +48,22 @@ sub new_from_id {
     $msg_sth->execute($args->{id}, $args->{offset}, $args->{limit});
 
     my $meta_sth = database->prepare(q{
-        SELECT id, subject, url_slug, icon, UNIX_TIMESTAMP(start_date) AS start_date, UNIX_TIMESTAMP(last_updated) AS last_updated, (
+        SELECT thread.id, subject, url_slug, icon, UNIX_TIMESTAMP(start_date) AS start_date, UNIX_TIMESTAMP(last_updated) AS last_updated, (
             SELECT count(id)
             FROM message
             WHERE message.thread_id = thread.id
             AND message.deleted != 1
-        ) AS replies
+        ) AS replies, latest_user.user_name AS latest_user_name, latest_user.display_name AS latest_display_name, started_user.user_name AS started_user_name, started_user.display_name AS started_display_name
         FROM thread
+        LEFT JOIN user AS latest_user  ON latest_post_user_id = latest_user.id
+        LEFT JOIN user AS started_user ON started_by_user_id = started_user.id
         WHERE thread.id = ?
         LIMIT 1
     });
     $meta_sth->execute($args->{id});
 
     my $tag_sth = database->prepare(q{
-        SELECT id, tag.title, url_slug
+        SELECT id, tag.title, tag.description, url_slug
         FROM tagged_thread
         LEFT JOIN tag ON tagged_thread.tag_id = tag.id
         WHERE tagged_thread.thread_id = ?

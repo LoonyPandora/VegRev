@@ -7,7 +7,7 @@
             <ul class="nav pull-left">
                 <li class="<:$active.forum:>"><a href="/">Forum</a></li>
                 <li class="<:$active.gallery:>"><a href="/gallery">Gallery</a></li>
-                <: if ($viewer.user_id) { :><li class="<:$active.inbox:>"><a href="/inbox">Inbox &nbsp; <span class="badge">8</span></a></li><: } :>
+                <: if ($viewer.user_id) { :><li class="<:$active.inbox:>"><a href="/inbox">Inbox &nbsp; <span class="badge badge-important">!</span></a></li><: } :>
             </ul>
 
             <: if ($viewer.user_id) { :>
@@ -22,7 +22,7 @@
                     <li><a href="/profile/<: $viewer.user_name :>">View Profile</a></li>
                     <li><a href="/settings">Settings</a></li>
                     <li class="divider"></li>
-                    <li><a href="/inbox">Inbox <span class="badge">8</span></a></li>
+                    <li><a href="/inbox">Inbox <span class="badge badge-important">new</span></a></li>
                     <li class="divider"></li>
                     <li><a href="/logout" id="logout-link">Logout</a></li>
                   </ul>

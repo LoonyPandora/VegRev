@@ -30,6 +30,8 @@ set 'engines' => {
             bbcode     => \&bbcode,
             avatar_img => \&avatar_img,
             user_link  => \&user_link,
+            tag_link   => \&tag_link,
+            mini_user_link => \&mini_user_link
         },
     }
 };
@@ -82,8 +84,21 @@ sub user_link {
     return qq{<a href="$profile_url" title="$display_name" rel="tooltip">}.avatar_img($avatar, $display_name).q{</a>};
 }
 
-sub tag_link {
+sub mini_user_link  {
+    my ($user_name, $display_name) = @_;
 
+#    my $link = "http://www.vegetablerevolution.co.uk/profile/$username";
+    my $profile_url = "http://vegrev.local/profile/$user_name";
+
+    return qq{<a href="$profile_url" title="$display_name">$display_name</a>};
+}
+
+sub tag_link {
+    my ($slug, $title, $description) = @_;
+
+    $title = lc $title;
+
+    return qq{<a href="/tag/$slug" class="label" rel="tooltip" title="$description">$title</a>};
 }
 
 

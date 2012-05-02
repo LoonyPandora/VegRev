@@ -15,17 +15,23 @@
            <: } :>
         </div>
         
+        <: if $thread.replies != nil { :>
         <div class="widget clearfix">
           <h2>Statistics</h2>
           <dl class="statbox_list clearfix dl-horizontal">
-              <dt>Replies:</dt><dd>9,999</ddi>
-              <dt>Pages:</dt><dd>9,999</ddi>
-              <dt>Started By:</dt><dd>LoonyPandora</ddi>
-              <dt>Started On:</dt><dd>99th Nov, 9999</ddi>
-              <dt>Last Reply:</dt><dd>99th Nov, 9999</ddi>
-              <dt>Tagged:</dt><dd><span class="label">Chat</span> <span class="label">Main</span> <span class="label">Music</span></dd>
+              <dt>Replies:</dt><dd><:$thread.replies:></ddi>
+              <dt>Started By:</dt><dd><: mini_user_link ($thread.started_user_name, $thread.started_display_name) | raw :></dd>
+              <dt>Started On:</dt><dd><:$thread.start_date | humanize :></ddi>
+              <dt>Last Poster:</dt><dd><: mini_user_link ($thread.latest_user_name, $thread.latest_display_name) | raw :></dd>
+              <dt>Updated:</dt><dd><:$thread.last_updated | humanize :></ddi>
+              <dt>Tagged:</dt>
+              <dd>
+                  <: for $thread.tags -> $tag { :>
+                  <: tag_link($tag.url_slug, $tag.title, $tag.description) | raw :><: } :>
+              </dd>
           </dl>          
         </div>
+        <: } :>
 
         <: if (!$viewer.user_id) { :>
         <div id="loginbox" class="widget clearfix">
@@ -47,16 +53,14 @@
           </ul>
         </div>
 
-<!--
         <div class="widget clearfix">
-          <h2>Tags</h2>
+          <h2>All Tags</h2>
           <ul class="tag_list clearfix">
           <: for $tags -> $tag { :>
-            <li><a href="<:$request.base:>tag/<: $tag.url_slug :>" class="label" rel="tooltip" title="<: $tag.description :>"><: lowercase($tag.title) :></a></li>
+            <li><: tag_link($tag.url_slug, $tag.title, $tag.description) | raw :></li>
           <: } :>                           
           </ul>
         </div>
--->
 
         <: if ($viewer.user_id) { :>
         <div class="widget clearfix">
