@@ -75,7 +75,7 @@ sub new_from_id {
     my $messages = $msg_sth->fetchall_hashref('id');
 
     # No messages
-    if (keys %$messages < 1) {
+    if (scalar keys %$messages < 1) {
         redirect '/';
         return;
     }
