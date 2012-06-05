@@ -108,6 +108,8 @@ get qr{/(\d+)?/?$} => sub {
 
 
 # Matches /thread/:thread_id-:url_slug/:page - URL slug is ignored.
+# TODO: Fix - http://vegrev.local/thread/7936-thursday-271201-78/
+# Matches teh 78 as the page
 get qr{/thread/(\d+)(?:.*?)?/?(\d+)?/?$} => sub {
     my ($thread_id, $page) = splat;
 
@@ -120,7 +122,11 @@ get qr{/thread/(\d+)(?:.*?)?/?(\d+)?/?$} => sub {
         limit  => $per_page,
     });
 
-    # TODO: Check thread object was created
+    if (!$thread) {
+        redirect '/';
+        return;
+    }
+
     my $last_page = ceil($thread->replies / $per_page);
 
     $thread->mark_as_read();
