@@ -43,11 +43,16 @@
 ================================================== */
 
 /* TinyMCE will show these - stays hidden if JS is disabled */
-ul.mce_toolbar {
-  display: none;
+.mce_toolbar {
+     display: none;
 }
 
 .mceBlocker, .mceProgress {
+    display: none;
+    visibility: hidden;
+}
+
+.mceStatusbar {
     display: none;
     visibility: hidden;
 }
