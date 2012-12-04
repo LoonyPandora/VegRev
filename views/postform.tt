@@ -4,7 +4,7 @@
     <h3><:$postform.header:></h3>
 </div>
 
-<form id="messageform" name="messageforom" action="/thread/<: $thread.id :>" method="POST">
+<form id="messageform" name="messageforom" action="/post/<: $thread.id :>" method="POST">
 
 <select multiple id="message_attachment" class="totally_hidden" name="message_attachment"></select>
 
@@ -22,16 +22,9 @@
         <div class="clearfix tag_select">
             <label for="tag_select">Tagged:</label>
             <select multiple data-placeholder=" " id="tag_select" name="tag_select">
-                <option value="chat" selected>Chat</option>
-                <option value="rants">Rants</option>
-                <option value="private">Private</option>
-                <option value="spam">Spam</option>
-                <option value="music">Music</option>
-                <option value="literature">Literature</option>
-                <option value="zine">Zine</option>
-                <option value="meta">Meta</option>
-                <option value="admin">Admin</option>
-                <option value="archive">Archive</option>
+                <: for $tags -> $tag { :>
+                    <option value="<:$tag.id:>" <: $tag.id == 8 ? 'selected' : '':> ><:$tag.title:></option>
+                <: } :>                           
             </select>
         </div>
 

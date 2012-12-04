@@ -72,7 +72,7 @@ hook 'before_template' => sub {
 # Make sure we commit any open transactions. The entire request depends on it.
 hook 'after' => sub {
     eval    { database->commit; };
-    if ($@) { die "Committing Transaction Failed: $@"; }
+    if ($@) { croak "Committing Transaction Failed: $@"; }
 };
 
 
@@ -304,12 +304,18 @@ get qr{/profile/(\w+)/?$} => sub {
 post qr{/post/?$} => sub {
     my %params = params;
 
-    # Try and clean up the browser supplied "WYSIWYG" mess
-    if (defined $params{message}) {
-        $params{tidy_message} = VegRev::Misc::cleanup_wysiwyg($params{message});
-    }
+    my $thread = VegRev::Thread->new();
 
-    croak dump \%params;
+    $thread->start_thread({
+        tags        => $params{tag_select},
+        subject     => $params{subject},
+        raw_body    => $params{message},
+        body        => VegRev::Misc::cleanup_wysiwyg($params{message}),
+        plaintext   => VegRev::Misc::make_plaintext($params{message}),
+        attachments => $params{message_attachment},
+    });
+
+    return redirect "/thread/".$thread->id;
 };
 
 
@@ -323,14 +329,6 @@ post qr{/thread/(\d+)/?$} => sub {
     my %params      = params;
 
     my $thread = VegRev::Thread->new();
-
-    # Try and clean up the browser supplied "WYSIWYG" mess
-    if (defined $params{message}) {
-        $params{tidy_message} = VegRev::Misc::cleanup_wysiwyg($params{message});
-        $params{plaintext}    = VegRev::Misc::make_plaintext($params{message});
-    }
-
-    croak dump \%params;
 
     $thread->add_message({
         thread_id   => $thread_id,

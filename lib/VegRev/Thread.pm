@@ -144,6 +144,58 @@ sub mark_as_read {
 }
 
 
+sub start_thread {
+    my $self = shift;
+    my $args = shift;
+    
+    # TODO: Error handling
+    return unless session('user_id');
+
+    my $thread_sth = database->prepare(q{
+        INSERT INTO thread (subject, url_slug, icon, last_updated, started_by_user_id, latest_post_user_id, first_message_id)
+        VALUES (?, ?, ?, NOW(), ?, ?, ?)
+    });
+
+    my $tag_sth = database->prepare(q{
+        INSERT INTO tagged_thread (tag_id, thread_id)
+        VALUES (?, ?)
+    });
+
+    my $url_slug = lc $args->{subject} =~ s/[^\w+-]//gr;
+
+    # We are always in a transaction - so this works.
+    $thread_sth->execute(
+        $args->{subject}, $url_slug, "xx", session('user_id'),  session('user_id'),  session('user_id')
+    );
+
+    $self->id($thread_sth->{mysql_insertid});
+
+    if (ref $args->{tags} eq 'ARRAY') {
+        for my $tag (@{$args->{tags}}) {
+            $tag_sth->execute(
+                $tag, $self->id
+            );
+        }
+    } else {
+        $tag_sth->execute(
+            $args->{tags}, $self->id
+        );
+
+    }
+    
+    # Now we've made the thread, make a message
+    $self->add_message({
+        thread_id   => $thread_sth->{mysql_insertid},
+        raw_body    => $args->{raw_body},
+        body        => $args->{body},
+        plaintext   => $args->{plaintext},
+        attachments => $args->{attachments},
+    });
+
+    return $self;
+}
+
+
 
 sub add_message {
     my $self = shift;

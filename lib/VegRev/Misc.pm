@@ -57,7 +57,7 @@ sub currently_online {
 
 sub list_tags {
     my $sth = database->prepare(q{
-        SELECT title, url_slug, description
+        SELECT id, title, url_slug, description
         FROM tag
         WHERE group_id IN (2,3)
     });
