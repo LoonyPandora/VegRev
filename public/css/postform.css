@@ -20,8 +20,10 @@
 }
 
 #postform textarea#message {
+  color: #fff;
   border: none;
   height: 137px;
+  width: 100%;
   margin: 0;
 }
 
