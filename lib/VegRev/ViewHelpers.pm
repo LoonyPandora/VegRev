@@ -107,7 +107,7 @@ sub bbcode {
     my ($string) = @_;
 
     
-    $string =~ s~\[code\](.+?)\[/code\]~&_add_code_tag($1)~eisg;
+    # $string =~ s~\[code\](.+?)\[/code\]~&_add_code_tag($1)~eisg;
 
     # Don't want lots of newlines at the beginning or end of posts
     $string =~ s~^(\[br\])+~~ig;

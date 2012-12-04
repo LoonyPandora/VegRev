@@ -1,9 +1,14 @@
+<: if ($template == 'thread' || $template == 'forum' || $template == 'gallery') { :>
         <div id="threadinfo" class="widget clearfix">
           <h2>Pages</h2>
 
             <: if ($template == 'thread') { include "pagination-thread-sidebar.tt" } :>
             <: if ($template == 'forum') { include "pagination-forum-sidebar.tt" } :>
             <: if ($template == 'gallery') { include "pagination-gallery-sidebar.tt" } :>
+
+            <: if ($viewer.user_id) { :>
+            <a href="#" class="btn btn-primary btn-large" id="postform-modal" data-toggle="modal" data-target="#postform" data-backdrop="true" data-keyboard="true">New Post</a>                
+            <: } :>
           
           <: if ($viewer.is_admin) { :>
               <!--
@@ -15,7 +20,7 @@
               -->
            <: } :>
         </div>
-        
+        <:}:>
         <: if $thread.replies != nil { :>
         <div class="widget clearfix">
           <h2>Statistics</h2>
@@ -54,6 +59,7 @@
           </ul>
         </div>
 
+        <: if ($template == 'thread' || $template == 'forum' || $template == 'gallery') { :>
         <div class="widget clearfix">
           <h2>All Tags</h2>
           <ul class="tag_list clearfix">
@@ -62,6 +68,7 @@
           <: } :>                           
           </ul>
         </div>
+        <: } :>
 
         <: if ($viewer.user_id) { :>
         <div class="widget clearfix">

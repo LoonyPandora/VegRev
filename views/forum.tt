@@ -1,4 +1,4 @@
-<h1>Hola, Fluffy the Voodoo Zombie Slave. Welcome to VR</h1>
+<h1>Hola, <:$viewer.display_name:>.</h1>
 
 <ul class="thread_list">
 : for $forum.threads -> $thread {
