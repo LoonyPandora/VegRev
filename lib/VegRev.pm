@@ -37,8 +37,8 @@ set environment => 'sensitive';
 # Should also do some authentication here
 hook 'before' => sub {
     if (!session('user_id')) {
-        # my $viewer = VegRev::User->new({ id => 1 })->load_extra;
-        # $viewer->store_session;
+        my $viewer = VegRev::User->new({ id => 1 })->load_extra;
+        $viewer->store_session;
     } else {
         my $viewer = VegRev::User->new({ id => session('user_id') })->load_extra;
         $viewer->store_session;

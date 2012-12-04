@@ -4,10 +4,15 @@ static_url: 'http://vegrev.local'
 
 serializer: "JSON"
 
-session: "PSGI"
-session_name: 'plack_session'
+session: "DBI"
+session_name: 'vr_session'
 session_is_http_only: 1
-
+session_options:
+    dsn:      'DBI:mysql:database=testing;host=127.0.0.1;port=3306'
+    table:    'session'
+    user:     'vegrev'  
+    password: 'password'
+    
 plugins:
     Database:
         driver:   'mysql'
