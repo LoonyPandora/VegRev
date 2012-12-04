@@ -1,39 +1,25 @@
 <h1><: $user.display_name :></h1>
 
 <div id="profile_info">
-  <img src="<: $settings.static_url :>/img/icons/user_female_128.png" alt="No Avatar" class="avatar">
+  <: avatar_img($user.avatar, $user.usertext) | raw :>
 
-  <p>Lorem Ipsum Dolor</p>
+  <p><: $user.usertext :></p>
 
   <ul id="social_icons">
-    <li><a href="#" title="Facebook"><img src="<: $settings.static_url :>/img/icons/social/facebook_48.png"></a></li>
-    <li><a href="#" title="Last.fm"><img src="<: $settings.static_url :>/img/icons/social/lastfm_48.png"></a></li>
-    <li><a href="#" title="Twitter"><img src="<: $settings.static_url :>/img/icons/social/twitter_48.png"></a></li>
-    <li><a href="#" title="Vimeo"><img src="<: $settings.static_url :>/img/icons/social/vimeo_48.png"></a></li>
-    <li><a href="#" title="WordPress"><img src="<: $settings.static_url :>/img/icons/social/wordpress_48.png"></a></li>
-    <li><a href="#" title="Xbox Live"><img src="<: $settings.static_url :>/img/icons/social/xbl_48.png"></a></li>
-    <li><a href="#" title="YouTube"><img src="<: $settings.static_url :>/img/icons/social/youtube_48.png"></a></li>
-    <li><a href="#" title="MSN"><img src="<: $settings.static_url :>/img/icons/social/msn_48.png"></a></li>
-    <li><a href="#" title="Yahoo"><img src="<: $settings.static_url :>/img/icons/social/yahoo_48.png"></a></li>
-    <li><a href="#" title="Skype"><img src="<: $settings.static_url :>/img/icons/social/skype_48.png"></a></li>
-    <li><a href="#" title="MySpace"><img src="<: $settings.static_url :>/img/icons/social/myspace_48.png"></a></li>
-    <li><a href="#" title="Tumblr"><img src="<: $settings.static_url :>/img/icons/social/tumblr_48.png"></a></li>
-    <li><a href="#" title="LinkedIn"><img src="<: $settings.static_url :>/img/icons/social/linkedin_48.png"></a></li>
-    <li><a href="#" title="Google+"><img src="<: $settings.static_url :>/img/icons/social/google_48.png"></a></li>
-    <li><a href="#" title="Flickr"><img src="<: $settings.static_url :>/img/icons/social/flickr_48.png"></a></li>
-    <li><a href="#" title="Blogger"><img src="<: $settings.static_url :>/img/icons/social/blogger_48.png"></a></li>
-    <li><a href="#" title="Bebo"><img src="<: $settings.static_url :>/img/icons/social/bebo_48.png"></a></li>
-    <li><a href="#" title="Amazon"><img src="<: $settings.static_url :>/img/icons/social/amazon_48.png"></a></li>
-    <li><a href="#" title="My Website"><img src="<: $settings.static_url :>/img/icons/social/website_48.png"></a></li>
+      <: for $social.keys() -> $key { :>
+          <: if $social[$key] { :>
+              <li><a href="<:$social[$key]:>" title="<:$key:>"><img src="<: $settings.static_url :>/img/icons/social/<:$key:>_48.png"></a></li>
+          <: } :>
+      <: } :>
   </ul>
 </div>
 
 <dl id="profile_data">
-: for $user.keys() -> $key {
+<: for $user.keys() -> $key { :>
     <: if $user[$key] { :>
     <dt><: $key :></dt>
     <dd><: $user[$key] :></dd>
     <: } :>
-: }
+<: } :>
 </dl>
 

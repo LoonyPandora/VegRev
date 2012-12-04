@@ -211,24 +211,51 @@ get qr{/gallery/?(\d+)?/?$} => sub {
 get qr{/profile/(\w+)/?$} => sub {
     my ($user_name) = splat;
 
+    my $social = {
+      'tumblr'     => undef,
+      'last_fm'    => undef,
+      'homepage'   => undef,
+      # 'icq'        => undef,
+      # 'msn'        => undef,
+      # 'yim'        => undef,
+      # 'aim'        => undef,
+      # 'gtalk'      => undef,
+      # 'skype'      => undef,
+      'twitter'    => undef,
+      'flickr'     => undef,
+      'deviantart' => undef,
+      'vimeo'      => undef,
+      'youtube'    => undef,
+      'facebook'   => undef,
+      'myspace'    => undef,
+      'bebo'       => undef,
+    };
+
     my $sth = database->prepare(q{
-        SELECT *
+        SELECT id,
+            user_name,      display_name,   real_name,      email,      avatar,
+            usertext,       biography,      gender,         birthday,   registration,
+            last_online,    post_count,     shout_count,
+            } . join(',', keys $social) . q{
         FROM user
         WHERE user_name = ?
+        LIMIT 1
     });
 
     $sth->execute($user_name);
-    my $user = $sth->fetchall_hashref('id');
+    my $user = $sth->fetchall_arrayref({})->[0];
 
-    # Send to 404 if user doesn't exist
-    unless (scalar keys %{$user}) {
-        return pass();
+    # Put the social network stuff in it's own data structure
+    for my $key (keys $social) {
+        $social->{$key} = $user->{$key};
+        delete $user->{$key};
     }
 
     template 'user', {
         recent   => session('recent_threads'),
         template => 'profile',
-        user     => values %{$user},
+        social   => $social,
+        user     => $user,
     };
 
 };
@@ -264,6 +291,14 @@ post qr{/thread/(\d+)/?$} => sub {
     my %params      = params;
 
     my $thread = VegRev::Thread->new();
+
+    # Try and clean up the browser supplied "WYSIWYG" mess
+    if (defined $params{message}) {
+        $params{tidy_message} = VegRev::Misc::cleanup_wysiwyg($params{message});
+        $params{plaintext}    = VegRev::Misc::make_plaintext($params{message});
+    }
+
+    croak dump \%params;
 
     $thread->add_message({
         thread_id   => $thread_id,
