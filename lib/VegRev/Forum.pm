@@ -25,7 +25,15 @@ has tag_meta => ( is => 'rw' );
 sub new_from_tag {
     my $args = shift;
 
-    my $thread_sth = database->prepare(q{
+    my $tag_clause;
+    if ($args->{tag}) {
+        $tag_clause = 'AND tag.url_slug IN ('. join(',', map('?', $args->{tag})) . ') AND tag_id != 2';
+    } else {
+        $tag_clause = 'AND tag_id != 2'
+    }
+
+
+    my $thread_sth = database->prepare(qq{
         SELECT thread.id, subject, url_slug, UNIX_TIMESTAMP(last_updated) AS last_updated, user_name, display_name, avatar, usertext,
             (SELECT count(*) FROM message WHERE message.thread_id = thread.id) AS replies,
             UNIX_TIMESTAMP(thread_read_receipt.timestamp) AS last_read
@@ -33,16 +41,24 @@ sub new_from_tag {
         LEFT JOIN user ON latest_post_user_id = user.id
         LEFT JOIN thread_read_receipt ON thread_read_receipt.user_id = ?
             AND thread_read_receipt.thread_id = thread.id
-        WHERE thread.id IN (SELECT thread_id
-        FROM tagged_thread
-        LEFT JOIN tag ON tagged_thread.tag_id = tag.id
-        WHERE group_id IN (1, 2, 4)
-        AND tag_id != 2)
+        WHERE thread.id IN (
+            SELECT thread_id
+            FROM tagged_thread
+            LEFT JOIN tag ON tagged_thread.tag_id = tag.id
+            WHERE group_id IN (1, 2, 3, 4)
+            $tag_clause
+        )
         ORDER BY last_updated DESC
         LIMIT ?, ?
     });
 
-    $thread_sth->execute(session('user_id'), $args->{offset}, $args->{limit});
+
+    # FIXME: This be fugly
+    if ($args->{tag}) {
+        $thread_sth->execute(session('user_id'), join(',', $args->{tag}), $args->{offset}, $args->{limit});
+    } else {
+        $thread_sth->execute(session('user_id'), $args->{offset}, $args->{limit});
+    }
 
     # As an arrayref to keep the ordering
     my $threads = $thread_sth->fetchall_arrayref({});

@@ -107,6 +107,35 @@ get qr{/(\d+)?/?$} => sub {
 };
 
 
+
+get qr{/tag/(\w+)/?(\d+)?$} => sub {
+    my ($tag, $page) = splat;
+
+    $page = $page // 1;
+    my $per_page = 30;
+
+    my $forum = VegRev::Forum::new_from_tag({
+        tag    => $tag,
+        offset => ($page * $per_page) - $per_page,
+        limit  => $per_page,
+    });
+
+    # TODO: Check object was created
+    my $last_page = ceil($forum->tag_meta()->{total_threads} / $per_page);
+
+    template 'forum', {
+        postform => { header => 'Start a new thread' },
+        active   => { forum => 'active'},
+        pages    => { current => $page, last => $last_page, list => [1 .. $last_page]},
+        forum    => $forum,
+        template => 'forum',
+    };
+};
+
+
+
+
+
 # Matches /thread/:thread_id-:url_slug/:page - URL slug is ignored.
 # TODO: Fix - http://vegrev.local/thread/7936-thursday-271201-78/
 # Matches teh 78 as the page
