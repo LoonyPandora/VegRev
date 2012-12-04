@@ -10,8 +10,9 @@ use Dancer::Plugin::Database;
 
 use Data::Dump qw/dump/;
 
-use HTML::StripScripts::Parser;
+use HTML::Entities qw(encode_entities);
 use HTML::FormatText;
+use HTML::StripScripts::Parser;
 use HTML::TreeBuilder;
 
 
@@ -80,9 +81,11 @@ sub cleanup_wysiwyg {
         sort_attributes             => 'alpha',
         doctype                     => 'omit',
         tidy_mark                   => 0,
-        bare                        => 0,
         clean                       => 0,
+        output_html                 => 1,
+        bare                        => 1,
         fix_backslash               => 1,
+        fix_uri                     => 1,
         indent                      => 1,
         break_before_br             => 1,
         merge_divs                  => 1,
@@ -100,10 +103,14 @@ sub cleanup_wysiwyg {
 
     my $clean_html = $tidy->clean($unclean_html);
 
+    # Until HTML::StripScripts supports classes, return the tidied stuff 
+    return $clean_html;
+
     # Now check for XSS and dodgy tags
     my $hss = HTML::StripScripts::Parser->new({
         Context        => 'Flow',
-        BanList        => [qw( div img hr ul ol dl li dt dd )],
+        # BanList        => [qw( div img hr ul ol dl li dt dd )],
+        BanAllBut      => [qw( a b i em strong p span blockquote )],
         AllowSrc       => 1,
         AllowHref      => 1,
         AllowRelURL    => 1,
@@ -111,8 +118,6 @@ sub cleanup_wysiwyg {
     });
 
     return $hss->filter_html($clean_html);
-
-    return $clean_html;
 }
 
 sub make_plaintext {
@@ -126,7 +131,7 @@ sub make_plaintext {
     $plaintext =~ s/\s+/ /g;
     $plaintext =~ s/^\s+|\s+$//g;
 
-    return $plaintext;
+    return encode_entities($plaintext);
 }
 
 1;
