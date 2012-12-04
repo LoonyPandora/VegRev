@@ -291,6 +291,7 @@ function tinymce_binding() {
 
         // Video isn't from youtube (all I support atm)
         if (!video_id) {
+            console.log('hello');
             return false;
         }
 
@@ -406,10 +407,7 @@ function validate_url(options) {
     }
 
     if (options['type'] === 'video') {
-        var video_id = options.string.match("[\?&]v=([^&#]*)");
-
-        // FIXME: Make youtu.be urls work
-        // http://youtu.be/xP1-oquwoL8
+        var video_id = options.string.match("v=([^&#;]+)") || options.string.match("youtu.be/([^&#;]+)");
 
         if ( !video_id ) {
             return false;
