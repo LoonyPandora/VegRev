@@ -82,6 +82,10 @@ h2 {
 /* Main Body
 ================================================== */
 
+.main-body-container {
+    min-height: 700px;
+}
+
 #content {
     margin-top: 20px;
     width: 700px;

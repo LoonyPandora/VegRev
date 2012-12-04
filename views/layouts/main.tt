@@ -27,7 +27,7 @@
     <: include "header.tt" :>
 </div>
 
-<div class="container clearfix">
+<div class="container clearfix main-body-container">
     <div id="content">        
         <: $content | raw :>
     </div>
