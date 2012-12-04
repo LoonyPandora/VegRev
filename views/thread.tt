@@ -63,12 +63,6 @@
                 <: } :>
             </ul>
             <: } :>
-
-            <: if $message.signature != nil { :>
-            <div class="signature">
-                <: $message.signature | bbcode | raw :>
-            </div>
-            <: } :>
         </div>
     </li>
 : }
