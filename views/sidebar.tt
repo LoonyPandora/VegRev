@@ -3,6 +3,7 @@
 
             <: if ($template == 'thread') { include "pagination-thread-sidebar.tt" } :>
             <: if ($template == 'forum') { include "pagination-forum-sidebar.tt" } :>
+            <: if ($template == 'gallery') { include "pagination-gallery-sidebar.tt" } :>
           
           <: if ($viewer.is_admin) { :>
               <!--

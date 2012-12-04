@@ -188,18 +188,21 @@ get qr{/chat/(\d+)/?(\d+)?/?$} => sub {
 
 # Matches /gallery/:page
 get qr{/gallery/?(\d+)?/?$} => sub {
-    my ($chat_id, $page) = splat;
+    my ($page) = splat;
 
     $page = $page // 1;
-    my $per_page = 50;
+    my $per_page = 52;
 
     my $gallery = VegRev::Gallery::new_from_tag({
         offset  => ($page * $per_page) - $per_page,
         limit   => $per_page,
     });
 
+    my $last_page = ceil($gallery->attach_count / $per_page);
+
     template 'gallery', {
         active   => { gallery => 'active'},
+        pages    => { current => $page, last => $last_page, list => [1 .. $last_page]},
         recent   => session('recent_threads'),
         template => 'gallery',
         gallery  => $gallery

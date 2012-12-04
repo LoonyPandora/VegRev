@@ -17,7 +17,8 @@ use Carp;
 
 
 # From the DB
-has attachments => ( is => 'rw' );
+has attachments  => ( is => 'rw' );
+has attach_count => ( is => 'rw' );
 
 
 sub new_from_tag {
@@ -44,10 +45,17 @@ sub new_from_tag {
         }
     }
 
-    # die Data::Dump::dump $attachments;
+    my $meta_sth = database->prepare(q{
+        SELECT COUNT(*) as count
+        FROM attachment
+    });
+    $meta_sth->execute();
+
+    my $meta = $meta_sth->fetchall_arrayref({})->[0];
 
     return VegRev::Gallery->new({
-        attachments => $attachments,
+        attach_count => $meta->{count},
+        attachments  => $attachments,
     });
 }
 
