@@ -61,7 +61,6 @@ sub _format_template {
 sub _redirect {
     print "Status: 302 Found\n";
 
-    #    print "Status: 303 See Other\n";
     print "Location: $vr::config{'base_url'}/$_[0]\n\n";
 }
 

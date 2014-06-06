@@ -133,14 +133,24 @@ sub _list_active_users {
 }
 
 sub _check_if_online {
-  if (-e "$vr::config{'sessiondir'}/$_[0].user") {
-    my (undef,undef,undef,undef,undef,undef,undef,undef,undef,$mtime,undef,undef) = stat("$vr::config{'sessiondir'}/$_[0].user");
-    if (($vr::config{'gmtime'} - $mtime) < 900 ) {
-      return 1;
+    my $query = qq{
+        SELECT session.user_id
+        FROM session
+        WHERE session.user_id = ?
+        # AND session.date_online >= NOW() - INTERVAL 15 MINUTE
+    };
+
+    my %tmp;
+    my $static = $vr::dbh->prepare($query);
+    $static->execute($_[0]);
+    $static->bind_columns(\(@tmp{ @{ $static->{NAME_lc} } }));
+    $static->fetch;
+
+    if ($tmp{user_id}) {
+        return 1;
     }
-  } else {
-    return 0;
-  }
+
+    return undef;
 }
 
 sub _authenticate_login {
