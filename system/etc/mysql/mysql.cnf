@@ -53,7 +53,7 @@ query-cache-type               = 0
 query-cache-size               = 0
 max-connections                = 128
 thread-cache-size              = 50
-open-files-limit               = 65535
+open-files-limit               = 1024
 table-definition-cache         = 1024
 table-open-cache               = 2048
 
