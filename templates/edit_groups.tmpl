@@ -1,0 +1,90 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1>Admin Centre</h1>
+<h2>Where you do you modding <em>thang</em>.</h2>
+
+  <div class="column two alpha omega">
+    <div class="header_block column two alpha text_indent">Sections</div>
+      <ul class="folderlist small text_indent">
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/">Mod Boards</a></li>
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/word_filter/">Word Filter</a></li>
+        <li class="active"><a href="<%=$vr::config{'base_url'}%>/admin/edit_groups/">Groups</a></li>
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/edit_bans/">Bans</a></li>
+        <li class="last"><a href="<%=$vr::config{'base_url'}%>/admin/edit_boards/">Edit Boards</a></li>
+    </ul>
+  </div>
+
+
+  <form method="post" action="<%=$vr::config{'base_url'}%>/posthandler/" id="post_form" enctype="multipart/form-data">
+    <input type="hidden" name="action" id="action" value="<%=$tmpl::form_action%>" style="display: none;" />
+
+  <div class="column ten omega">
+    <div class="header_block column ten omega">
+      <span class="column eight text_indent alpha">Special Groups</span>
+    </div>
+
+  <% foreach (sort {$a <=> $b} keys(%{$spec_groups}) ) { %>
+
+    <% if ($spec_groups->{$_}{'spec_group_id'} == 1) { %>
+      <h4 class="column indent" style="margin-bottom: 6px; color: <%= $spec_groups->{$_}{'spec_group_color'}; %>;">Administrator</h4><br class="clear" />
+    <% } elsif ($spec_groups->{$_}{'spec_group_id'} == 2) { %>
+      <h4 class="column indent" style="margin-bottom: 6px; color: <%= $spec_groups->{$_}{'spec_group_color'}; %>;">Global Moderators</h4><br class="clear" />
+    <% } elsif ($spec_groups->{$_}{'spec_group_id'} == 3) { %>
+      <h4 class="column indent" style="margin-bottom: 6px; color: <%= $spec_groups->{$_}{'spec_group_color'}; %>;">Regular Moderators</h4><br class="clear" />
+    <% } elsif ($spec_groups->{$_}{'spec_group_id'} == 4) { %>
+      <h4 class="column indent" style="margin-bottom: 6px; color: <%= $spec_groups->{$_}{'spec_group_color'}; %>;">VIP Members</h4><br class="clear" />
+    <% } %>
+    <label for="spec_title_<%= $spec_groups->{$_}{'spec_group_id'}; %>" class="column one indent omega ">Title:</label>
+    <input type="text" id="spec_title_<%= $spec_groups->{$_}{'spec_group_id'}; %>" name="spec_title_<%= $spec_groups->{$_}{'spec_group_id'}; %>" class="required column alpha nine_and_border omega" value="<%= $spec_groups->{$_}{'spec_group_title'}; %>" />
+    <br class="clear" />
+
+    <div class="column three alpha">
+      <label for="spec_color_<%= $spec_groups->{$_}{'spec_group_id'}; %>" class="column one indent omega ">Color:</label>
+      <input type="text" id="spec_color_<%= $spec_groups->{$_}{'spec_group_id'}; %>" name="spec_color_<%= $spec_groups->{$_}{'spec_group_id'}; %>" class="required column alpha one_and_half omega" value="<%= $spec_groups->{$_}{'spec_group_color'}; %>" />
+    </div>
+    
+    <div class="column seven alpha omega">
+      <label for="spec_image_<%= $spec_groups->{$_}{'spec_group_id'}; %>" class="column one alpha">Image:</label>
+      <input type="text" id="spec_image_<%= $spec_groups->{$_}{'spec_group_id'}; %>" name="spec_image_<%= $spec_groups->{$_}{'spec_group_id'}; %>" class="six_and_border alpha omega" value="<%= $spec_groups->{$_}{'spec_group_image'}; %>" readonly="readonly" />
+    </div>
+
+    <br class="clear" />
+    <hr style="margin-left: 20px;" />
+
+  <% } %>
+  
+  <div class="header_block mid_block column ten omega">
+    <span class="column eight text_indent alpha">Post Dependent Groups</span>
+  </div><br class="clear" />
+  
+  <% foreach (sort {$a <=> $b} keys(%{$post_groups}) ) { %>
+
+    <label for="post_title_<%= $post_groups->{$_}{'post_group_id'}; %>" class="column one indent omega ">Title:</label>
+    <input type="text" id="post_title_<%= $post_groups->{$_}{'post_group_id'}; %>" name="post_title_<%= $post_groups->{$_}{'post_group_id'}; %>" class="required column alpha nine_and_border omega" value="<%= $post_groups->{$_}{'post_group_title'}; %>" />
+    <br class="clear" />
+
+    <div class="column three alpha">
+      <label for="post_<%= $post_groups->{$_}{'post_group_id'}; %>" class="column one indent omega ">Posts:</label>
+      <input type="text" id="post_<%= $post_groups->{$_}{'post_group_id'}; %>" name="post_<%= $post_groups->{$_}{'post_group_id'}; %>" class="required column alpha one_and_half omega" value="<%= $post_groups->{$_}{'posts_required'}; %>" />
+    </div>
+
+    <div class="column seven alpha omega">
+      <label for="post_image_<%= $post_groups->{$_}{'post_group_id'}; %>" class="column one alpha">Image:</label>
+      <input type="text" id="post_image_<%= $post_groups->{$_}{'post_group_id'}; %>" name="post_image_<%= $post_groups->{$_}{'post_group_id'}; %>" class="six_and_border alpha omega" value="<%= $post_groups->{$_}{'post_group_image'}; %>" readonly="readonly" />
+    </div>
+
+    <br class="clear" />
+    <hr style="margin-left: 20px;" />
+  <% } %>
+  </div>
+  
+  	<div class="column twelve text_center alpha omega">
+		<button type="submit" class="positive"><img src="<%=$vr::viewer{'template_url'}%>/img/icons_silk/big_tick.png" />Save Changes</button>
+    <br class="clear" />
+    <br />
+	</div>
+</form>
+
+  
+<br class="clear" />
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

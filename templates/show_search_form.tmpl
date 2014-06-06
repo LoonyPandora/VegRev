@@ -1,0 +1,46 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1>Search</h1>
+<h2>Looking for something?</h2>
+
+<form method="post" action="<%=$vr::config{'base_url'}%>/search/results/" id="post_form">
+  <input type="hidden" name="action" id="action" value="<%=$tmpl::form_action%>" style="display: none;" />
+
+    <label for="search_query" class="column three alpha bigform bigformlabel">What:<span class="small"><br />are looking for...</span></label>
+    <input type="text" name="search_query" class="required eight bigform" />
+        
+    <label for="search_boards" class="column three alpha bigform bigformlabel">Where:<span class="small"><br />Where you want to look</span></label>
+		<select multiple="multiple" name="search_boards" size="5" class="required eight bigform">
+		  <% while ($vr::loop->fetchrow_arrayref) { %>
+      <% if ($vr::loop{'board_id'} eq 'private') { next; }%>
+  		<option value="<%= $vr::loop{'board_id'} %>" selected="selected"><%= $vr::loop{'board_title'} %></option>
+  		<% } %>
+		</select>
+
+    <br class="clear" />
+
+
+    <label for="time_period" class="column three alpha bigform bigformlabel">When:<span class="small"><br />was it posted..</span></label>
+    <br /><br />
+		<select name="time_period" class="required eight bigform">
+  		<option value="last_week" selected="selected">In the last week</option>
+  		<option value="last_quarter">In the last 3 months</option>
+  		<option value="last_year">3 Months - 1 Year</option>
+  		<option value="one_two_years">1 - 2 Years</option>
+  		<option value="older">Older than 2 Years</option>
+		</select>
+
+
+
+    <input type="text" name="robots" value="" style="display: none; visibility: hidden;" />
+    <br class="clear" />
+    <br class="clear" />
+     
+    <button type="submit" class="positive bigform bigbutton">Search</button>
+   
+ </form>
+
+
+<br class="clear" />
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

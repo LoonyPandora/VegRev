@@ -1,0 +1,40 @@
+<% $tmpl::form_title = 'Post Reply'; %>
+<% $tmpl::form_action = 'do_new_message'; %>
+
+<% $tmpl::button_submit = 'Post Reply'; %>
+
+<%= $tmpl->include("$config{'templatedir'}/facebox/_header.tmpl") %>
+	
+  <div class="column two alpha omega">
+    <label for="markitup" id="textarea_label" class="column two alpha omega ">Message:</label>
+    <div class="column" id="extra_emoticons_container">
+      <p class="header_block" style="padding-left: 5px; margin-bottom: 0;">More Smileys</p>
+
+      <select id="extra_emoticons_select">
+        <% my @smileys = &vr::_list_smileys; my $first_smiley = ''; %>
+        <% foreach $smiley (@smileys) { %>
+          <% if (!$first_smiley) { $first_smiley = $smiley; }%>
+        <% my $name = $smiley; $name =~ s/\.(\w+)$//g; %>
+        <option value="<%=$smiley%>"><%=$name%></option>
+        <% } %>
+      </select>
+
+      <a href="#" title=" [smiley]<%=$first_smiley%>[/smiley]" id="extra_emoticons_link" class="text_center">
+        <img id="extra_emoticons_image" src="<%=$vr::viewer{'template_url'}%>/img/emoticons_extra/<%=$first_smiley%>">
+      </a>
+    </div>  
+  </div>
+  
+  <div class="column nine omega">
+  	<textarea name="message" class="required column eight_and_half omega" id="markitup"><%=$vr::db{'message_body'}%></textarea>
+  </div>
+  
+  <br class="clear" />
+
+	<label for="attachment" id="attachment_label" class="column two alpha">Attachment:</label>
+	<input type="file" name="attachment" id="attachment" class="column eight_and_half alpha omega" />
+	<input type="hidden" name="uploadify" id="uploadify" class="column eight_and_half alpha omega" value="" />
+
+  <br class="clear" />
+
+<%= $tmpl->include("$config{'templatedir'}/facebox/_footer.tmpl") %>

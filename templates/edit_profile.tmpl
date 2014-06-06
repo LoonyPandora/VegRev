@@ -1,0 +1,286 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+
+<% 
+
+my ($b_year, $b_month, $b_day) = split (/-/, $vr::db{'birthday'});
+my $selected = ' selected="selected"';
+
+%>
+
+<h1>Edit Settings <% if($vr::GET{'user_name'}) { %> for: <%= $vr::GET{'user_name'}%><%}%></h1>
+<h2>All the serious settings for <% if($vr::GET{'user_name'}) { %><%= $vr::GET{'user_name'}%><%}else{%>your<%}%> account</h2>
+
+
+  <form method="post" action="<%=$vr::config{'base_url'}%>/posthandler/" id="post_form" enctype="multipart/form-data">
+    <input type="hidden" name="action" id="action" value="<%=$tmpl::form_action%>" style="display: none;" />
+    <input type="hidden" name="user_id" id="user_id" value="<%=$vr::db{'user_id'}%>" style="display: none;" />
+    <input type="hidden" name="user_name" id="user_name" value="<%=$vr::db{'user_name'}%>" style="display: none;" />
+
+  <div class="header_block mid_block column twelve alpha omega">
+    <span class="column eleven text_indent alpha">Forum Options</span>
+  </div>
+
+  <div class="column six alpha">
+    <label for="display_name" class="column two alpha">Display Name:</label>
+    <input type="text" name="display_name" class="required four_and_border alpha omega" value="<%=$vr::db{'display_name'}%>" />
+  </div>
+  
+  <div class="column six alpha omega">
+    <label for="usertext" class="column two alpha">Avatar Text:</label>
+    <input type="text" name="usertext" class="four_and_border alpha omega" value="<%=$vr::db{'usertext'}%>" />
+  </div>
+  
+    <br class="clear" />
+    <br />
+    
+  <div class="column twelve alpha omega">
+    <label for="avatar" class="column two alpha">Avatar:</label>
+    <img src="<%=$vr::db{'avatar'}%>" class="column one tiny_avatar" style="padding-top: 3px"/>
+    <input type="file" name="avatar" id="attachment" class="column eight_and_half omega" value="<%=$vr::db{'avatar'}%>" />
+    <input type="hidden" name="uploadify" id="uploadify" class="column eight_and_half alpha omega" value="" />
+        <br class="clear" />
+        <br class="clear" />
+
+    <label for="signature" class="column two alpha">Signature:</label>  
+    <textarea name="signature" class="" id="asdf" style="height: 40px; width: 568px;"><%=$vr::db{'signature'}%></textarea>    
+  </div>
+
+
+  <div class="column twelve alpha omega">
+    <br class="clear" /><br />
+  </div>
+
+
+
+
+  <!-- Personal Information -->
+  <div class="header_block mid_block column twelve alpha omega">
+    <span class="column eleven text_indent alpha">Personal Information.</span>
+  </div>
+
+  <div class="column six alpha">
+    <label for="realname" class="column two alpha">Real Name:</label>
+    <input type="text" name="realname" class="four_and_border alpha omega" value="<%=$vr::db{'real_name'}%>" />
+    <label for="gender" class="column two alpha">Gender:</label>
+    <input type="text" name="gender" class="four_and_border alpha omega" value="<%=$vr::db{'gender'}%>" />
+  </div>
+
+  <div class="column six alpha omega">
+    <label for="location" class="column two alpha">Location:</label>
+    <input type="text" name="location" class="four_and_border alpha omega" value="<%=$vr::db{'location'}%>" />
+  <label for="birthday_month" class="column two alpha">Birthday:</label>
+    <select name="birthday_month" class="one_and_half">
+        <option value="">--</option>
+      <% foreach $month (@month_numbers) { %>
+        <%if(($b_month-1) == $month){%>
+          <option value="<%=$month+1%>"<%=$selected%>><%=$month_names[$month]%></option>
+        <% } else { %>
+          <option value="<%=$month+1%>"><%=$month_names[$month]%></option>
+        <% } %>
+      <% } %>
+    </select>
+    <select name="birthday_day" class="one_and_half">
+        <option value="">--</option>
+      <% for (my $i = 1; $i <= 31; $i++) { %>
+        <%if($b_day == $i){%>
+          <option value="<%=$i%>"<%=$selected%>><%=$i%><%=&_format_ordinal($i)%></option>
+        <% } else { %>
+          <option value="<%=$i%>"><%=$i%><%=&_format_ordinal($i)%></option>
+        <% } %>
+      <% } %>
+    </select>
+    <select name="birthday_year" class="one_and_half">
+        <option value="">--</option>
+      <% for (my $i = 1970; $i <= 2038; $i++) { %>
+        <%if($b_year == $i){%>
+          <option value="<%=$i%>"<%=$selected%>><%=$i%></option>
+        <% } else { %>
+          <option value="<%=$i%>"><%=$i%></option>
+        <% } %>
+      <% } %>
+    </select>
+  </div>
+    <br class="clear" />
+    <br />
+  <div class="column twelve alpha omega">
+    <label for="about" class="column two alpha">About Me:</label>
+    <div class="column alpha nine">
+      <textarea name="about" class="eight_and_half" id="about"><%=$vr::db{'biography'}%></textarea>
+    </div>
+    <br class="clear" />
+  </div>
+
+    <br class="clear" />
+    <br />
+
+  <!-- Account Information -->
+  <div class="header_block mid_block column twelve alpha omega">
+    <span class="column eleven text_indent alpha">Account Information.</span>
+  </div>
+
+
+  <div class="column six alpha">
+    <label for="new_pass" class="column two alpha">New Password:</label>
+    <input type="text" name="new_pass" class="four_and_border alpha omega" value="" />
+    <label for="pass_confirm" class="column two alpha">Confirm Pass:</label>
+    <input type="text" name="pass_confirm" class="four_and_border alpha omega" value="" />
+  </div>
+
+  <div class="column six alpha omega">
+    <label for="email" class="column two alpha">Email Address:</label>
+    <input type="text" name="email" class="required four_and_border alpha omega" value="<%=$vr::db{'email'}%>" />
+    <label for="email_confirm" class="column two alpha">Confirm Email:</label>
+    <input type="text" name="email_confirm" class="required four_and_border alpha omega" value="<%=$vr::db{'email'}%>" />
+  </div>
+
+  <div class="column twelve alpha omega">
+    <br class="clear" /><br />
+  </div>
+
+
+  <!-- Contact Information -->
+  <div class="header_block mid_block column twelve alpha omega">
+    <span class="column eleven text_indent alpha">Contact Information</span>
+  </div>
+
+
+  <div class="column six alpha">
+    <label for="website" class="column two alpha">Website:</label>
+    <input type="text" name="website" class="four_and_border alpha omega" value="<%=$vr::db{'homepage'}%>" />
+    <label for="flickr" class="column two alpha">Flickr:</label>
+    <input type="text" name="flickr" class="four_and_border alpha omega" value="<%=$vr::db{'flickr'}%>" />
+    <label for="deviantart" class="column two alpha">Deviantart:</label>
+    <input type="text" name="deviantart" class="four_and_border alpha omega" value="<%=$vr::db{'deviantart'}%>" />
+    <label for="youtube" class="column two alpha">YouTube:</label>
+    <input type="text" name="youtube" class="four_and_border alpha omega" value="<%=$vr::db{'youtube'}%>" />
+    <label for="facebook" class="column two alpha">Facebook:</label>
+    <input type="text" name="facebook" class="four_and_border alpha omega" value="<%=$vr::db{'facebook'}%>" />
+    <label for="myspace" class="column two alpha">MySpace:</label>
+    <input type="text" name="myspace" class="four_and_border alpha omega" value="<%=$vr::db{'myspace'}%>" />
+    <label for="bebo" class="column two alpha">Bebo:</label>
+    <input type="text" name="bebo" class="four_and_border alpha omega" value="<%=$vr::db{'bebo'}%>" />
+  </div>
+
+  <div class="column six alpha omega">
+    <label for="icq" class="column two alpha">ICQ:</label>
+    <input type="text" name="icq" class="four_and_border alpha omega" value="<%=$vr::db{'icq'}%>" />
+    <label for="yim" class="column two alpha">Yahoo IM:</label>
+    <input type="text" name="yim" class="four_and_border alpha omega" value="<%=$vr::db{'yim'}%>" />
+    <label for="msn" class="column two alpha">MSN IM:</label>
+    <input type="text" name="msn" class="four_and_border alpha omega" value="<%=$vr::db{'msn'}%>" />
+    <label for="aim" class="column two alpha">AOL IM:</label>
+    <input type="text" name="aim" class="four_and_border alpha omega" value="<%=$vr::db{'aim'}%>" />
+    <label for="gtalk" class="column two alpha">Google Talk:</label>
+    <input type="text" name="gtalk" class="four_and_border alpha omega" value="<%=$vr::db{'gtalk'}%>" />
+    <label for="skype" class="column two alpha">Skype:</label>
+    <input type="text" name="skype" class="four_and_border alpha omega" value="<%=$vr::db{'skype'}%>" />
+    <label for="twitter" class="column two alpha">Twitter:</label>
+    <input type="text" name="twitter" class="four_and_border alpha omega" value="<%=$vr::db{'twitter'}%>" />
+  </div>
+
+  <div class="column twelve alpha omega">
+    <br class="clear" /><br />
+  </div>
+
+
+  <% if ($vr::viewer{'can_admin'}) { %>
+  <!-- Admin Edits Information -->
+  <div class="header_block mid_block column twelve alpha omega">
+    <span class="column eleven text_indent alpha">Admin Edits</span>
+  </div>
+    
+
+  <div class="column six alpha">
+    <label for="postcount" class="column two alpha">Postcount:</label>
+    <input type="text" name="postcount" class="required four_and_border alpha omega" value="<%=$vr::db{'user_post_num'}%>" />
+    <label for="shoutcount" class="column two alpha">Shout count:</label>
+    <input type="text" name="shoutcount" class="four_and_border alpha omega" value="<%=$vr::db{'user_shout_num'}%>" />
+  </div>
+
+  <div class="column six alpha omega">
+    <label for="regtime" class="column two alpha">Reg time:</label>
+    <input type="text" name="regtime" class="required four_and_border alpha omega" value="<%=$vr::db{'reg_time'}%>" />
+    <label for="spec_group" class="column two alpha">Special Group :</label>
+      <select name="spec_group" class="four alpha omega">
+          <option value="">--</option>
+          <%if ($vr::viewer{'user_id'} == 1) {%><option value="1"<% if ($vr::db{'spec_group_id'} == 1) { %> selected="selected"<%}%>>Administrator</option><%}%>
+          <option value="2"<% if ($vr::db{'spec_group_id'} == 2) { %> selected="selected"<%}%>>Global Moderator</option>
+          <option value="3"<% if ($vr::db{'spec_group_id'} == 3) { %> selected="selected"<%}%>>Moderator</option>
+          <option value="4"<% if ($vr::db{'spec_group_id'} == 4) { %> selected="selected"<%}%>>VIP (Paid Members Only)</option>
+      </select>
+  </div>
+<% } %>
+	<div class="column twelve text_center alpha omega">
+	  <hr />
+		<button type="submit" class="positive"><img src="<%=$vr::viewer{'template_url'}%>/img/icons_silk/big_tick.png" />Save Changes</button>
+    <br class="clear" />
+    <br />
+	</div>
+</form>
+    <br class="clear" />
+
+
+
+
+<link rel="stylesheet"  href="<%=$vr::viewer{'template_url'}%>/css/markitup.css" type="text/css" />
+<link href="<%=$vr::viewer{'template_url'}%>/css/uploadify.css" rel="stylesheet" type="text/css" />
+<script src="<%=$vr::viewer{'template_url'}%>/js/jquery.markitup.js" type="text/javascript"></script>
+<script src="<%=$vr::viewer{'template_url'}%>/js/markitup.bbcode.js" type="text/javascript"></script>
+<script src="<%=$vr::viewer{'template_url'}%>/js/jquery.uploadify.js" type="text/javascript"></script>
+
+
+	<script type="text/javascript">
+
+	$(document).ready(function()	{
+		// Add markItUp! to your textarea in one line
+		// $('textarea').markItUp( { Settings }, { OptionalExtraSettings } );
+		$('#about').markItUp(mySettings);
+		$(mySmileys).appendTo($('.markItUpHeader'));
+		
+		$('#emoticon_bar a').click(function() {
+			emoticon = $(this).attr("title");
+			$.markItUp( { replaceWith:emoticon } );
+			return false;
+		});
+		
+
+     $('#attachment').fileUpload({ 
+      'uploader':  '<%=$vr::viewer{template_url}%>/swf/uploader.swf', 
+      'script':    '/vr/script/upload.php', 
+      'folder':    '<%=$vr::viewer{base_url}%>/vr/tmp/uploads',
+      'auto':   true,
+//      'displayData': 'percentage',
+      'onError': function (a, b, c, d) {
+         if (d.status == 404)
+            alert('Could not find upload script. Use a path relative to: '+'<?= getcwd() ?>');
+         else if (d.type === "HTTP")
+            alert('error '+d.type+": "+d.status);
+         else if (d.type ==="File Size")
+            alert(c.name+' '+d.type+' Limit: '+Math.round(d.sizeLimit/1024)+'KB');
+         else
+            alert('error '+d.type+": "+d.text);
+      },
+      
+      'onComplete': function(a, b, c, d, e){
+          $('input#uploadify').val(c.name);
+       }
+    }); 	  
+
+	  $('#post_form').validate({});
+
+	});
+
+
+	jQuery.fn.preventDoubleSubmit = function() {
+	 jQuery(this).submit(function() {
+		if (this.beenSubmitted) { return false; }
+		else { this.beenSubmitted = true; }
+	 });
+	};
+
+//	jQuery('form').preventDoubleSubmit();
+	</script>
+
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

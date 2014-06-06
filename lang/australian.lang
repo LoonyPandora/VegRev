@@ -1,0 +1,22 @@
+###############################################################################
+# english.strings 
+# =============================================================================
+# Version:		Vegetable Revolution 3.0
+# Released:		1st February 2009
+# Revision:		$Rev$
+# Copyright:		James Aitken <http://www.loonypandora.com>
+###############################################################################
+
+# Run through fliptext.org for comedy effect.
+
+our %lang = (
+	'1' => 'ǝʇɐɯ ʎɐp,b', # g'day mate
+);
+
+
+
+
+
+
+
+1;

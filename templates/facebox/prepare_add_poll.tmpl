@@ -1,0 +1,54 @@
+<% $tmpl::form_title = 'Add a Poll'; %>
+<% $tmpl::form_action = 'do_add_poll'; %>
+
+<% $tmpl::button_submit = 'Add Poll'; %>
+
+
+
+<%= $tmpl->include("$config{'templatedir'}/facebox/_header.tmpl") %>
+	<input type="hidden" id="number_of_options" value="3" style="display: none;">
+	
+	<label for="subject" class="column two alpha omega">Poll Question:</label>
+	<input type="text" name="subject" class="required column eight omega" />
+	
+  <div id="poll_options_container">
+    <label for="poll_option_1" class="column two alpha omega">Option 1:</label>
+    <input type="text" id="poll_option_1" name="poll_option_1" class="required column eight omega" />
+  
+    <label for="poll_option_2" id="poll_label_2" class="column two alpha omega">Option 2:</label>
+    <input type="text" id="poll_option_2" name="poll_option_2" class="required column eight omega" />
+    <span class="column one omega pollbuttons" id="pollbuttons_2" >
+      <a href="#" onclick="add_poll_option(); return false;"><img src="<%=$viewer{'template_url'}%>/img/icons_silk/add.png" /></a>
+    </span>
+  </div>
+
+	<script type="text/javascript">
+	<!--
+		function add_poll_option() {
+			var id = document.getElementById("number_of_options").value;
+			var prev_id = (id - 1);
+
+			$("#poll_options_container").append('<label for="poll_option_'+ id +'" id="poll_label_'+ id +'" class="column two alpha omega ">Option ' + id + ':</label><input type="text" id="poll_option_'+ id +'" name="poll_option_'+ id +'" class="required column eight omega " /><span class="column one omega pollbuttons" id="pollbuttons_'+ id +'"><a href="#" onclick="del_poll_option('+ id +'); return false;"><img src="<%=$vr::viewer{template_url}%>/img/icons_silk/delete.png" /></a><a href="#" onclick="add_poll_option(); return false;"><img src="<%=$vr::viewer{template_url}%>/img/icons_silk/add.png" /></a></span>');
+			
+			$("#pollbuttons_"+prev_id).remove();
+
+			id = (id - 1) + 2;
+			document.getElementById("number_of_options").value = id;
+		}
+
+		function del_poll_option(id) {
+			prev_id = (id - 1);
+			$("#pollbuttons_"+id).remove();
+			$("#poll_option_"+id).remove();
+			$("#poll_label_"+id).remove();
+			if (prev_id == 2) {
+				$("#poll_options_container").append('<span class="column one omega pollbuttons" id="pollbuttons_'+ prev_id +'"><a href="#" onclick="add_poll_option(); return false;"><img src="<%=$vr::viewer{template_url}%>/img/icons_silk/add.png" /></a></span>');
+			} else {
+				$("#poll_options_container").append('<span class="column one omega pollbuttons" id="pollbuttons_'+ prev_id +'"><a href="#" onclick="del_poll_option('+ prev_id +'); return false;"><img src="<%=$vr::viewer{template_url}%>/img/icons_silk/delete.png" /></a><a href="#" onclick="add_poll_option(); return false;"><img src="<%=$vr::viewer{template_url}%>/img/icons_silk/add.png" /></a></span>');
+			}
+			document.getElementById("number_of_options").value = id;
+		}
+	-->
+	</script>
+
+<%= $tmpl->include("$config{'templatedir'}/facebox/_footer.tmpl") %>

@@ -1,0 +1,54 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1><%=$vr::db{'pm_subject'}%></h1>
+<div class="small reading_thread">Private conversation with:
+<%= &vr::_format_username($vr::db{'user_name'}, $vr::db{'display_name'}, $vr::db{'spec_group_color'}); %>
+</div>
+
+  <div class="column two alpha">
+    <div class="header_block column two alpha text_indent">Folders</div>
+      <ul class="folderlist small text_indent">
+        <li class="active" ><a href="<%=$vr::config{'base_url'}%>/messages/">Inbox</a></li>
+        <li class="last" ><a href="<%=$vr::config{'base_url'}%>/messages/sent/">Sent</a></li>
+        <!--li class="last"><a href="<%=$vr::config{'base_url'}%>/messages/saved/">Saved</a></li-->
+    </ul>
+	</div>
+
+<div class="column ten alpha omega">
+
+<% while ($vr::loop->fetchrow_arrayref) { %>
+<%
+  if ($vr::loop{'avatar'} =~ /^\d{1,8}\.\w{1,4}$/) {
+    my ($digits, $ext) = split(/\./, $vr::loop{'avatar'});
+    if ($ext eq 'jpeg') { $ext = 'jpg'; }
+    if (-f "$vr::config{'base_path'}/uploads/$digits.thumb.$ext") { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$digits.thumb.$ext"; }
+    else { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$vr::loop{'avatar'}"; }
+  }
+%>
+
+<% my $led = 'offline.png'; if(&_check_if_online($vr::loop{'user_id'})) { $led = 'online.png'; } %>
+
+<div class="message_container column ten omega">
+  <div class="column seven alpha message_header">
+    <h4><img src="<%=$vr::viewer{'template_url'}%>/img/<%=$led %>" class="status_led" /> <%= &vr::_format_username($vr::loop{'user_name'}, $vr::loop{'display_name'}, $vr::loop{'spec_group_color'}); %></h4>
+  </div>
+  <div class="column three omega small message_meta">
+  <p><%= &vr::_format_time($vr::loop{'pm_post_time'}, 'full'); %></p>
+  </div>
+  
+  <div class="column one_and_bit alpha message_avatar">
+    <% if ($vr::loop{'avatar'}) {%><img src="<%=$vr::loop{'avatar'};%>" class="small_avatar"/><% } %>
+     &nbsp;
+  </div>
+
+  <div class="pm_message_main column eight_and_half omega">
+<%=&vr::_format_yabbc($vr::loop{'pm_body'});%>
+  </div>
+</div>
+
+<% } %>
+
+</div>
+  <br class="clear" />
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

@@ -1,0 +1,85 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1>Admin Centre</h1>
+<h2>Where you do you modding <em>thang</em>.</h2>
+
+  <div class="column two alpha omega">
+    <div class="header_block column two alpha text_indent">Sections</div>
+      <ul class="folderlist small text_indent">
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/">Mod Boards</a></li>
+        <!--li><a href="<%=$vr::config{'base_url'}%>/admin/general_settings/">General</a></li-->
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/word_filter/">Word Filter</a></li>
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/edit_groups/">Groups</a></li>
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/edit_bans/">Bans</a></li>
+        <li class="active"><a href="<%=$vr::config{'base_url'}%>/admin/edit_boards/">Edit Boards</a></li>
+        <!--li><a href="<%=$vr::config{'base_url'}%>/admin/maintainence/">Maintainence</a></li>
+        <li class="last" ><a href="<%=$vr::config{'base_url'}%>/admin/security/">Security</a></li-->
+    </ul>
+  </div>
+
+
+  <form method="post" action="<%=$vr::config{'base_url'}%>/posthandler/" id="post_form" enctype="multipart/form-data">
+    <input type="hidden" name="action" id="action" value="<%=$tmpl::form_action%>" style="display: none;" />
+
+  <div class="column ten omega">
+    <div class="header_block column ten omega">
+      <span class="column eight text_indent alpha">Forum Boards</span>
+    </div>
+
+<% my ($gallery_header, $archive_header, $mod_header) = undef; %>
+<% while ($vr::loop->fetchrow_arrayref) { %>
+
+    <% if ($vr::loop{'category_id'} eq 'gallery' && !$gallery_header) { %>
+    <div class="header_block mid_block column ten omega">
+      <span class="column eight text_indent alpha">Gallery Boards</span>
+    </div>
+    <% $gallery_header = 1; %>
+    <% } elsif ($vr::loop{'category_id'} eq 'archive' && !$archive_header) { %>
+    <div class="header_block mid_block column ten omega">
+      <span class="column eight text_indent alpha">Archive Boards</span>
+    </div>
+    <% $archive_header = 1; %>
+    <% } elsif ($vr::loop{'category_id'} eq 'mods' && !$mod_header) { %>
+    <div class="header_block mid_block column ten omega">
+      <span class="column eight text_indent alpha">Moderator Boards</span>
+    </div>
+    <% $mod_header = 1; %>
+    <% } %>
+    
+    
+    <div class="column six alpha">
+      <label for="title_<%=$vr::loop{'board_id'}%>" class="column one_and_half indent omega ">Title:</label>
+      <input type="text" id="title_<%=$vr::loop{'board_id'}%>" name="title_<%=$vr::loop{'board_id'}%>" class="required column alpha four omega" value="<%=$vr::loop{'board_title'}%>" />
+    </div>
+    
+    <div class="column four alpha omega">
+      <label for="position_<%=$vr::loop{'board_id'}%>" class="column one_and_bit alpha">Position:</label>
+      <input type="text" id="position_<%=$vr::loop{'board_id'}%>" name="position_<%=$vr::loop{'board_id'}%>" class=" alpha omega" value="<%=$vr::loop{'board_position'}%>" style="width: 148px;"/>
+    </div>
+    
+    <br class="clear" />
+    
+    <label for="desc_<%=$vr::loop{'board_id'}%>" class="column one_and_half indent omega ">Description:</label>
+    <input type="text" id="desc_<%=$vr::loop{'board_id'}%>" name="desc_<%=$vr::loop{'board_id'}%>" class="required column alpha eight omega" value="<%=$vr::loop{'board_description'}%>" />
+
+    <br class="clear" />
+    
+    <label for="icon_<%=$vr::loop{'board_id'}%>" class="column one_and_half indent omega ">Picture:</label>
+    <input type="text" id="icon_<%=$vr::loop{'board_id'}%>" name="icon_<%=$vr::loop{'board_id'}%>" class="required column alpha eight omega" value="<%=$vr::loop{'board_icon'}%>" />
+
+    <br class="clear" />
+
+    <hr style="margin-left: 20px;" />
+
+  <% } %>
+  </div>  
+    <div class="column twelve text_center alpha omega">
+    <button type="submit" class="positive"><img src="<%=$vr::viewer{'template_url'}%>/img/icons_silk/big_tick.png" />Save Changes</button>
+    <br class="clear" />
+    <br />
+  </div>
+</form>
+
+  
+<br class="clear" />
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

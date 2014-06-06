@@ -1,0 +1,156 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<% if (!$vr::viewer{'is_guest'}) { %>
+<h1><%= $vr::greetings[int(rand($#vr::greetings+1))] %>, <%=$vr::viewer{'display_name'}%>.</h1>
+<h2>Welcome back. You'll never leave.</h2>
+<%  } else { %>
+<h1>Welcome to The Vegetable Revolution</h1>
+<h2>Sign up, relax, and enjoy the party. Even if you don't remember Mega-Zine</h2>
+<%  } %>
+
+
+<div class="column eight alpha">
+  <div class="column four alpha">
+    <div class="header_block indent">Latest Posts</div>
+    <ul class="small recentlist indent">
+      <% foreach (sort {$b <=> $a} keys(%{$recent_posts}) ) { %>
+      <li><a href="<%=$vr::config{'base_url'}%>/<%=$recent_posts->{$_}{'category_id'}%>/<%=$recent_posts->{$_}{'board_id'}%>/<%=$recent_posts->{$_}{'thread_id'}%>/new/">
+      <%= &vr::_do_censor($recent_posts->{$_}{'thread_subject'}); %></a> <%= &vr::_check_new_thread($recent_posts->{$_}{'category_id'}, $recent_posts->{$_}{'board_id'}, $recent_posts->{$_}{'thread_id'}, $recent_posts->{$_}{'thread_last_message_time'})%></li>
+      <%  } %>
+    </ul>        
+  </div>
+
+<div class="column four omega">
+  <div class="header_block indent">Latest Photos</div>
+  <ul class="small recentlist_img">
+<% foreach (sort {$b <=> $a} keys(%{$recent_photos}) ) { %>
+  <% my $ext = '';
+      if    (-f "$vr::config{'uploaddir'}/".$recent_photos->{$_}{'thread_first_message_id'}.".thumb.jpg") { $ext = "thumb.jpg"; }
+      elsif (-f "$vr::config{'uploaddir'}/".$recent_photos->{$_}{'thread_first_message_id'}.".jpg") { $ext = "jpg"; }
+      elsif (-f "$vr::config{'uploaddir'}/".$recent_photos->{$_}{'thread_first_message_id'}.".thumb.gif") { $ext = "thumb.gif"; }
+      elsif (-f "$vr::config{'uploaddir'}/".$recent_photos->{$_}{'thread_first_message_id'}.".gif") { $ext = "gif"; }
+      elsif (-f "$vr::config{'uploaddir'}/".$recent_photos->{$_}{'thread_first_message_id'}.".thumb.png") { $ext = "thumb.png"; }
+      elsif (-f "$vr::config{'uploaddir'}/".$recent_photos->{$_}{'thread_first_message_id'}.".png") { $ext = "png"; }
+      elsif (-f "$vr::config{'uploaddir'}/".$recent_photos->{$_}{'thread_first_message_id'}.".thumb.JPG") { $ext = "thumb.JPG"; }
+      elsif (-f "$vr::config{'uploaddir'}/".$recent_photos->{$_}{'thread_first_message_id'}.".JPG") { $ext = "JPG"; }
+      elsif (-f "$vr::config{'uploaddir'}/".$recent_photos->{$_}{'thread_first_message_id'}.".thumb.GIF") { $ext = "thumb.GIF"; }
+      elsif (-f "$vr::config{'uploaddir'}/".$recent_photos->{$_}{'thread_first_message_id'}.".GIF") { $ext = "GIF"; }
+      elsif (-f "$vr::config{'uploaddir'}/".$recent_photos->{$_}{'thread_first_message_id'}.".thumb.PNG") { $ext = "thumb.PNG"; }
+      elsif (-f "$vr::config{'uploaddir'}/".$recent_photos->{$_}{'thread_first_message_id'}.".PNG") { $ext = "PNG"; }
+      else { 
+    #    next;
+      }
+  %>
+  
+  <li class="column alpha omega"><a href="<%=$vr::config{'base_url'}%>/<%=$recent_photos->{$_}{'category_id'}%>/<%=$recent_photos->{$_}{'board_id'}%>/<%=$recent_photos->{$_}{'thread_id'}%>/"><% if ($ext) { %><img src="<%=$vr::config{'base_url'}%>/uploads/<%=$recent_photos->{$_}{'thread_first_message_id'}%>.<%=$ext%>" title="<%=$recent_photos->{$_}{'thread_subject'}%>" alt="<%=$recent_photos->{$_}{'thread_subject'}%>" /><% } else { %><img src="<%=$vr::viewer{'template_url'}%>/img/placeholder.png" title="Thumbnail not available" alt="Thumbnail not available" /><% } %></a></li>
+<%  } %>
+  </ul>
+</div>
+
+<div class="column eight alpha">
+  <div class="header_block indent news_header">Recent News</div>
+  
+  <% foreach (sort {$b <=> $a} keys(%{$recent_news}) ) { %>
+   <% my $thread_id = $recent_news->{$_}{'thread_id'}; %>
+   
+  <div class="column one alpha indent">
+    <%  
+      if ($recent_news->{$_}{'avatar'} =~ /^\d{1,8}\.\w{1,4}$/) {
+        my ($digits, $ext) = split(/\./, $recent_news->{$_}{'avatar'});
+        $ext = lc($ext);
+        if ($ext eq 'jpeg') { $ext = 'jpg'; }
+        if (-f "$vr::config{'base_path'}/uploads/$digits.thumb.$ext") {
+          $recent_news->{$_}{'avatar'} = "$vr::config{'base_url'}/uploads/$digits.thumb.$ext";
+        } else {
+          $recent_news->{$_}{'avatar'} = "$vr::config{'base_url'}/uploads/".$recent_news->{$_}{'avatar'};
+        }
+      }
+    %>
+    <img src="<%=$recent_news->{$_}{'avatar'}%>" class="small_avatar" />
+  </div>
+  
+  <div class="column six_and_half omega">
+    <h4 class="news_headline"><a href="<%= $vr::config{'base_url'}%>/forum/news/<%=$thread_id%>"><%=$recent_news->{$_}{'thread_subject'}%></a></h4>
+    <div class="message_body front_news"><%=&vr::_truncate(650, &vr::_format_yabbc($recent_news->{$_}{'message_body'}), " <a href=\"$vr::config{'base_url'}/forum/news/$thread_id\" class=\"small\">...(more)</a>");%></div>
+    <br class="clear" />
+  </div>
+  
+
+  <%  } %>
+
+</div>
+</div>
+
+<div class="column four omega">
+<div class="header_block indent">Latest Photo Comments</div>
+<ul class="small recentlist indent">
+<% foreach (sort {$b <=> $a} keys(%{$recent_photo_comments}) ) { %>
+  <li><a href="<%=$vr::config{'base_url'}%>/<%=$recent_photo_comments->{$_}{'category_id'}%>/<%=$recent_photo_comments->{$_}{'board_id'}%>/<%=$recent_photo_comments->{$_}{'thread_id'}%>/">
+<%=$recent_photo_comments->{$_}{'thread_subject'}%></a></li>
+<%  } %>
+</ul>
+
+<div class="header_block indent">Currently Online (<%=(scalar keys %{$users_online}) + $num_guests_online%>)</div>
+<p class="small indent">
+<% foreach (sort {$a <=> $b} keys(%{$users_online}) ) { %>
+  <% if ($users_online->{$_}{'user_name'} eq 'admin' && ($vr::viewer{'is_guest'})) { next; } %>
+  <%= &vr::_format_username($users_online->{$_}{'user_name'}, $users_online->{$_}{'display_name'}, $users_online->{$_}{'spec_group_color'}); %>, 
+<%  } %> and <%=$num_guests_online%> guests.
+</p>
+<p class="small indent"><% foreach (sort {$a <=> $b} keys(%{$users_online}) ) { %>
+  <% if ($users_online->{$_}{'user_name'} eq 'admin' && ($vr::viewer{'is_guest'})) { next; } %>
+  <a href="<%=$vr::config{'base_url'}%>/user/<%=$users_online->{$_}{'user_name'}%>">
+    <%  
+      if ($users_online->{$_}{'avatar'} =~ /^\d{1,8}\.\w{1,4}$/) {
+        my ($digits, $ext) = split(/\./, $users_online->{$_}{'avatar'});
+        $ext = lc($ext);
+        if ($ext eq 'jpeg') { $ext = 'jpg'; }
+        if (-f "$vr::config{'base_path'}/uploads/$digits.thumb.$ext") {
+          $users_online->{$_}{'avatar'} = "$vr::config{'base_url'}/uploads/$digits.thumb.$ext";
+        } else {
+          $users_online->{$_}{'avatar'} = "$vr::config{'base_url'}/uploads/".$users_online->{$_}{'avatar'};
+        }
+      }
+    %><img src="<%=$users_online->{$_}{'avatar'}%>" class="tiny_avatar" alt="<%=$users_online->{$_}{'display_name'}%> - <%=$users_online->{$_}{'usertext'}%>" title="<%=$users_online->{$_}{'display_name'}%>"/>
+  </a>
+<%  } %>
+</p>
+<br /> 
+
+<div class="header_block indent">Birthdays</div>
+
+<% if (keys(%{$today_birthdays})) { %>
+<p class="small indent"><b>Today:</b><% foreach (sort {$a <=> $b} keys(%{$today_birthdays}) ) { %>
+  <%= &vr::_format_username($today_birthdays->{$_}{'user_name'}, $today_birthdays->{$_}{'display_name'}, $today_birthdays->{$_}{'spec_group_color'}); %>, 
+<% } %></p><% } %>
+<% if (keys($tomorrow_birthdays)) { %>
+<p class="small indent"><b>Tomorrow:</b><% foreach (sort {$a <=> $b} keys($tomorrow_birthdays) ) { %>
+  <%= &vr::_format_username($tomorrow_birthdays->{$_}{'user_name'}, $tomorrow_birthdays->{$_}{'display_name'}, $tomorrow_birthdays->{$_}{'spec_group_color'}); %>, 
+<% } %></p><% } %>
+<% if (keys(%{$two_day_birthdays})) { %>
+<p class="small indent"><b>Two Days:</b><% foreach (sort {$a <=> $b} keys(%{$two_day_birthdays}) ) { %>
+  <%= &vr::_format_username($two_day_birthdays->{$_}{'user_name'}, $two_day_birthdays->{$_}{'display_name'}, $two_day_birthdays->{$_}{'spec_group_color'}); %>, 
+<% } %></p><% } %>
+<% if (keys(%{$three_day_birthdays})) { %>
+<p class="small indent"><b>Three Days:</b><% foreach (sort {$a <=> $b} keys(%{$three_day_birthdays}) ) { %>
+  <%= &vr::_format_username($three_day_birthdays->{$_}{'user_name'}, $three_day_birthdays->{$_}{'display_name'}, $three_day_birthdays->{$_}{'spec_group_color'}); %>, 
+<% } %></p><% } %>
+<% if (keys(%{$four_day_birthdays})) { %><p class="small indent"><b>Four Days:</b><% foreach (sort {$a <=> $b} keys($four_day_birthdays) ) { %>
+  <%= &vr::_format_username($four_day_birthdays->{$_}{'user_name'}, $four_day_birthdays->{$_}{'display_name'}, $four_day_birthdays->{$_}{'spec_group_color'}); %>, 
+<% } %></p><% } %>
+
+<br />        
+
+<div class="header_block indent">Statistics</div>
+  <h4 class="indent alpha column one_and_bit"><%=&vr::_format_numbers($vr::db{'forum_total_posts'} + $vr::db{'forum_total_shouts'});%></h4><span class="faded"> Messages</span><br class="clear" />
+  <h4 class="indent alpha column one_and_bit"><%=&vr::_format_numbers($vr::db{'forum_total_threads'});%></h4><span class="faded"> Threads</span><br class="clear" />
+  <h4 class="indent alpha column one_and_bit"><%=&vr::_format_numbers($vr::db{'forum_total_photos'});%></h4><span class="faded"> Photos</span><br class="clear" />
+  <h4 class="indent alpha column one_and_bit"><%=&vr::_format_numbers($vr::db{'forum_total_users'});%></h4><span class="faded"> Members</span><br class="clear" />
+  <br class="clear" />
+  <h4 class="indent alpha column "><%=&vr::_format_numbers($vr::db{'forum_max_online'});%></h4><span class="faded"> Users online at once</span>
+  <p class="small indent">Record Set: <%=&vr::_format_time($vr::db{'forum_max_online_time'});%></p>
+</div>
+
+<br class="clear" />
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

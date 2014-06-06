@@ -1,0 +1,77 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1><%= $vr::tmpl{'page_title'}%></h1>
+<h2>Stuff you can't say in public</h2>
+
+  <div class="column two alpha omega">
+    <div class="header_block column two alpha text_indent">Folders</div>
+      <ul class="folderlist small text_indent">
+        <li class="active" ><a href="<%=$vr::config{'base_url'}%>/messages/">Inbox</a></li>
+        <li class="last" ><a href="<%=$vr::config{'base_url'}%>/messages/sent/">Sent</a></li>
+        <!--li class="last"><a href="<%=$vr::config{'base_url'}%>/messages/saved/">Saved</a></li-->
+    </ul>
+	</div>
+  <div class="column ten omega">
+    <div class="header_block column ten omega">
+      <span class="column five text_indent alpha">Conversations</span>
+      <span class="column one text_center">Posts</span>
+      <span class="column three">Last Message</span>
+      <span class="column one omega alpha">&nbsp;</span>
+    </div>
+
+<% my $new = undef; %>
+<% while ($vr::loop->fetchrow_arrayref) { %>
+
+
+<% if ($vr::loop{'sender_user_id'} == $vr::viewer{'user_id'}) {
+     $vr::loop{'user_name'} = $vr::loop{'receiver_user_name'};
+     $vr::loop{'display_name'} = $vr::loop{'receiver_display_name'};
+     $vr::loop{'spec_group_color'} = $vr::loop{'receiver_spec_group_color'};
+     $vr::loop{'avatar'} = $vr::loop{'receiver_avatar'};
+     $vr::loop{'unread'} = $vr::loop{'pm_sender_unread'};
+   } else {
+     $vr::loop{'user_name'} = $vr::loop{'sender_user_name'};
+     $vr::loop{'display_name'} = $vr::loop{'sender_display_name'};
+     $vr::loop{'spec_group_color'} = $vr::loop{'sender_spec_group_color'};
+     $vr::loop{'avatar'} = $vr::loop{'sender_avatar'};
+     $vr::loop{'unread'} = $vr::loop{'pm_receiver_unread'};
+   }
+%>
+
+<%
+  if ($vr::loop{'avatar'} =~ /^\d{1,8}\.\w{1,4}$/) {
+    my ($digits, $ext) = split(/\./, $vr::loop{'avatar'});
+    if ($ext eq 'jpeg') { $ext = 'jpg'; }
+    if (-f "$vr::config{'base_path'}/uploads/$digits.thumb.$ext") { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$digits.thumb.$ext"; }
+    else { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$vr::loop{'avatar'}"; }
+  }
+%>
+
+
+<% if($vr::loop{'unread'}) { $new = qq{<a href="$vr::config{'base_url'}/messages/inbox/$vr::loop{'pm_thread_id'}/" class="new_link">new</a>}; } else { $new = ''; }%>
+
+    <div class="thread_container column ten omega">
+      <div class="column five alpha">
+        <% if ($vr::loop{'avatar'}) {%><img src="<%=$vr::loop{'avatar'};%>" class="column one omega tiny_icon"/><% } else { %>
+        <img src="<%=$vr::viewer{'template_url'}%>/img/placeholder.png" class="column one omega tiny_icon"/><% } %>
+        <h4 class="column four omega"><a href="<%=$vr::config{'base_url'}%>/messages/inbox/<%=$vr::loop{'pm_thread_id'}%>/"><%= $vr::loop{'pm_subject'}; %></a> <%=$new%></h4>
+        <p class="column four omega small">With <%= &vr::_format_username($vr::loop{'user_name'}, $vr::loop{'display_name'}, $vr::loop{'spec_group_color'}); %></p>
+      </div>
+      <div class="column one text_center">
+       <p class="big_count"><%=&vr::_format_numbers($vr::loop{'pm_total_messages'});%></p>
+      </div>
+      <div class="column three">
+        <p class="last_updated small"><%= &vr::_format_time($vr::loop{'pm_last_msg_time'}, 'semi'); %><br />By <%= &vr::_format_username($vr::loop{'last_user_name'}, $vr::loop{'last_display_name'}, $vr::loop{'last_spec_group_color'}); %></p>
+      </div>
+      <div class="column one alpha omega">
+        <p class="last_updated small" style="margin-top: 10px;"><a href="<%=$vr::config{'base_url'}%>/postform/confirm_delete_pm_thread/?thread_id=<%=$vr::loop{'pm_thread_id'}%>" rel="facebox">[delete]</a></p>
+      </div>
+      <br class="clear" />
+    </div>
+
+<% } %>
+
+</div>
+      <br class="clear" />
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

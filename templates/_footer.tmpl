@@ -1,0 +1,102 @@
+      <br class="clear" />
+    </div>
+    <div class="main_roundbottom">&nbsp;</div>
+  </div>
+
+  <div id="shoutcontainer">
+    <div class="shout_roundtop">&nbsp;</div>
+
+    <div id="shout_content">
+      <% if($vr::viewer{'is_guest'}) { %>
+        <% &vr::_list_shoutbox_messages($vr::config{'shouts_to_show'}); %>
+        <% my $shouts = $vr::loop->fetchall_hashref('shout_id'); %>
+        <% foreach (sort {$a <=> $b} keys(%{$shouts}) ) { %>
+            
+        <% if ($shouts->{$_}{'user_name'} eq 'admin' && $vr::viewer{'is_guest'}) { next; }%>
+
+  <% my $time = &vr::_format_time($shouts->{$_}{shout_time});%>
+  <div class="shout"><%= &vr::_format_username($shouts->{$_}{'user_name'}, $shouts->{$_}{'display_name'}, $shouts->{$_}{'spec_group_color'}, " target=\"_parent\" title=\"$time\"");%>: 
+<%= &vr::_format_yabbc($shouts->{$_}{'shout_body'}); %></div>
+<%  } %><br class="clear" />
+      <% } else { %>
+      <iframe src="/shoutbox/" frameborder="0" width="100%" height="580" scrolling="no" marginwidth="0" marginheight="0" name="shoutbox" id="shoutbox">Sorry, your browser must support frames to use the shoutbox.</iframe>
+      <% } %>
+    </div>
+    
+    <% if (!$vr::viewer{'is_guest'}) { %>
+    <form id="shout_form" name="shout_form" action="/posthandler/" target="shoutbox" method="post" onsubmit="shoutboxSubmit();">
+      <input type="text" name="shout_message" id="shout_message" />
+      <input type="hidden" name="action" value="do_new_shout" />
+      <input type="hidden" name="real_shout_message" id="real_shout_message" value="" />
+      <button type="submit">Shout!</button>
+      <span class="text_center" style="display: block; margin-top: 8px;">
+        <a href="javascript:shoutReload();" onclick="shoutReload();" style="color: #000000;" >Refresh</a> | 
+        <a href="/archive/shoutbox" style="color: #000000;">Archives</a>
+      </span>
+    </form>
+    <% } %>  
+    <div class="shout_roundbottom">&nbsp;</div>
+  </div>
+
+  <br class="clear" />
+
+  <div id="fixedfooter">
+    <%= &vr::_generate_pagination($vr::total_pages, $vr::GET{'page'}); %>
+    <%= $vr::action_buttons %>
+  </div>
+</div>
+
+<div id="copyright">
+  <% &vr::_simple_board_list(); %>
+  <p>&copy; The Vegetable Revolution. All Rights Reserved <%= &vr::_get_next_previous_links();%></p>
+  <p>
+  <% while ($vr::board_loop->fetchrow_arrayref) { %><% if ($vr::board_loop{'board_id'} eq 'private') { next; } %><% if ($vr::board_loop{'category_id'} eq 'mods') { next; } %><a href="<%=$vr::config{'base_url'}%>/<%=$vr::board_loop{'category_id'}%>/<%=$vr::board_loop{'board_id'}%>/"><%=$vr::board_loop{'board_title'}%></a><% if ($vr::board_loop{'board_position'} < 19) { %> /<% }%>
+  <% } %></p>
+</div>
+
+<% if(!$vr::viewer{'is_guest'}) { %>
+<script type="text/javascript">
+  $(document).ready(function($) {
+    $('a[rel*=facebox]').facebox();
+    $('input#shout_message').example('Enter Message...');
+    $("#page_selector").change(onSelectChange);  
+  });
+  
+
+  function onSelectChange() {
+    var selected = $("#page_selector option:selected");
+    window.location.replace("<%=$vr::config{'base_url'}%>"+selected.val());
+  }  
+  
+  var beenSubmitted = false;
+
+  $("#poll_form").validate({
+    submitHandler: function(form) {
+      if (beenSubmitted == true) {
+        return false;
+      } else {
+        beenSubmitted = true;
+        form.submit();
+      }
+    }
+  });
+
+</script>
+<%}%>
+
+<br class="clear" />
+<br class="clear" />
+<br class="clear" />
+
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+    var pageTracker = _gat._getTracker("UA-263289-2");
+    pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body>
+</html>

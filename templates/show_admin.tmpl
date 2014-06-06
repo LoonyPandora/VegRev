@@ -1,0 +1,85 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1>Admin Centre</h1>
+<h2>Where you do you modding <em>thang</em>.</h2>
+
+  <div class="column two alpha omega">
+    <div class="header_block column two alpha text_indent">Sections</div>
+      <ul class="folderlist small text_indent">
+        <li class="active" ><a href="<%=$vr::config{'base_url'}%>/admin/">Mod Boards</a></li>
+        <!--li><a href="<%=$vr::config{'base_url'}%>/admin/general_settings/">General</a></li-->
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/word_filter/">Word Filter</a></li>
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/edit_groups/">Groups</a></li>
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/edit_bans/">Bans</a></li>
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/edit_boards/">Edit Boards</a></li>
+        <!--li><a href="<%=$vr::config{'base_url'}%>/admin/maintainence/">Maintainence</a></li>
+        <li class="last" ><a href="<%=$vr::config{'base_url'}%>/admin/security/">Security</a></li-->
+    </ul>
+	</div>
+	
+  <div class="column ten omega">
+    <div class="header_block column ten omega">
+      <span class="column four_and_half text_indent alpha">Boards</span>
+      <span class="column one text_center">Topics</span>
+      <span class="column one_and_half text_center">Posts</span>
+      <span class="column three omega">Last Message</span>
+    </div>
+
+<% while ($vr::loop->fetchrow_arrayref) { %>
+
+<div class="board_container column ten alpha omega">
+  <div class="column four_and_half">
+    <img src="<%=$vr::viewer{'template_url'}%>/img/placeholder.png" class="column one omega tiny_icon"/>
+    <h3 class="column three omega"><a href="<%=$vr::config{'base_url'}%>/admin/<%=$vr::db{'category_id'}%>/<%=$vr::loop{'board_id'};%>"><%= $vr::loop{'board_title'}; %></a></h3>
+    <p class="column three omega small"><%= $vr::loop{'board_description'}; %></p>
+  </div>
+  <div class="column one text_center ">
+    <p class="big_count"><%=&_format_numbers($vr::loop{'board_thread_total'});%></p>
+  </div>
+  <div class="column one_and_half text_center ">
+    <p class="big_count"><%=&_format_numbers($vr::loop{'board_message_total'});%></p>
+  </div>
+  <div class="column three omega">
+    <p class="last_updated small "><%= &vr::_format_time($vr::loop{'board_last_post_time'}, 'semi'); %><br />In: <%=&vr::_truncate(23, &vr::_format_threadlink($vr::loop{'board_id'}, $vr::loop{'board_last_post_id'}, $vr::loop{'thread_subject'}), "...");%>
+  </div>
+  <br class="clear" />
+</div>
+
+<% } %>
+
+<!--
+  <div class="header_block mid_block column ten omega">
+    <span class="column ten text_indent alpha">The Bins</span>
+  </div>
+
+  <div class="board_container column ten alpha omega">
+    <div class="column ten ">
+      <img src="<%=$vr::viewer{'template_url'}%>/img/placeholder.png" class="column one omega tiny_icon"/>
+      <h3 class="column nine omega"><a href="<%=$vr::config{'base_url'}%>/admin/deleted_threads">Deleted Threads</a></h3>
+      <p class="column nine omega small ">All Deleted Threads</p>
+    </div>
+    <br class="clear" />
+  </div>
+  
+  <div class="board_container column ten alpha omega">
+    <div class="column ten ">
+      <img src="<%=$vr::viewer{'template_url'}%>/img/placeholder.png" class="column one omega tiny_icon"/>
+      <h3 class="column nine omega"><a href="<%=$vr::config{'base_url'}%>/admin/deleted_messages">Deleted Messages</a></h3>
+      <p class="column nine omega small ">Deleted Messages deleted individually, NOT part of a thread</p>
+    </div>
+    <br class="clear" />
+  </div>
+
+  <div class="board_container column ten alpha omega">
+    <div class="column ten ">
+      <img src="<%=$vr::viewer{'template_url'}%>/img/placeholder.png" class="column one omega tiny_icon"/>
+      <h3 class="column nine omega"><a href="<%=$vr::config{'base_url'}%>/admin/deleted_shouts">Deleted Shouts</a></h3>
+      <p class="column nine omega small ">All Deleted Shouts</p>
+    </div>
+    <br class="clear" />
+  </div>
+-->
+
+</div>
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

@@ -1,0 +1,18 @@
+# __      __           _____              
+# \ \    / /          |  __ \             
+#  \ \  / /___   __ _ | |__) | ___ __   __
+#   \ \/ // _ \ / _` ||  _  / / _ \\ \ / /
+#    \  /|  __/| (_| || | \ \|  __/ \ V / 
+#     \/  \___| \__, ||_|  \_\\___|  \_/  
+#                __/ |                    
+#               |___/                     
+# 
+#     i prefer the company of robots
+#
+
+User-agent: *
+Disallow: /cgi-bin/
+Disallow: /errors/
+Allow: /
+
+Crawl-delay: 10

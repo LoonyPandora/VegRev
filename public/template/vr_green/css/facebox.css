@@ -1,0 +1,53 @@
+/******************************************************************************
+facebook.css
+=============================================================================
+Version:    Vegetable Revolution 3.0
+Released:    1st February 2009
+Revision:    $Rev$
+Copyright:    James Aitken <http://www.loonypandora.com>
+******************************************************************************/
+
+#facebox {
+    position: absolute;
+    width: 640px;
+    margin-left: -320px;
+    left: 50%;
+    z-index: 20;
+    padding: 15px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    background-image: url('../img/facebox/trans_blacker.png');
+}
+
+#facebox .content {
+    background-color: #ffffff;
+}
+
+#facebox_overlay {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+.facebox_hide {
+    z-index: -10;
+}
+
+.facebox_overlayBG {
+    background-color: #000;
+    z-index: 15;
+}
+
+* html #facebox_overlay {/* ie6 hack */
+    position: absolute;
+    height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}
+
+.loading {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}

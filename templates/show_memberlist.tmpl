@@ -1,0 +1,63 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1>Members List</h1>
+<h2>Anyone who's anyone is on this list</h2>
+
+
+<div class="header_block mid_block column twelve alpha omega">
+  <span class="column six text_indent alpha"><a href="<%= $vr::config{'base_url'} %>/members/name/" style="color: #ffffff;"> Member <img src="<%=$vr::viewer{'template_url'}%>/img/nipple_white.png" /></a></span>
+  <span class="column two text_center"><a href="<%= $vr::config{'base_url'} %>/members/posts/" style="color: #ffffff;">Posts <img src="<%=$vr::viewer{'template_url'}%>/img/nipple_white.png" /></a></span>
+  <span class="column two"><a href="<%= $vr::config{'base_url'} %>/members/date/" style="color: #ffffff;">Join Date <img src="<%=$vr::viewer{'template_url'}%>/img/nipple_white.png" /></a></span>
+  <span class="column two omega"><a href="<%= $vr::config{'base_url'} %>/members/online/" style="color: #ffffff;">Last Online <img src="<%=$vr::viewer{'template_url'}%>/img/nipple_white.png" /></a></span>
+</div>
+
+<% while ($vr::loop->fetchrow_arrayref) { %>
+
+<%
+  if ($vr::loop{'avatar'} =~ /^\d{1,8}\.\w{1,4}$/) {
+    my ($digits, $ext) = split(/\./, $vr::loop{'avatar'});    
+    if ($ext eq 'jpeg') { $ext = 'jpg'; }
+    if (-f "$vr::config{'base_path'}/uploads/$digits.thumb.$ext") {
+      $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$digits.thumb.$ext"; 
+    } else {
+      $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$vr::loop{'avatar'}";
+    }
+  }
+  
+  my $title = '';
+  if (!$vr::loop{'spec_group_title'}) {
+    $title = $vr::loop{'post_group_title'};
+  } else {
+    $title = $vr::loop{'spec_group_title'};
+  }
+  
+%>
+
+<% my $thread_icon = undef; if ($vr::loop{'avatar'}) { $thread_icon = $vr::loop{'avatar'} } else { $thread_icon = "$vr::viewer{'template_url'}/img/placeholder.png"; }  %>
+
+<div class="thread_container column twelve alpha omega">
+  <div class="column six alpha">
+    <span class="column one omega" style="height: 30px;">
+      <a href="<%=$vr::config{'base_url'}%>/user/<%=$vr::loop{'user_name'}%>">
+        <img src="<%=$thread_icon %>" class="tiny_icon"/>
+      </a>
+    </span>
+    <h4 class="column five omega"><%= &vr::_format_username($vr::loop{'user_name'}, $vr::loop{'display_name'}, $vr::loop{'spec_group_color'}); %></h4>
+    <p class="column five omega small"><%= $title %></p>
+  </div>
+  <div class="column two text_center">
+    <p class="big_count"><%=&vr::_format_numbers($vr::loop{'user_post_num'});%></p>
+  </div>
+  <div class="column two">
+    <p class="last_updated small"><%= &vr::_format_time($vr::loop{'reg_time'}, 'full'); %></p>
+  </div>
+  <div class="column two omega">
+    <p class="last_updated small"><%= &vr::_format_time($vr::loop{'last_online'}, 'semi'); %></p>
+  </div>
+</div>
+  <br class="clear" />
+
+<% } %>
+
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

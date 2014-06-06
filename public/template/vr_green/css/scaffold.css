@@ -1,0 +1,449 @@
+/******************************************************************************
+scaffold.css
+=============================================================================
+Version:        Vegetable Revolution 3.0
+Released:        1st June 2009
+Revision:        $Rev$
+Copyright:        James Aitken <http://www.loonypandora.com>
+******************************************************************************/
+
+/* Meyer Reset v1.0 | 20080212 */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,sup,sub,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+body {
+    line-height: 1;
+}
+ol,ul {
+    list-style: none;
+}
+blockquote,q {
+    quotes: none;
+}
+blockquote:before,blockquote:after,q:before,q:after {
+    content: '';
+    content: none;
+}
+:focus {
+    outline: 0;
+}
+ins {
+    text-decoration: none;
+}
+del {
+    text-decoration: line-through;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/* My Stuff */
+
+body {
+    font-family: Verdana, Helvetica, Arial, "Sans Serif";
+    font-size: 11px;
+    line-height: 1.25em;
+    border: 0;
+    margin: 0;
+    padding: 0 0 0 0;
+    height: 100%;
+    overflow: auto;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Helvetica, Arial, "Sans Serif";
+    margin: 0;
+    padding: 0;
+    line-height: 1.25em;
+}
+
+h1 {
+    font-size: 36px;
+    letter-spacing: -2px;
+    line-height: 36px;
+}
+h2 {
+    font-size: 18px;
+    letter-spacing: -1px;
+    margin-left: 2px;
+    margin-bottom: 14px;
+}
+h3 {
+    font-size: 18px;
+    letter-spacing: -1px;
+}
+h4 {
+    font-size: 14px;
+}
+h5 {
+    font-size: 12px;
+}
+
+p {
+    margin-bottom: 0.75em;
+}
+
+
+#everything {
+    width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+}
+
+#headercontainer {
+    width: 980px;
+    height: 95px;
+    display: inline;
+    float: left;
+    padding: 0;
+    margin: 0 0 30px 0;
+}
+
+#maincontainer, #shoutcontainer {
+    display: inline;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+#maincontainer {
+    width: 730px;
+    margin-right: 10px;
+}
+#shoutcontainer {
+    width: 240px;
+}
+
+.main_roundtop, .shout_roundtop, .main_roundbottom, .shout_roundbottom {
+    height: 10px;
+}
+
+#headercontainer {
+    background-repeat: no-repeat;
+    background-position: top left;
+}
+
+#maincontainer_auth {
+    display: block;
+    margin: 50px auto 0 auto;
+    padding: 0;
+    width: 730px;
+}
+
+#main_content {
+    padding-left: 15px;
+}
+
+#fixedfooter {
+    position: fixed;
+    bottom: 0;
+    width: 980px;
+    height: 32px;
+    background-image: url('../img/dock_bar.png');
+    background-repeat: no-repeat;
+    background-position: top left;
+}
+
+
+/* Grids - Adapted from 960.gs v1.1 */
+
+.column {
+    display: inline;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.column_right {
+    display: inline;
+    float: right;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+.alpha {
+    margin-left: 0px;
+}
+.omega {
+    margin-right: 0px;
+}
+
+.one {
+    width: 40px;
+}
+.two {
+    width: 100px;
+}
+.three {
+    width: 160px;
+}
+.four {
+    width: 220px;
+}
+.five {
+    width: 280px;
+}
+.six {
+    width: 340px;
+}
+.seven {
+    width: 400px;
+}
+.eight {
+    width: 460px;
+}
+.nine {
+    width: 520px;
+}
+.ten {
+    width: 580px;
+}
+.eleven {
+    width: 640px;
+}
+.twelve {
+    width: 700px;
+}
+
+.prefix_tiny {
+    padding-left: 40px;
+}
+.prefix_one {
+    padding-left: 60px;
+}
+.prefix_two {
+    padding-left: 120px;
+}
+.prefix_three {
+    padding-left: 180px;
+}
+.prefix_four {
+    padding-left: 240px;
+}
+.prefix_five {
+    padding-left: 300px;
+}
+.prefix_six {
+    padding-left: 360px;
+}
+.prefix_seven {
+    padding-left: 420px;
+}
+.prefix_eight {
+    padding-left: 480px;
+}
+.prefix_nine {
+    padding-left: 540px;
+}
+.prefix_ten {
+    padding-left: 600px;
+}
+.prefix_eleven {
+    padding-left: 660px;
+}
+
+.shift_tiny {
+    margin-left: 40px;
+}
+.shift_one {
+    margin-left: 60px;
+}
+.shift_two {
+    margin-left: 120px;
+}
+.shift_three {
+    margin-left: 180px;
+}
+.shift_four {
+    margin-left: 240px;
+}
+.shift_five {
+    margin-left: 300px;
+}
+.shift_six {
+    margin-left: 360px;
+}
+.shift_seven {
+    margin-left: 420px;
+}
+.shift_eight {
+    margin-left: 480px;
+}
+.shift_nine {
+    margin-left: 540px;
+}
+.shift_ten {
+    margin-left: 600px;
+}
+.shift_eleven {
+    margin-left: 660px;
+}
+
+
+
+.shift_two_half {
+    margin-left: 170px;
+}
+.shift_one_bit {
+    margin-left: 70px;
+}
+
+
+.less_than_one {
+    width: 30px
+}
+.one_and_bit {
+    width: 50px;
+}
+.one_and_half {
+    width: 70px;
+}
+.two_and_half {
+    width: 100px;
+}
+.three_and_half {
+    width: 210px;
+}
+.four_and_half {
+    width: 240px;
+}
+.five_and_bit {
+    width: 290px;
+}
+.five_and_half {
+    width: 310px;
+}
+.six_and_tiny {
+    width: 350px;
+}
+.six_and_bit {
+    width: 370px;
+}
+.six_and_half {
+    width: 380px;
+}
+.seven_and_half {
+    width: 440px;
+}
+
+.eight_and_half {
+    width: 500px;
+}
+.eight_and_bit {
+    width: 470px;
+}
+.nine_and_half {
+    width: 560px;
+}
+.three_and_border {
+    width: 158px;
+}
+.four_and_border {
+    width: 218px;
+}
+.five_and_border {
+    width: 278px;
+}
+.six_and_border {
+    width: 338px;
+}
+.ten_and_border {
+    width: 578px;
+}
+
+.nine_and_border {
+    width: 488px;
+}
+.twelve_and_half {
+    width: 725px;
+}
+
+
+img {
+    vertical-align: middle;
+    -ms-interpolation-mode: bicubic;
+}
+
+.break {
+    clear: both;
+}
+
+hr {
+    border-color: #cccccc;
+    border-style: dashed;
+    border-width: 1px 0 0;
+    clear: both;
+    margin: 20px 15px 20px 0;
+    height: 0;
+}
+
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+#copyright {
+    font-size: 10px;
+    clear: both;
+    margin-top: 32px;
+    color: #777777;
+    line-height: 8px;
+    width: 975px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 0 0 5px;
+}
+
+#copyright a {
+    font-weight: normal;
+    color: #777777;
+}
+
+#copyright a:hover {
+    font-weight: normal;
+    color: #444444;
+}
+.clearfix:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+
+input[type="hidden"] {
+    display: none;
+    visibility: hidden;
+    margin: 0;
+    padding: 0;
+}

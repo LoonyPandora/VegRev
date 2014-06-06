@@ -1,0 +1,66 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1><%= $vr::db{'board_title'}; %></h1>
+<h2><%= &vr::_format_yabbc($vr::db{'board_description'}); %></h2>
+
+
+<% my $sticky_done = undef; $header_done = undef; %>
+<% if ($vr::db{'category_id'} eq 'mods') { $vr::db{'category_id'} = 'admin/mods'; } %>
+
+<% if ($vr::GET{'id'} eq 'private' && !$vr::viewer{'spec_group_id'}) { %>
+<% $vr::action_buttons = ''; %>
+
+<h4>Please Donate to access this board</h4>
+<% } else { %>
+
+<% while ($vr::loop->fetchrow_arrayref) { %>
+
+<% if ($vr::GET{'page'} == 1 && $vr::loop{'thread_star'} == 2147483647 && !$header_done ) { %>
+<div class="header_block column twelve alpha omega">
+  <span class="column eight text_indent alpha">Important Topics</span>
+  <span class="column one text_center">Posts</span>
+  <span class="column three omega">Last Post</span>
+</div>
+<% $header_done = 1; } %>
+<% if ($vr::loop{'thread_star'} < 2147483647 && !$sticky_done) { %>
+  <div class="header_block mid_block column twelve alpha omega">
+    <span class="column eight text_indent alpha"> Topics</span>
+    <span class="column one text_center">Posts</span>
+    <span class="column three omega">Last Post</span>
+  </div>
+<% $sticky_done = 1; } %>
+
+<%
+  if ($vr::loop{'avatar'} =~ /^\d{1,8}\.\w{1,4}$/) {
+    my ($digits, $ext) = split(/\./, $vr::loop{'avatar'});    
+    if ($ext eq 'jpeg') { $ext = 'jpg'; }
+    if (-f "$vr::config{'base_path'}/uploads/$digits.thumb.$ext") { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$digits.thumb.$ext"; }
+    else { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$vr::loop{'avatar'}"; }
+  }
+%>
+
+<% my $thread_icon = undef; if ($vr::loop{'avatar'}) { $thread_icon = $vr::loop{'avatar'}; } else { $thread_icon = "$vr::viewer{'template_url'}/img/placeholder.png"; }  %>
+<% if ($vr::loop{'poll_id'}) { $thread_icon = "$vr::viewer{'template_url'}/img/icons_thread/poll.png"; } %>
+
+<% if ($vr::loop{'thread_locked'}) { $thread_icon = "$vr::viewer{'template_url'}/img/icons_thread/lock.png"; }%>
+
+<div class="thread_container column twelve alpha omega">
+  <div class="column eight alpha">
+    <span class="column one omega" style="height: 30px;"><img src="<%=$thread_icon %>" class="tiny_icon"/></span>
+    <h4 class="column seven omega"><a href="<%=$vr::config{'base_url'}%>/<%=$vr::db{'category_id'}%>/<%=$vr::db{'board_id'}%>/<%=$vr::loop{'thread_id'}%>/new/"><%= &vr::_do_censor($vr::loop{'thread_subject'}); %></a> <%= &vr::_check_new_thread('forum', $vr::db{'board_id'}, $vr::loop{'thread_id'}, $vr::loop{'thread_last_message_time'}) %></h4>
+    <p class="column seven omega small">by <%= &vr::_format_username($vr::loop{'start_user_name'}, $vr::loop{'start_display_name'}, $vr::loop{'start_spec_group_color'}); %></p>
+  </div>
+  <div class="column one text_center">
+    <p class="big_count"><%=&vr::_format_numbers($vr::loop{'thread_messages'});%></p>
+  </div>
+  <div class="column three omega">
+    <p class="last_updated small"><%= &vr::_format_time($vr::loop{'thread_last_message_time'}); %><br />by <%= &vr::_format_username($vr::loop{'last_user_name'}, $vr::loop{'last_display_name'}, $vr::loop{'last_spec_group_color'}); %></p>
+  </div>
+</div>
+  <br class="clear" />
+
+<% } %>
+<% } %>
+
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

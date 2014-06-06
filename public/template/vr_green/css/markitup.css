@@ -1,0 +1,313 @@
+/******************************************************************************
+markitup.css
+=============================================================================
+Version:        Vegetable Revolution 3.0
+Released:        1st February 2009
+Revision:        $Rev$
+Copyright:        James Aitken <http://www.loonypandora.com>
+******************************************************************************/
+
+/* My CSS */
+
+
+.markItUpEditor {
+    margin: 0;
+}
+
+.bbcode {
+    margin-top: 5px;
+}
+
+.bbcode #emoticon_bar {
+    padding: 6px 0 0 0;
+}
+.bbcode .markItUpHeader {
+    padding: 4px 0 6px 3px;
+    height: 45px;
+    border: 1px solid #cccccc;
+    background-color: #eeeeee;
+    border-bottom: none;
+    margin: 0 18px 0 0px;
+    width: 507px;
+}
+
+.bbcode #emoticon_bar    li {
+    margin-left: 3px;
+}
+
+.bbcode li a {
+    background-position: center center;
+}
+.bbcode li a:hover {
+    background-color: #cccccc;
+}
+
+.bbcode .button_smiley a {
+    background-image: url('../img/emoticons/smiley.gif');
+}
+.bbcode .button_wink a {
+    background-image: url('../img/emoticons/wink.gif');
+}
+.bbcode .button_cheesy a {
+    background-image: url('../img/emoticons/cheesy.gif');
+}
+.bbcode .button_grin a {
+    background-image: url('../img/emoticons/grin.gif');
+}
+.bbcode .button_smug a {
+    background-image: url('../img/emoticons/smug.gif');
+}
+.bbcode .button_angry a {
+    background-image: url('../img/emoticons/angry.gif');
+}
+.bbcode .button_sad a {
+    background-image: url('../img/emoticons/sad.gif');
+}
+.bbcode .button_shocked a {
+    background-image: url('../img/emoticons/shocked.gif');
+}
+.bbcode .button_cool a {
+    background-image: url('../img/emoticons/cool.gif');
+}
+.bbcode .button_huh a {
+    background-image: url('../img/emoticons/huh.gif');
+}
+.bbcode .button_rolleyes a {
+    background-image: url('../img/emoticons/rolleyes.gif');
+}
+.bbcode .button_tongue a {
+    background-image: url('../img/emoticons/tongue.gif');
+}
+.bbcode .button_embarassed a {
+    background-image: url('../img/emoticons/embarassed.gif');
+}
+.bbcode .button_lipsrsealed a {
+    background-image: url('../img/emoticons/lipsrsealed.gif');
+}
+.bbcode .button_undecided a {
+    background-image: url('../img/emoticons/undecided.gif');
+}
+.bbcode .button_kiss a {
+    background-image: url('../img/emoticons/kiss.gif');
+}
+.bbcode .button_cry a {
+    background-image: url('../img/emoticons/cry.gif');
+}
+.bbcode .button_evil a {
+    background-image: url('../img/emoticons/evil.gif');
+    margin-top: -3px;
+    height: 19px;
+}
+.bbcode .button_thumbsup a {
+    background-image: url('../img/emoticons/thumbsup.gif');
+    width: 26px;
+}
+
+
+/* CSS From Sets */
+
+.bbcode .markItUpButton1 a {
+    background-image: url('../img/icons_markitup/text_bold.png');
+}
+.bbcode .markItUpButton2 a {
+    background-image: url('../img/icons_markitup/text_italic.png')
+}
+.bbcode .markItUpButton3 a {
+    background-image: url('../img/icons_markitup/text_underline.png')
+}
+.bbcode .markItUpButton4 a {
+    background-image: url('../img/icons_markitup/text_strikethrough.png')
+}
+.bbcode .markItUpButton5 a {
+    background-image: url('../img/icons_markitup/highlight.png')
+}
+.bbcode .markItUpButton6 a {
+    background-image: url('../img/icons_markitup/picture.png')
+}
+.bbcode .markItUpButton7 a {
+    background-image: url('../img/icons_markitup/flash.png')
+}
+.bbcode .markItUpButton8 a {
+    background-image: url('../img/icons_markitup/link.png')
+}
+.bbcode .markItUpButton9 a {
+    background-image: url('../img/icons_markitup/font_color.png');
+}
+
+.bbcode .markItUpButton9 ul {
+    width :81px;
+    padding: 1px;
+}
+
+.bbcode .markItUpButton9 li {
+    border: 1px solid white;
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    padding: 0px;
+    margin: 0px;
+    float: left;
+}
+
+.bbcode .markItUpButton9 ul a {
+    width: 25px;
+    height: 25px;
+}
+.bbcode .markItUpButton9 ul a:hover {
+    background-color: none;
+}
+.bbcode .markItUpButton9 .col1-1 a {
+    background: yellow;
+}
+.bbcode .markItUpButton9 .col1-2 a {
+    background: orange;
+}
+.bbcode .markItUpButton9 .col1-3 a {
+    background: red;
+}
+.bbcode .markItUpButton9 .col2-1 a {
+    background: blue;
+}
+.bbcode .markItUpButton9 .col2-2 a {
+    background: purple;
+}
+.bbcode .markItUpButton9 .col2-3 a {
+    background: green;
+}
+.bbcode .markItUpButton9 .col3-1 a {
+    background: white;
+}
+.bbcode .markItUpButton9 .col3-2 a {
+    background: gray;
+}
+.bbcode .markItUpButton9 .col3-3 a {
+    background: black;
+}
+.bbcode .markItUpButton10 a {
+    background-image: url('../img/icons_markitup/font_size.png')
+}
+.bbcode .markItUpButton11 a {
+    background-image: url('../img/icons_markitup/font_change.png')
+}
+.bbcode .markItUpButton12 a {
+    background-image: url('../img/icons_markitup/quotes.png')
+}
+.bbcode .markItUpButton13 a {
+    background-image: url('../img/icons_markitup/code.png')
+}
+.bbcode .markItUpButton14 a {
+    background-image: url('../img/icons_markitup/text_align_left.png')
+}
+.bbcode .markItUpButton15 a {
+    background-image: url('../img/icons_markitup/text_align_center.png')
+}
+.bbcode .markItUpButton16 a {
+    background-image: url('../img/icons_markitup/text_align_right.png')
+}
+.bbcode .markItUpButton17 a {
+    background-image: url('../img/icons_markitup/text_superscript.png')
+}
+.bbcode .markItUpButton18 a {
+    background-image: url('../img/icons_markitup/text_subscript.png')
+}
+.bbcode .markItUpButton19 a {
+    background-image: url('../img/icons_markitup/move.gif')
+}
+.bbcode .markItUpButton20 a {
+    background-image: url('../img/icons_markitup/page_white_edit.png')
+}
+
+
+/* CSS From Skins */
+
+.markItUpResizeHandle {
+    overflow: hidden;
+    width: 7px;
+    height: 7px;
+    float: right;
+    clear: left;
+    margin-top: -10px;
+    margin-right: 22px;
+    background-image: url('../img/icons_markitup/handle.png');
+    background-repeat: no-repeat;
+    cursor: n-resize;
+}
+
+
+/***************************************************************************************/
+/* first row of buttons */
+.markItUpHeader ul li {
+    list-style: none;
+    float: left;
+    position: relative;
+}
+.markItUpHeader ul li:hover > ul {
+    display: block;
+}
+
+.markItUpHeader ul .markItUpDropMenu {
+    background: transparent url('../img/icons_markitup/menu.png') no-repeat 115% 50%;
+    margin-right: 5px;
+}
+.markItUpHeader ul .markItUpDropMenu li {
+    margin-right: 0px;
+}
+
+/* next rows of buttons */
+.markItUpHeader ul ul {
+    display: none;
+    position: absolute;
+    top: 18px;
+    left: 0px;
+    background: #FFF;
+    border: 1px solid #cccccc;
+    z-index: 5;
+}
+.markItUpHeader ul ul li {
+    float: none;
+}
+.markItUpHeader ul ul .markItUpDropMenu {
+    background: #ffffff url('../img/icons_markitup/submenu.png') no-repeat 100% 50%;
+}
+.markItUpHeader ul .markItUpSeparator {
+    margin: 2px 5px;
+    width: 1px;
+    height: 16px;
+    overflow: hidden;
+    background-color: #cccccc;
+}
+.markItUpHeader ul ul .markItUpSeparator {
+    width: auto;
+    height: 1px;
+    margin: 0px;
+}
+/* next rows of buttons */
+.markItUpHeader ul ul ul {
+    position: absolute;
+    top: -1px;
+    left: 150px;
+}
+.markItUpHeader ul ul ul li {
+    float: none;
+}
+.markItUpHeader ul a {
+    display: block;
+    width: 16px;
+    height: 16px;
+    text-indent: -10000px;
+    background-repeat: no-repeat;
+    padding: 0 2px 3px 2px;
+    margin: 0px;
+}
+.markItUpHeader ul ul a {
+    display: block;
+    font-size: 10px;
+    padding-left: 0px;
+    text-indent: 0;
+    width: 80px;
+    padding: 5px 5px 5px 25px;
+    background-position: 2px 50%;
+}
+.markItUpHeader ul ul a:hover {
+    outline: none;
+}

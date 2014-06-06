@@ -1,0 +1,95 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1><%= &vr::_do_censor($vr::db{'thread_subject'}); %></h1>
+<div class="small reading_thread">Posted In: <a href="<%=$vr::config{'base_url'}%>/forum/<%=$vr::db{'board_id'}%>/"><%=$vr::db{'board_title'}%></a>. Reading This Thread:
+<% foreach (sort {$a <=> $b} keys(%{$now_viewing}) ) { %>
+  <%= &vr::_format_username($now_viewing->{$_}{'user_name'}, $now_viewing->{$_}{'display_name'}, $now_viewing->{$_}{'spec_group_color'}); %>, 
+<%  } %>
+</div>
+
+
+<% if ($vr::db{'poll_id'}) {%>
+<%= $tmpl->include("$config{'templatedir'}/_view_poll.tmpl") %>
+<%}%>
+
+<% my $alt = 0; my $row_class = undef; %>
+<% while ($vr::loop->fetchrow_arrayref) { %>
+
+
+<% if ($vr::loop{'user_name'} eq 'admin' || $vr::loop{'user_name'} eq 'Tooth_of__Wisdom' || $vr::loop{'user_name'} eq 'lmc') {
+  
+  if ($vr::viewer{'is_guest'})                      { next; }
+  if ($vr::viewer{'user_name'} eq 'penguincrazy')   { next; }
+  
+} %>
+
+
+<% my $led = 'offline.png'; if(&_check_if_online($vr::loop{'user_id'})) { $led = 'online.png'; } %>
+<%
+  if ($vr::loop{'avatar'} =~ /^\d{1,8}\.\w{1,4}$/) {
+    my ($digits, $ext) = split(/\./, $vr::loop{'avatar'});
+    $ext = lc($ext);
+    if ($ext eq 'jpeg') { $ext = 'jpg'; }
+    if (-f "$vr::config{'base_path'}/uploads/$digits.thumb.$ext") { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$digits.thumb.$ext"; }
+    else { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$vr::loop{'avatar'}"; }
+  }
+%>
+
+<% if ($alt % 2) { $row_class = 'alternate_row'; } else { $row_class = ''; }  %>
+<% $alt++;  %>
+
+<div class="message_container column twelve alpha omega <%=$row_class%>">
+  <div class="column eight alpha message_header">
+    <h4><a name="<%=$vr::loop{'message_id'}%>"><img src="<%=$vr::viewer{'template_url'}%>/img/<%=$led %>" class="status_led" /></a> <%= &vr::_format_username($vr::loop{'user_name'}, $vr::loop{'display_name'}, $vr::loop{'spec_group_color'}); %></h4>
+    <img src="<%=$vr::viewer{'template_url'};%>/img/icons_group/<%=$vr::loop{'post_group_image'}%>" /> | <span class="small"><%=&vr::_format_numbers($vr::loop{'user_post_num'});%> posts<% if($vr::viewer{'can_admin'} || $vr::viewer{'can_mod'}) { %> | <a href="http://whois.domaintools.com/<%=$vr::loop{'message_ip'}%>" style="color: #747474"><%=$vr::loop{'message_ip'}%></a><%} %></span>
+  </div>
+  <div class="column four omega small message_meta">
+  <p><% if (!$vr::viewer{'is_guest'}) { %><a href="<%=$vr::viewer{'base_url'}%>/postform/prepare_quote_message/?thread_id=<%=$vr::db{'thread_id'}%>;board_id=<%=$vr::db{'board_id'}%>;page=<%=$vr::GET{'page'}%>;post_id=<%=$vr::loop{'message_id'}%>" rel="facebox">[quote]</a> <% if ($vr::viewer{'user_id'} == $vr::loop{'user_id'} || $vr::viewer{'can_mod'} || $vr::viewer{'can_admin'}) { %><a href="<%=$vr::viewer{'base_url'}%>/postform/prepare_edit_message/?thread_id=<%=$vr::db{'thread_id'}%>;board_id=<%=$vr::db{'board_id'}%>;page=<%=$vr::GET{'page'}%>;post_id=<%=$vr::loop{'message_id'}%>" rel="facebox">[edit]</a><%}%> <% if (($vr::viewer{'user_id'} == $vr::loop{'user_id'} || $vr::viewer{'can_mod'} || $vr::viewer{'can_admin'}) && $vr::db{'thread_first_message_id'} != $vr::loop{'message_id'}) { %><a href="<%=$vr::viewer{'base_url'}%>/postform/prepare_delete_message/?thread_id=<%=$vr::db{'thread_id'}%>;board_id=<%=$vr::db{'board_id'}%>;page=<%=$vr::GET{'page'}%>;post_id=<%=$vr::loop{'message_id'}%>" rel="facebox">[delete]</a><%}}%>
+  <br />
+  <%= &vr::_format_time($vr::loop{'message_time'}, 'full'); %></p>
+  </div>
+
+  <div class="column two alpha message_avatar">
+    <% if ($vr::loop{'avatar'}) {%><img src="<%=$vr::loop{'avatar'};%>" class="avatar" alt="<%=$vr::loop{'display_name'}%> - <%=$vr::loop{'usertext'}%>" title="<%=$vr::loop{'usertext'}%>" /><% } %>
+    <p class="user_text small"><%=$vr::loop{'usertext'}%></p>
+    <% if ($vr::viewer{'group_can_admin'}) { %>
+    <p class="admin_info small">(<%=$vr::loop{'message_ip'}%>)</p>
+    <% } %>
+    &nbsp;
+  </div>
+
+  <div class="column ten omega">
+   <div class="column ten alpha omega message_main">
+    <%=&vr::_format_yabbc($vr::loop{'message_body'});%>
+
+    <% if ($vr::loop{'attachment'} =~ /^(.*)\.(\w{1,4})$/) { $vr::loop{'attach_ext'} = lc($2); } else { $vr::loop{'attach_ext'} = undef; } %>
+    
+    <% if (-f "$vr::config{'uploaddir'}/$vr::loop{'message_id'}.sized.$vr::loop{'attach_ext'}") { %>
+      <br /><br />
+      <a href="<%=$vr::config{'upload_url'}%>/<%=$vr::loop{'message_id'}%>.<%=$vr::loop{'attach_ext'}%>"><img src="<%=$vr::config{'upload_url'}%>/<%=$vr::loop{'message_id'}%>.sized.<%=$vr::loop{'attach_ext'}%>" alt="<%=$vr::loop{'attachment'}%>" /></a>
+    <% } elsif ($vr::loop{'attach_ext'} =~ /png|gif|jpg|jpeg/) { %>
+      <br /><br /><img src="<%=$vr::config{'upload_url'}%>/<%=$vr::loop{'message_id'}%>.<%=$vr::loop{'attach_ext'}%>" />
+    <% } elsif ($vr::loop{'attach_ext'} =~ /mp3/) { %>
+      <br /><br /><embed src="<%=$vr::viewer{'template_url'}%>/swf/mp3player.swf" width="320" height="20" flashvars="file=<%=$vr::config{'upload_url'}%>/<%=$vr::loop{'message_id'}%>.<%=$vr::loop{'attach_ext'}%>&amp;height=20&amp;width=320&amp;autostart=false"></embed></a>
+    <% } elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'message_id'}.$vr::loop{'attach_ext'}") { %>
+      <br /><br /><b>Attached: </b><a href="<%=$vr::config{'upload_url'}%>/<%=$vr::loop{'message_id'}%>.<%=$vr::loop{'attach_ext'}%>" /><%=$vr::loop{'attachment'}%></a>
+    <% } %>
+     <% if ($vr::loop{'editor_user_name'} && ($vr::loop{'edited_time'} - $vr::loop{'message_time'} > 300)) {%>
+     <br /><br /><div class="edited_message_small small">Edited by <%= &vr::_format_username($vr::loop{'editor_user_name'}, $vr::loop{'editor_display_name'}, $vr::loop{'editor_spec_group_color'}); %> <%=&_format_time($vr::loop{'edited_time'});%></div>
+     <% } %>
+
+  </div>
+<% if ($vr::loop{'signature'}) {%>
+  <div class="column ten alpha omega message_signature">
+<%=&vr::_format_yabbc($vr::loop{'signature'});%>
+  </div>
+<% } %>
+  </div>
+  
+</div>
+
+<% } %>
+
+  <br class="clear" />
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

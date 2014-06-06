@@ -1,0 +1,60 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1>Search: <%= $vr::tmpl{'search_query'}%></h1>
+<h2>You searched for it, and here are the <%= &_format_numbers($vr::db{'total_results'});%> results.</h2>
+
+
+
+<% while ($vr::loop->fetchrow_arrayref) { %>
+
+<% if ($vr::GET{'page'} == 1 && $vr::loop{'thread_star'} == 2147483647 && !$header_done ) { %>
+<div class="header_block column twelve alpha omega">
+  <span class="column eight text_indent alpha">Important Topics</span>
+  <span class="column one text_center">Posts</span>
+  <span class="column three omega">Last Post</span>
+</div>
+<% $header_done = 1; } %>
+<% if ($vr::loop{'thread_star'} < 2147483647 && !$sticky_done) { %>
+  <div class="header_block mid_block column twelve alpha omega">
+    <span class="column nine text_indent alpha"> Topics</span>
+    <span class="column three omega">Posted By</span>
+  </div>
+<% $sticky_done = 1; } %>
+
+<%
+  if ($vr::loop{'avatar'} =~ /^\d{1,8}\.\w{1,4}$/) {
+    my ($digits, $ext) = split(/\./, $vr::loop{'avatar'});    
+    if ($ext eq 'jpeg') { $ext = 'jpg'; }
+    if (-f "$vr::config{'base_path'}/uploads/$digits.thumb.$ext") { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$digits.thumb.$ext"; }
+    else { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$vr::loop{'avatar'}"; }
+  }
+%>
+
+<% my $thread_icon = undef; if ($vr::loop{'avatar'}) { $thread_icon = $vr::loop{'avatar'} } else { $thread_icon = "$vr::viewer{'template_url'}/img/placeholder.png"; }  %>
+<% if ($vr::loop{'thread_locked'}) { $thread_icon = "$vr::viewer{'template_url'}/img/icons_thread/lock.png"; }%>
+
+
+
+<% my $led = 'offline_tiny.png'; if(&_check_if_online($vr::loop{'user_id'})) { $led = 'online_tiny.png'; } %>
+
+<div class="shout_archive_container column twelve alpha omega">
+  <div class="column nine alpha">
+    <h4 class="column nine"><a href="<%=$vr::config{'base_url'}%>/<%=$vr::loop{'category_id'}%>/<%=$vr::loop{'board_id'}%>/<%=$vr::loop{'thread_id'}%>/post/<%=$vr::loop{'message_id'}%>"><%= $vr::loop{'thread_subject'}; %></a> <%= &vr::_check_new_thread('forum', $vr::loop{'board_id'}, $vr::loop{'thread_id'}, $vr::loop{'thread_last_message_time'}) %></h4>
+    <div class="column nine message_main"><br />
+     <%=&vr::_format_yabbc($vr::loop{'message_body'});%>
+    </div>
+  </div>
+  <div class="column three omega">
+    <p class="last_updated small"><img src="<%=$vr::viewer{'template_url'}%>/img/<%=$led %>" class="status_led" /> <%= &vr::_format_username($vr::loop{'user_name'}, $vr::loop{'display_name'}, $vr::loop{'spec_group_color'}); %></p>
+    <p class="last_updated small"><%= &vr::_format_time($vr::loop{'message_time'}, 'full'); %></p>
+  </div>
+  <br class="clear" />
+</div>
+
+<hr />
+
+<% } %>
+
+  <br class="clear" />
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

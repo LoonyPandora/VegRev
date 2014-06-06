@@ -1,0 +1,69 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1><%= $vr::db{'category_title'} %></h1>
+<h2><%= $vr::db{'category_description'} %></h2>
+
+<div class="header_block column twelve alpha omega">
+  <span class="column six_and_bit text_indent alpha">Boards</span>
+  <span class="column one text_center">Topics</span>
+  <span class="column one_and_half text_center">Posts</span>
+  <span class="column three omega">Last Post</span>
+</div>
+
+<% my $skip_private = undef; %>
+<% while ($vr::loop->fetchrow_arrayref) { %>
+
+<% if ($vr::loop{'board_id'} eq 'private' && ($vr::viewer{'is_guest'} || $vr::viewer{'user_post_num'} < 5 || $vr::viewer{'users.reg_time'} > ($vr::config{'gmtime'} - 2419200))) { $skip_private = 1; } %>
+
+
+<% my $icon = ''; if (!$vr::loop{'board_icon'}) {
+  $icon = $vr::viewer{'template_url'} . "/img/" . &_check_new_boards($vr::loop{'board_id'}, $vr::loop{'board_last_post_time'}) . ".png";
+} else {
+  $icon = $vr::loop{'board_icon'};
+}%>
+
+<% if (!$skip_private) { %>
+<div class="board_container column twelve alpha omega">
+  <div class="column six_and_bit alpha">
+    <img src="<%=$icon%>" class="column one omega tiny_icon"/>
+    <h3 class="column five omega"><a href="<%=$vr::config{'base_url'}%>/<%=$vr::db{'category_id'}%>/<%=$vr::loop{'board_id'};%>"><%= $vr::loop{'board_title'}; %></a></h3>
+    <p class="column five_and_bit omega small"><%= &vr::_format_yabbc($vr::loop{'board_description'}); %></p>
+  </div>
+  <div class="column one text_center ">
+    <p class="big_count"><%=&_format_numbers($vr::loop{'board_thread_total'});%></p>
+  </div>
+  <div class="column one_and_half text_center ">
+    <p class="big_count"><%=&_format_numbers($vr::loop{'board_message_total'});%></p>
+  </div>
+  <div class="column three omega">
+    <p class="last_updated small "><%= &vr::_format_time($vr::loop{'board_last_post_time'}, 'semi'); %><br />In: <%=&vr::_truncate(23, &vr::_format_threadlink($vr::loop{'board_id'}, "$vr::loop{'board_last_post_id'}/new", $vr::loop{'thread_subject'}), "...");%>
+</p>
+  </div>
+  <br class="clear" />
+</div>
+<% } $skip_private = undef; %>
+
+<% } %>
+
+<% if ($vr::GET{'action'} eq 'show_archive_boards') { %>
+<div class="board_container column twelve alpha omega">
+  <div class="column six_and_bit alpha">
+    <img src="<%=$vr::viewer{'template_url'}%>/img/placeholder.png" class="column one omega tiny_icon"/>
+    <h3 class="column five omega"><a href="<%=$vr::config{'base_url'}%>/shoutbox/archive/">Shoutbox Archives</a></h3>
+    <p class="column five_and_bit omega small">Just to confuse you, newest shouts are on top!</p>
+  </div>
+  <div class="column one text_center ">
+    <p class="big_count">none</p>
+  </div>
+  <div class="column one_and_half text_center ">
+    <p class="big_count"><%=&_format_numbers($vr::db{'shout_count'});%></p>
+  </div>
+  <div class="column three omega">
+    <p class="last_updated small ">&nbsp;</p>
+  </div>
+</div>
+
+<% } %>
+  <br class="clear" />
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

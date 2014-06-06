@@ -1,0 +1,12 @@
+<%= $tmpl->include("$config{'templatedir'}/facebox/_header.tmpl") %>
+
+	<div class="column three">
+		<img src="<%=$vr::viewer{'template_url'}%>/img/large_warning.png" />
+	</div>
+	<div class="column seven omega">
+		<h3><%=$tmpl::dialog_text%></h3>
+	</div>
+	
+<br class="clear" />
+
+<%= $tmpl->include("$config{'templatedir'}/facebox/_footer.tmpl") %>

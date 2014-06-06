@@ -1,0 +1,19 @@
+
+<%= $tmpl->include("$config{'templatedir'}/facebox/_header.tmpl") %>
+
+
+	<div class="column three">
+		<img src="<%=$vr::viewer{'template_url'}%>/img/large_warning.png" />
+	</div>
+	<div class="column seven omega">
+		<h3>Select the board you want to move this thread to.</h3>
+		<br class="clear" />
+		<select name="new_board_id" id="new_board_id">
+		<% while ($vr::board_loop->fetchrow_arrayref) { %>
+			<option value="<%=$vr::board_loop{'board_id'}%>"><%=$vr::board_loop{'board_title'}%></option>
+		<% } %>
+		</select>
+		<br class="clear" />
+	</div>
+
+<%= $tmpl->include("$config{'templatedir'}/facebox/_footer.tmpl") %>

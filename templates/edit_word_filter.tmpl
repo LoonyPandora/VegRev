@@ -1,0 +1,39 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1>Admin Centre</h1>
+<h2>Where you do you modding <em>thang</em>.</h2>
+
+  <div class="column two alpha omega">
+    <div class="header_block column two alpha text_indent">Sections</div>
+      <ul class="folderlist small text_indent">
+        <li ><a href="<%=$vr::config{'base_url'}%>/admin/">Mod Boards</a></li>
+        <!--li><a href="<%=$vr::config{'base_url'}%>/admin/general_settings/">General</a></li-->
+        <li class="active"><a href="<%=$vr::config{'base_url'}%>/admin/word_filter/">Word Filter</a></li>
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/edit_groups/">Groups</a></li>
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/edit_bans/">Bans</a></li>
+        <li><a href="<%=$vr::config{'base_url'}%>/admin/edit_boards/">Edit Boards</a></li>
+        <!--li><a href="<%=$vr::config{'base_url'}%>/admin/maintainence/">Maintainence</a></li>
+        <li class="last" ><a href="<%=$vr::config{'base_url'}%>/admin/security/">Security</a></li-->
+    </ul>
+	</div>
+	
+<form method="post" action="<%=$vr::config{'base_url'}%>/posthandler/" id="post_form" enctype="multipart/form-data">
+<input type="hidden" name="action" id="action" value="<%=$tmpl::form_action%>" style="display: none;" />
+
+  <div class="column ten omega">
+    <h3 class="column ten omega">The word filter</h3>
+    <p class="column ten omega small ">Use this to censor profanity, or just for laughs. format is "fuck=f*ck" for replacing that word on its own. use "fuck~f*ck" to filter even if it's in the middle of another word (e.g fucker will be filtered with the second type, but not with the first)</p>
+    <br class="clear" />
+
+    	<textarea name="message" id="message" class="required column nine_and_half"><%=$vr::tmpl{'body'}%></textarea>
+
+  </div>
+
+	<div class="column twelve text_center alpha omega">
+	  <hr />
+		<button type="submit" class="positive"><img src="<%=$vr::viewer{'template_url'}%>/img/icons_silk/big_tick.png" />Save Changes</button>
+    <br class="clear" />
+    <br />
+	</div>
+</form>
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

@@ -1,0 +1,74 @@
+
+<% if ($vr::db{'has_voted'}) { %>  
+  <% if (!$vr::db{'private'}) { %>
+    <div class="message_container">
+      
+      <h3 class="text_center" style="margin-bottom: 0.75em;"><%=$vr::db{'question'}%></h3>
+      
+      <br class="clear" />
+        <% while ($vr::poll_loop->fetchrow_arrayref) { %>
+          <% my $percentage = ''; %>
+          <% if ($vr::db{'max_votes'} > 0) { %>
+            <%$percentage = int(($vr::poll_loop{'num_votes'}/$vr::db{'max_votes'})*100); %>
+          <% } %>
+          <div class="column three alpha text_right" style="height: 2.5em; vertical-align: middle; margin-bottom: 5px;">
+            <p class="three" style="height: 2.5em; font-weight: bold; display:table-cell; vertical-align: middle;"><%=&vr::_format_yabbc($vr::poll_loop{'poll_option'});%> </p>
+          </div>
+          <div class="column eight_and_half alpha omega" style="height: 2.5em;  margin-bottom: 5px;">
+            <% if ($percentage) { %> 
+            <p class="column alpha omega" style="width: <%=$percentage%>%; font-weight:bold; color: #ffffff; background-color: #6e9936; height: 2.5em; line-height: 2.5em; text-indent: 10px;"><%=$vr::poll_loop{'num_votes'}%> <% if ($vr::poll_loop{'num_votes'} == 1) { %>vote<% } else {%>votes<% } %></p>
+            <% } else {%>
+            <p class="column alpha omega" style="font-weight:bold; color: #666666; height: 2.5em; line-height: 2.5em; text-indent: 10px;">no votes</p>
+            <% } %>
+          </div>
+        <% } %>
+       <br class="clear" />      
+       <br class="clear" />      
+      <form method="post" action="<%=$vr::config{'base_url'}%>/posthandler/">
+        <input type="hidden" name="action" id="action" value="do_delete_vote" style="display: none;" />
+        <input type="hidden" name="thread_id" id="thread_id" value="<%=$vr::GET{'id'}%>" style="display: none;" />
+        <input type="hidden" name="board_id" id="board_id" value="<%=$vr::GET{'board_id'}%>" style="display: none;" />
+        <input type="hidden" name="page" id="page" value="<%=$vr::GET{'page'}%>" style="display: none;" />
+        <div class="column twelve alpha omega text_center">
+          <button type="submit" class="positive"><img src="<%=$vr::viewer{'template_url'}%>/img/icons_silk/cross.png" />Delete Your Vote</button>
+        </div>
+      </form>
+     </div>
+     <br class="clear" />
+    <br class="clear" />
+   <% } else { # If it's not private %>
+   <div class="post container" style="padding-bottom: 0;">
+     <h3 style="display: block; text-align: center; margin-bottom: 0.75em;"><%=$vr::db{'question'}%></h3>
+     <h3 style="display: block; text-align: center; margin-bottom: 0.75em;">Results are hidden until the voting is closed</h3>
+   </div>
+   <% } %>
+<% } else { # Has not voted, show voting form %>
+  <div class="message_container">
+    <h3 class="text_center" style="margin-bottom: 0.75em;"><%=$vr::db{'question'}%></h3>
+
+    <form method="post" action="<%=$vr::config{'base_url'}%>/posthandler/" id="poll_form">
+      <% while ($vr::poll_loop->fetchrow_arrayref) { %>
+        <div class="column one shift_one_bit text_right" style="height: 2.5em; padding-top: 2px;">
+          <input type="radio" value="<%=$vr::poll_loop{'option_id'}%>" class="required" name="poll_option" id="option_<%=$vr::poll_loop{'option_id'}%>" />
+        </div>
+        <div class="column ten alpha omega" style="height: 2.5em;">
+          <label style="color: #333333; height: 2.5em; display:table-cell; vertical-align: middle; font-weight: bold;" for="option_<%=$vr::poll_loop{'option_id'}%>"><%=&vr::_format_yabbc($vr::poll_loop{'poll_option'});%></label>
+        </div>
+        <br class="clear" />
+      <% }%>
+<% unless ($vr::viewer{'is_guest'}) { %>
+        <input type="hidden" name="action" id="action" value="do_vote_poll" style="display: none;" />
+        <input type="hidden" name="thread_id" id="thread_id" value="<%=$vr::GET{'id'}%>" style="display: none;" />
+        <input type="hidden" name="board_id" id="board_id" value="<%=$vr::GET{'board_id'}%>" style="display: none;" />
+        <input type="hidden" name="page" id="page" value="<%=$vr::GET{'page'}%>" style="display: none;" />
+        <div class="column twelve alpha omega text_center">
+          <button type="submit" class="positive"><img src="<%=$vr::viewer{'template_url'}%>/img/icons_silk/poll.png" />Vote!</button>
+        </div>
+<% } %>
+    </form>
+  </div>
+  <br class="clear" />
+  <br class="clear" />
+   
+<% } %>
+

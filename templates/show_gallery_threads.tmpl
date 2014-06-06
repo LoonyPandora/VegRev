@@ -1,0 +1,44 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1><%= $vr::db{'board_title'}; %></h1>
+<h2><%= $vr::db{'board_description'}; %></h2>
+
+
+
+<% while ($loop->fetchrow_arrayref) { %>
+	<% my $ext = '';
+	if	  (-f "$vr::config{'uploaddir'}/$vr::loop{'thread_first_message_id'}.thumb.jpg") { $ext = "thumb.jpg"; }
+	elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'thread_first_message_id'}.jpg") { $ext = "jpg"; }
+	elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'thread_first_message_id'}.thumb.gif") { $ext = "thumb.gif"; }
+	elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'thread_first_message_id'}.gif") { $ext = "gif"; }
+	elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'thread_first_message_id'}.thumb.png") { $ext = "thumb.png"; }
+	elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'thread_first_message_id'}.png") { $ext = "png"; }
+	elsif	(-f "$vr::config{'uploaddir'}/$vr::loop{'thread_first_message_id'}.thumb.JPG") { $ext = "thumb.JPG"; }
+	elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'thread_first_message_id'}.JPG") { $ext = "JPG"; }
+	elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'thread_first_message_id'}.thumb.GIF") { $ext = "thumb.GIF"; }
+	elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'thread_first_message_id'}.GIF") { $ext = "GIF"; }
+	elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'thread_first_message_id'}.thumb.PNG") { $ext = "thumb.PNG"; }
+	elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'thread_first_message_id'}.PNG") { $ext = "PNG"; }
+	else { 
+#	   next;
+	}
+	%>
+
+<div class="gallery_thread_container column six_and_tiny alpha omega">
+  <div class="column six alpha">
+    <a href="<%=$vr::config{'base_url'}%>/<%=$vr::db{'category_id'}%>/<%=$vr::db{'board_id'}%>/<%=$vr::loop{'thread_id'}%>/"><img src="<%=$config{'base_url'}%>/uploads/<%=$vr::loop{'thread_first_message_id'}%>.<%=$ext%>" class="column alpha omega huge_icon" /></a>
+    <h4 class="column four omega"><a href="<%=$vr::config{'base_url'}%>/<%=$vr::db{'category_id'}%>/<%=$vr::db{'board_id'}%>/<%=$vr::loop{'thread_id'}%>/"><%= $vr::loop{'thread_subject'}; %></a></h4>
+    
+    <p class="column four omega small"><%= &vr::_format_time($vr::loop{'thread_id'}); %><br />by <%= &vr::_format_username($vr::loop{'start_user_name'}, $vr::loop{'start_display_name'}, $vr::loop{'start_spec_group_color'}); %></p>
+    <p class="column four omega small"><%=&vr::_format_numbers($vr::loop{'thread_messages'}-1);%> Comments</p>
+  </div>
+</div>
+
+
+<% } %>
+
+
+  <br class="clear" />
+
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

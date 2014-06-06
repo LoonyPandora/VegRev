@@ -1,0 +1,32 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1><%= $vr::db{'category_title'} %></h1>
+<h2><%= $vr::db{'category_description'} %></h2>
+
+<div class="header_block column twelve alpha omega">
+  <span class="column eight text_indent alpha">Galleries</span>
+  <span class="column four omega">Latest Photos</span>
+</div>
+
+<% while ($vr::loop->fetchrow_arrayref) { %>
+
+<div class="gallery_board_container column twelve alpha omega">
+  <div class="column eight alpha">
+    <div class="column alpha two_and_half" style="height: 100px;">
+      <a href="<%=$vr::config{'base_url'}%>/<%=$vr::db{'category_id'}%>/<%=$vr::loop{'board_id'};%>"><img src="<%=$vr::loop{'board_icon'}%>" class="column omega huge_icon" /></a>
+    </div>
+    <h3 class="column six omega"><a href="<%=$vr::config{'base_url'}%>/<%=$vr::db{'category_id'}%>/<%=$vr::loop{'board_id'};%>"><%= $vr::loop{'board_title'}; %></a></h3>
+    <p class="column six omega small gallery_description"><%= $vr::loop{'board_description'}; %></p>
+    <p class="big_count_alt column six omega"><%=&_format_numbers($vr::loop{'board_thread_total'});%> <span class="faded">photos</span><br />
+    <%=&_format_numbers($vr::loop{'board_message_total'});%> <span class="faded">comments</span></p>
+  </div>
+  <div class="column four omega">
+    <p class="last_updated small "><%= &vr::_format_time($vr::loop{'board_last_post_time'}, 'semi'); %><br />In: <%=&vr::_truncate(23, &vr::_format_threadlink($vr::loop{'board_id'}, $vr::loop{'board_last_post_id'}, $vr::loop{'thread_subject'}), "...");%>
+  </div>
+  <br class="clear" />
+</div>
+
+<% } %>
+		
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

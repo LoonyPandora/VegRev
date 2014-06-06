@@ -1,0 +1,79 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1><%=$vr::db{'thread_subject'}%></h1>
+<div class="small reading_thread">Posted In: <a href="<%=$vr::config{'base_url'}%>/gallery/<%=$vr::db{'board_id'}%>/"><%=$vr::db{'board_title'}%></a>. Looking at this photo:
+<% foreach (sort {$a <=> $b} keys(%{$now_viewing}) ) { %>
+  <%= &vr::_format_username($now_viewing->{$_}{'user_name'}, $now_viewing->{$_}{'display_name'}, $now_viewing->{$_}{'spec_group_color'}); %>, 
+<%  } %>
+</div>
+
+
+<% if ($vr::db{'poll_id'}) {%>
+<%= $tmpl->include("$config{'templatedir'}/_view_poll.tmpl") %>
+<hr />
+<%}%>
+
+
+<% my $comment_sep = ''; %>
+
+<% while ($vr::loop->fetchrow_arrayref) { %>
+
+<% my $led = 'offline.png'; if(&_check_if_online($vr::loop{'user_id'})) { $led = 'online.png'; } %>
+
+<% my $ext = '';
+if (-f "$vr::config{'uploaddir'}/$vr::loop{'message_id'}.jpg") { $ext = "jpg"; }
+elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'message_id'}.gif") { $ext = "gif"; }
+elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'message_id'}.png") { $ext = "png"; }
+if (-f "$vr::config{'uploaddir'}/$vr::loop{'message_id'}.JPG") { $ext = "JPG"; }
+elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'message_id'}.GIF") { $ext = "GIF"; }
+elsif (-f "$vr::config{'uploaddir'}/$vr::loop{'message_id'}.PNG") { $ext = "PNG"; }
+else { 
+  # next;
+}
+%>
+
+<%
+  if ($vr::loop{'avatar'} =~ /^\d{1,8}\.\w{1,4}$/) {
+    my ($digits, $ext) = split(/\./, $vr::loop{'avatar'});    
+    if ($ext eq 'jpeg') { $ext = 'jpg'; }
+    if (-f "$vr::config{'base_path'}/uploads/$digits.thumb.$ext") { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$digits.thumb.$ext"; }
+    else { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$vr::loop{'avatar'}"; }
+  }
+%>
+
+
+<div class="photo_container column twelve alpha omega">
+  <% if (!$comment_sep) { %>
+    <a href="<%=$vr::config{'base_url'}%>/uploads/<%=$vr::loop{'message_id'}%>.<%=$ext%>"><img src="<%=$vr::config{'base_url'}%>/uploads/<%=$vr::loop{'message_id'}%>.<%=$ext%>" class="column alpha sized_photo" /></a>
+  <% } %>
+  <br class="clear" />
+
+  <div class="column one_and_bit alpha message_avatar">
+    <% if ($vr::loop{'avatar'}) {%><img src="<%=$vr::loop{'avatar'};%>" class="small_avatar"/><% } %>
+    &nbsp;
+  </div>
+  
+  <div class="column ten alpha omega">
+    <div class="column ten omega ">
+      <h4><img src="<%=$vr::viewer{'template_url'}%>/img/<%=$led %>" class="status_led" /> <%= &vr::_format_username($vr::loop{'user_name'}, $vr::loop{'display_name'}, $vr::loop{'spec_group_color'}); %></h4>
+      <p class="last_updated small"><%= &vr::_format_time($vr::loop{'message_time'}, 'full'); %></p>
+    </div>
+    <div class="column ten omega photo_body">
+     <%=&vr::_format_yabbc($vr::loop{'message_body'});%>
+    </div>
+  </div>
+  <br class="clear" />
+
+  <% if (!$comment_sep && $vr::db{'thread_messages'} > 1) { %>
+    <h2 class="photo_comment_header">Comments</h2>
+  <% } %>
+
+</div>
+  <br class="clear" />
+
+<% $comment_sep = 1; %>
+
+<% } %>
+
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

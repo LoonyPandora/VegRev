@@ -1,0 +1,125 @@
+/******************************************************************************
+navigation.css
+=============================================================================
+Version:    Vegetable Revolution 3.0
+Released:    1st June 2009
+Revision:    $Rev$
+Copyright:    James Aitken <http://www.loonypandora.com>
+******************************************************************************/
+
+
+.pagination {
+    font-family: Helvetica, Arial, "Sans Serif";
+    font-weight: bold;
+    font-size: 11px;
+}
+
+#fixedfooter p {
+    color: #969696;
+}
+
+.pagination li {
+    margin: 8px 5px 0 0;
+    text-align: center;
+    height: 20px;
+    width: 22px;
+    line-height: 28px;
+}
+
+#page_select_container {
+    margin: 0;
+    width: 55px;
+    padding-right: 5px;
+}
+
+#page_selector {
+    padding: 0;
+    background-color: #000000;
+    color: #cccccc;
+    border-color: #333333;
+    width: 55px;
+    height: 20px;
+    font-size: 10px;
+}
+
+li.spacer {
+    width: 9px;
+    color: #444444;
+}
+
+li.prev, li.next {
+    width: 15px;
+}
+
+.pagination li a {
+    background-color: #222222;
+    color: #bababa;
+    display: block;
+    height: 20px;
+    line-height: 22px;
+}
+
+.pagination li a:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+li.selected a {
+    background-color: #666666;
+    color: #000000;
+}
+
+
+/* Action Buttons */
+
+.action_buttons img {
+    margin: -4px 5px 0 0;
+}
+
+.action_buttons {
+    font-family: Helvetica, Arial, "Sans Serif";
+    font-weight: bold;
+    font-size: 12px;
+    margin: 2px 2px 0 0;
+}
+
+.action_buttons li {
+    border-left: 1px solid #333333;
+    line-height: 33px;
+    margin: 0;
+}
+
+.action_buttons li a {
+    display: block;
+    padding: 0 15px 0 15px;
+    color: #cccccc;
+}
+
+.action_buttons li a:hover {
+    background-color: #000000;
+    color: #ffffff;
+    -webkit-border-radius: 10px;
+}
+
+
+#admin_nav {
+    display: none;
+    position: absolute;
+    bottom: 30px;
+    margin-left: -3px;
+    text-align: left;
+    background-image: url('../img/facebox/trans_blackest.png');
+    border: 2px solid #ffffff;
+    border-bottom: none;
+    padding: none;
+}
+
+#admin_nav li {
+    clear: both;
+    border: none;
+}
+#admin_nav li a {
+    display: block;
+    max-width: 125px;
+}
+

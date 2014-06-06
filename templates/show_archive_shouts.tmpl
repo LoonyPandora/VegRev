@@ -1,0 +1,39 @@
+<%= $tmpl->include("$config{'templatedir'}/_header.tmpl") %>
+
+<h1>Shoutbox Archives</h1>
+<h2>Just to confuse you, newest shouts are on top!</h2>
+
+<div class="header_block column twelve alpha omega">
+  <span class="column nine text_indent alpha">Shout</span>
+  <span class="column three alpha omega">Time posted</span>
+</div>
+
+
+<% while ($vr::loop->fetchrow_arrayref) { %>
+<%
+  if ($vr::loop{'avatar'} =~ /^\d{1,8}\.\w{1,4}$/) {
+    my ($digits, $ext) = split(/\./, $vr::loop{'avatar'});    
+    if ($ext eq 'jpeg') { $ext = 'jpg'; }
+    if (-f "$vr::config{'base_path'}/uploads/$digits.thumb.$ext") { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$digits.thumb.$ext"; }
+    else { $vr::loop{'avatar'} = "$vr::config{'base_url'}/uploads/$vr::loop{'avatar'}"; }
+  }
+%>
+
+<% my $led = 'offline_tiny.png'; if(&_check_if_online($vr::loop{'user_id'})) { $led = 'online_tiny.png'; } %>
+
+<div class="shout_archive_container column twelve alpha omega">
+  <div class="column nine alpha">
+    <% if ($vr::loop{'avatar'}) {%><img src="<%=$vr::loop{'avatar'};%>" class="column one tiny_icon" /><% } %>
+    <h5 class="column eight alpha omega"><%=&vr::_format_yabbc($vr::loop{'shout_body'});%></h5>
+  </div>
+  <div class="column three alpha omega">
+    <p class="last_updated small"><img src="<%=$vr::viewer{'template_url'}%>/img/<%=$led %>" class="status_led" /> <%= &vr::_format_username($vr::loop{'user_name'}, $vr::loop{'display_name'}, $vr::loop{'spec_group_color'}); %></p>
+    <p class="last_updated small"><%= &vr::_format_time($vr::loop{'shout_time'}, 'full'); %></p>
+  </div>
+  <br class="clear" />
+</div>
+
+<% } %>
+
+
+<%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>

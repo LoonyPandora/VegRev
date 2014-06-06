@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="EN" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Cache-Control" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta http-equiv="imagetoolbar" content="no" />
+
+  <title>[VR] <%=$vr::tmpl{'page_title'}%></title>
+  <link href="<%=$vr::viewer{'template_url'}%>/css/scaffold.css" rel="stylesheet" type="text/css" />
+  <link href="<%=$vr::viewer{'template_url'}%>/css/forms.css" rel="stylesheet" type="text/css" />
+  <link href="<%=$vr::viewer{'template_url'}%>/css/style.css" rel="stylesheet" type="text/css" />
+
+  <!-- Remove the jquery line, so firefox works when we load via ajax -->
+  <script src="<%=$vr::viewer{'template_url'}%>/js/jquery.markitup.js" type="text/javascript"></script>
+  <script src="<%=$vr::viewer{'template_url'}%>/js/markitup.bbcode.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+<div class="eleven alpha omega postform_container" style="">
+
+  <div class="postform_header">
+    <%=$tmpl::form_title%>
+  </div>
+  
+  <form method="post" action="<%=$vr::config{'base_url'}%>/posthandler/" id="post_form" enctype="multipart/form-data">
+    <input type="hidden" name="action" id="action" value="<%=$tmpl::form_action%>" style="display: none;" />
+    <input type="hidden" name="page" id="page" value="<%=$vr::GET{'page'}%>" style="display: none;" />
+    <input type="hidden" name="thread_id" id="thread_id" value="<%=$vr::GET{'thread_id'}%>" style="display: none;" />
+    <input type="hidden" name="post_id" id="post_id" value="<%=$vr::GET{'post_id'}%>" style="display: none;" />
+    <input type="hidden" name="board_id" id="board_id" value="<%=$vr::GET{'board_id'}%>" style="display: none;" />
+    <input type="hidden" name="category_id" id="category_id" value="<%=$tmpl::category%>" style="display: none;" />
+    <input type="hidden" name="user_id" id="user_id" value="<%=$vr::viewer{'user_id'}%>" style="display: none;" />

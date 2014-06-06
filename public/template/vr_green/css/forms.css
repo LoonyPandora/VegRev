@@ -1,0 +1,188 @@
+/* General form page layout */
+
+
+#shout_form {
+    border-top: 1px solid #cccccc;
+    font-size: 11px;
+    background-color: #ffffff;
+}
+
+#shout_form button, #shout_form input {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 11px;
+    display: block;
+}
+
+#shout_form button {
+    margin-top: 5px;
+    width: 55px;
+}
+
+#shout_form input {
+    width: 80%;
+}
+
+
+/* Stuff */
+
+.postform_header {
+    background-color: #6e9936;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 24px;
+    font-family: Helvetica, Arial, "Sans Serif";
+    line-height: 1.25em;
+    margin-bottom: 12px;
+    width: 624px;
+    padding: 6px 0 6px 16px;
+}
+
+.buttonbar {
+    margin-top: 12px;
+    padding: 6px 16px 6px 0;
+    border-top: 1px dashed #cccccc;
+    background-color: #e6e6e6;
+    width: 624px;
+}
+
+
+.postform_container {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff;
+}
+
+
+#subject {
+    font-size: 14px;
+    font-family: Helvetica, Arial, "Sans Serif";
+    font-weight: bold;
+}
+
+/* The Taming of the Form */
+
+select {
+    border: 1px solid #cccccc;
+    font-size: 11px;
+    font-family: Verdana, Arial, Helvetica,"Sans Serif";
+    padding: 5px;
+    margin-top: 8px;
+    background-color: #fafafa;
+}
+
+input, textarea {
+    border: 1px solid #cccccc;
+    font-size: 11px;
+    font-family: Verdana, Arial, Helvetica,"Sans Serif";
+    padding: 5px;
+    margin-top: 5px;
+    background-color: #fafafa;
+}
+
+textarea {
+    height: 165px;
+}
+
+.bigform {
+    font-size: 18px;
+    letter-spacing: -1px;
+    color: #333333;
+    line-height: 1.5em;
+    font-weight: bold;
+    font-family: Helvetica, Arial;
+}
+.bigformlabel {
+    line-height: 36px;
+    margin-top: 19px;
+}
+input.bigform, textarea.bigform {
+    margin-top: 25px;
+}
+
+label {
+    text-align: right;
+    font-weight: bold;
+    font-family: Helvetica, Arial, "Sans Serif";
+    font-size: 12px;
+    margin-top: 6px;
+    line-height: 23px;
+}
+
+label span {
+    margin-top: -50px;
+    line-height: 0;
+}
+
+#attachment_label {
+    line-height: 28px;
+}
+
+#subject_label {
+    line-height: 27px;
+}
+
+
+#textarea_label {
+    margin-top: 0;
+}
+
+label.error {
+    color: #ffffff;
+    background-color: #f75342;
+    display: none!important;
+}
+
+input.error {
+    color: #ffffff;
+    background-color: #f79999;
+}
+
+textarea.error {
+    color: #ffffff;
+    background-color: #f79999;
+}
+
+
+.pollbuttons {
+    margin-top: 6px;
+    padding-top: 4px;
+    height: 19px;
+    margin-left: 5px;
+}
+
+.pollbuttons img {
+    margin-right: 4px;
+}
+
+
+/* Buttons - http://particletree.com/features/rediscovering-the-button-element/ */
+
+button {
+    background-color: #ffffff;
+    border: 1px solid #666666;
+    font-family: Helvetica, Arial, "Sans Serif";
+    color: #333333;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+    height: 28px;
+    line-height: 23px;
+    margin-left: 10px;
+}
+
+button:hover {
+    color: #000000;
+}
+
+button img {
+    margin: 0 6px -5px 0 !important;
+    padding: 3px 0 0 0;
+    border: none;
+    vertical-align: top;
+}
+
+
+
+
+

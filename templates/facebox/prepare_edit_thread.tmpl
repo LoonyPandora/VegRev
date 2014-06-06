@@ -1,0 +1,11 @@
+
+<%= $tmpl->include("$config{'templatedir'}/facebox/_header.tmpl") %>
+	
+	<label for="subject" class="column two alpha omega ">Subject:</label>
+	<input type="text" id="subject" name="subject" class="required column eight_and_half omega" value="<%=$vr::db{'thread_subject'}%>" />
+
+	<label for="thread_messages" class="column two alpha omega ">Messages:</label>
+	<input type="text" id="thread_messages" name="thread_messages" class="required column one" value="<%=$vr::db{'thread_messages'}%>" />
+  <p class="column seven_and_half omega" style="margin-top: 3px;">There are <%=$vr::config{'messages_per_page'}%> messages per page, if a page has gone "missing" it's because this number is too low (usually by only one or two)</span>
+  <br class="clear" />
+<%= $tmpl->include("$config{'templatedir'}/facebox/_footer.tmpl") %>

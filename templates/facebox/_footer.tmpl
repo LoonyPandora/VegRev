@@ -1,0 +1,94 @@
+
+<link rel="stylesheet"  href="<%=$vr::viewer{'template_url'}%>/css/markitup.css" type="text/css" />
+<link href="<%=$vr::viewer{'template_url'}%>/css/uploadify.css" rel="stylesheet" type="text/css" />
+<link href="<%=$vr::viewer{'template_url'}%>/css/textboxlist.css" rel="stylesheet" type="text/css" />
+<script src="<%=$vr::viewer{'template_url'}%>/js/jquery.markitup.js" type="text/javascript"></script>
+<script src="<%=$vr::viewer{'template_url'}%>/js/markitup.bbcode.js" type="text/javascript"></script>
+<script src="<%=$vr::viewer{'template_url'}%>/js/jquery.uploadify.js" type="text/javascript"></script>
+<script src="<%=$vr::viewer{'template_url'}%>/js/jquery.textboxlist.js" type="text/javascript"></script>
+<script src="<%=$vr::viewer{'template_url'}%>/js/textboxlist.autocomplete.js" type="text/javascript"></script>
+<script src="<%=$vr::viewer{'template_url'}%>/js/growingInput.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+    $(document).ready(function()    {
+        $('#markitup').markItUp(mySettings);
+        $(mySmileys).appendTo($('.markItUpHeader'));
+        
+        $('#emoticon_bar a').click(function() {
+            emoticon = $(this).attr("title");
+            $.markItUp( { replaceWith:emoticon } );
+            return false;
+        });
+        
+        $('a#extra_emoticons_link').click(function() {
+            emoticon = $(this).attr("title");
+            $.markItUp( { replaceWith:emoticon } );
+            return false;
+        });
+
+        $('#extra_emoticons_select').change(function() {
+            src   = "<%=$vr::viewer{'template_url'}%>/img/emoticons_extra/" + $(this).attr("value");
+            title = " [smiley]" + $(this).attr("value") + "[/smiley]";
+            $('#extra_emoticons_image').attr("src", src);            
+            $('#extra_emoticons_link').attr("title", title);            
+            return false;
+        });
+
+
+     $('#attachment').fileUpload({ 
+      'uploader':  '<%=$vr::viewer{template_url}%>/swf/uploader.swf', 
+      'script':    '/vr/script/upload.php', 
+      'folder':    '<%=$vr::viewer{base_url}%>/vr/tmp/uploads',
+      'auto':       true,
+      'onError': function (a, b, c, d) {
+          if (d.status == 404) {
+              console.log('Could not find upload script. Use a path relative to: '+'<?= getcwd() ?>');
+         } else if (d.type === "HTTP") {
+             console.log('error '+d.type+": "+d.status);
+         } else if (d.type ==="File Size") {
+             console.log(c.name+' '+d.type+' Limit: '+Math.round(d.sizeLimit/1024)+'KB');
+         } else {
+             console.log('error '+d.type+": "+d.text);
+         }
+      },
+      
+      'onComplete': function(a, b, c, d, e){
+          $('input#uploadify').val(c.name);
+       }
+    });
+    });
+
+  var beenSubmitted = false;
+
+    $("#post_form").validate({
+    submitHandler: function(form) {
+      if (beenSubmitted == true) {
+        return false;
+      } else {
+        beenSubmitted = true;
+        form.submit();
+      }
+    }
+  });
+
+<% if ($vr::GET{'action'} =~ /pm/) { %>
+  // Autocomplete initialization
+  var t4 = new TextboxList('#recipient', {unique: true, max: 1, plugins: {autocomplete: {}}});
+  
+  $.ajax({url: '<%=$vr::viewer{base_url}%>/postform/show_pm_userlist', dataType: 'json', success: function(r){
+    t4.plugins.autocomplete.setValues(r);
+  }});
+<%}%>
+    </script>
+    
+
+    <div class="column_right text_right alpha omega buttonbar">
+        <button type="reset" class="negative" tabindex="2" onclick="$.facebox.close();"><img src="<%=$vr::viewer{'template_url'}%>/img/icons_silk/big_cross.png" />Cancel</button>
+        <button type="submit" class="positive" tabindex="1"><img src="<%=$vr::viewer{'template_url'}%>/img/icons_silk/big_tick.png" /><%=$tmpl::button_submit%></button>
+    </div>
+    <br class="clear" />
+
+</form>
+
+</div>
