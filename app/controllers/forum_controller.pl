@@ -307,6 +307,7 @@ sub do_new_message {
             $vr::POST{'attach_file'}, $vr::POST{'message'}
         );
         $message_id = $vr::dbh->{'mysql_insertid'};
+
         &_thread_info($vr::POST{'thread_id'});
         &_update_board_total_messages($vr::db{'board_id'}, $vr::POST{'thread_id'});
         &_update_threads($vr::POST{'thread_id'}, $vr::viewer{'user_id'}, $vr::db{'thread_star'});
@@ -318,8 +319,7 @@ sub do_new_message {
 
     &_finish_attachments($vr::POST{'attach_file'}, $vr::POST{'attach_ext'}, $message_id);
 
-    my $last_page = int(($vr::db{'thread_messages'} / $vr::config{'messages_per_page'}) + 0.9999)
-        ;    # Emulate ceil...
+    my $last_page = int(($vr::db{'thread_messages'} / $vr::config{'messages_per_page'}) + 0.9999);    # Emulate ceil...
 
     if ($last_page == 1) {
         &_redirect("$vr::POST{'category_id'}/$vr::POST{'board_id'}/$vr::POST{'thread_id'}/");
