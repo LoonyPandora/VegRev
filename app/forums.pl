@@ -145,7 +145,6 @@ unless ($vr::GET{'action'} eq 'show_shoutbox') {
 
 sub _sanitize {
     if ($ENV{"REQUEST_METHOD"} eq 'POST') {
-
         # \w+ doesn't match unicode (despite perldoc saying it does), so untaint some things totally.
         # Parameterized queries stop SQL injection. And we store data raw, not encoded html. Do that on display.
         foreach my $param ($cgi->param) {
@@ -160,6 +159,9 @@ sub _sanitize {
 
             # Attachments are binary, so no toucha.
             elsif ($param eq 'attachment') { $POST{"$param"} = $cgi->param($param); }
+            elsif ($param eq 'Filename') { $POST{"$param"} = $cgi->param($param); }
+            elsif ($param eq 'Upload') { $POST{"$param"} = $cgi->param($param); }
+            elsif ($param eq 'Filedata') { $POST{"$param"} = $cgi->param($param); }
 
             # Searching is a multiple select, so don't mess
             elsif ($param eq 'search_boards') {
@@ -194,7 +196,10 @@ sub _sanitize {
             }
         }
 
-        if ($POST{'attachment'}) { $POST{'attach_file'} = $cgi->param_filename('attachment'); }
+        if ($POST{'attachment'}) {
+            $POST{'attach_file'} = $cgi->param_filename('attachment') =~ s{[^A-Za-z0-9\-\_\.]}{}r;
+            die $POST{'attach_file'};
+        }
         if ($POST{'uploadify'})  { $POST{'attach_file'} = $POST{'uploadify'}; }
         if ($POST{'attach_file'} =~ /^(.*)\.(\w{1,4})$/) {
             $POST{'attach_ext'}  = $2;
@@ -251,6 +256,9 @@ sub _director {
     # If you wink in an action I keel you!
     if ($ENV{"REQUEST_METHOD"} eq 'POST') {
         if    ($POST{'action'} =~ /^_/) { die("Can't access private methods"); }
+        elsif (!$POST{'action'} && $POST{'Filedata'} && $POST{'Upload'} && $POST{'Filename'}){
+            &_start_attachments();
+        }
         elsif (!$POST{'action'})        { die("POST: Unable to direct to correct controller"); }
         else                            { &{ $POST{'action'} }; }
     } else {

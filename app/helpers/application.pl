@@ -12,6 +12,8 @@ use Parse::BBCode;
 use HTML::Truncate;
 use File::Copy;
 use HTML::Entities;
+use File::Temp qw(tempfile);
+ 
 
 sub _format_template {
     our $tmpl = Text::ScriptTemplate->new();
@@ -797,6 +799,30 @@ sub _check_new_boards {
 
     return "old";
 }
+
+
+sub _start_attachments {
+    my ($fh, $tmp_filename) = tempfile();
+
+    print $fh $vr::POST{'Filedata'};
+    $fh->close;
+
+    my $new_filename = $vr::POST{'Filename'} =~ s{[^A-Za-z0-9\-\_\.]}{}r; 
+
+    if (-f $tmp_filename) {
+        move(
+            $tmp_filename,
+            "$vr::config{'tmp_uploaddir'}/$new_filename"
+        ) or die "Upload failed: $!";
+    } else {
+        # Uploadify error
+        print "403 Forbidden\n";
+    }
+
+    print "OK";
+}
+
+
 
 sub _finish_attachments {
     my ($attach_name, $attach_ext, $message_id) = @_;
