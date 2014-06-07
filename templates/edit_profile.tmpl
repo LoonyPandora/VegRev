@@ -211,12 +211,12 @@ my $selected = ' selected="selected"';
       </select>
   </div>
 <% } %>
-	<div class="column twelve text_center alpha omega">
-	  <hr />
-		<button type="submit" class="positive"><img src="<%=$vr::viewer{'template_url'}%>/img/icons_silk/big_tick.png" />Save Changes</button>
+    <div class="column twelve text_center alpha omega">
+      <hr />
+        <button type="submit" class="positive"><img src="<%=$vr::viewer{'template_url'}%>/img/icons_silk/big_tick.png" />Save Changes</button>
     <br class="clear" />
     <br />
-	</div>
+    </div>
 </form>
     <br class="clear" />
 
@@ -230,57 +230,57 @@ my $selected = ' selected="selected"';
 <script src="<%=$vr::viewer{'template_url'}%>/js/jquery.uploadify.js" type="text/javascript"></script>
 
 
-	<script type="text/javascript">
+    <script type="text/javascript">
 
-	$(document).ready(function()	{
-		// Add markItUp! to your textarea in one line
-		// $('textarea').markItUp( { Settings }, { OptionalExtraSettings } );
-		$('#about').markItUp(mySettings);
-		$(mySmileys).appendTo($('.markItUpHeader'));
-		
-		$('#emoticon_bar a').click(function() {
-			emoticon = $(this).attr("title");
-			$.markItUp( { replaceWith:emoticon } );
-			return false;
-		});
-		
+    $(document).ready(function()    {
+        // Add markItUp! to your textarea in one line
+        // $('textarea').markItUp( { Settings }, { OptionalExtraSettings } );
+        $('#about').markItUp(mySettings);
+        $(mySmileys).appendTo($('.markItUpHeader'));
+        
+        $('#emoticon_bar a').click(function() {
+            emoticon = $(this).attr("title");
+            $.markItUp( { replaceWith:emoticon } );
+            return false;
+        });
+        
 
      $('#attachment').fileUpload({ 
       'uploader':  '<%=$vr::viewer{template_url}%>/swf/uploader.swf', 
       'script':    '/vr/script/upload.php', 
       'folder':    '<%=$vr::viewer{base_url}%>/vr/tmp/uploads',
-      'auto':   true,
+      'auto':   true,
 //      'displayData': 'percentage',
       'onError': function (a, b, c, d) {
-         if (d.status == 404)
-            alert('Could not find upload script. Use a path relative to: '+'<?= getcwd() ?>');
-         else if (d.type === "HTTP")
-            alert('error '+d.type+": "+d.status);
-         else if (d.type ==="File Size")
-            alert(c.name+' '+d.type+' Limit: '+Math.round(d.sizeLimit/1024)+'KB');
-         else
-            alert('error '+d.type+": "+d.text);
+         if (d.status == 404)
+            alert('Could not find upload script. Use a path relative to: '+'<?= getcwd() ?>');
+         else if (d.type === "HTTP")
+            alert('error '+d.type+": "+d.status);
+         else if (d.type ==="File Size")
+            alert(c.name+' '+d.type+' Limit: '+Math.round(d.sizeLimit/1024)+'KB');
+         else
+            alert('error '+d.type+": "+d.text);
       },
       
       'onComplete': function(a, b, c, d, e){
           $('input#uploadify').val(c.name);
        }
-    }); 	  
+    });       
 
-	  $('#post_form').validate({});
+      $('#post_form').validate({});
 
-	});
+    });
 
 
-	jQuery.fn.preventDoubleSubmit = function() {
-	 jQuery(this).submit(function() {
-		if (this.beenSubmitted) { return false; }
-		else { this.beenSubmitted = true; }
-	 });
-	};
+    jQuery.fn.preventDoubleSubmit = function() {
+     jQuery(this).submit(function() {
+        if (this.beenSubmitted) { return false; }
+        else { this.beenSubmitted = true; }
+     });
+    };
 
-//	jQuery('form').preventDoubleSubmit();
-	</script>
+//    jQuery('form').preventDoubleSubmit();
+    </script>
 
 
 <%= $tmpl->include("$config{'templatedir'}/_footer.tmpl") %>
