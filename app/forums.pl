@@ -47,7 +47,7 @@ if (-f "../config/maintenance.lock") {
 
 $config{'gmtime'} = int(timegm(gmtime));    # Init this now because time will change before the end of the script run.
 
-our $dbh = DBI->connect("DBI:mysql:database=sqlite;host=127.0.0.1;port=3306", "root", "", { RaiseError => 1 });
+our $dbh = DBI->connect("DBI:mysql:database=vegrev;host=127.0.0.1;port=3306", "root", "", { RaiseError => 1 });
 $dbh->do("SET NAMES 'utf8'");
 $dbh->do("SET CHARACTER SET 'utf8'");
 

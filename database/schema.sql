@@ -6,7 +6,7 @@
 # http://code.google.com/p/sequel-pro/
 #
 # Host: 127.0.0.1 (MySQL 10.0.11-MariaDB-log)
-# Database: sqlite
+# Database: vegrev
 # Generation Time: 2014-06-06 17:34:16 +0000
 # ************************************************************
 
