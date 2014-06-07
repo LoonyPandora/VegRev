@@ -43,7 +43,7 @@
       'auto':       true,
       'onError': function (a, b, c, d) {
           if (d.status == 404) {
-              console.log('Could not find upload script. Use a path relative to: '+'<?= getcwd() ?>');
+              console.log('Could not find upload script.');
          } else if (d.type === "HTTP") {
              console.log('error '+d.type+": "+d.status);
          } else if (d.type ==="File Size") {
