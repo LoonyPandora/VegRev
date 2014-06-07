@@ -245,11 +245,9 @@ UPDATE users SET user_post_num = user_post_num + 1 WHERE users.user_id = ?
 UPDATE threads SET thread_messages = thread_messages + 1 WHERE threads.thread_id = ?
 };
 
-    $vr::dbh->prepare($query)
-        ->execute($user_id, $thread_id, $message_ip, $vr::config{'gmtime'}, $attachment,
-        $message_body);
     $vr::dbh->prepare($query_two)->execute($vr::viewer{'user_id'});
     $vr::dbh->prepare($query_three)->execute($thread_id);
+    $vr::dbh->prepare($query)->execute($user_id, $thread_id, $message_ip, $vr::config{'gmtime'}, $attachment, $message_body);
 }
 
 sub _update_board_total_messages {
