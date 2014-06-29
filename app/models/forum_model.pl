@@ -62,7 +62,6 @@ LEFT JOIN special_groups AS special_groups ON users.spec_group_id = special_grou
 LEFT JOIN post_groups AS post_groups ON post_groups.post_group_id = (SELECT post_group_id FROM post_groups WHERE post_groups.posts_required <= users.user_post_num ORDER BY post_groups.posts_required DESC LIMIT 1)
 WHERE messages.thread_id = ?
 AND messages.message_deleted != '1'
-AND users.user_private != '1'
 LIMIT ?, ?
 };
 
