@@ -77,8 +77,6 @@ WHERE users.user_id = ?
         $vr::POST{'private'} = 0;
     }
 
-    warn $vr::POST{'private'};
-
     $vr::dbh->prepare($query)->execute(
         $vr::POST{'website'},      $vr::POST{'gtalk'},    $vr::POST{'realname'},
         $vr::POST{'facebook'},     $vr::POST{'about'},    $vr::POST{'signature'},
