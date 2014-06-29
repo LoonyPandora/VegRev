@@ -239,7 +239,7 @@ sub _do_reset_password {
 
     my $query = qq{
 UPDATE users
-SET password = ?
+SET bcrypt_password = ?
 WHERE email = ?
     };
 
