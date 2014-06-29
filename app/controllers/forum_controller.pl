@@ -78,7 +78,6 @@ sub show_threads {
 }
 
 sub show_messages {
-
     # Security
     if (!$vr::GET{'id'} || !$vr::GET{'board_id'}) { &_redirect(''); }
     if ($vr::GET{'board_id'} eq 'private' && $vr::viewer{'is_guest'}) { &_redirect(''); }
@@ -127,9 +126,7 @@ sub show_messages {
     }
 
     # Start of the footer buttons
-    our $total_pages
-        = int(($vr::db{'thread_messages'} / $vr::config{'messages_per_page'}) + 0.9999)
-        ;    # Emulate ceil...
+    our $total_pages = int(($vr::db{'thread_messages'} / $vr::config{'messages_per_page'}) + 0.9999);    # Emulate ceil...
 
     our $action_buttons = '<ul class="action_buttons column_right alpha omega eleven">';
 
