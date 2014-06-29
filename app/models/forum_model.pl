@@ -54,7 +54,7 @@ sub _message_list {
     my ($thread_id, $offset, $limit) = @_;
 
     my $query = qq{
-SELECT messages.message_id, messages.thread_id, messages.message_ip, messages.message_time, messages.edited_time, messages.editor_id, messages.message_body, messages.attachment, users.user_name, users.user_id, users.display_name, users.avatar, users.signature, users.user_post_num, users.usertext, (SELECT post_group_id FROM post_groups WHERE post_groups.posts_required <= users.user_post_num ORDER BY post_groups.posts_required DESC LIMIT 1) AS user_post_group_id, special_groups.spec_group_image, special_groups.spec_group_color, post_groups.post_group_image, editor.user_name AS editor_user_name, editor.display_name AS editor_display_name
+SELECT messages.message_id, messages.thread_id, messages.message_ip, messages.message_time, messages.edited_time, messages.editor_id, messages.message_body, messages.attachment, users.user_name, users.user_id, users.display_name, users.avatar, users.signature, users.user_private, users.user_post_num, users.usertext, (SELECT post_group_id FROM post_groups WHERE post_groups.posts_required <= users.user_post_num ORDER BY post_groups.posts_required DESC LIMIT 1) AS user_post_group_id, special_groups.spec_group_image, special_groups.spec_group_color, post_groups.post_group_image, editor.user_name AS editor_user_name, editor.display_name AS editor_display_name
 FROM messages
 INNER JOIN users AS users ON users.user_id = messages.user_id
 LEFT JOIN users AS editor ON editor.user_id = messages.editor_id
@@ -62,6 +62,7 @@ LEFT JOIN special_groups AS special_groups ON users.spec_group_id = special_grou
 LEFT JOIN post_groups AS post_groups ON post_groups.post_group_id = (SELECT post_group_id FROM post_groups WHERE post_groups.posts_required <= users.user_post_num ORDER BY post_groups.posts_required DESC LIMIT 1)
 WHERE messages.thread_id = ?
 AND messages.message_deleted != '1'
+AND users.user_private != '1'
 LIMIT ?, ?
 };
 
