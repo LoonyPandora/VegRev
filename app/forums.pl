@@ -112,7 +112,7 @@ $SIG{__DIE__} = sub {
   </div>
 </div>
 <div id="copyright">
-  &copy; The Vegetable Revolution
+  &copy; James Aitken &amp; The Vegetable Revolution
 </div>
 </body>
 </html>

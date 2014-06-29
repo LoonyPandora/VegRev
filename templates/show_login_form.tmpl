@@ -75,7 +75,7 @@
 
 <div id="copyright">
   <% &vr::_simple_board_list(); %>
-  <p>&copy; The Vegetable Revolution. All Rights Reserved <%= &vr::_get_next_previous_links();%></p>
+  <p>&copy; James Aitken &amp; The Vegetable Revolution. <%= &vr::_get_next_previous_links();%></p>
   <p>
   <% while ($vr::board_loop->fetchrow_arrayref) { %><% if ($vr::board_loop{'board_id'} eq 'private') { next; } %><% if ($vr::board_loop{'category_id'} eq 'mods') { next; } %><a href="<%=$vr::config{'base_url'}%>/<%=$vr::board_loop{'category_id'}%>/<%=$vr::board_loop{'board_id'}%>/"><%=$vr::board_loop{'board_title'}%></a><% if ($vr::board_loop{'board_position'} < 19) { %> /<% }%>
   <% } %></p>
