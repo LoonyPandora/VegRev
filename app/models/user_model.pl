@@ -172,35 +172,37 @@ LIMIT 1
     $static->bind_columns(\(@vr::db{ @{ $static->{NAME_lc} } }));
     $static->fetch;
 
-    # Auth against old password
-    if ($vr::db{'password'} eq _old_insecure_md5_password($pass)) {
-        $vr::db{'bcrypt_password'} = _encode_password($pass);
+    # There is a bcrypt password already - lets use it.
+    if ($vr::db{'bcrypt_password'}) {
+        # Default to not letting them in - hence the unless
+        unless ( bcrypt->compare(text => $pass, crypt => $vr::db{'bcrypt_password'}) ) {
+            delete $vr::db{'user_id'};
+            delete $vr::db{'bcrypt_password'};
+            delete $vr::db{'password'};
 
-        my $bcrypt = _encode_password($pass);
+            return;
+        }
+    } elsif ($vr::db{'password'}) {
+        # Auth against old password next...
+        if ($vr::db{'password'} eq _old_insecure_md5_password($pass)) {
+            # Update it with a bcrypt version and delete the old one.
+            my $bcrypt_pass = _encode_password($pass);
 
-        my $encpass = bcrypt->crypt(
-            text   => $pass,
-            cost   => 8,
-            strong => 0,
-        );
+            my $query = qq{
+                UPDATE users
+                SET password = '', bcrypt_password = ?
+                WHERE $column = ?
+            };
 
-        warn "$bcrypt, $encpass";
+            $vr::dbh->prepare($query)->execute($bcrypt_pass, $user);
+        } else {
+            # Password didn't match, so bail
+            delete $vr::db{'user_id'};
+            delete $vr::db{'bcrypt_password'};
+            delete $vr::db{'password'};
 
-        # Update it with a bcrypt version and delete the old one.
-        my $query = qq{
-            UPDATE users
-            SET password = '', bcrypt_password = ?
-            WHERE $column = ?
-        };
-
-        $vr::dbh->prepare($query)->execute($vr::db{'bcrypt_password'}, $user);
-    }
-
-    # Now auth against bcrypt password
-    # Default to not letting them in - hence the unless
-    warn qq~text => $pass, crypt => $vr::db{'bcrypt_password'}~;
-    unless ( bcrypt->compare( text => $pass, crypt => $vr::db{'bcrypt_password'} ) ) {
-        delete $vr::db{'user_id'};
+            return;
+        }
     }
 
     # Always delete this from the returned data
