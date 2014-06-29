@@ -59,6 +59,25 @@ my $selected = ' selected="selected"';
     <span class="column eleven text_indent alpha">Personal Information.</span>
   </div>
 
+  <div class="column twelve alpha omega">
+    <label for="private" class="column six alpha">Private Mode - Your posts are hidden from non-members:</label>
+    <% 
+
+    my $private_checked = '';
+
+    if ($vr::db{'user_private'} == 1) {
+        $private_checked = ' checked="checked"';
+    }
+
+    %>
+
+    <input type="checkbox" name="private" class="six omega" <%=$private_checked%> />
+  </div>
+
+  <div class="column twelve alpha omega">
+    <br class="clear" /><br />
+  </div>
+
   <div class="column six alpha">
     <label for="realname" class="column two alpha">Real Name:</label>
     <input type="text" name="realname" class="four_and_border alpha omega" value="<%=$vr::db{'real_name'}%>" />

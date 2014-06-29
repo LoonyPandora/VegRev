@@ -13,7 +13,7 @@ sub _load_profile {
     my ($user_name, undef) = @_;
 
     my $query = qq{
-SELECT users.user_id, users.user_name, users.display_name, users.avatar, users.usertext, users.email, users.user_post_num, users.real_name, users.gender, users.birthday, users.signature, users.last_online, users.reg_time, users.biography, users.spec_group_id, users.homepage, users.icq, users.msn, users.yim, users.aim, users.gtalk, users.skype, users.twitter, users.flickr, users.deviantart, users.vimeo, users.youtube, users.facebook, users.myspace, users.bebo, users.last_fm, users.tumblr, users.user_post_num, users.user_shout_num,
+SELECT users.user_id, users.user_name, users.display_name, users.avatar, users.usertext, users.email, users.user_post_num, users.real_name, users.gender, users.birthday, users.signature, users.last_online, users.reg_time, users.biography, users.spec_group_id, users.homepage, users.icq, users.msn, users.yim, users.aim, users.gtalk, users.skype, users.twitter, users.flickr, users.deviantart, users.vimeo, users.youtube, users.facebook, users.myspace, users.bebo, users.last_fm, users.tumblr, users.user_post_num, users.user_shout_num, users.user_private, 
 (SELECT post_group_id FROM post_groups WHERE post_groups.posts_required <= users.user_post_num ORDER BY post_groups.posts_required DESC LIMIT 1) AS user_post_group_id, special_groups.spec_group_image, special_groups.spec_group_color, special_groups.spec_group_title, post_groups.post_group_image, post_groups.post_group_title
 FROM users
 LEFT JOIN special_groups AS special_groups ON users.spec_group_id = special_groups.spec_group_id
@@ -66,9 +66,18 @@ WHERE users.user_id = ?
 
     my $query = qq{
 UPDATE users
-SET homepage = ?, gtalk = ?, real_name = ?, facebook = ?, biography = ?, signature = ?, usertext = ?, skype = ?, myspace = ?, deviantart = ?, flickr = ?, twitter = ?, yim = ?, icq = ?, gender = ?, display_name = ?, aim = ?, bebo = ?, youtube = ?, birthday = ?, msn = ?
+SET homepage = ?, gtalk = ?, real_name = ?, facebook = ?, biography = ?, signature = ?, usertext = ?, skype = ?, myspace = ?, deviantart = ?, flickr = ?, twitter = ?, yim = ?, icq = ?, gender = ?, display_name = ?, aim = ?, bebo = ?, youtube = ?, birthday = ?, msn = ?,
+user_private = ?
 WHERE users.user_id = ?
     };
+
+    if ($vr::POST{'private'} eq 'on') {
+        $vr::POST{'private'} = 1;
+    } else {
+        $vr::POST{'private'} = 0;
+    }
+
+    warn $vr::POST{'private'};
 
     $vr::dbh->prepare($query)->execute(
         $vr::POST{'website'},      $vr::POST{'gtalk'},    $vr::POST{'realname'},
@@ -78,7 +87,7 @@ WHERE users.user_id = ?
         $vr::POST{'yim'},          $vr::POST{'icq'},      $vr::POST{'gender'},
         $vr::POST{'display_name'}, $vr::POST{'aim'},      $vr::POST{'bebo'},
         $vr::POST{'youtube'},      $vr::POST{'birthday'}, $vr::POST{'msn'},
-        $vr::POST{'user_id'}
+        $vr::POST{'private'},      $vr::POST{'user_id'},
     );
 
     if ($optional) {

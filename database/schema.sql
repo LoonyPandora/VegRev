@@ -391,6 +391,7 @@ CREATE TABLE `users` (
   `user_post_num` int(11) DEFAULT '0',
   `user_shout_num` int(11) DEFAULT '0',
   `user_deleted` tinyint(4) DEFAULT '0',
+  `user_private` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_name` (`user_name`),
   UNIQUE KEY `email` (`email`)
