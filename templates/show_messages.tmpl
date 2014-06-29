@@ -16,11 +16,8 @@
 <% while ($vr::loop->fetchrow_arrayref) { %>
 
 
-<% if ($vr::loop{'user_name'} eq 'admin' || $vr::loop{'user_name'} eq 'Tooth_of__Wisdom' || $vr::loop{'user_name'} eq 'lmc') {
-  
-  if ($vr::viewer{'is_guest'})                      { next; }
-  if ($vr::viewer{'user_name'} eq 'penguincrazy')   { next; }
-  
+<% if ($vr::loop{'user_private'}) {
+  if ($vr::viewer{'is_guest'}) { next; }
 } %>
 
 
