@@ -185,8 +185,8 @@ sub show_photo {
     # Security
     if (!$vr::GET{'id'} || !$vr::GET{'board_id'}) { &_redirect(''); }
 
-    my $page_offset
-        = ($vr::GET{'page'} * $vr::config{'posts_per_page'} - $vr::config{'posts_per_page'});
+    my $page_offset = ($vr::GET{'page'} * $vr::config{'posts_per_page'} - $vr::config{'posts_per_page'});
+    $page_offset = 0 if $page_offset < 0;
 
     &_write_thread_viewers;
 
