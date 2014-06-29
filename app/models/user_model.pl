@@ -188,6 +188,7 @@ LIMIT 1
 
     # Now auth against bcrypt password
     # Default to not letting them in - hence the unless
+    warn qq~text => $pass, crypt => $vr::db{'bcrypt_password'}~;
     unless ( bcrypt->compare( text => $pass, crypt => $vr::db{'bcrypt_password'} ) ) {
         delete $vr::db{'user_id'};
     }
