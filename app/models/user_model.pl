@@ -175,7 +175,17 @@ LIMIT 1
     # Auth against old password
     if ($vr::db{'password'} eq _old_insecure_md5_password($pass)) {
         $vr::db{'bcrypt_password'} = _encode_password($pass);
- 
+
+        my $bcrypt = _encode_password($pass);
+
+        my $encpass = bcrypt->crypt(
+            text   => $pass,
+            cost   => 8,
+            strong => 0,
+        );
+
+        warn "$bcrypt, $encpass";
+
         # Update it with a bcrypt version and delete the old one.
         my $query = qq{
             UPDATE users
