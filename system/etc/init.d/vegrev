@@ -16,28 +16,40 @@ DIR=/usr/share/nginx/vegetablerevolution
 SCRIPT=app.psgi
 PORT=5000
 USER=nginx
-PIDFILE=/var/run/vegrev.pid
+PIDFILE=/var/run/vegrev/vegrev.pid
 STARMAN_OPTS="--workers 5 --env production"
 HOST="127.0.0.1"
 
+
 start() {
-    start_app;
-}
-
-stop() {
-    stop_app;
-}
-
-start_app() {
     echo "Starting VegRev Community Forum";
 
     start-stop-daemon --start --chuid $USER --chdir $DIR --pidfile=$PIDFILE \
         --exec $PLACKUPBIN -- --server Starman --listen $HOST:$PORT \
-    --daemonize --pid $PIDFILE $STARMAN_OPTS --app $SCRIPT 
+        --daemonize --pid $PIDFILE $STARMAN_OPTS --app $SCRIPT
 }
 
-stop_app() {
+stop() {
     echo "Stopping VegRev Community Forum";
 
     start-stop-daemon --stop --pidfile $PIDFILE
 }
+
+case "$1" in
+    start)
+        start;
+    ;;
+
+    stop)
+        stop;
+    ;;
+
+    restart)
+        stop;
+        start;
+    ;;
+    *)
+    echo "Usage: $SCRIPTNAME {start|stop|restart}" >&2
+    exit 3
+    ;;
+esac
