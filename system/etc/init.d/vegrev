@@ -16,7 +16,7 @@ DIR=/usr/share/nginx/vegetablerevolution
 SCRIPT=app.psgi
 PORT=5000
 USER=nginx
-PIDFILE=/var/run/vegrev/vegrev.pid
+PIDFILE=/home/james/vegrev/vegrev.pid
 STARMAN_OPTS="--workers 5 --env production"
 HOST="127.0.0.1"
 
