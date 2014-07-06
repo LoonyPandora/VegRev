@@ -137,7 +137,7 @@ sub _check_if_online {
         SELECT session.user_id
         FROM session
         WHERE session.user_id = ?
-        # AND session.date_online >= NOW() - INTERVAL 15 MINUTE
+        AND session.date_online >= NOW() - INTERVAL 15 MINUTE
     };
 
     my %tmp;
