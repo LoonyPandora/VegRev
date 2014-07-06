@@ -506,12 +506,13 @@ sub _redirect_to_new {
         FROM messages
         LEFT JOIN thread_read_receipts ON thread_read_receipts.thread_id = messages.thread_id
         WHERE messages.thread_id = ?
+        AND thread_read_receipts.user_id = ?
         AND messages.message_deleted != 1
         AND (messages.message_time < UNIX_TIMESTAMP(thread_read_receipts.read_time) OR thread_read_receipts.read_time IS NULL)
     };
 
     my $static = $vr::dbh->prepare($query);
-    $static->execute($thread_id);
+    $static->execute($thread_id, $vr::viewer{'user_id'});
     $static->bind_columns(\(@vr::db{ @{ $static->{NAME_lc} } }));
     $static->fetch;
 
