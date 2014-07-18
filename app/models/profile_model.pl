@@ -38,10 +38,8 @@ sub _write_profile {
 
     my $admin = undef;
 
-    if (   ($vr::POST{'pass_confirm'} && $vr::POST{'new_pass'})
-        && ($vr::POST{'pass_confirm'} eq $vr::POST{'new_pass'}))
-    {
-        $optional .= qq{
+    if ( ($vr::POST{'pass_confirm'} && $vr::POST{'new_pass'}) && ($vr::POST{'pass_confirm'} eq $vr::POST{'new_pass'}) ) {
+        $optional = qq{
 UPDATE users
 SET bcrypt_password = ?
 WHERE users.user_id = ?
@@ -49,7 +47,7 @@ WHERE users.user_id = ?
     }
 
     if ($vr::POST{'uploadify'}) {
-        $avatar .= qq{
+        $avatar = qq{
 UPDATE users
 SET avatar = ?
 WHERE users.user_id = ?
@@ -57,7 +55,7 @@ WHERE users.user_id = ?
     }
 
     if ($vr::viewer{'can_admin'}) {
-        $admin .= qq{
+        $admin = qq{
 UPDATE users
 SET user_post_num = ?, user_shout_num = ?, reg_time = ?, spec_group_id = ?
 WHERE users.user_id = ?
