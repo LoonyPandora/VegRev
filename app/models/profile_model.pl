@@ -40,33 +40,33 @@ sub _write_profile {
 
     if ( ($vr::POST{'pass_confirm'} && $vr::POST{'new_pass'}) && ($vr::POST{'pass_confirm'} eq $vr::POST{'new_pass'}) ) {
         $optional = qq{
-UPDATE users
-SET bcrypt_password = ?
-WHERE users.user_id = ?
-};
+            UPDATE users
+            SET bcrypt_password = ?
+            WHERE users.user_id = ?
+        };
     }
 
     if ($vr::POST{'uploadify'}) {
         $avatar = qq{
-UPDATE users
-SET avatar = ?
-WHERE users.user_id = ?
-};
+            UPDATE users
+            SET avatar = ?
+            WHERE users.user_id = ?
+        };
     }
 
     if ($vr::viewer{'can_admin'}) {
         $admin = qq{
-UPDATE users
-SET user_post_num = ?, user_shout_num = ?, reg_time = ?, spec_group_id = ?
-WHERE users.user_id = ?
-};
+            UPDATE users
+            SET user_post_num = ?, user_shout_num = ?, reg_time = ?, spec_group_id = ?
+            WHERE users.user_id = ?
+        };
     }
 
     my $query = qq{
-UPDATE users
-SET homepage = ?, gtalk = ?, real_name = ?, facebook = ?, biography = ?, signature = ?, usertext = ?, skype = ?, myspace = ?, deviantart = ?, flickr = ?, twitter = ?, yim = ?, icq = ?, gender = ?, display_name = ?, aim = ?, bebo = ?, youtube = ?, birthday = ?, msn = ?,
-user_private = ?
-WHERE users.user_id = ?
+        UPDATE users
+        SET homepage = ?, gtalk = ?, real_name = ?, facebook = ?, biography = ?, signature = ?, usertext = ?, skype = ?, myspace = ?, deviantart = ?, flickr = ?, twitter = ?, yim = ?, icq = ?, gender = ?, display_name = ?, aim = ?, bebo = ?, youtube = ?, birthday = ?, msn = ?,
+        user_private = ?
+        WHERE users.user_id = ?
     };
 
     if ($vr::POST{'private'} eq 'on') {
