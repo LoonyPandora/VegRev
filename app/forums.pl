@@ -198,7 +198,6 @@ sub _sanitize {
 
         if ($POST{'attachment'}) {
             $POST{'attach_file'} = $cgi->param_filename('attachment') =~ s{[^A-Za-z0-9\-\_\.]}{}r;
-            die $POST{'attach_file'};
         }
         if ($POST{'uploadify'})  { $POST{'attach_file'} = $POST{'uploadify'}; }
         if ($POST{'attach_file'} =~ /^(.*)\.(\w{1,4})$/) {
