@@ -6,7 +6,7 @@
 # Version:        Vegetable Revolution 3.0
 # Released:        1st June 2009
 # Revision:        $Rev$
-# Copyright:        James Aitken <http://www.loonypandora.com>
+# Copyright:        James Aitken <http://loonypandora.co.uk>
 ###############################################################################
 
 package vr;

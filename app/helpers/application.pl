@@ -4,7 +4,7 @@
 # Version:    Vegetable Revolution 3.0
 # Released:   1st June 2009
 # Revision:   $Rev$
-# Copyright:  James Aitken <http://www.loonypandora.com>
+# Copyright:  James Aitken <http://loonypandora.co.uk>
 ###############################################################################
 
 use strict;
@@ -924,7 +924,7 @@ sub _sendmail {
             print "error.\n";
             die "Error starting sendmail: $!";
         } else {
-            print MAIL "From: [VR] Notification <noreply\@vegetablerevolution.com>\n";
+            print MAIL "From: [VR] Notification <noreply\@vegetablerevolution.co.uk>\n";
             print MAIL "Reply-to: $to\n";
             print MAIL "To: $to\n";
             print MAIL "Subject: $subject\n\n";

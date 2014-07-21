@@ -4,12 +4,12 @@ This you can customize
 
 label.checkbox span.holder {
     height: 61px; /* Total height of your checkbox image */
-    background: url('http://www.vegetablerevolution.com/template/vr_green/img/pretty_checkbox.gif') 0 -1px no-repeat; /* Path to your checkbox image */
+    background: url('/template/vr_green/img/pretty_checkbox.gif') 0 -1px no-repeat; /* Path to your checkbox image */
 }
   
 label.radio span.holder {
     height: 61px; /* Total height of your radio buttons image */
-    background: url('http://www.vegetablerevolution.com/template/vr_green/img/pretty_radio.gif') 0 -1px no-repeat; /* Path to your radio button image */
+    background: url('/template/vr_green/img/pretty_radio.gif') 0 -1px no-repeat; /* Path to your radio button image */
 }
   
 label.checkbox:hover span.holder,

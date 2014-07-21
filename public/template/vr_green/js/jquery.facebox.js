@@ -79,23 +79,23 @@
     settings: {
       opacity      : 0.5,
       overlay      : true,
-      loadingImage : 'http://www.vegetablerevolution.com/template/vr_green/img/facebox/loader.gif',
-      closeImage   : 'http://www.vegetablerevolution.com/template/vr_green/img/facebox/loader.gif',
+      loadingImage : '/template/vr_green/img/facebox/loader.gif',
+      closeImage   : '/template/vr_green/img/facebox/loader.gif',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \
-			<div class="body"> \
-				<div class="content"> \
-				</div> \
-			</div> \
-			</div>'
+        <div class="body"> \
+            <div class="content"> \
+            </div> \
+        </div> \
+    </div>'
     },
 
     loading: function() {
       init()
       if ($('#facebox .loading').length == 1) return true
       showOverlay()
- 			hide_admin_nav(); // LoonyPandora: Hide the admin nav..
+      hide_admin_nav();
 
       $('#facebox .content').empty()
       $('#facebox .body').children().hide().end().
