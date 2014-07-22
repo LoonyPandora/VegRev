@@ -190,13 +190,11 @@ Following methods are currently available.
 
 =cut
 
-use FileHandle;
-
 use strict;
 use vars qw($DEBUG $VERSION);
 
 $DEBUG   = 0;
-$VERSION = '0.08';
+$VERSION = '0.08_1';
 
 =item $tmpl = new Text::ScriptTemplate;
 
@@ -258,7 +256,8 @@ sub load {
     my $self = shift;
     my $file = shift;
 
-    $file = FileHandle->($file) || do { require Carp; Carp::croak($!) } unless ref($file);
+    require FileHandle;
+    $file = new FileHandle($file) || do { require Carp; Carp::croak($!) } unless ref($file);
     $self->pack(join("", <$file>), @_);
 }
 
@@ -294,7 +293,7 @@ sub pack {
         ## match: ... <% or ...
         elsif ($buff =~ s|^(.*?)(?=$L)||s) {
             if ($temp = $1) {
-                $temp =~ s|([\{\}])|\\$1|g
+                $temp =~ s|([\{\}])|\\$1|g;
                 $self->{buff} .= qq{\$_handle->(q{$temp});};
             }
         }
