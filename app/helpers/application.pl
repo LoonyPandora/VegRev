@@ -13,7 +13,7 @@ use HTML::Truncate;
 use File::Copy;
 use HTML::Entities;
 use File::Temp qw(tempfile);
- 
+use Text::ScriptTemplate;
 
 sub _format_template {
     our $tmpl = Text::ScriptTemplate->new();
