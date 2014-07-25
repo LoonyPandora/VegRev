@@ -20,5 +20,5 @@ Notes:
 
 Running the forum:
 - The system directory contains all the relevant config for MySQL & Nginx.
-- There is an init script to start the service. Running ``service vegrev start|stop|restart`` as required
-- Deployment is just git pulling and restarting. There is no DB migration.
+- There is an init script to start the service. Running ``service vegrev restart`` as required
+- Deployment is just git pulling and restarting. There is no DB migration. ``cd /usr/share/nginx/vegetablerevolution/; git pull;``
