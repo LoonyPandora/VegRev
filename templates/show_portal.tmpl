@@ -93,7 +93,6 @@
 <div class="header_block indent">Currently Online (<%=(scalar keys %{$users_online}) + $num_guests_online%>)</div>
 <p class="small indent">
 <% foreach (sort {$a <=> $b} keys(%{$users_online}) ) { %>
-  <% if ($users_online->{$_}{'user_name'} eq 'admin' && ($vr::viewer{'is_guest'})) { next; } %>
   <%= &vr::_format_username($users_online->{$_}{'user_name'}, $users_online->{$_}{'display_name'}, $users_online->{$_}{'spec_group_color'}); %>, 
 <%  } %> and <%=$num_guests_online%> guests.
 </p>
