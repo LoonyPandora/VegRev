@@ -222,11 +222,11 @@ my $selected = ' selected="selected"';
     <input type="text" name="regtime" class="required four_and_border alpha omega" value="<%=$vr::db{'reg_time'}%>" />
     <label for="spec_group" class="column two alpha">Special Group :</label>
       <select name="spec_group" class="four alpha omega">
-          <option value="">--</option>
+          <option value="0">--</option>
           <%if ($vr::viewer{'user_id'} == 1) {%><option value="1"<% if ($vr::db{'spec_group_id'} == 1) { %> selected="selected"<%}%>>Administrator</option><%}%>
           <option value="2"<% if ($vr::db{'spec_group_id'} == 2) { %> selected="selected"<%}%>>Global Moderator</option>
           <option value="3"<% if ($vr::db{'spec_group_id'} == 3) { %> selected="selected"<%}%>>Moderator</option>
-          <option value="4"<% if ($vr::db{'spec_group_id'} == 4) { %> selected="selected"<%}%>>VIP (Paid Members Only)</option>
+          <option value="4"<% if ($vr::db{'spec_group_id'} == 4) { %> selected="selected"<%}%>>VIP</option>
       </select>
   </div>
 <% } %>
