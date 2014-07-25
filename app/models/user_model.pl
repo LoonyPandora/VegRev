@@ -123,12 +123,11 @@ sub _list_active_users {
         FROM session
         LEFT JOIN users ON session.user_id = users.user_id
         LEFT JOIN special_groups AS special_groups ON users.spec_group_id = special_groups.spec_group_id
-        WHERE session.user_id = ?
-        AND session.date_online >= NOW() - INTERVAL 15 MINUTE
+        WHERE session.date_online >= NOW() - INTERVAL 15 MINUTE
     };
 
     $vr::loop = $vr::dbh->prepare($query);
-    $vr::loop->execute($vr::viewer{'user_id'});
+    $vr::loop->execute();
     $vr::loop->bind_columns(\(@vr::loop{ @{ $vr::loop->{NAME_lc} } }));
 }
 
