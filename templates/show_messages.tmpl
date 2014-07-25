@@ -32,13 +32,15 @@
   }
 %>
 
+<% my $star_image = $vr::loop{'spec_group_image'} // $vr::loop{'post_group_image'}; %>
+
 <% if ($alt % 2) { $row_class = 'alternate_row'; } else { $row_class = ''; }  %>
 <% $alt++;  %>
 
 <div class="message_container column twelve alpha omega <%=$row_class%>">
   <div class="column eight alpha message_header">
     <h4><a name="<%=$vr::loop{'message_id'}%>"><img src="<%=$vr::viewer{'template_url'}%>/img/<%=$led %>" class="status_led" /></a> <%= &vr::_format_username($vr::loop{'user_name'}, $vr::loop{'display_name'}, $vr::loop{'spec_group_color'}); %></h4>
-    <img src="<%=$vr::viewer{'template_url'};%>/img/icons_group/<%=$vr::loop{'post_group_image'}%>" /> | <span class="small"><%=&vr::_format_numbers($vr::loop{'user_post_num'});%> posts<% if($vr::viewer{'can_admin'} || $vr::viewer{'can_mod'}) { %> | <a href="http://whois.domaintools.com/<%=$vr::loop{'message_ip'}%>" style="color: #747474"><%=$vr::loop{'message_ip'}%></a><%} %></span>
+    <img src="<%=$vr::viewer{'template_url'};%>/img/icons_group/<%=$star_image%>" /> | <span class="small"><%=&vr::_format_numbers($vr::loop{'user_post_num'});%> posts<% if($vr::viewer{'can_admin'} || $vr::viewer{'can_mod'}) { %> | <a href="http://whois.domaintools.com/<%=$vr::loop{'message_ip'}%>" style="color: #747474"><%=$vr::loop{'message_ip'}%></a><%} %></span>
   </div>
   <div class="column four omega small message_meta">
   <p><% if (!$vr::viewer{'is_guest'}) { %><a href="<%=$vr::viewer{'base_url'}%>/postform/prepare_quote_message/?thread_id=<%=$vr::db{'thread_id'}%>;board_id=<%=$vr::db{'board_id'}%>;page=<%=$vr::GET{'page'}%>;post_id=<%=$vr::loop{'message_id'}%>" rel="facebox">[quote]</a> <% if ($vr::viewer{'user_id'} == $vr::loop{'user_id'} || $vr::viewer{'can_mod'} || $vr::viewer{'can_admin'}) { %><a href="<%=$vr::viewer{'base_url'}%>/postform/prepare_edit_message/?thread_id=<%=$vr::db{'thread_id'}%>;board_id=<%=$vr::db{'board_id'}%>;page=<%=$vr::GET{'page'}%>;post_id=<%=$vr::loop{'message_id'}%>" rel="facebox">[edit]</a><%}%> <% if (($vr::viewer{'user_id'} == $vr::loop{'user_id'} || $vr::viewer{'can_mod'} || $vr::viewer{'can_admin'}) && $vr::db{'thread_first_message_id'} != $vr::loop{'message_id'}) { %><a href="<%=$vr::viewer{'base_url'}%>/postform/prepare_delete_message/?thread_id=<%=$vr::db{'thread_id'}%>;board_id=<%=$vr::db{'board_id'}%>;page=<%=$vr::GET{'page'}%>;post_id=<%=$vr::loop{'message_id'}%>" rel="facebox">[delete]</a><%}}%>
